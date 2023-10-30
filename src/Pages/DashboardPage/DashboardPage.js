@@ -6,6 +6,7 @@ import './DashboardPage.css';
 
 // Import Icons
 
+// All Pages must be inherit General Page
 function DashboardPage() {
   return (
     <div>DashboardPage</div>
