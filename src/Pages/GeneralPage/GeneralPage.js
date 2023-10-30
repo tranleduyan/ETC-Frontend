@@ -1,8 +1,8 @@
 // Import Components
-import React from 'react'
+import React from 'react';
 
 //Import Stylings
-import './GeneralPage.css'
+import './GeneralPage.css';
 
 //Import Icons
 
