@@ -1,6 +1,5 @@
 // Import Components 
 import React from 'react';
-import { API } from '../../Constants';
 
 // Import Stylings
 import './DashboardPage.css';
