@@ -1,7 +1,9 @@
+// Import Components
 import React, {lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-const DashboardPage = lazy(() => import('./Pages/DashboardPage'));
+// Page Components
+const SignInPage = lazy(() => import('./Pages/SignInPage'));
 
 function App() {
   return (
@@ -9,7 +11,7 @@ function App() {
       {/* TODO: Loading Page */}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/" element={<SignInPage />} />
         </Routes>
       </Suspense>
     </Router>
