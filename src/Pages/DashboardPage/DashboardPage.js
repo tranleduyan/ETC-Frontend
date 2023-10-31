@@ -9,9 +9,6 @@ import './DashboardPage.css';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
-  console.log(API.domain);
-  console.log(process.env.NODE_ENV);
-  console.log(API.key);
   return (
     <div>DashboardPage</div>
   )
