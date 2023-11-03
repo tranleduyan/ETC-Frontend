@@ -78,7 +78,7 @@ function SignInPage() {
 
   // TODO: Sign In to the application 
   const SignIn = () => {
-    console.log(userInformation);
+    navigate('/Dashboard');
   }
 
   // IsValid to check if the form is ready to continue
@@ -87,7 +87,6 @@ function SignInPage() {
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
       setErrorMessage('Please enter your email.');
-      console.log(userInformation.emailAddress);
       return false;
     }
 
