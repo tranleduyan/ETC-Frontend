@@ -1,0 +1,77 @@
+.SignInPage-Wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.SignInPage-FormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignInPage-FormHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignInPage-LogoContainer {
+    width: calc(8.9vmin); 
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignInPage-LogoContainer img {
+    width:100%;
+    height:100%;
+}
+
+.SignInPage-Form {
+    margin: calc(2.225vmin) 0px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignInPage-StandardTextInputField {
+    height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+    width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+    margin-bottom: calc(1.66875vmin);
+}
+
+.SignInPage-StandardTextInputField:last-child,
+.SignInPage-LastInputField {
+    margin-bottom: 0px;
+}
+
+.SignInPage-ErrorMessageContainer {
+    margin: calc(1.66875vmin) 0px 0px 0px;
+    width: 100%;
+    color: var(--Red2);
+}
+
+.SignInPage-FormFooterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.SignInPage-ContinueButton {
+    width:100%;
+}
+
+.SignInPage-FooterButtonsContainer {
+    margin: 2.225vmin 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.SignInPage-FooterButtonSeparator {
+    margin: 0px 1.1125vmin; 
+}

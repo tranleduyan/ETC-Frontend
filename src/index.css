@@ -2,17 +2,23 @@
 
 /* Global Styling Variables */
 :root {
-  --Black1: #000;
+  --Black1: #0C0E16;
   --White1: #fff;
+  --Red1: #872937;
+  --Red2: #BB0000;
+  --Gray1: #D6D6D6;
+  --Blue1: #0052CC;
 }
 
 /* Global Stylings */
 body {
-
+  min-height: 100vh;
+  margin:0px;
+  color: var(--Black1);
 }
 
 .heading-1 {
-
+  
 }
 
 .heading-2 {
@@ -24,7 +30,9 @@ body {
 }
 
 .heading-4 {
-
+  font-family: 'Poppins Semi Bold';
+  font-size: calc(2.225vmin);
+  margin: 0px;
 }
 
 .heading-5 {
@@ -36,15 +44,22 @@ body {
 }
 
 .paragraph-1 {
-
+  font-family: 'Poppins Regular';
+  font-size: calc(2.225vmin);
+  margin: 0px;
 }
 
 .paragraph-2 {
-
+  font-family: 'Poppins Medium';
+  font-size: calc(2.225vmin);
+  margin: 0px;
 }
 
 .wrapper {
   width: 100%;
   height: 100vh;
-  margin: 0px;
+}
+
+.hide {
+  display: none;
 }

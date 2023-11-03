@@ -1,0 +1,14 @@
+.Message-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Message-Icon {
+    font-size: calc(3.3375vmin);
+    margin-right: calc(2.225vmin);
+}
+
+.hide {
+    display: none;
+  }

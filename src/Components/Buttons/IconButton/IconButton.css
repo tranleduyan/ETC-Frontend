@@ -1,0 +1,13 @@
+.IconButton-Container {
+    font-size: calc(3.3375vmin);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:none;
+    background: transparent;
+}
+
+.IconButton-Container:hover {
+    cursor: pointer;
+}

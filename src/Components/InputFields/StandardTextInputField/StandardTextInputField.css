@@ -1,0 +1,9 @@
+.StandardTextInputField {
+    padding: calc(1.66875vmin);
+    border-radius: calc(1.390625vmin);
+    border-color: var(--Gray1);
+    border: calc(0.278125vmin) solid var(--Gray1);
+    font-family: 'Poppins Regular';
+    font-size: calc(2.225vmin);
+
+}

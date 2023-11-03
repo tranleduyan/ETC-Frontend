@@ -3,17 +3,14 @@ import React from 'react';
 import GeneralPage from '../GeneralPage/GeneralPage';
 
 // Import Stylings
-import './DashboardPage.css';
+import './SettingsPage.css';
 
-// Import Icons
-
-// All Pages must be inherit General Page
-function DashboardPage() {
+function SettingsPage() {
   return (
     <GeneralPage>
-      {/* Content Div */}
+        {/* Content Div */}
     </GeneralPage>
   )
 }
 
-export default DashboardPage
+export default SettingsPage

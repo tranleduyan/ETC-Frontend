@@ -1,14 +1,16 @@
 // Import Components
 import React from 'react';
+import NavigationBar from '../../Components/NavigationBar/NavigationBar.js';
 
 //Import Stylings
 import './GeneralPage.css';
 
-//Import Icons
-
-function GeneralPage() {
+function GeneralPage({ children }) {
   return (
-    <div>GeneralPage</div>
+    <div className='wrapper GeneralPage-Wrapper'>
+      <NavigationBar/>
+      { children }
+    </div>
   )
 }
 

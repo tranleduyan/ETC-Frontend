@@ -1,0 +1,45 @@
+.NavigationBar-Container {
+    width: calc(8.9vmin); 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-right: calc(0.278125vmin) solid var(--Gray1);
+}
+
+.NavigationBar-LogoContainer {
+    margin: calc(2.225vmin) 0px; 
+    width: calc(4.45vmin); 
+}
+
+.NavigationBar-LogoContainer img {
+    width:100%;
+    height:100%;
+}
+
+.NavigationBar-Menu {
+    margin: calc(2.78125vmin) 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.NavigationBarButton-Container {
+    margin-top: calc(2.225vmin);
+}
+
+.NavigationBarButton-Container:first-child {
+    margin-top: 0px;
+}
+
+.NavigationBarButton-SignOutButton:hover,
+.NavigationBarButton-Container:hover,
+.NavigationBarButton-Active {
+    color: var(--Red1);
+}
+
+.NavigationBarButton-SignOutButton {
+    margin-bottom: calc(2.225vmin);
+}

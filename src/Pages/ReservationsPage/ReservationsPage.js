@@ -3,12 +3,9 @@ import React from 'react';
 import GeneralPage from '../GeneralPage/GeneralPage';
 
 // Import Stylings
-import './DashboardPage.css';
+import './ReservationsPage.css';
 
-// Import Icons
-
-// All Pages must be inherit General Page
-function DashboardPage() {
+function ReservationsPage() {
   return (
     <GeneralPage>
       {/* Content Div */}
@@ -16,4 +13,4 @@ function DashboardPage() {
   )
 }
 
-export default DashboardPage
+export default ReservationsPage

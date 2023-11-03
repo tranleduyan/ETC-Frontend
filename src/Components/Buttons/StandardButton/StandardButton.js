@@ -4,11 +4,12 @@ import React from 'react';
 // Import Stylings
 import './StandardButton.css';
 
-// Import Icons
-
-function StandardButton() {
+function StandardButton(props) {
+  const { title, onClick, className } = props;
   return (
-    <div>StandardButton</div>
+    <button className={`${className} StandardButton-Container`} onClick={onClick}>
+      <p className='paragraph-2'>{title}</p>
+    </button>
   )
 }
 
