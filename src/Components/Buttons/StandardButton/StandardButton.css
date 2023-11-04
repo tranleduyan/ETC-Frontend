@@ -1,7 +1,5 @@
 .StandardButton-Container {
     background-color: var(--Red1);
-    border-radius: calc(1.390625vmin);
-    height: 6.675vmin;
     color: var(--White1);
     display: flex;
     flex-direction: row;
@@ -12,4 +10,20 @@
 
 .StandardButton-Container:hover {
     cursor: pointer;
+}
+
+/* For tablet and bigger devices */
+@media screen and (min-width: 600px) {
+    .StandardButton-Container {
+        border-radius: calc(1.390625vmin);
+        height: 6.675vmin;
+    }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 599px) {
+    .StandardButton-Container {
+        border-radius: 2.78125vmin;
+        height: 13.35vmin;
+    }
 }

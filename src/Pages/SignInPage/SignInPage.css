@@ -1,3 +1,4 @@
+/* General Stylings */
 .SignInPage-Wrapper {
     display: flex;
     flex-direction: row;
@@ -18,7 +19,6 @@
 }
 
 .SignInPage-LogoContainer {
-    width: calc(8.9vmin); 
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -31,25 +31,18 @@
 }
 
 .SignInPage-Form {
-    margin: calc(2.225vmin) 0px;
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
 .SignInPage-StandardTextInputField {
-    height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
-    width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
-    margin-bottom: calc(1.66875vmin);
+    /* General Stylings*/
 }
 
-.SignInPage-StandardTextInputField:last-child,
-.SignInPage-LastInputField {
-    margin-bottom: 0px;
-}
+
 
 .SignInPage-ErrorMessageContainer {
-    margin: calc(1.66875vmin) 0px 0px 0px;
     width: 100%;
     color: var(--Red2);
 }
@@ -66,12 +59,79 @@
 }
 
 .SignInPage-FooterButtonsContainer {
-    margin: 2.225vmin 0px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
 .SignInPage-FooterButtonSeparator {
-    margin: 0px 1.1125vmin; 
+    /* General stylings */
 }
+
+@media screen and (min-width: 600px) {
+    .SignInPage-LogoContainer {
+        width: calc(8.9vmin); 
+    }
+
+    .SignInPage-Form {
+        margin: calc(2.225vmin) 0px;
+    }
+
+    .SignInPage-StandardTextInputField {
+        height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+        width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+        margin-bottom: calc(1.66875vmin);
+    }
+
+    .SignInPage-ErrorMessageContainer {
+        margin: calc(1.66875vmin) 0px 0px 0px;
+        width: 100%;
+        color: var(--Red2);
+    }
+
+    .SignInPage-FooterButtonsContainer {
+        margin: calc(2.225vmin) 0px;
+    }
+
+    .SignInPage-FooterButtonSeparator {
+        margin: 0px calc(1.1125vmin); 
+    }
+    .SignInPage-StandardTextInputField:last-child,
+    .SignInPage-LastInputField {
+    margin-bottom: 0px;
+}
+}
+
+@media screen and (max-width: 599px) {
+    .SignInPage-LogoContainer {
+        width: calc(17.8vmin); 
+    }
+
+    .SignInPage-Form {
+        margin: calc(4.45vmin) 0px;
+    }
+
+    .SignInPage-StandardTextInputField {
+        height: calc(13.35vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
+        width: calc(78.43125vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
+        margin-bottom: 3.3375vmin;
+    }
+
+    .SignInPage-ErrorMessageContainer {
+        margin: calc(3.3375vmin) 0px 0px 0px;
+    }
+
+    .SignInPage-FooterButtonsContainer {
+        margin: calc(4.45vmin) 0px;
+    }
+    
+    .SignInPage-FooterButtonSeparator {
+        margin: 0px calc(2.225vmin); 
+    }
+    .SignInPage-StandardTextInputField:last-child,
+    .SignInPage-LastInputField {
+        margin-bottom: 0px;
+    }
+
+}
+

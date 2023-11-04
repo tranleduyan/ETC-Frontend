@@ -17,6 +17,12 @@ body {
   color: var(--Black1);
 }
 
+.heading-1, .heading-2, .heading-3,
+.heading-4, .heading-5, .heading-6,
+.paragraph-1, .paragraph-2 {
+  margin: 0px;
+}
+
 .heading-1 {
   
 }
@@ -31,8 +37,6 @@ body {
 
 .heading-4 {
   font-family: 'Poppins Semi Bold';
-  font-size: calc(2.225vmin);
-  margin: 0px;
 }
 
 .heading-5 {
@@ -45,14 +49,10 @@ body {
 
 .paragraph-1 {
   font-family: 'Poppins Regular';
-  font-size: calc(2.225vmin);
-  margin: 0px;
 }
 
 .paragraph-2 {
   font-family: 'Poppins Medium';
-  font-size: calc(2.225vmin);
-  margin: 0px;
 }
 
 .wrapper {
@@ -62,4 +62,74 @@ body {
 
 .hide {
   display: none;
+}
+
+/* For tablet and bigger devices */
+@media screen and (min-width: 600px) {
+  .heading-1 {
+  
+  }
+  
+  .heading-2 {
+  
+  }
+  
+  .heading-3 {
+  
+  }
+  
+  .heading-4 {
+    font-size: calc(2.225vmin);
+  }
+  
+  .heading-5 {
+  
+  }
+  
+  .heading-6 {
+  
+  }
+
+  .paragraph-1 {
+    font-size: calc(2.225vmin);
+  }
+  
+  .paragraph-2 {
+    font-size: calc(2.225vmin);
+  }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 599px) {
+  .heading-1 {
+  
+  }
+  
+  .heading-2 {
+  
+  }
+  
+  .heading-3 {
+  
+  }
+  
+  .heading-4 {
+    font-size: calc(4.45vmin);
+  }
+  
+  .heading-5 {
+  
+  }
+  
+  .heading-6 {
+  
+  }
+
+  .paragraph-1 {
+    font-size: calc(4.45vmin);
+  }
+  
+  .paragraph-2 {
+    font-size: calc(4.45vmin);
+  }
 }
