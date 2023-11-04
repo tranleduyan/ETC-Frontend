@@ -1,3 +1,7 @@
 .LinkButton-Container {
     color: var(--Blue1);
 }
+
+.LinkButton-Container:hover {
+    cursor: pointer;
+}

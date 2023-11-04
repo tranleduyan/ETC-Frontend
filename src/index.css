@@ -7,6 +7,8 @@
   --Red1: #872937;
   --Red2: #BB0000;
   --Gray1: #D6D6D6;
+  --Gray2: #EEEEEE;
+  --Gray3: #8D8D8D;
   --Blue1: #0052CC;
 }
 
@@ -23,31 +25,15 @@ body {
   margin: 0px;
 }
 
-.heading-1 {
-  
-}
-
-.heading-2 {
-
-}
-
-.heading-3 {
-
-}
-
-.heading-4 {
+.heading-1, .heading-2, .heading-3, .heading-4 {
   font-family: 'Poppins Semi Bold';
 }
 
-.heading-5 {
-
+.heading-5, .heading-6 {
+  font-family: 'Poppins Medium';
 }
 
-.heading-6 {
-
-}
-
-.paragraph-1 {
+.paragraph-1, .paragraph-3 {
   font-family: 'Poppins Regular';
 }
 
@@ -67,69 +53,61 @@ body {
 /* For tablet and bigger devices */
 @media screen and (min-width: 600px) {
   .heading-1 {
-  
+    font-size: calc(4.45vmin);
   }
   
   .heading-2 {
-  
+    font-size: calc(3.3375vmin);
   }
   
   .heading-3 {
-  
+    font-size: calc(2.78125vmin);
   }
   
-  .heading-4 {
+  .heading-4, .heading-5 {
     font-size: calc(2.225vmin);
-  }
-  
-  .heading-5 {
-  
   }
   
   .heading-6 {
-  
+    font-size: calc(1.66875vmin);
   }
 
-  .paragraph-1 {
+  .paragraph-1, .paragraph-2 {
     font-size: calc(2.225vmin);
   }
-  
-  .paragraph-2 {
-    font-size: calc(2.225vmin);
+
+  .paragraph-3 {
+    font-size: calc(1.66875vmin);
   }
 }
 
 /* For phone and smaller devices */
 @media screen and (max-width: 599px) {
   .heading-1 {
-  
+    font-size: calc(8.9vmin);
   }
   
   .heading-2 {
-  
+    font-size: calc(6.675vmin);
   }
   
   .heading-3 {
-  
+    font-size: calc(5.5625vmin);
   }
   
-  .heading-4 {
+  .heading-4, .heading-5 {
     font-size: calc(4.45vmin);
-  }
-  
-  .heading-5 {
-  
   }
   
   .heading-6 {
-  
+    font-size: calc(3.3375vmin);
   }
 
-  .paragraph-1 {
+  .paragraph-1, .paragraph-2 {
     font-size: calc(4.45vmin);
   }
   
-  .paragraph-2 {
-    font-size: calc(4.45vmin);
+  .paragraph-3 {
+    font-size: calc(3.3375vmin);
   }
 }
