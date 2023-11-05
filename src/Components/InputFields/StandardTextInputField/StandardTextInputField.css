@@ -1,9 +1,24 @@
 .StandardTextInputField {
-    padding: calc(1.66875vmin);
-    border-radius: calc(1.390625vmin);
-    border-color: var(--Gray1);
-    border: calc(0.278125vmin) solid var(--Gray1);
     font-family: 'Poppins Regular';
-    font-size: calc(2.225vmin);
 
+}
+
+/* For tablet and bigger devices */
+@media screen and (min-width: 600px) {
+    .StandardTextInputField {
+        padding: calc(1.66875vmin);
+        border-radius: calc(1.390625vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        font-size: calc(2.225vmin);
+    }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 599px) {
+    .StandardTextInputField {
+        padding: calc(3.3375vmin);
+        border-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        font-size: calc(4.45vmin);
+    }
 }

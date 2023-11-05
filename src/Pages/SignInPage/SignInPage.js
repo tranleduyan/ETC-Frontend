@@ -5,15 +5,15 @@ import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
+import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
 
 // Import Stylings
 import './SignInPage.css';
-import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
 
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
-// All pages must inherit General Page
+/* Render Sign In Page */
 function SignInPage() {
 
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ function SignInPage() {
 
   // Continuing reveal the next input field when the current one is filled
   const Continue = () => {
-    if(IsValid()){
+    if(IsValid()) {
       let currentState = currentPromptState;
       currentState++;
       if(currentState > maxState - 1) {
@@ -140,7 +140,7 @@ function SignInPage() {
             name='password'
             visibility={isVisible(1)}
             onChange={HandleInputChange}/>
-          {/* Message */}
+          {/* Error Message */}
           <Message 
             icon={HiExclamationCircle} 
             message={errorMessage} 
