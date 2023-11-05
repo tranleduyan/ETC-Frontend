@@ -13,6 +13,7 @@ import './SignInPage.css';
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
+/* Render Sign In Page */
 function SignInPage() {
 
   const navigate = useNavigate();
