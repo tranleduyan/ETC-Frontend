@@ -14,6 +14,12 @@ const SettingsPage = lazy(() => import('./Pages/SettingsPage'));
 const UsersPage = lazy(() => import('./Pages/UsersPage'));
 const VerificationPage = lazy(() => import('./Pages/VerificationPage'));
 
+/*
+ * Main Application Component
+ * This component serves as the entry point for the application and defines the
+ * routing structure for various pages. It uses lazy loading for page components
+ * to improve performance. The application routes are defined using the React Router.
+ */
 function App() {
   return (
     <Router>
