@@ -69,7 +69,7 @@
 }
 
 /* For tablet and bigger devices */
-@media screen and (min-width: 426px) {
+@media screen and (min-width: 600px) {
     .SignInPage-LogoContainer {
         width: calc(8.9vmin); 
     }
@@ -103,7 +103,7 @@
 }
 
 /* For phone and smaller devices */
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 599px) {
     .SignInPage-LogoContainer {
         width: calc(17.8vmin); 
     }

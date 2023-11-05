@@ -139,7 +139,7 @@ function SignInPage() {
             name='password'
             visibility={isVisible(1)}
             onChange={HandleInputChange}/>
-          {/* Message */}
+          {/* Error Message */}
           <Message 
             icon={HiExclamationCircle} 
             message={errorMessage} 
