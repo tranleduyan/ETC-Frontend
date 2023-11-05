@@ -1,138 +1,126 @@
-/* General Stylings */
-.SignInPage-Wrapper {
+.VerificationPage-Wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.SignInPage-FormContainer {
+.VerificationPage-FormContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.SignInPage-FormHeaderContainer {
+.VerificationPage-FormHeaderContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.SignInPage-LogoContainer {
+.VerificationPage-LogoContainer {
     display:flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
 }
 
-.SignInPage-LogoContainer img {
+.VerificationPage-LogoContainer img {
     width:100%;
     height:100%;
 }
 
-.SignInPage-Form {
+.VerificationPage-InstructionMessage {
+    color: var(--Gray3);
+}
+
+.VerificationPage-EmailMessage {
+    width: 100%;
+}
+
+.VerificationPage-Form{
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
-.SignInPage-StandardTextInputField {
+.VerificationPage-StandardTextInputField {
     /* General Stylings*/
 }
 
-
-
-.SignInPage-ErrorMessageContainer {
+.Verification-ErrorMessage {
     width: 100%;
     color: var(--Red2);
 }
 
-.SignInPage-FormFooterContainer {
+.VerificationPage-FormFooterContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
-.SignInPage-ContinueButton {
+.VerificationPage-VerifyButton {
     width:100%;
 }
 
-.SignInPage-FooterButtonsContainer {
+.VerificationPage-FooterButtonsContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.SignInPage-FooterButtonSeparator {
-    /* General stylings */
-}
-
 /* For tablet and bigger devices */
 @media screen and (min-width: 426px) {
-    .SignInPage-LogoContainer {
-        width: calc(8.9vmin); 
+    .VerificationPage-FormContainer {
+        width: calc(39.8vmin);
     }
 
-    .SignInPage-Form {
+    .VerificationPage-LogoContainer {
+        width: calc(8.9vmin);
+    }
+
+    .VerificationPage-Form{
         margin: calc(2.225vmin) 0px;
     }
 
-    .SignInPage-StandardTextInputField {
+    .VerificationPage-StandardTextInputField {
         height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
         width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
-        margin-bottom: calc(1.66875vmin);
     }
 
-    .SignInPage-ErrorMessageContainer {
+    .Verification-ErrorMessage {
         margin: calc(1.66875vmin) 0px 0px 0px;
     }
 
-    .SignInPage-FooterButtonsContainer {
+    .VerificationPage-FooterButtonsContainer {
         margin: calc(2.225vmin) 0px;
-    }
-
-    .SignInPage-FooterButtonSeparator {
-        margin: 0px calc(1.1125vmin); 
-    }
-
-    .SignInPage-StandardTextInputField:last-child,
-    .SignInPage-LastInputField {
-        margin-bottom: 0px;
     }
 }
 
-/* For phone and smaller devices */
+/* For tablet and bigger devices */
 @media screen and (max-width: 425px) {
-    .SignInPage-LogoContainer {
+    .VerificationPage-FormContainer {
+        width: calc(79.6vmin);
+    }
+
+    .VerificationPage-LogoContainer {
         width: calc(17.8vmin); 
     }
 
-    .SignInPage-Form {
+    .VerificationPage-Form{
         margin: calc(4.45vmin) 0px;
     }
 
-    .SignInPage-StandardTextInputField {
+    .VerificationPage-StandardTextInputField {
         height: calc(13.35vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
         width: calc(78.43125vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
-        margin-bottom: 3.3375vmin;
     }
 
-    .SignInPage-ErrorMessageContainer {
+    .Verification-ErrorMessage {
         margin: calc(3.3375vmin) 0px 0px 0px;
     }
 
-    .SignInPage-FooterButtonsContainer {
+    .VerificationPage-FooterButtonsContainer {
         margin: calc(4.45vmin) 0px;
     }
-    
-    .SignInPage-FooterButtonSeparator {
-        margin: 0px calc(2.225vmin); 
-    }
-
-    .SignInPage-StandardTextInputField:last-child,
-    .SignInPage-LastInputField {
-        margin-bottom: 0px;
-    }
 }
-

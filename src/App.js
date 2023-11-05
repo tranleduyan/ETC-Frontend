@@ -12,6 +12,7 @@ const NotificationsPage = lazy(() => import('./Pages/NotificationsPage'));
 const ReservationsPage = lazy(() => import('./Pages/ReservationsPage'));
 const SettingsPage = lazy(() => import('./Pages/SettingsPage'));
 const UsersPage = lazy(() => import('./Pages/UsersPage'));
+const VerificationPage = lazy(() => import('./Pages/VerificationPage'));
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/Reservations" element={<ReservationsPage />} />
           <Route path="/Settings" element={<SettingsPage />} />
           <Route path="/Users" element={<UsersPage />} />
+          <Route path="/Verification" element={<VerificationPage />} />
         </Routes>
       </Suspense>
     </Router>

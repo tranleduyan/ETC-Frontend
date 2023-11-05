@@ -4,7 +4,7 @@
 }
 
 /* For tablet and bigger devices */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 426px) {
     .StandardTextInputField {
         padding: calc(1.66875vmin);
         border-radius: calc(1.390625vmin);
@@ -14,7 +14,7 @@
 }
 
 /* For phone and smaller devices */
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 425px) {
     .StandardTextInputField {
         padding: calc(3.3375vmin);
         border-radius: calc(2.78125vmin);
