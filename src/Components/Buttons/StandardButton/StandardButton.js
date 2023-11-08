@@ -13,4 +13,4 @@ function StandardButton(props) {
   )
 }
 
-export default StandardButton
+export default StandardButton;

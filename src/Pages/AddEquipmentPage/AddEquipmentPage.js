@@ -13,4 +13,4 @@ function AddEquipmentPage() {
   )
 }
 
-export default AddEquipmentPage
+export default AddEquipmentPage;

@@ -13,4 +13,4 @@ function NavigationButton(props) {
   )
 }
 
-export default NavigationButton
+export default NavigationButton;

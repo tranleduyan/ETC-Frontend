@@ -12,4 +12,4 @@ function GeneralModal() {
   )
 }
 
-export default GeneralModal
+export default GeneralModal;

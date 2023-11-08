@@ -12,17 +12,18 @@
     display: none;
 }
 
-@media screen and (min-width:600px) {
+/* For tablet and bigger devices */
+@media screen and (min-width: 481px) {
     .Message-Icon {
         font-size: calc(3.3375vmin);
         margin-right: calc(2.225vmin);
     }
 }
 
-@media screen and (max-width:599px) {
+/* For phone and smaller devices */
+@media screen and (max-width: 480px) {
     .Message-Icon {
         font-size: calc(6.675vmin);
         margin-right: calc(4.45vmin);
     }
 }
-

@@ -51,7 +51,7 @@ body {
 }
 
 /* For tablet and bigger devices */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 481px) {
   .heading-1 {
     font-size: calc(4.45vmin);
   }
@@ -82,7 +82,7 @@ body {
 }
 
 /* For phone and smaller devices */
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 480px) {
   .heading-1 {
     font-size: calc(8.9vmin);
   }

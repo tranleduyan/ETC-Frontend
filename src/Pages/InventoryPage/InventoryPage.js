@@ -13,4 +13,4 @@ function InventoryPage() {
   )
 }
 
-export default InventoryPage
+export default InventoryPage;

@@ -13,4 +13,4 @@ function NotificationsPage() {
   )
 }
 
-export default NotificationsPage
+export default NotificationsPage;

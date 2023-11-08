@@ -13,4 +13,4 @@ function ReservationsPage() {
   )
 }
 
-export default ReservationsPage
+export default ReservationsPage;

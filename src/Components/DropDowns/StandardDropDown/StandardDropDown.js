@@ -12,4 +12,4 @@ function StandardDropDown() {
   )
 }
 
-export default StandardDropDown
+export default StandardDropDown;

@@ -70,7 +70,7 @@
 }
 
 /* For tablet and bigger devices */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 481px) {
     .VerificationPage-FormContainer {
         width: calc(39.8vmin);
     }
@@ -97,8 +97,8 @@
     }
 }
 
-/* For tablet and bigger devices */
-@media screen and (max-width: 599px) {
+/* For phone and smaller devices */
+@media screen and (max-width: 480px) {
     .VerificationPage-FormContainer {
         width: calc(79.6vmin);
     }

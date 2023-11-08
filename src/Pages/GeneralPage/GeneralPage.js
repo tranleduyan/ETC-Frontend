@@ -14,4 +14,4 @@ function GeneralPage({ children }) {
   )
 }
 
-export default GeneralPage
+export default GeneralPage;

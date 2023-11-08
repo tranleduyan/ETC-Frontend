@@ -22,4 +22,4 @@ function StandardTextInputField(props) {
   )
 }
 
-export default StandardTextInputField
+export default StandardTextInputField;
