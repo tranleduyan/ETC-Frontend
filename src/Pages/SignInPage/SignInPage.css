@@ -75,6 +75,7 @@
     }
 
     .SignInPage-Form {
+        width: calc(39.215625vmin);
         margin: calc(2.225vmin) 0px;
     }
 
@@ -109,6 +110,7 @@
     }
 
     .SignInPage-Form {
+        width: calc(78.43125vmin);
         margin: calc(4.45vmin) 0px;
     }
 

@@ -1,7 +1,7 @@
 .Message-Container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .Message-Icon {
@@ -16,7 +16,8 @@
 @media screen and (min-width: 481px) {
     .Message-Icon {
         font-size: calc(3.3375vmin);
-        margin-right: calc(2.225vmin);
+        margin-right: calc(1.1125vmin);
+        min-width: calc(4.45vmin);
     }
 }
 
@@ -24,6 +25,7 @@
 @media screen and (max-width: 480px) {
     .Message-Icon {
         font-size: calc(6.675vmin);
-        margin-right: calc(4.45vmin);
+        margin-right: calc(2.225vmin);
+        min-width: calc(8.9vmin);
     }
 }
