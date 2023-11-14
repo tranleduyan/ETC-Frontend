@@ -3,6 +3,8 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
 import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
 import Logo from '../../Components/Logo/Logo.js';
+import { connect } from 'react-redux';
+import { resetUserData } from '../../storage.js';
 
 // Import Stylings
 import './NavigationBar.css';
@@ -10,7 +12,7 @@ import './NavigationBar.css';
 // Import Icons
 import { HiViewGrid, HiCalendar, HiArchive, HiPlusCircle, HiUserGroup, HiBell, HiCog, HiLogout } from 'react-icons/hi';
 
-function NavigationBar() {
+function NavigationBar(props) {
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -78,8 +80,10 @@ function NavigationBar() {
   }
   //#endregion
 
+  // Sign the user out by reset user data in Redux
   const SignOut = () => {
-    // TODO: Sign Out
+    // Dispatch the resetUserData action
+    props.resetUserData();
     navigate('/');
   }
 
@@ -127,4 +131,10 @@ function NavigationBar() {
   )
 }
 
-export default NavigationBar;
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+}
+
+// Connect the components to the ReduxStore for actions
+export default connect(null, mapDispatchToProps)(NavigationBar);
