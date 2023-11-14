@@ -6,7 +6,8 @@ import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
-import { REGEX } from '../../Constants';
+import { API, REGEX } from '../../Constants';
+import axios from 'axios';
 
 // Import Stylings
 import './SignInPage.css';
@@ -38,6 +39,11 @@ function SignInPage() {
 
   // Prompt State includes: 0 - emailAddress, 1- password
   const [currentPromptState, setCurrentPromptState] = useState(0);
+
+  const requestBody = {
+    emailAddress: userInformation.emailAddress,
+    password: userInformation.password,
+  }
 
   // Handle Input Change to update the state of userInformation object
   const HandleInputChange = (propertyName, inputValue) => {
@@ -77,35 +83,54 @@ function SignInPage() {
     }
   }
 
-  // TODO: Sign In to the application 
+  // TODO: Capture user data.
   const SignIn = () => {
-    navigate('/Dashboard');
+    if(IsValid()) {
+      axios
+        .post(`${API.domain}/api/authentication/sign-in`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          },
+        })
+        .then(response => {
+          console.log(response.data.responseObject);
+          navigate('/Dashboard');
+        })
+        .catch(error => {
+          setIsError(true);
+          setErrorMessage(error.response.data.message);
+        });
+    }
   }
 
-  // IsValid to check if the form is ready to continue
+  // IsValid, Check if the form is ready to continue
   const IsValid = () => {
-    // TODO: Check for valid email regex
+    // If email address field is empty.
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
       setErrorMessage('Please enter your email address.');
       return false;
     }
+    
+    // Else if email address is not in valid form.
     else if(currentPromptState >= 0 && !REGEX.emailAddress.test(userInformation.emailAddress)) {
       setIsError(true);
       setErrorMessage('Please enter a valid spu email address.');
       return false;
     }
 
-    // TODO: Check for valid password regex
+    // Else if password is empty.
     else if(currentPromptState >= 1 && !userInformation.password) {
       setIsError(true);
       setErrorMessage('Please enter your password.');
       return false;
     }
+
     if(isError){
       setIsError(false);
       setErrorMessage('');
     }
+
     return true;
   }
 
