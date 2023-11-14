@@ -6,6 +6,7 @@ import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
+import { REGEX } from '../../Constants';
 
 // Import Stylings
 import './SignInPage.css';
@@ -86,7 +87,12 @@ function SignInPage() {
     // TODO: Check for valid email regex
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
-      setErrorMessage('Please enter your email.');
+      setErrorMessage('Please enter your email address.');
+      return false;
+    }
+    else if(currentPromptState >= 0 && !REGEX.emailAddress.test(userInformation.emailAddress)) {
+      setIsError(true);
+      setErrorMessage('Please enter a valid spu email address.');
       return false;
     }
 
