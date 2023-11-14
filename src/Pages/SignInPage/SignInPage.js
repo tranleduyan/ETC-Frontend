@@ -8,6 +8,8 @@ import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
 import { API, REGEX } from '../../Constants';
 import axios from 'axios';
+import { connect, useDispatch } from 'react-redux';
+import { setUserData } from '../../storage';
 
 // Import Stylings
 import './SignInPage.css';
@@ -19,6 +21,7 @@ import { HiExclamationCircle } from 'react-icons/hi';
 function SignInPage() {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   // Number of input fields
   const maxState = 2; 
@@ -39,11 +42,6 @@ function SignInPage() {
 
   // Prompt State includes: 0 - emailAddress, 1- password
   const [currentPromptState, setCurrentPromptState] = useState(0);
-
-  const requestBody = {
-    emailAddress: userInformation.emailAddress,
-    password: userInformation.password,
-  }
 
   // Handle Input Change to update the state of userInformation object
   const HandleInputChange = (propertyName, inputValue) => {
@@ -83,19 +81,38 @@ function SignInPage() {
     }
   }
 
-  // TODO: Capture user data.
+  // Sign In, post the request body to the API end point. If responseBody is fine/success, capture all the user data, else return the error message for the user's further instructions.
   const SignIn = () => {
     if(IsValid()) {
+      
+      // RequestBody to post to the end point.
+      const requestBody = {
+        emailAddress: userInformation.emailAddress,
+        password: userInformation.password,
+      }
+
+      // Calling to the Sign In API end point
       axios
         .post(`${API.domain}/api/authentication/sign-in`, requestBody, {
           headers: {
             'X-API-KEY': API.key,
           },
         })
+        
+        // If it is success, extract from the response body and capture the data to the storage, and navigate to dashboard.
         .then(response => {
-          console.log(response.data.responseObject);
-          navigate('/Dashboard');
+          // Extract user data from the response
+          const userData = response.data.responseObject;
+          const userId = userData.userId;
+
+          // Dispatch the setUserData action to update Redux store
+          dispatch(setUserData(userData));
+
+          // Navigate to the Dashboard with userId in the state
+          navigate('/Dashboard', { state: {userId}});
         })
+        
+        // Else if it is not a success, display the error message to the user.
         .catch(error => {
           setIsError(true);
           setErrorMessage(error.response.data.message);
@@ -195,4 +212,4 @@ function SignInPage() {
   )
 }
 
-export default SignInPage;
+export default connect()(SignInPage);
