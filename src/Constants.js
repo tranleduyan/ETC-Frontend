@@ -6,4 +6,6 @@ export const API = {
 export const REGEX = {
     // First character is always a letter and followed by 0 or more characters that are either letters, digits, dots, or underscores, always ends with @spu.edu.
     emailAddress: /^[a-zA-z][a-zA-Z0-9._]*@spu\.edu$/,
+    onlyDigits: /^\d+$/,
+    name: /^[A-Za-z\s'-]+$/,
 }

@@ -125,14 +125,14 @@ function SignInPage() {
     // If email address field is empty.
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
-      setErrorMessage('Please enter your email address.');
+      setErrorMessage('Please enter your school email address.');
       return false;
     }
     
     // Else if email address is not in valid form.
     else if(currentPromptState >= 0 && !REGEX.emailAddress.test(userInformation.emailAddress)) {
       setIsError(true);
-      setErrorMessage('Please enter a valid spu email address.');
+      setErrorMessage('Please enter a valid school email address.');
       return false;
     }
 
@@ -175,7 +175,7 @@ function SignInPage() {
         <div className='SignInPage-Form'>
           {/* Email Address Input Field */}
           <StandardTextInputField 
-            placeholder='Enter your email' 
+            placeholder='Enter your school email' 
             className= {`${SetCurrentLastInputFieldClass(0)} SignInPage-StandardTextInputField`}
             name='emailAddress'
             visibility={isVisible(0)}

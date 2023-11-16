@@ -1,0 +1,125 @@
+/* General Stylings */
+.SignUpPage-Wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.SignUpPage-FormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignUpPage-FormHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignUpPage-LogoContainer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpPage-LogoContainer img {
+    width:100%;
+    height:100%;
+}
+
+.SignUpPage-Form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignUpPage-StandardTextInputField {
+    /* General Stylings*/
+}
+
+.SignUpPage-ErrorMessageContainer {
+    width: 100%;
+    color: var(--Red2);
+}
+
+.SignUpPage-FormFooterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.SignUpPage-ContinueButton {
+    width:100%;
+}
+
+.SignUpPage-FooterButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* For tablet and bigger devices */
+@media screen and (min-width: 481px) {
+    .SignUpPage-LogoContainer {
+        width: calc(8.9vmin); 
+    }
+
+    .SignUpPage-Form {
+        width: calc(39.215625vmin);
+        margin: calc(2.225vmin) 0px;
+    }
+
+    .SignUpPage-StandardTextInputField {
+        height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+        width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+        margin-bottom: calc(1.66875vmin);
+    }
+
+    .SignUpPage-ErrorMessageContainer {
+        margin: calc(1.66875vmin) 0px 0px 0px;
+    }
+
+    .SignUpPage-FooterButtonsContainer {
+        margin: calc(2.225vmin) 0px;
+    }
+
+    .SignUpPage-StandardTextInputField:last-child,
+    .SignUpPage-LastInputField {
+        margin-bottom: 0px;
+    }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 480px) {
+    .SignUpPage-LogoContainer {
+        width: calc(17.8vmin); 
+    }
+
+    .SignUpPage-Form {
+        width: calc(78.43125vmin);
+        margin: calc(4.45vmin) 0px;
+    }
+
+    .SignUpPage-StandardTextInputField {
+        height: calc(13.35vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
+        width: calc(78.43125vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
+        margin-bottom: 3.3375vmin;
+    }
+
+    .SignUpPage-ErrorMessageContainer {
+        margin: calc(3.3375vmin) 0px 0px 0px;
+    }
+
+    .SignUpPage-FooterButtonsContainer {
+        margin: calc(4.45vmin) 0px;
+    }
+    
+    .SignUpPage-StandardTextInputField:last-child,
+    .SignUpPage-LastInputField {
+        margin-bottom: 0px;
+    }
+}
