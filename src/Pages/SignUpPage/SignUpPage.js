@@ -6,7 +6,8 @@ import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import { useNavigate } from 'react-router-dom';
-import { REGEX } from '../../Constants';
+import { API, REGEX } from '../../Constants';
+import axios from 'axios';
 
 // Import Stylings
 import './SignUpPage.css';
@@ -184,13 +185,12 @@ function SignUpPage() {
   }
 
   // Continuing reveal the next input field when the current one is filled
-  const Continue = () => {
+  const Continue = async () => {
     if(IsValid()) {
       let currentState = currentPromptState;
       currentState++;
       if(currentState > maxState - 1) {
-        console.log("continue to verify");
-        NavigateEmailVerification();
+        await SendVerification();
       }
       else {
         setCurrentPromptState(currentState);
@@ -198,12 +198,46 @@ function SignUpPage() {
     }
   }
 
+  /*
+    SendVerification: This will generate verification code and call the API to send the generated code to the user's registered email. If every thing is success, navigate to email verification page to continue the sign up process.
+  */
+  const SendVerification = async () => {
+    const GenerateVerificationCode = () => {
+      const verificationCode = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+      return verificationCode.toString();
+    };
+    const requestBody = {
+      firstName: userInformation.firstName,
+      lastName: userInformation.lastName,
+      emailAddress: userInformation.emailAddress,
+      studentId: userInformation.studentId,
+      verificationCode: GenerateVerificationCode(),
+      isNewAccount: true,
+    };
+    axios
+      .post(`${API.domain}/api/authentication/send-verification-code`, requestBody, {
+        headers: {
+          'X-API-KEY': API.key,
+        },
+      })
+      .then(response => {
+        NavigateEmailVerification(requestBody);
+      })
+      .catch(error => {
+        setIsError(true);
+        setErrorMessage(error.response.data.message);
+      });
+  }
+
   //#region Navigation
   const NavigateSignIn = () => {
     navigate('/');
   }
-  const NavigateEmailVerification = () => {
-    navigate('/Verification');
+
+  // Navigate to the verification page with the parameters of userInformation and the generated verificationCode
+  const NavigateEmailVerification = (requestBody) => {
+    navigate('/Verification', { state: {userInformation,
+                                        verificationCode: requestBody.verificationCode}});
   }
   //#endregion
   return (
