@@ -29,7 +29,7 @@ function SignUpPage() {
   // Input Object from the form - used for gathering and submit to request body
   const [userInformation, setUserInformation] = useState({
     emailAddress: '',
-    userRole: '',
+    userRole: 'Student',
     firstName: '',
     middleName: '',
     lastName: '',
@@ -162,14 +162,14 @@ function SignUpPage() {
     }
 
     // Else if password is less than 6 (we require to have it more than 6 characters)
-    else if(currentPromptState >= 6 && userInformation.password.length < 6) {
+    else if(currentPromptState >= 3 && userInformation.password.length < 6) {
       setIsError(true);
-      setErrorMessage('Please enter valid password. Password must be 6 or more characters long.');
+      setErrorMessage('Password must be 6 or more characters long.');
       return false;
     }
 
     // Else if the passwords do not match.
-    else if(currentPromptState >= 6 && userInformation.password !== userInformation.confirmPassword) {
+    else if(currentPromptState >= 3 && userInformation.password !== userInformation.confirmPassword) {
       setIsError(true);
       setErrorMessage('Passwords do not match.');
       return false;
