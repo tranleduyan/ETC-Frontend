@@ -5,7 +5,7 @@ import React from 'react';
 import './StandardTextInputField.css';
 
 function StandardTextInputField(props) {
-  const { className, placeholder, name, type, value, onChange, visibility } = props;
+  const { className, placeholder, name, type, value, onChange, visibility, onKeyDown } = props;
 
   const HandleInputChange = (event) => {
     const { name, value } = event.target;
@@ -18,7 +18,8 @@ function StandardTextInputField(props) {
            className={`${visibility === false ? `hide ${className}` : className} StandardTextInputField`} 
            name={name}
            value={value}
-           onChange={HandleInputChange}/>
+           onChange={HandleInputChange}
+           onKeyDown={onKeyDown}/>
   )
 }
 

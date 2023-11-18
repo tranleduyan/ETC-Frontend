@@ -141,7 +141,7 @@ function SignUpPage() {
     }
 
     // Else if studentId is in valid form and have length of 9.
-    else if((currentPromptState >= 2 && !REGEX.onlyDigits.test(userInformation.studentId)) 
+    else if((currentPromptState >= 2 && !REGEX.studentID.test(userInformation.studentId)) 
     || (currentPromptState >= 2 && userInformation.studentId.length !== 9)) {
       setIsError(true);
       setErrorMessage('Please enter a valid student ID.');
@@ -258,35 +258,40 @@ function SignUpPage() {
             className= {`${SetCurrentLastInputFieldClass(0)} SignUpPage-StandardTextInputField`}
             name='emailAddress'
             visibility={isVisible(0)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* First Name Input Field */}
           <StandardTextInputField 
             placeholder='Enter first name' 
             className= {`SignUpPage-StandardTextInputField`}
             name='firstName'
             visibility={isVisible(1)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Middle Name Input Field */}
           <StandardTextInputField 
             placeholder='Enter middle name (optional)' 
             className= {`SignUpPage-StandardTextInputField`}
             name='middleName'
             visibility={isVisible(1)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Last Name Input Field */}
           <StandardTextInputField 
             placeholder='Enter last name' 
             className= {`${SetCurrentLastInputFieldClass(1)} SignUpPage-StandardTextInputField`}
             name='lastName'
             visibility={isVisible(1)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Student ID Input Field */}
           <StandardTextInputField 
             placeholder='Enter student ID' 
             className= {`${SetCurrentLastInputFieldClass(2)} SignUpPage-StandardTextInputField`}
             name='studentId'
             visibility={isVisible(2)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
             placeholder='Enter password' 
@@ -294,7 +299,8 @@ function SignUpPage() {
             name='password'
             type='password'
             visibility={isVisible(3)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Confirm Password Input Field */}
           <StandardTextInputField 
             placeholder='Confirm password' 
@@ -302,7 +308,8 @@ function SignUpPage() {
             name='confirmPassword'
             type='password'
             visibility={isVisible(3)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 
             icon={HiExclamationCircle} 

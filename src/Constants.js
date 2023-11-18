@@ -8,4 +8,5 @@ export const REGEX = {
     emailAddress: /^[a-zA-z][a-zA-Z0-9._]*@spu\.edu$/,
     onlyDigits: /^\d+$/,
     name: /^[A-Za-z\s'-]+$/,
+    studentID: /^900\d{6}$/,
 }

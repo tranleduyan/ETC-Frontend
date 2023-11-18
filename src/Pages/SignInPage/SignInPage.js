@@ -179,7 +179,8 @@ function SignInPage() {
             className= {`${SetCurrentLastInputFieldClass(0)} SignInPage-StandardTextInputField`}
             name='emailAddress'
             visibility={isVisible(0)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
             placeholder='Enter password' 
@@ -187,7 +188,8 @@ function SignInPage() {
             className= {`${SetCurrentLastInputFieldClass(1)} SignInPage-StandardTextInputField`}
             name='password'
             visibility={isVisible(1)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 
             icon={HiExclamationCircle} 

@@ -118,7 +118,8 @@ function VerificationPage() {
                     className= {'VerificationPage-StandardTextInputField'}
                     name='verificationCode'
                     visibility={true}
-                    onChange={HandleInputChange}/>
+                    onChange={HandleInputChange}
+                    onKeyDown={(e) => e.key === 'Enter' && Verify()}/>
                 {/* Error Message */}
                 <Message 
                     icon={HiExclamationCircle} 
