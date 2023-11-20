@@ -5,6 +5,7 @@ import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
 import Logo from '../../Components/Logo/Logo.js';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage.js';
+import PropTypes from 'prop-types';
 
 // Import Stylings
 import './NavigationBar.css';
@@ -12,42 +13,27 @@ import './NavigationBar.css';
 // Import Icons
 import { HiViewGrid, HiCalendar, HiArchive, HiPlusCircle, HiUserGroup, HiBell, HiCog, HiLogout } from 'react-icons/hi';
 
+// Render the navigation bar
 function NavigationBar(props) {
+
+  const { resetUserData } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  /* If the button title is equal to the Location Path Name starts with '/PageTitle', return className as 'active' with the page */
+  // If the button title is equal to the Location Path Name starts with '/PageTitle', return className as 'active' with the page
   const ActivateButton = (title) => {
+    
+    // Get the current location path name
     const currentLocation = location.pathname;
 
-    if(currentLocation.startsWith('/Dashboard') && title === 'Dashboard'){
-      return 'NavigationBarButton-Active';
-    }
-    
-    else if(currentLocation.startsWith('/Reservations') && title === 'Reservations'){
+    // If the current location matches with the title, return the active class name
+    if(currentLocation.startsWith(`/${title}`)){
       return 'NavigationBarButton-Active';
     }
 
-    else if(currentLocation.startsWith('/Inventory') && title === 'Inventory'){
-      return 'NavigationBarButton-Active';
-    }
-
-    else if(currentLocation.startsWith('/AddEquipment') && title === 'AddEquipment'){
-      return 'NavigationBarButton-Active';
-    }
-
-    else if(currentLocation.startsWith('/Users') && title === 'Users'){
-      return 'NavigationBarButton-Active';
-    }
-    
-    else if(currentLocation.startsWith('/Notifications') && title === 'Notifications'){
-      return 'NavigationBarButton-Active';
-    }
-
-    else if(currentLocation.startsWith('/Settings') && title === 'Settings'){
-      return 'NavigationBarButton-Active';
-    }
+    // Else return empty class name
+    return '';
   }
 
   //#region Navigation Pages (For Scaling Purpose)
@@ -83,7 +69,7 @@ function NavigationBar(props) {
   // Sign the user out by reset user data in Redux
   const SignOut = () => {
     // Dispatch the resetUserData action
-    props.resetUserData();
+    resetUserData();
     navigate('/');
   }
 
@@ -93,30 +79,37 @@ function NavigationBar(props) {
     <Logo className='NavigationBar-LogoContainer'/>
     {/* Main Menu */}
     <div className='NavigationBar-Menu'>
+      {/* Dashboard Button */}
       <IconButton 
         icon={HiViewGrid} 
         className={`${ActivateButton('Dashboard')} NavigationBarButton-Container`} 
         onClick={NavigateDashboard}/>
+      {/* Reservations Button */}
       <IconButton 
         icon={HiCalendar} 
         className={`${ActivateButton('Reservations')} NavigationBarButton-Container`} 
         onClick={NavigateReservations}/>
+      {/* Inventory Button */}
       <IconButton 
         icon={HiArchive} 
         className={`${ActivateButton('Inventory')} NavigationBarButton-Container`} 
         onClick={NavigateInventory}/>
+      {/* Add Equipment Button */}
       <IconButton 
         icon={HiPlusCircle} 
         className={`${ActivateButton('AddEquipment')} NavigationBarButton-Container`} 
         onClick={NavigateAddEquipment}/>
+      {/* Users Button */}
       <IconButton 
         icon={HiUserGroup} 
         className={`${ActivateButton('Users')} NavigationBarButton-Container`} 
         onClick={NavigateUsers}/>
+      {/* Notifications Button */}
       <IconButton 
         icon={HiBell} 
         className={`${ActivateButton('Notifications')} NavigationBarButton-Container`} 
         onClick={NavigateNotifications}/>
+      {/* Settings Button */}
       <IconButton 
         icon={HiCog} 
         className={`${ActivateButton('Settings')} NavigationBarButton-Container`} 
@@ -130,6 +123,12 @@ function NavigationBar(props) {
     </div>
   )
 }
+
+// Define PropTypes for the NavigationBar component
+NavigationBar.propTypes = {
+  resetUserData: PropTypes.func.isRequired,
+};
+
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {

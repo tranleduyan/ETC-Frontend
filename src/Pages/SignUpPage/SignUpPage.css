@@ -36,10 +36,6 @@
     align-items: center;
 }
 
-.SignUpPage-StandardTextInputField {
-    /* General Stylings*/
-}
-
 .SignUpPage-ErrorMessageContainer {
     width: 100%;
     color: var(--Red2);

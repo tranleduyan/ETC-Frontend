@@ -17,7 +17,7 @@ import './SignInPage.css';
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
-/* Render Sign In Page */
+// Render Sign In Page
 function SignInPage() {
 
   const navigate = useNavigate();
@@ -50,10 +50,7 @@ function SignInPage() {
 
   // Control the visibility of the input field
   const isVisible = (promptState) => {
-    if(promptState > currentPromptState) {
-      return false;
-    }
-    return true;
+    return (promptState <= currentPromptState);
   }
 
   // Set the input field styling to be last input field due to the behavior of last-child is conflicting with display:none.

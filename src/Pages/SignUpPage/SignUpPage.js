@@ -54,10 +54,7 @@ function SignUpPage() {
 
   // Control the visibility of the input field
   const isVisible = (promptState) => {
-    if(promptState > currentPromptState) {
-      return false;
-    }
-    return true;
+    return (promptState <= currentPromptState);
   }
 
   // Set the input field styling to be last input field due to the behavior of last-child is conflicting with display:none.
@@ -68,8 +65,7 @@ function SignUpPage() {
     return '';
   }
 
-  // IsValid, Check if the form is ready to continue
-  const IsValid = () => {
+  const IsValidEmailAddress = () => {
     // If email address field is empty.
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
@@ -84,20 +80,22 @@ function SignUpPage() {
       return false;
     }
 
-    // Else if firstName field is empty.
-    else if(currentPromptState >= 1 && !userInformation.firstName) {
+    return true;
+  }
+
+  const IsValidName = () => {
+    // If first name is empty.
+    if(currentPromptState >= 1 && !userInformation.firstName) {
       setIsError(true);
       setErrorMessage('Please enter your first name.');
       return false;
     }
-
-    // Else if lastName field is empty.
+    // Else if last name is empty.
     else if(currentPromptState >= 1 && !userInformation.lastName) {
       setIsError(true);
       setErrorMessage('Please enter your last name.');
       return false;
     }
-
     // Else if first name is not in valid form.
     else if(currentPromptState >= 1 && !REGEX.name.test(userInformation.firstName)) {
       setIsError(true);
@@ -133,8 +131,12 @@ function SignUpPage() {
       return false;
     }
 
+    return true;
+  }
+
+  const IsValidStudentID = () => {
     // TODO: Check if faculty or not, if not require studentId, if is faculty, then this field - studentID can be empty. For now, lets just default student and require student ID.
-    else if(currentPromptState >= 2 && !userInformation.studentId) {
+    if(currentPromptState >= 2 && !userInformation.studentId) {
       setIsError(true);
       setErrorMessage('Please enter your student ID.');
       return false;
@@ -147,21 +149,17 @@ function SignUpPage() {
       setErrorMessage('Please enter a valid student ID.');
       return false;
     }
+    
+    return true;
+  }
 
-    // Else if the password is empty field.
-    else if(currentPromptState >= 3 && !userInformation.password) {
+  const IsValidPassword = () => {
+    // if the password is empty field.
+    if(currentPromptState >= 3 && !userInformation.password) {
       setIsError(true);
       setErrorMessage('Please enter your password.');
       return false;
     }
-    
-    // Else if confirmPassword is empty field.
-    else if(currentPromptState >= 3 && !userInformation.confirmPassword) {
-      setIsError(true);
-      setErrorMessage('Please confirm the password.');
-      return false;
-    }
-
     // Else if password is less than 6 (we require to have it more than 6 characters)
     else if(currentPromptState >= 3 && userInformation.password.length < 6) {
       setIsError(true);
@@ -169,6 +167,16 @@ function SignUpPage() {
       return false;
     }
 
+    return true;
+  }
+
+  const IsValidConfirmPassword = () => {
+    // if password is less than 6 (we require to have it more than 6 characters)
+    if(currentPromptState >= 3 && userInformation.password.length < 6) {
+      setIsError(true);
+      setErrorMessage('Password must be 6 or more characters long.');
+      return false;
+    }
     // Else if the passwords do not match.
     else if(currentPromptState >= 3 && userInformation.password !== userInformation.confirmPassword) {
       setIsError(true);
@@ -176,12 +184,19 @@ function SignUpPage() {
       return false;
     }
 
-    if(isError){
-      setIsError(false);
-      setErrorMessage('');
-    }
-
     return true;
+  }
+
+  // IsValid, Check if the form is ready to continue
+  const IsValid = () => {
+    if(IsValidEmailAddress() && IsValidName() && IsValidStudentID() && IsValidPassword() && IsValidConfirmPassword()){
+      if(isError){
+        setIsError(false);
+        setErrorMessage('');
+      }
+      return true;
+    }
+    return false;
   }
 
   // Continuing reveal the next input field when the current one is filled
@@ -198,9 +213,7 @@ function SignUpPage() {
     }
   }
 
-  /*
-    SendVerification: This will generate verification code and call the API to send the generated code to the user's registered email. If every thing is success, navigate to email verification page to continue the sign up process.
-  */
+  // SendVerification: This function generates verification code and call the API to send the generated code to the user's registered email. If every thing is success, navigate to email verification page to continue the sign up process.
   const SendVerification = async () => {
     const GenerateVerificationCode = () => {
       const verificationCode = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;

@@ -15,6 +15,7 @@ import './VerificationPage.css';
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
+// Render the Verification Page
 function VerificationPage() {
   
   const location = useLocation();
