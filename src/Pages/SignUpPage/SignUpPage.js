@@ -34,7 +34,7 @@ function SignUpPage() {
     firstName: '',
     middleName: '',
     lastName: '',
-    studentId: '',
+    schoolId: '',
     password: '',
     confirmPassword: '',
   });
@@ -42,7 +42,7 @@ function SignUpPage() {
   /* Prompt State includes: 
      0 - emailAddress
      1 - firstName, middleName, lastName
-     2- studentId
+     2- schoolId
      3 - password, confirmPassword
   */
   const [currentPromptState, setCurrentPromptState] = useState(0);
@@ -65,6 +65,7 @@ function SignUpPage() {
     return '';
   }
 
+  // IsValidEmailAddress, Check that the email address is valid to continue.
   const IsValidEmailAddress = () => {
     // If email address field is empty.
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
@@ -83,6 +84,7 @@ function SignUpPage() {
     return true;
   }
 
+  // IsValidName, check for if the names are valid.
   const IsValidName = () => {
     // If first name is empty.
     if(currentPromptState >= 1 && !userInformation.firstName) {
@@ -134,25 +136,26 @@ function SignUpPage() {
     return true;
   }
 
-  const IsValidStudentID = () => {
-    // TODO: Check if faculty or not, if not require studentId, if is faculty, then this field - studentID can be empty. For now, lets just default student and require student ID.
-    if(currentPromptState >= 2 && !userInformation.studentId) {
+  // IsValidSchoolId, every SPU member must need to provide schoolId.
+  const IsValidSchoolId = () => {
+    if(currentPromptState >= 2 && !userInformation.schoolId) {
       setIsError(true);
-      setErrorMessage('Please enter your student ID.');
+      setErrorMessage('Please enter your school ID.');
       return false;
     }
 
-    // Else if studentId is in valid form and have length of 9.
-    else if((currentPromptState >= 2 && !REGEX.studentID.test(userInformation.studentId)) 
-    || (currentPromptState >= 2 && userInformation.studentId.length !== 9)) {
+    // Else if schoolId is in valid form and have length of 9.
+    else if((currentPromptState >= 2 && !REGEX.schoolId.test(userInformation.schoolId)) 
+    || (currentPromptState >= 2 && userInformation.schoolId.length !== 9)) {
       setIsError(true);
-      setErrorMessage('Please enter a valid student ID.');
+      setErrorMessage('Please enter a valid school ID.');
       return false;
     }
     
     return true;
   }
 
+  // IsValidPassword, Check for if the password is valid - must be 6 character long or more
   const IsValidPassword = () => {
     // if the password is empty field.
     if(currentPromptState >= 3 && !userInformation.password) {
@@ -170,6 +173,7 @@ function SignUpPage() {
     return true;
   }
 
+  // IsValidConfirmPassword, Check for if the confirm password is valid and matched the password
   const IsValidConfirmPassword = () => {
     // if password is less than 6 (we require to have it more than 6 characters)
     if(currentPromptState >= 3 && userInformation.password.length < 6) {
@@ -189,7 +193,7 @@ function SignUpPage() {
 
   // IsValid, Check if the form is ready to continue
   const IsValid = () => {
-    if(IsValidEmailAddress() && IsValidName() && IsValidStudentID() && IsValidPassword() && IsValidConfirmPassword()){
+    if(IsValidEmailAddress() && IsValidName() && IsValidSchoolId() && IsValidPassword() && IsValidConfirmPassword()){
       if(isError){
         setIsError(false);
         setErrorMessage('');
@@ -223,7 +227,7 @@ function SignUpPage() {
       firstName: userInformation.firstName,
       lastName: userInformation.lastName,
       emailAddress: userInformation.emailAddress,
-      studentId: userInformation.studentId,
+      schoolId: userInformation.schoolId,
       verificationCode: GenerateVerificationCode(),
       isNewAccount: true,
     };
@@ -253,6 +257,7 @@ function SignUpPage() {
                                         verificationCode: requestBody.verificationCode}});
   }
   //#endregion
+  
   return (
     <div className='wrapper SignUpPage-Wrapper'>
       <div className='SignUpPage-FormContainer'>
@@ -297,11 +302,11 @@ function SignUpPage() {
             visibility={isVisible(1)}
             onChange={HandleInputChange}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
-          {/* Student ID Input Field */}
+          {/* School ID Input Field */}
           <StandardTextInputField 
-            placeholder='Enter student ID' 
+            placeholder='Enter school ID' 
             className= {`${SetCurrentLastInputFieldClass(2)} SignUpPage-StandardTextInputField`}
-            name='studentId'
+            name='schoolId'
             visibility={isVisible(2)}
             onChange={HandleInputChange}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>

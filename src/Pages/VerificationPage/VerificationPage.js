@@ -47,7 +47,7 @@ function VerificationPage() {
     navigate('/');
   }
 
-  // TODO: Compare the generated verification code with the input verification code
+  // IsValid, check for the correctness of the verification code
   const IsValid = () => {
     if(!verificationCode) {
         setIsError(true);
@@ -73,7 +73,7 @@ function VerificationPage() {
       firstName: userInformation.firstName,
       middleName: userInformation.middleName,
       lastName: userInformation.lastName,
-      studentId: userInformation.studentId,
+      schoolId: userInformation.schoolId,
       emailAddress: userInformation.emailAddress,
       accountPassword: userInformation.password
     }

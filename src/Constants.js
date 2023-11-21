@@ -15,6 +15,6 @@ export const REGEX = {
     // Only alpha/letters and space are allowed
     name: /^[A-Za-z\s'-]+$/,
 
-    // First start with 900, and the exactly the next 6 characters (must all be digits)
-    studentID: /^900\d{6}$/,
+    // must be exactly 9 characters (must all be digits)
+    schoolId: /^\d{9}$/,
 };
