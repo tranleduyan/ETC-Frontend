@@ -6,6 +6,10 @@ import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
+import { API, REGEX } from '../../Constants';
+import axios from 'axios';
+import { connect, useDispatch } from 'react-redux';
+import { setUserData } from '../../storage';
 
 // Import Stylings
 import './SignInPage.css';
@@ -13,10 +17,11 @@ import './SignInPage.css';
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
-/* Render Sign In Page */
+// Render Sign In Page
 function SignInPage() {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   // Number of input fields
   const maxState = 2; 
@@ -45,10 +50,7 @@ function SignInPage() {
 
   // Control the visibility of the input field
   const isVisible = (promptState) => {
-    if(promptState > currentPromptState) {
-      return false;
-    }
-    return true;
+    return (promptState <= currentPromptState);
   }
 
   // Set the input field styling to be last input field due to the behavior of last-child is conflicting with display:none.
@@ -76,30 +78,73 @@ function SignInPage() {
     }
   }
 
-  // TODO: Sign In to the application 
+  // Sign In, post the request body to the API end point. If responseBody is fine/success, capture all the user data, else return the error message for the user's further instructions.
   const SignIn = () => {
-    navigate('/Dashboard');
+    if(IsValid()) {
+      
+      // RequestBody to post to the end point.
+      const requestBody = {
+        emailAddress: userInformation.emailAddress,
+        password: userInformation.password,
+      }
+
+      // Calling to the Sign In API end point
+      axios
+        .post(`${API.domain}/api/authentication/sign-in`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          },
+        })
+        
+        // If it is success, extract from the response body and capture the data to the storage, and navigate to dashboard.
+        .then(response => {
+          // Extract user data from the response
+          const userData = response.data.responseObject;
+          const userId = userData.userId;
+
+          // Dispatch the setUserData action to update Redux store
+          dispatch(setUserData(userData));
+
+          // Navigate to the Dashboard with userId in the state
+          navigate('/Dashboard', { state: {userId}});
+        })
+        
+        // Else if it is not a success, display the error message to the user.
+        .catch(error => {
+          setIsError(true);
+          setErrorMessage(error.response.data.message);
+        });
+    }
   }
 
-  // IsValid to check if the form is ready to continue
+  // IsValid, Check if the form is ready to continue
   const IsValid = () => {
-    // TODO: Check for valid email regex
+    // If email address field is empty.
     if(currentPromptState >= 0 && !userInformation.emailAddress) {
       setIsError(true);
-      setErrorMessage('Please enter your email.');
+      setErrorMessage('Please enter your school email address.');
+      return false;
+    }
+    
+    // Else if email address is not in valid form.
+    else if(currentPromptState >= 0 && !REGEX.emailAddress.test(userInformation.emailAddress)) {
+      setIsError(true);
+      setErrorMessage('Please enter a valid school email address.');
       return false;
     }
 
-    // TODO: Check for valid password regex
+    // Else if password is empty.
     else if(currentPromptState >= 1 && !userInformation.password) {
       setIsError(true);
       setErrorMessage('Please enter your password.');
       return false;
     }
+
     if(isError){
       setIsError(false);
       setErrorMessage('');
     }
+
     return true;
   }
 
@@ -127,11 +172,12 @@ function SignInPage() {
         <div className='SignInPage-Form'>
           {/* Email Address Input Field */}
           <StandardTextInputField 
-            placeholder='Enter your email' 
+            placeholder='Enter your school email' 
             className= {`${SetCurrentLastInputFieldClass(0)} SignInPage-StandardTextInputField`}
             name='emailAddress'
             visibility={isVisible(0)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
             placeholder='Enter password' 
@@ -139,7 +185,8 @@ function SignInPage() {
             className= {`${SetCurrentLastInputFieldClass(1)} SignInPage-StandardTextInputField`}
             name='password'
             visibility={isVisible(1)}
-            onChange={HandleInputChange}/>
+            onChange={HandleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 
             icon={HiExclamationCircle} 
@@ -164,4 +211,4 @@ function SignInPage() {
   )
 }
 
-export default SignInPage;
+export default connect()(SignInPage);

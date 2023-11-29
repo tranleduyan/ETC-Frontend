@@ -1,11 +1,13 @@
 // Import Components
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
+import axios from 'axios';
+import { API } from '../../Constants';
 
 // Import Stylings
 import './VerificationPage.css';
@@ -13,9 +15,14 @@ import './VerificationPage.css';
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';
 
+// Render the Verification Page
 function VerificationPage() {
   
+  const location = useLocation();
   const navigate = useNavigate();
+  
+  const userInformation = location.state?.userInformation;
+  let generatedVerificationCode = location.state?.verificationCode;
 
   // Error handlers - display error visually
   const [isError, setIsError] = useState(false);
@@ -40,12 +47,17 @@ function VerificationPage() {
     navigate('/');
   }
 
-  // TODO: Compare the generated verification code with the input verification code
+  // IsValid, check for the correctness of the verification code
   const IsValid = () => {
     if(!verificationCode) {
         setIsError(true);
         setErrorMessage('Please enter verification code.');
         return false;
+    }
+    else if(verificationCode !== generatedVerificationCode) {
+      setIsError(true);
+      setErrorMessage('Incorrect verification code.');
+      return false;
     }
     if(isError){
         setIsError(false);
@@ -54,9 +66,30 @@ function VerificationPage() {
       return true;
   }
 
-  // TODO: Sign Up API and navigate to Sign In page
+  // Call the sign up api and navigate to the sign in page.
   const SignUp = () => {
-    navigate('/');
+    const requestBody = {
+      userRole: userInformation.userRole,
+      firstName: userInformation.firstName,
+      middleName: userInformation.middleName,
+      lastName: userInformation.lastName,
+      schoolId: userInformation.schoolId,
+      emailAddress: userInformation.emailAddress,
+      accountPassword: userInformation.password
+    }
+    axios
+      .post(`${API.domain}/api/authentication/sign-up`, requestBody, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        navigate('/');
+      })
+      .catch(error => {
+        setIsError(true);
+        setErrorMessage(error.response.data.message);
+      });
   }
 
   return (
@@ -74,7 +107,7 @@ function VerificationPage() {
                 className='VerificationPage-InstructionMessage' 
                 visibility={true}/>
                 <Message  
-                message={`[email]`} 
+                message={`${userInformation.emailAddress}`} 
                 className='VerificationPage-EmailMessage' 
                 visibility={true}/>
             </div>
@@ -86,7 +119,8 @@ function VerificationPage() {
                     className= {'VerificationPage-StandardTextInputField'}
                     name='verificationCode'
                     visibility={true}
-                    onChange={HandleInputChange}/>
+                    onChange={HandleInputChange}
+                    onKeyDown={(e) => e.key === 'Enter' && Verify()}/>
                 {/* Error Message */}
                 <Message 
                     icon={HiExclamationCircle} 
