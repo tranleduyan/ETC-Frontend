@@ -98,7 +98,7 @@ function SignUpPage() {
       setErrorMessage('Please enter your last name.');
       return false;
     }
-    // Else if first name is not in valid form.
+    // Else if first name is not in a valid form.
     else if(currentPromptState >= 1 && !REGEX.name.test(userInformation.firstName)) {
       setIsError(true);
       setErrorMessage('Please enter a valid first name.');
