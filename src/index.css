@@ -27,19 +27,19 @@ body {
 }
 
 .heading-1, .heading-2, .heading-3, .heading-4 {
-  font-family: 'Poppins Semi Bold';
+  font-family: 'Poppins Semi Bold', sans-serif;
 }
 
 .heading-5, .heading-6 {
-  font-family: 'Poppins Medium';
+  font-family: 'Poppins Medium', sans-serif;
 }
 
 .paragraph-1, .paragraph-3 {
-  font-family: 'Poppins Regular';
+  font-family: 'Poppins Regular', sans-serif;
 }
 
 .paragraph-2 {
-  font-family: 'Poppins Medium';
+  font-family: 'Poppins Medium', sans-serif;
 }
 
 .wrapper {

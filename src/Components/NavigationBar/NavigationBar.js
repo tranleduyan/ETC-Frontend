@@ -73,7 +73,6 @@ function NavigationBar(props) {
     navigate('/');
   }
 
-  // TODO: Show/Hide buttons based on user classes after sign in!
   return (
     <div className='NavigationBar-Container'>
     <Logo className='NavigationBar-LogoContainer'/>

@@ -11,7 +11,14 @@ import './DashboardPage.css';
 function DashboardPage() {
   return (
     <GeneralPage>
-      {/* Content Div */}
+      <div className='Dashboard-PageContentContainer'>
+        <div className='Dashboard-PageHeaderContainer'>
+          <p className='heading-2'>Dashboard</p>
+        </div>
+        <div className='Dashboard-ContentContainer'>
+
+        </div>
+      </div>
     </GeneralPage>
   )
 }
