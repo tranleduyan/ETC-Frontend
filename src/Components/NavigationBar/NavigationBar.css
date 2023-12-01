@@ -5,6 +5,38 @@
     align-items: center;
 }
 
+.NavigationBar-Student .NavigationBarButton-InventoryButton,
+.NavigationBar-Student .NavigationBarButton-AddEquipmentButton,
+.NavigationBar-Student .NavigationBarButton-UsersButton {
+    display: none;
+}
+
+.NavigationBar-Faculty .NavigationBarButton-InventoryButton,
+.NavigationBar-Faculty .NavigationBarButton-AddEquipmentButton,
+.NavigationBar-Faculty .NavigationBarButton-UsersButton {
+    display: none;
+}
+
+.NavigationBarButton-DashboardButton {
+    order: 0;
+}
+
+.NavigationBarButton-ReservationButton {
+    order : 1;
+}
+
+.NavigationBarButton-UsersButton {
+    order: 4;
+}
+
+.NavigationBarButton-NotificationsButton {
+    order: 5;
+}
+
+.NavigationBarButton-SettingsButton {
+    order: 6;
+}
+
 .NavigationBarButton-SignOutButton:hover,
 .NavigationBarButton-Container:hover,
 .NavigationBarButton-Active {
@@ -44,7 +76,15 @@
     .NavigationBarButton-Container:first-child {
         margin-top: 0px;
     }
+
+    .NavigationBarButton-InventoryButton {
+        order: 2;
+    }
     
+    .NavigationBarButton-AddEquipmentButton {
+        order: 3;
+    }
+
     .NavigationBarButton-SignOutButton {
         margin-bottom: calc(2.225vmin);
     }
@@ -72,4 +112,17 @@
         justify-content: space-between;
         margin: calc(4.45vmin);
     }    
+
+    .NavigationBarButton-InventoryButton {
+        order: 3;
+    }
+    
+    .NavigationBarButton-AddEquipmentButton {
+        order: 2;
+    }
+
+    .NavigationBar-Admin .NavigationBarButton-SettingsButton,
+    .NavigationBar-Admin .NavigationBarButton-NotificationsButton {
+    display: none;
+    }
 }
