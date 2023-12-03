@@ -18,6 +18,12 @@
         border-radius: calc(1.390625vmin);
         height: 6.675vmin;
     }
+
+    .StandardButton-Icon {
+        font-size: calc(3.3375vmin);
+        margin-left: calc(1.1125vmin);
+        min-width: calc(4.45vmin);
+    }
 }
 
 /* For phone and smaller devices */
@@ -25,6 +31,12 @@
     .StandardButton-Container {
         border-radius: 2.78125vmin;
         height: 13.35vmin;
+    }
+
+    .StandardButton-Icon {
+        font-size: calc(6.675vmin);
+        margin-left: calc(2.225vmin);
+        min-width: calc(8.9vmin);
     }
 }
 
