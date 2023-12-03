@@ -8,20 +8,23 @@
 
 .Dashboard-PageHeaderContainer {
     width: 100%;
-    height: calc(calc(9.45625vmin) - calc(4.45vmin));
+    height: calc(9.45625vmin);
     border-bottom: calc(0.278125vmin) solid var(--Gray1);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
     padding: calc(2.225vmin) calc(2.225vmin);
 }
 
 .Dashboard-ContentContainer {
     width: 100%;
+    height: 100% - calc(9.45625vmin);
+    flex: 1;
     display: flex;
     flex-direction: row;
-    flex: 1;
+    overflow-y: scroll;
 }
 
 .Dashboard-LeftContentPanel {
@@ -29,42 +32,44 @@
     flex-direction: column;
     justify-content: flex-start;
     flex: 1;
-    margin: calc(2.225vmin) calc(2.225vmin) 0px calc(2.225vmin);
+    height: calc(100% - calc(4.45vmin));
+    box-sizing: border-box;
+    margin: calc(2.225vmin) calc(2.225vmin);
+    overflow-y: hidden;
 }
 
-.Dashboard-InventoryContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
-}
-
-.Dashboard-SectionHeaderContainer {
+.Dashboard-SectionHeader {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: calc(6.675vmin);
+}
+
+.Dashboard-InventorySection {
+    width: 100%;
+    height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .Dashboard-SearchBar {
-    width: calc(calc(38.9375vmin) - calc(3.3375vmin));
+    width: calc(38.9375vmin);
 }
 
 .SearchBar-Container {
-    height: calc(calc(6.675vmin) - calc(2.225vmin));
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    height: calc(6.675vmin);
+    box-sizing: border-box;
     padding: calc(1.1125vmin) calc(1.66875vmin);
-    background-color: var(--Gray2);
+    background-color: var(--Gray1);
     border-radius: calc(3.4765625vmin);
 }
 
 .Dashboard-InventoryList {
     width: 100%;
-    flex: 1;
+    height: calc(calc(100%) - calc(6.675vmin));
     margin-top: calc(2.225vmin);
 }
 
@@ -77,101 +82,32 @@
     gap: calc(3.02vmin);
 }
 
-.InventoryList-Container::-webkit-scrollbar {
-    display: none;
-}
-
-.EquipmentTypeCard-Container {
-    width: calc(37.4078125vmin);
-    height: calc(16.13125vmin);
-    box-sizing: border-box;
-    border: calc(0.278125vmin) solid var(--Gray1);
-    border-radius: calc(1.390625vmin);
-    padding: calc(1.66875vmin);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.EquipmentTypeCard-Container:hover {
-    cursor: pointer;
-}
-
-.EquipmentTypeCard-InformationContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.EquipmentTypeCard-Icon {
-    font-size: calc(8.34375vmin);
-}
-
-.EquipmentTypeCard-Information {
-    margin-left: calc(2.225vmin);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.EquipmentTypeCard-TypeName {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: normal;
-    word-wrap: break-word; 
-}
-
 .Dashboard-LeftContentSeparator {
     margin: calc(4.45vmin) 0px;
     width: 100%;
     border-top: calc(0.278125vmin) solid var(--Gray1);
 }
 
-.Dashboard-ReservationsContainer {
+.Dashboard-ReservationSection {
+    width: 100%;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: scroll;
 }
 
 .Dashboard-ReservationFilterContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
 
-.FilterButton-Container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: calc(6.675vmin);
-    border-radius: calc(3.4765625vmin);
-    padding: calc(1.66875vmin);
-}
-
-.FilterButton-Active {
-    background-color: var(--Red1);
-    color: var(--White1);
-}
-
-.FilterButton-Container:hover {
-    cursor: pointer;
 }
 
 .Dashboard-ReservationList {
     width: 100%;
-    margin-top: calc(2.225vmin);
+    height: calc(calc(100%) - calc(6.675vmin));
+    margin-top: calc(2.225vmin)
 }
 
 .ReservationList-Container {
-    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -180,60 +116,14 @@
     gap: calc(3.02vmin);
 }
 
-.ReservationCard-Container {
-    width: calc(37.4078125vmin);
-    height: calc(12.79375vmin);
-    box-sizing: border-box;
-    border: calc(0.278125vmin) solid var(--Gray1);
-    border-radius: calc(1.390625vmin);
-    padding: calc(1.66875vmin) calc(1.390625vmin) calc(1.66875vmin) calc(1.66875vmin);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.ReservationCard-Icon {
-    font-size: calc(4.45vmin);
-}
-
-.ReservationCard-InformationContainer {
-    margin-left: calc(2vmin);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.ReservationCard-Information {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    overflow: hidden;
-}
-
-.ReservationCard-RenterName {
-    max-width: calc(15.9921875vmin);
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: normal;
-    word-wrap: break-word; 
-}
-
-.ReservationCard-ReserveAmount {
-    max-width: calc(8.9vmin);
-}
-
 .Dashboard-RightContentPanel {
-    width: calc(calc(45.6125vmin) - calc(4.45vmin));
+    width: calc(calc(45.6125vmin));
     height: 100%;
     border-left: calc(0.278125vmin) solid var(--Gray1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-sizing: border-box;
     padding: calc(2.225vmin) calc(2.225vmin) 0px calc(2.225vmin);
 }
 
