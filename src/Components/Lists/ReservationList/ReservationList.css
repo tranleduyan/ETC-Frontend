@@ -1,0 +1,8 @@
+.ReservationList-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    gap: calc(3.02vmin);
+}

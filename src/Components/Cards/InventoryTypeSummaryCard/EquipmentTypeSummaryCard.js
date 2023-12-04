@@ -8,6 +8,7 @@ import './EquipmentTypeSummaryCard.css'
 // Import Icons
 import { HiArchive } from 'react-icons/hi';
 
+// Render Equipment Type Summary Card
 function EquipmentTypeSummaryCard(props) {
 
   const { className, typeName, inventoryAmount, reservationAmount} = props;

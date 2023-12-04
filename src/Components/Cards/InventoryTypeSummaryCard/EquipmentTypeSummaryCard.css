@@ -32,13 +32,13 @@
 
 .EquipmentTypeSummaryCard-TypeName {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     white-space: normal;
     word-wrap: break-word;
 }
 
-.EquipmentTypeCard-Container:hover {
+.EquipmentTypeSummaryCard-Container:hover {
     cursor: pointer;
 }

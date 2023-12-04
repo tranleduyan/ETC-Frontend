@@ -2,13 +2,14 @@
 import React from 'react';
 import GeneralPage from '../GeneralPage/GeneralPage';
 import StandardButton from '../../Components/Buttons/StandardButton';
-import EquipmentTypeSummaryCard from '../../Components/Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
+import InventorySummaryList from '../../Components/Lists/InventorySummaryList/InventorySummaryList';
+import ReservationList from '../../Components/Lists/ReservationList/ReservationList';
 
 // Import Stylings
 import './DashboardPage.css';
 
 // Import Icons
-import { HiPlus, HiClock } from 'react-icons/hi';
+import { HiPlus } from 'react-icons/hi';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -33,16 +34,7 @@ function DashboardPage() {
                   
                 </div>
               </div>
-              
-              <div className='InventoryList-Container Dashboard-InventoryList'>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-              </div>
+              <InventorySummaryList className='Dashboard-InventorySummaryList'/>
             </div>
 
             
@@ -58,162 +50,7 @@ function DashboardPage() {
                   </div>
                 </div>
               </div>
-              <div className='ReservationList-Container Dashboard-ReservationList'>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='ReservationCard-Container'>
-                  <HiClock className='ReservationCard-Icon'/>
-                  <div className='ReservationCard-InformationContainer'>
-                    <p className='heading-5'>18/10/2024 - 20/10/2024</p>
-                    <div className='ReservationCard-Information'>
-                      <p className='paragraph-3 ReservationCard-RenterName'>Kim Yoo</p>
-                      <p className='paragraph-3'>:&nbsp;</p>
-                      <p className='paragraph-3 ReservationCard-ReserveAmount'>2 items</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ReservationList className='Dashboard-ReservationList'/>
             </div>
           </div>
           <div className='Dashboard-RightContentPanel'>

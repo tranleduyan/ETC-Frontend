@@ -1,0 +1,50 @@
+.ReservationCard-Container {
+    width: calc(37.4078125vmin);
+    height: calc(12.79375vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border: calc(00.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+    box-sizing: border-box;
+    padding: calc(1.66875vmin) calc(1.390625vmin) calc(1.66875vmin) calc(1.66875vmin);
+}
+
+.ReservationCard-Icon {
+    font-size: calc(4.45vmin);
+}
+
+.ReservationCard-InformationContainer {
+    margin-left: calc(2vmin);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ReservationCard-Information {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.ReservationCard-RenterName {
+    max-width: calc(15.9921875vmin);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.ReservationCard-ReserveAmount {
+    max-width: calc(8.9vmin);
+}
+
+.ReservationCard-Container:hover {
+    cursor: pointer;
+}
