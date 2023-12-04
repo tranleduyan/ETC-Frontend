@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-bottom: calc(4.171875vmin)
 }
 
 .Dashboard-SearchBar {
@@ -82,6 +83,51 @@
     gap: calc(3.02vmin);
 }
 
+.EquipmentTypeCard-Container {
+    width: calc(37.4078125vmin);
+    height: calc(16.13125vmin);
+    box-sizing: border-box;
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+    padding: calc(1.66875vmin);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.EquipmentTypeCard-Container:hover {
+    cursor: pointer;
+}
+
+.EquipmentTypeCard-InformationContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.EquipmentTypeCard-Icon {
+    font-size: calc(8.34375vmin);
+}
+
+.EquipmentTypeCard-Information {
+    margin-left: calc(2.225vmin);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.EquipmentTypeCard-TypeName {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
 .Dashboard-LeftContentSeparator {
     margin: calc(4.45vmin) 0px;
     width: 100%;
@@ -98,7 +144,29 @@
 }
 
 .Dashboard-ReservationFilterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
 
+.FilterButton-Container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: calc(6.675vmin);
+    border-radius: calc(3.4765625vmin);
+    padding: calc(1.66875vmin);
+}
+
+.FilterButton-Container:hover {
+    cursor: pointer;
+}
+
+.FilterButton-Active {
+    background-color: var(--Red1);
+    color: var(--White1);
 }
 
 .Dashboard-ReservationList {
@@ -114,6 +182,57 @@
     flex-wrap: wrap;
     overflow-y: scroll;
     gap: calc(3.02vmin);
+}
+
+.ReservationCard-Container {
+    width: calc(37.4078125vmin);
+    height: calc(12.79375vmin);
+    box-sizing: border-box;
+    border: calc(00.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+    padding: calc(1.66875vmin) calc(1.390625vmin) calc(1.66875vmin) calc(1.66875vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ReservationCard-Container:hover {
+    cursor: pointer;
+}
+
+.ReservationCard-Icon {
+    font-size: calc(4.45vmin);
+}
+
+.ReservationCard-InformationContainer {
+    margin-left: calc(2vmin);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ReservationCard-Information {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.ReservationCard-RenterName {
+    max-width: calc(15.9921875vmin);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.ReservationCard-ReserveAmount {
+    max-width: calc(8.9vmin);
 }
 
 .Dashboard-RightContentPanel {
