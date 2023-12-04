@@ -1,0 +1,44 @@
+.EquipmentTypeSummaryCard-Container {
+    width: calc(37.4078125vmin);
+    height: calc(16.13125vmin);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+    box-sizing: border-box;
+    padding: calc(1.66875vmin);
+}
+
+.EquipmentTypeSummaryCard-InformationContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.EquipmentTypeSummaryCard-Icon {
+    font-size: calc(8.34375vmin);
+}
+
+.EquipmentTypeSummaryCard-Information {
+    margin-left: calc(2.225vmin);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.EquipmentTypeSummaryCard-TypeName {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.EquipmentTypeCard-Container:hover {
+    cursor: pointer;
+}

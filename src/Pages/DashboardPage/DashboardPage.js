@@ -2,12 +2,13 @@
 import React from 'react';
 import GeneralPage from '../GeneralPage/GeneralPage';
 import StandardButton from '../../Components/Buttons/StandardButton';
+import EquipmentTypeSummaryCard from '../../Components/Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
 
 // Import Stylings
 import './DashboardPage.css';
 
 // Import Icons
-import { HiPlus, HiArchive, HiClock } from 'react-icons/hi';
+import { HiPlus, HiClock } from 'react-icons/hi';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -34,76 +35,13 @@ function DashboardPage() {
               </div>
               
               <div className='InventoryList-Container Dashboard-InventoryList'>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
-                <div className='EquipmentTypeCard-Container'>
-                  <div className='EquipmentTypeCard-InformationContainer'>
-                    <HiArchive className='EquipmentTypeCard-Icon'/>
-                    <div className='EquipmentTypeCard-Information'>
-                      <p className='heading-5 EquipmentTypeCard-TypeName'>Voltmeter</p>
-                      <p className='paragraph-1'>7 items</p>
-                    </div>
-                  </div>
-                  <p className='paragraph-1'>Reserved: 2</p>
-                </div>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
+                <EquipmentTypeSummaryCard typeName='Voltmeter'/>
               </div>
             </div>
 
