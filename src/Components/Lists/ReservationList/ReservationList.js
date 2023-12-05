@@ -16,17 +16,6 @@ function ReservationList(props) {
   return (
     <div className={`${className} ReservationList-Container`}>
       <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-      <ReservationCard />
-
     </div>
   )
 }

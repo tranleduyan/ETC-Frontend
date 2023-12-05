@@ -1,0 +1,32 @@
+.EquipmentDetailCard-Container {
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: calc(1.66875vmin);
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+}
+
+.EquipmentDetailCard-Image {
+    width: calc(8.9vmin);
+    height:calc(8.9vmin);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.EquipmentDetailCard-DefaultEquipmentIcon {
+    color: var(--Black1);
+    font-size: calc(4.45vmin);
+}
+
+.EquipmentDetailCard-Details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: calc(2.225vmin);
+}

@@ -17,14 +17,6 @@ function InventorySummaryList(props) {
   return (
     <div className={`${className} InventorySummaryList-Container`}>
       <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-      <EquipmentTypeSummaryCard typeName='Voltmeter'/>
-
     </div>
   )
 }
