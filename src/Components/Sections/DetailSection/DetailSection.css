@@ -7,10 +7,16 @@
 .DetailSection-SectionHeader {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
+}
+
+.DetailSection-Title {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
 }
 
 .DetailSection-EquipmentDetailList {

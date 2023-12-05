@@ -12,13 +12,16 @@ import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetail
 // Render Details Section
 function DetailSection(props) {
 
-  const { className, title } = props;
+  const { className, title, additionalInformation } = props;
 
   return (
     <div className={`${className} DetailSection-Container`}>
       <div className='DetailSection-SectionHeader'>
-        <p className='heading-5'>{title}</p>
-        <p className='paragraph-1'>3 items</p>
+        <div className='DetailSection-Title'>
+          <p className='heading-5'>{title}</p>
+          <p className='paragraph-1'>3 items</p>
+        </div>
+        <p className='paragraph-3'>{additionalInformation}</p>
       </div>
       <EquipmentDetailList className='DetailSection-EquipmentDetailList'/>
     </div>
@@ -28,11 +31,13 @@ function DetailSection(props) {
 DetailSection.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
+  additionalInformation: PropTypes.string,
 }
 
 DetailSection.defaultProps = {
   className: '',
   title: '',
+  additionalInformation: '',
 }
 
 export default DetailSection;

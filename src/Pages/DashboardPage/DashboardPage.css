@@ -112,8 +112,25 @@
     margin-bottom: calc(4.171875vmin);
 }
 
-.Dashboard-UnderRepairSection {
+.Dashboard-UnderRepairSection,
+.Dashboard-ReservationDetailSection {
     width: 100%;
     flex: 1;
     overflow-y: scroll;
+}
+
+.Dashboard-ReservationActionContainer {
+    margin-top: calc(2.225vmin);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Dashboard-ReservationActionButton {
+    width: 100%;
+    margin-left: calc(2.225vmin);
+}
+
+.Dashboard-ReservationActionButton:first-child {
+    margin-left: 0px;
 }

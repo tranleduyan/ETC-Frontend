@@ -12,7 +12,7 @@ import DetailSection from '../../Components/Sections/DetailSection/DetailSection
 import './DashboardPage.css';
 
 // Import Icons
-import { HiPlus } from 'react-icons/hi';
+import { HiPlus, HiCheck, HiX } from 'react-icons/hi';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -90,12 +90,30 @@ function DashboardPage() {
                 className='Dashboard-AddEquipmentButton'
                 icon={HiPlus}/>
               */}
+              {/* 
               <DetailSection 
                 className='Dashboard-InUseSection'
                 title='In Use'/>
               <DetailSection
                 className='Dashboard-UnderRepairSection'
                 title='Under Repair'/>
+              */}
+              <DetailSection
+                className='Dashboard-ReservationDetailSection'
+                title='Reservation Details'
+                additionalInformation='10/15/2023 - 10/17/2023'/>
+              <div className='Dashboard-ReservationActionContainer'>
+                <StandardButton
+                  title={"Approve"}
+                  onClick={OnClickedAddEquipment}
+                  className='Dashboard-ReservationActionButton'
+                  icon={HiCheck}/>
+                <StandardButton
+                  title={"Reject"}
+                  onClick={OnClickedAddEquipment}
+                  className='Dashboard-ReservationActionButton'
+                  icon={HiX}/>
+              </div>
             </div>
           </div>
         </div>

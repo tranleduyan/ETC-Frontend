@@ -20,6 +20,42 @@ function EquipmentDetailList(props) {
         className='EquipmentDetailList-EquipmentDetailCard'
         title='Fluke 87V Max'
         information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
+      <EquipmentDetailCard
+        className='EquipmentDetailList-EquipmentDetailCard'
+        title='Fluke 87V Max'
+        information={['Voltmeter', 'VM-0035']}/>
     </div>
   )
 }
