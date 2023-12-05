@@ -3,6 +3,7 @@
     box-sizing: border-box;
     padding: calc(1.1125vmin) calc(1.66875vmin);
     background-color: var(--Gray1);
+    border: calc(0.278125vmin) solid var(--Gray1);
     border-radius: calc(3.4765625vmin);
     display: flex;
     flex-direction: row;
@@ -23,4 +24,13 @@
     font-family: 'Poppins Regular', sans-serif;
     font-size: calc(2.225vmin);
     background-color: transparent;
+}
+
+.SearchBarInputField-Focused {
+    background-color: var(--White1);
+    border: calc(0.278125vmin) solid var(--Black1);
+}
+
+.SearchBarInputField-Focused .SearchBarInputField-Icon {
+    color: var(--Black1);
 }
