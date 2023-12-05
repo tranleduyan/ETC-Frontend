@@ -60,24 +60,10 @@
     width: calc(38.9375vmin);
 }
 
-.SearchBar-Container {
-    height: calc(6.675vmin);
-    box-sizing: border-box;
-    padding: calc(1.1125vmin) calc(1.66875vmin);
-    background-color: var(--Gray1);
-    border-radius: calc(3.4765625vmin);
-}
-
 .Dashboard-InventorySummaryList {
     width: 100%;
     height: calc(calc(100%) - calc(6.675vmin));
     margin-top: calc(2.225vmin);
-}
-
-.Dashboard-LeftContentSeparator {
-    margin: calc(4.45vmin) 0px;
-    width: 100%;
-    border-top: calc(0.278125vmin) solid var(--Gray1);
 }
 
 .Dashboard-ReservationSection {
@@ -93,26 +79,6 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-}
-
-.FilterButton-Container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: calc(6.675vmin);
-    border-radius: calc(3.4765625vmin);
-    padding: calc(1.66875vmin);
-}
-
-.FilterButton-Container:hover {
-    cursor: pointer;
-}
-
-.FilterButton-Active {
-    background-color: var(--Red1);
-    color: var(--White1);
 }
 
 .Dashboard-ReservationList {

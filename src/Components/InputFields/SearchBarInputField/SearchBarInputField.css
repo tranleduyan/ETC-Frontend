@@ -1,0 +1,26 @@
+.SearchBarInputField-Container {
+    height: calc(6.675vmin);
+    box-sizing: border-box;
+    padding: calc(1.1125vmin) calc(1.66875vmin);
+    background-color: var(--Gray1);
+    border-radius: calc(3.4765625vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.SearchBarInputField-Icon {
+    font-size: calc(3.3375vmin);
+    color: var(--Gray3);
+}
+
+.SearchBarInputField-Input {
+    flex: 1;
+    border: none;
+    outline: none;
+    margin-left: calc(1.66875vmin);
+    font-family: 'Poppins Regular', sans-serif;
+    font-size: calc(2.225vmin);
+    background-color: transparent;
+}

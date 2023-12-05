@@ -4,12 +4,14 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import InventorySummaryList from '../../Components/Lists/InventorySummaryList/InventorySummaryList';
 import ReservationList from '../../Components/Lists/ReservationList/ReservationList';
+import FilterButton from '../../Components/Buttons/FilterButton/FilterButton';
 
 // Import Stylings
 import './DashboardPage.css';
 
 // Import Icons
 import { HiPlus } from 'react-icons/hi';
+import SearchBarInputField from '../../Components/InputFields/SearchBarInputField/SearchBarInputField';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -30,24 +32,19 @@ function DashboardPage() {
             <div className='Dashboard-InventorySection'>
               <div className='Dashboard-SectionHeader'>
                 <p className='heading-5'>Inventory</p>
-                <div className='SearchBar-Container Dashboard-SearchBar'>
-                  
-                </div>
+                <SearchBarInputField
+                  className='Dashboard-SearchBar'
+                  placeholder='Search type'/>
               </div>
               <InventorySummaryList className='Dashboard-InventorySummaryList'/>
             </div>
-
             
             <div className='Dashboard-ReservationSection'>
               <div className='Dashboard-SectionHeader'>
                 <p className='heading-5'>Reservations</p>
                 <div className='Dashboard-ReservationFilterContainer'>
-                  <div className='FilterButton-Container FilterButton-Active'>
-                    <p className='heading-5'>Approved</p>
-                  </div>
-                  <div className='FilterButton-Container'>
-                    <p className='heading-5'>Requested</p>
-                  </div>
+                  <FilterButton title='Approved' isActive={true}/>
+                  <FilterButton title='Requested' isActive={false}/>
                 </div>
               </div>
               <ReservationList className='Dashboard-ReservationList'/>
