@@ -91,13 +91,90 @@
     width: calc(calc(45.6125vmin));
     height: 100%;
     border-left: calc(0.278125vmin) solid var(--Gray1);
+}
+
+.Dashboard-RightContent {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     box-sizing: border-box;
+    height: calc(100% - calc(2.25vmin));
     padding: calc(2.225vmin) calc(2.225vmin) 0px calc(2.225vmin);
 }
 
 .Dashboard-AddEquipmentButton {
     width: 100%;
+}
+
+.Dashboard-InUseSection {
+    width: 100%;
+    height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: calc(4.171875vmin)
+}
+
+.Dashboard-UnderRepairSection {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.Dashboard-EquipmentDetailList {
+    width: 100%;
+    height: calc(calc(100%) - calc(6.675vmin));
+    margin-top: calc(2.225vmin);
+}
+
+.EquipmentDetailList-Container {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+.Dashboard-EquipmentDetailCard {
+    width: 100%;
+    margin-top: calc(2.225vmin);
+}
+
+.Dashboard-EquipmentDetailCard:first-child {
+    margin-top: 0px;
+}
+
+.EquipmentDetailCard-Container {
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: calc(1.66875vmin);
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+}
+
+.EquipmentDetailCard-Image {
+    width: calc(8.9vmin);
+    height:calc(8.9vmin);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.EquipmentDetailCard-DefaultEquipmentIcon {
+    color: var(--Black1);
+    font-size: calc(4.45vmin);
+}
+
+.EquipmentDetailCard-Details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: calc(2.225vmin);
 }

@@ -5,13 +5,15 @@ import StandardButton from '../../Components/Buttons/StandardButton';
 import InventorySummaryList from '../../Components/Lists/InventorySummaryList/InventorySummaryList';
 import ReservationList from '../../Components/Lists/ReservationList/ReservationList';
 import FilterButton from '../../Components/Buttons/FilterButton/FilterButton';
+import SearchBarInputField from '../../Components/InputFields/SearchBarInputField/SearchBarInputField';
 
 // Import Stylings
 import './DashboardPage.css';
 
 // Import Icons
 import { HiPlus } from 'react-icons/hi';
-import SearchBarInputField from '../../Components/InputFields/SearchBarInputField/SearchBarInputField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -81,11 +83,91 @@ function DashboardPage() {
           </div>
           {/* Right Content Panel */}
           <div className='Dashboard-RightContentPanel'>
-            <StandardButton
-              title={"Add Equipment"}
-              onClick={OnClickedAddEquipment}
-              className='Dashboard-AddEquipmentButton'
-              icon={HiPlus}/>
+            <div className='Dashboard-RightContent'>
+              {/*
+              <StandardButton
+                title={"Add Equipment"}
+                onClick={OnClickedAddEquipment}
+                className='Dashboard-AddEquipmentButton'
+                icon={HiPlus}/>
+              */}
+              <div className='Dashboard-InUseSection'>
+                <div className='Dashboard-SectionHeader'>
+                  <p className='heading-5'>In Use</p>
+                  <p className='paragraph-1'>3 items</p>
+                </div>
+                <div className='EquipmentDetailList-Container Dashboard-EquipmentDetailList'>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5 '>Fluke 87V MaxMaxMaxMax MaxMaxMaxMax</p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5 '>Fluke 87V MaxMaxMaxMax</p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5'>Fluke 87V </p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='Dashboard-UnderRepairSection'>
+                <div className='Dashboard-SectionHeader'>
+                  <p className='heading-5'>Under Repair</p>
+                  <p className='paragraph-1'>2 items</p>
+                </div>
+                <div className='EquipmentDetailList-Container Dashboard-EquipmentDetailList'>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5 '>Fluke 87V MaxMax MaxMaxMaxMax</p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5 '>Fluke 87V MaxMax</p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                  <div className='EquipmentDetailCard-Container Dashboard-EquipmentDetailCard'>
+                    <div className='EquipmentDetailCard-Image'>
+                      <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+                    </div>
+                    <div className='EquipmentDetailCard-Details'>
+                      <p className='heading-5 '>Fluke 87V MaxMax</p>
+                      <p className='paragraph-3'>Voltmeter</p>
+                      <p className='paragraph-3'>VM-0035</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
