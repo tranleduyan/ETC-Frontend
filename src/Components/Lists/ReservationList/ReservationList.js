@@ -12,28 +12,43 @@ import './ReservationList.css';
 // Render Reservation List
 function ReservationList(props) {
 
-  const { className, filterMode, OnReservationCardClick, selectedReservation } = props;
+  const { className, filterMode, filterStatus, OnReservationCardClick, selectedReservation } = props;
 
   const [sortedReservations, setSortedReservations] = useState([]);
 
   const sortReservations = (reservations) => {
     const today = new Date();
+    let filteredReservations = reservations;
     switch(filterMode) {
       case 'upcoming':
-        return reservations.filter((reservation) => new Date(reservation.startDate) >= today).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-      case 'all':
-        return reservations.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));  
+        filteredReservations = filteredReservations.filter(
+          (reservation) => new Date(reservation.startDate) >= today
+        );
+        break;
       case 'past':
-        return reservations.filter((reservation) => new Date(reservation.startDate) < today).sort((a, b) => new Date(a.startDate) - new Date(b.startEnd));
+        filteredReservations = filteredReservations.filter(
+          (reservation) => new Date(reservation.startDate) < today
+        );
+        break;
       default:
-        return reservations;
+        break;
     }
+
+    if(filterStatus === 'Approved' || filterStatus === 'Requested') {
+      filteredReservations = filteredReservations.filter(
+        (reservation) => reservation.status === filterStatus
+      );
+    }
+
+    const sorted = filteredReservations.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+    return sorted;
   };
 
   useEffect(() => {
     setSortedReservations(sortReservations(AllReservationsResponse));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterMode]);
+  }, [filterMode, filterStatus]);
 
   return (
     <div className={`${className} ReservationList-Container`}>
@@ -56,6 +71,7 @@ function ReservationList(props) {
 ReservationList.propTypes = {
   className: PropTypes.string,
   filterMode: PropTypes.oneOf(['all', 'past', 'upcoming']),
+  filterStatus: PropTypes.oneOf(['Approved', 'Requested']),
   selectedReservation: PropTypes.number,
   OnReservationCardClick: PropTypes.func,
 }
@@ -63,6 +79,7 @@ ReservationList.propTypes = {
 ReservationList.defaultProps = {
   className: '',
   filterMode: 'all',
+  filterStatus: 'Approved',
   selectedReservation: null,
   OnReservationCardClick: null,
 }

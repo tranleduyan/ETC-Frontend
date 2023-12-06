@@ -9,14 +9,14 @@ import './FilterButton.css';
 
 function FilterButton(props) {
 
-  const { title, className, isActive } = props;
+  const { title, className, isActive, onClick} = props;
 
   const containerClassName = `${className} FilterButton-Container ${isActive ? 'FilterButton-Active' : ''}`;
 
   return (
-    <div className={containerClassName}>
+    <button className={containerClassName} onClick={onClick}>
       <p className='heading-5'>{title}</p>
-    </div>
+    </button>
   )
 }
 
@@ -24,12 +24,14 @@ FilterButton.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   isActive: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 FilterButton.defaultProps = {
   title: '',
   className: '',
   isActive: false,
+  onClick: null,
 }
 
 export default FilterButton;

@@ -25,6 +25,8 @@ function DashboardPage() {
   const [selectedInventoryType, setSelectedInventoryType] = useState(null);
 
   const [selectedReservation, setSelectedReservation] = useState(null);
+
+  const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
   
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
@@ -42,6 +44,11 @@ function DashboardPage() {
     setSelectedReservation((prevSelectedReservation) => 
       prevSelectedReservation === selectedReservation ? null : selectedReservation
     );
+  }
+
+  const OnReservationStatusFilterButtonClick = (status) => {
+      setReservationsFilterStatus(status);
+      setSelectedReservation(null);
   }
 
   const OnAddEquipmentClick = () => {
@@ -93,13 +100,20 @@ function DashboardPage() {
                 <p className='heading-5'>Reservations</p>
                 {/* Filters */}
                 <div className='Dashboard-ReservationFilterContainer'>
-                  <FilterButton title='Approved' isActive={true}/>
-                  <FilterButton title='Requested' isActive={false}/>
+                  <FilterButton 
+                    title='Approved' 
+                    isActive={reservationsFilterStatus === 'Approved'} 
+                    onClick={() => OnReservationStatusFilterButtonClick('Approved')}/>
+                  <FilterButton 
+                    title='Requested' 
+                    isActive={reservationsFilterStatus === 'Requested'} 
+                    onClick={() => OnReservationStatusFilterButtonClick('Requested')}/>
                 </div>
               </div>
               {/* Reservation List */}
               <ReservationList className='Dashboard-ReservationList'
                 filterMode='upcoming'
+                filterStatus={reservationsFilterStatus}
                 selectedReservation={selectedReservation}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>

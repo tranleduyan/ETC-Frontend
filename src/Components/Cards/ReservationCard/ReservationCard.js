@@ -11,7 +11,7 @@ import { HiClock } from 'react-icons/hi';
 // Render the reservation card
 function ReservationCard(props) {
   
-  const { className, reservationID, startDate, endDate, renterName, reserveAmount, status, isSelected, OnReservationCardClick } = props;
+  const { className, reservationID, startDate, endDate, renterName, reserveAmount, isSelected, OnReservationCardClick } = props;
 
   const itemText = reserveAmount > 1 ? 'items' : 'item';
 
@@ -27,7 +27,7 @@ function ReservationCard(props) {
       onClick={OnCardClick}>
       <HiClock className='ReservationCard-Icon'/>
         <div className='ReservationCard-InformationContainer'>
-          <p className='heading-5'>{startDate} - {endDate}</p>
+          <p className='heading-5 ReservationCard-ReserveDate'>{startDate} - {endDate}</p>
             <div className='ReservationCard-Information'>
               <p className='paragraph-3 ReservationCard-RenterName'>{renterName}</p>
               <p className='paragraph-3'>:&nbsp;</p>
@@ -44,7 +44,6 @@ ReservationCard.propTypes = {
   renterName: PropTypes.string,
   startDate: PropTypes.string,
   endDate: PropTypes.string,
-  status: PropTypes.oneOf(['Approved', 'Requested']),
   reserveAmount: PropTypes.number,
   isSelected: PropTypes.bool,
   OnReservationCardClick: PropTypes.func,
@@ -55,7 +54,6 @@ ReservationCard.defaultProps = {
   renterName: 'Unknown User',
   startDate: '01/01/2000',
   endDate: '01/01/2000',
-  status: 'Requested',
   reserveAmount: 0,
   isSelected: true,
   OnReservationCardClick: null,
