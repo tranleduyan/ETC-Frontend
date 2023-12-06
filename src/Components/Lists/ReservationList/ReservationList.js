@@ -11,21 +11,32 @@ import './ReservationList.css';
 // Render Reservation List
 function ReservationList(props) {
 
-  const { className } = props;
+  const { className, OnReservationCardClick, selectedReservation } = props;
 
   return (
     <div className={`${className} ReservationList-Container`}>
-      <ReservationCard />
+      <ReservationCard 
+        renterName='Kim Yoo'
+        isSelected={selectedReservation === 'Kim Yoo'}
+        OnReservationCardClick={OnReservationCardClick}/>
+      <ReservationCard 
+        renterName='Michale Yoo'
+        isSelected={selectedReservation === 'Michale Yoo'}
+        OnReservationCardClick={OnReservationCardClick}/>
     </div>
   )
 }
 
 ReservationList.propTypes = {
   className: PropTypes.string,
+  selectedReservation: PropTypes.string,
+  OnReservationCardClick: PropTypes.func,
 }
 
 ReservationList.defaultProps = {
   className: '',
+  selectedReservation: '',
+  OnReservationCardClick: null,
 }
 
 export default ReservationList;

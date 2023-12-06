@@ -45,6 +45,12 @@
     max-width: calc(8.9vmin);
 }
 
+.ReservationCard-Active {
+    background-color: var(--Red1);
+    border: calc(0.278125vmin) solid var(--Red1);
+    color: var(--White1);
+}
+
 .ReservationCard-Container:hover {
     cursor: pointer;
 }

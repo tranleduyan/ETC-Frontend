@@ -22,11 +22,29 @@ function DashboardPage() {
     equipmentType: '',
   });
 
+  const [selectedInventoryType, setSelectedInventoryType] = useState(null);
+
+  const [selectedReservation, setSelectedReservation] = useState(null);
+  
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
   }
 
-  const OnClickedAddEquipment = () => {
+  const OnEquipmentTypeSummaryCardClick = (selectedEquipmentType) => {
+    setSelectedReservation(null);
+    setSelectedInventoryType((prevSelectedEquipmentType) => 
+      prevSelectedEquipmentType === selectedEquipmentType ? null : selectedEquipmentType
+    );
+  }
+
+  const OnReservationCardClick = (selectedReservation) => {
+    setSelectedInventoryType(null);
+    setSelectedReservation((prevSelectedReservation) => 
+      prevSelectedReservation === selectedReservation ? null : selectedReservation
+    );
+  }
+
+  const OnAddEquipmentClick = () => {
     console.log("Add Equipment Clicked");
   }
 
@@ -62,7 +80,10 @@ function DashboardPage() {
                   />
               </div>
               {/* Inventory Summary List */}
-              <InventorySummaryList className='Dashboard-InventorySummaryList'/>
+              <InventorySummaryList 
+                className='Dashboard-InventorySummaryList'
+                selectedInventoryType={selectedInventoryType}
+                OnEquipmentTypeSummaryCardClick={OnEquipmentTypeSummaryCardClick}/>
             </div>
             {/* Reservation Section */}
             <div className='Dashboard-ReservationSection'>
@@ -77,43 +98,51 @@ function DashboardPage() {
                 </div>
               </div>
               {/* Reservation List */}
-              <ReservationList className='Dashboard-ReservationList'/>
+              <ReservationList className='Dashboard-ReservationList'
+                selectedReservation={selectedReservation}
+                OnReservationCardClick={OnReservationCardClick}/>
             </div>
           </div>
           {/* Right Content Panel */}
           <div className='Dashboard-RightContentPanel'>
             <div className='Dashboard-RightContent'>
-              {/*
+              {selectedInventoryType === null && selectedReservation === null && (
               <StandardButton
                 title={"Add Equipment"}
-                onClick={OnClickedAddEquipment}
+                onClick={OnAddEquipmentClick}
                 className='Dashboard-AddEquipmentButton'
                 icon={HiPlus}/>
-              */}
-              {/* 
-              <DetailSection 
-                className='Dashboard-InUseSection'
-                title='In Use'/>
-              <DetailSection
-                className='Dashboard-UnderRepairSection'
-                title='Under Repair'/>
-              */}
-              <DetailSection
-                className='Dashboard-ReservationDetailSection'
-                title='Reservation Details'
-                additionalInformation='10/15/2023 - 10/17/2023'/>
-              <div className='Dashboard-ReservationActionContainer'>
-                <StandardButton
-                  title={"Approve"}
-                  onClick={OnClickedAddEquipment}
-                  className='Dashboard-ReservationActionButton'
-                  icon={HiCheck}/>
-                <StandardButton
-                  title={"Reject"}
-                  onClick={OnClickedAddEquipment}
-                  className='Dashboard-ReservationActionButton'
-                  icon={HiX}/>
-              </div>
+              )}
+              {selectedInventoryType && (
+                <>
+                  <DetailSection 
+                    className='Dashboard-InUseSection'
+                    title='In Use'/>
+                  <DetailSection
+                    className='Dashboard-UnderRepairSection'
+                    title='Under Repair'/>
+                </>
+              )}
+              {selectedReservation && (
+                <>
+                  <DetailSection
+                    className='Dashboard-ReservationDetailSection'
+                    title='Reservation Details'
+                    additionalInformation='10/15/2023 - 10/17/2023'/>
+                  <div className='Dashboard-ReservationActionContainer'>
+                    <StandardButton
+                      title={"Approve"}
+                      onClick={OnAddEquipmentClick}
+                      className='Dashboard-ReservationActionButton'
+                      icon={HiCheck}/>
+                    <StandardButton
+                      title={"Reject"}
+                      onClick={OnAddEquipmentClick}
+                      className='Dashboard-ReservationActionButton'
+                      icon={HiX}/>
+                  </div>
+                </>
+               )}
             </div>
           </div>
         </div>

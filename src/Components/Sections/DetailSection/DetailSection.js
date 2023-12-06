@@ -19,9 +19,9 @@ function DetailSection(props) {
       <div className='DetailSection-SectionHeader'>
         <div className='DetailSection-Title'>
           <p className='heading-5'>{title}</p>
-          <p className='paragraph-1'>3 items</p>
+          <p className='paragraph-3 additionalInformation'>{additionalInformation}</p>
         </div>
-        <p className='paragraph-3'>{additionalInformation}</p>
+        <p className='paragraph-1'>3 items</p>
       </div>
       <EquipmentDetailList className='DetailSection-EquipmentDetailList'/>
     </div>

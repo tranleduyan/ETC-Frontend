@@ -39,6 +39,12 @@
     word-wrap: break-word;
 }
 
+.EquipmentTypeSummaryCard-Active {
+    background-color: var(--Red1);
+    border: calc(0.278125vmin) solid var(--Red1);
+    color: var(--White1);
+}
+
 .EquipmentTypeSummaryCard-Container:hover {
     cursor: pointer;
 }

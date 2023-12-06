@@ -11,13 +11,21 @@ import { HiArchive } from 'react-icons/hi';
 // Render Equipment Type Summary Card
 function EquipmentTypeSummaryCard(props) {
 
-  const { className, typeName, inventoryAmount, reservationAmount} = props;
+  const { className, typeName, inventoryAmount, reservationAmount, selected, OnEquipmentTypeSummaryCardClick } = props;
 
   const itemText = inventoryAmount > 1 ? 'items' : 'item';
 
+  const OnCardClick = () => {
+    if(OnEquipmentTypeSummaryCardClick) {
+      OnEquipmentTypeSummaryCardClick(typeName);
+    }    
+  }
+
   // TODO: inventoryAmount and reservationAmount maybe will be calculated with in this component.
   return (
-    <div className={`${className} EquipmentTypeSummaryCard-Container`}>
+    <div 
+      className={`${className} EquipmentTypeSummaryCard-Container ${selected ?  'EquipmentTypeSummaryCard-Active' : ''}`}
+      onClick={OnCardClick}>
         <div className='EquipmentTypeSummaryCard-InformationContainer'>
             <HiArchive className='EquipmentTypeSummaryCard-Icon'/>
             <div className='EquipmentTypeSummaryCard-Information'>
@@ -35,6 +43,8 @@ EquipmentTypeSummaryCard.propTypes = {
   typeName: PropTypes.string,
   inventoryAmount: PropTypes.number,
   reservationAmount: PropTypes.number,
+  selected: PropTypes.bool,
+  OnEquipmentTypeSummaryCardClick: PropTypes.func,
 }
 
 EquipmentTypeSummaryCard.defaultProps = {
@@ -42,6 +52,8 @@ EquipmentTypeSummaryCard.defaultProps = {
   typeName: 'Unknown',
   inventoryAmount: 0,
   reservationAmount: 0,
+  selected: false,
+  OnEquipmentTypeSummaryCardClick: null,
 }
 
 export default EquipmentTypeSummaryCard;
