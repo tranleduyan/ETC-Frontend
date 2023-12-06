@@ -11,20 +11,19 @@ import { HiArchive } from 'react-icons/hi';
 // Render Equipment Type Summary Card
 function EquipmentTypeSummaryCard(props) {
 
-  const { className, typeName, inventoryAmount, reservationAmount, selected, OnEquipmentTypeSummaryCardClick } = props;
+  const { className, typeID, typeName, inventoryAmount, reservationAmount, isSelected, OnEquipmentTypeSummaryCardClick } = props;
 
   const itemText = inventoryAmount > 1 ? 'items' : 'item';
 
   const OnCardClick = () => {
     if(OnEquipmentTypeSummaryCardClick) {
-      OnEquipmentTypeSummaryCardClick(typeName);
+      OnEquipmentTypeSummaryCardClick(typeID);
     }    
   }
 
-  // TODO: inventoryAmount and reservationAmount maybe will be calculated with in this component.
   return (
-    <div 
-      className={`${className} EquipmentTypeSummaryCard-Container ${selected ?  'EquipmentTypeSummaryCard-Active' : ''}`}
+    <button 
+      className={`${className} EquipmentTypeSummaryCard-Container ${isSelected ?  'EquipmentTypeSummaryCard-Active' : ''}`}
       onClick={OnCardClick}>
         <div className='EquipmentTypeSummaryCard-InformationContainer'>
             <HiArchive className='EquipmentTypeSummaryCard-Icon'/>
@@ -34,16 +33,17 @@ function EquipmentTypeSummaryCard(props) {
             </div>
         </div>
         <p className='paragraph-1'>Reserved: {reservationAmount}</p>
-    </div>
+    </button>
   )
 }
 
 EquipmentTypeSummaryCard.propTypes = {
   className: PropTypes.string,
+  typeID: PropTypes.number.isRequired,
   typeName: PropTypes.string,
   inventoryAmount: PropTypes.number,
   reservationAmount: PropTypes.number,
-  selected: PropTypes.bool,
+  isSelected: PropTypes.bool,
   OnEquipmentTypeSummaryCardClick: PropTypes.func,
 }
 
@@ -52,7 +52,7 @@ EquipmentTypeSummaryCard.defaultProps = {
   typeName: 'Unknown',
   inventoryAmount: 0,
   reservationAmount: 0,
-  selected: false,
+  isSelected: false,
   OnEquipmentTypeSummaryCardClick: null,
 }
 

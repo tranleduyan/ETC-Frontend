@@ -8,7 +8,8 @@
     border: calc(00.278125vmin) solid var(--Gray1);
     border-radius: calc(1.390625vmin);
     box-sizing: border-box;
-    padding: calc(1.66875vmin) calc(1.390625vmin) calc(1.66875vmin) calc(1.66875vmin);
+    background-color: transparent;
+    padding: calc(1.66875vmin) calc(1.1125vmin) calc(1.66875vmin) calc(1.66875vmin);
 }
 
 .ReservationCard-Icon {

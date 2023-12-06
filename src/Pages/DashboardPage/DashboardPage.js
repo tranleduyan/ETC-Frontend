@@ -99,6 +99,7 @@ function DashboardPage() {
               </div>
               {/* Reservation List */}
               <ReservationList className='Dashboard-ReservationList'
+                filterMode='upcoming'
                 selectedReservation={selectedReservation}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
