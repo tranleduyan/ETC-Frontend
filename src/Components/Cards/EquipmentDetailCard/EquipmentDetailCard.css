@@ -2,7 +2,7 @@
     min-height: auto;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
     padding: calc(1.66875vmin);
     border: calc(0.278125vmin) solid var(--Gray1);

@@ -13,6 +13,14 @@ import './DashboardPage.css';
 
 // Import Icons
 import { HiPlus, HiCheck, HiX } from 'react-icons/hi';
+import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
+         InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
+         ReservationDetailsAmandaLeeResponse, 
+         ReservationDetailsEmilyWilsonResponse, 
+         ReservationDetailsRobertWhiteResponse, 
+         ReservationDetailsSophiaJohnsonResponse, 
+         UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
+         UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../ResponseBody';
 
 // All Pages must be inherit General Page
 function DashboardPage() {
@@ -22,28 +30,68 @@ function DashboardPage() {
     equipmentType: '',
   });
 
+  const inUseEquipmentDetailsResponse = [InUseVoltmeter, InUseThermometer, InUseBarometer, 
+                                         InUseAmmeter, InUseMultimeter, InUseHydrometer, 
+                                         InUseOscilloscope, InUseSpectrophotometer, InUseManometer, InUseLuxmeter];
+  const underRepairEquipmentDetailsResponse = [UnderRepairVoltmeter, UnderRepairThermometer, UnderRepairBarometer, 
+                                               UnderRepairAmmeter, UnderRepairMultimeter, UnderRepairHydrometer, 
+                                               UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairManometer, UnderRepairLuxmeter
+
+];
+
   const [selectedInventoryType, setSelectedInventoryType] = useState(null);
 
   const [selectedReservation, setSelectedReservation] = useState(null);
 
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
+
+  const [inUseEquipmentDetails, setInUseEquipmentDetails] = useState([]);
+
+  const [underRepairEquipmentDetails, setUnderRepairEquipmentDetails] = useState([]);
+
+  const [reservationDetails, setReservationDetails] = useState([]);
+
+  const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
   
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
   }
 
-  const OnEquipmentTypeSummaryCardClick = (selectedEquipmentType) => {
+  const OnEquipmentTypeSummaryCardClick = async(selectedEquipmentType) => {
     setSelectedReservation(null);
-    setSelectedInventoryType((prevSelectedEquipmentType) => 
+    await Promise.resolve(setSelectedInventoryType((prevSelectedEquipmentType) => 
       prevSelectedEquipmentType === selectedEquipmentType ? null : selectedEquipmentType
-    );
+    ));
+    setInUseEquipmentDetails(inUseEquipmentDetailsResponse[selectedEquipmentType - 1]);
+    setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
   }
 
-  const OnReservationCardClick = (selectedReservation) => {
+  const OnReservationCardClick = async(selectedReservation) => {
     setSelectedInventoryType(null);
-    setSelectedReservation((prevSelectedReservation) => 
+    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
       prevSelectedReservation === selectedReservation ? null : selectedReservation
-    );
+    ));
+
+    const details = AllReservationsResponse.find(reservation => reservation.reservationID === selectedReservation);
+
+    setSelectedReservationDetails(details);
+
+    if(selectedReservation === 7) {
+      setReservationDetails(ReservationDetailsEmilyWilsonResponse);
+    }
+    else if(selectedReservation === 9) {
+      setReservationDetails(ReservationDetailsAmandaLeeResponse);
+    }
+    else if(selectedReservation === 11) {
+      setReservationDetails(ReservationDetailsSophiaJohnsonResponse);
+    }
+    else if(selectedReservation === 12) {
+      setReservationDetails(ReservationDetailsRobertWhiteResponse);
+    }
+    else {
+      setReservationDetails([]);
+    }
   }
 
   const OnReservationStatusFilterButtonClick = (status) => {
@@ -132,10 +180,12 @@ function DashboardPage() {
                 <>
                   <DetailSection 
                     className='Dashboard-InUseSection'
-                    title='In Use'/>
+                    title='In Use'
+                    equipmentDetails={inUseEquipmentDetails}/>
                   <DetailSection
                     className='Dashboard-UnderRepairSection'
-                    title='Under Repair'/>
+                    title='Under Repair'
+                    equipmentDetails={underRepairEquipmentDetails}/>
                 </>
               )}
               {selectedReservation && (
@@ -143,19 +193,23 @@ function DashboardPage() {
                   <DetailSection
                     className='Dashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation='10/15/2023 - 10/17/2023'/>
-                  <div className='Dashboard-ReservationActionContainer'>
-                    <StandardButton
-                      title={"Approve"}
-                      onClick={OnAddEquipmentClick}
-                      className='Dashboard-ReservationActionButton'
-                      icon={HiCheck}/>
-                    <StandardButton
-                      title={"Reject"}
-                      onClick={OnAddEquipmentClick}
-                      className='Dashboard-ReservationActionButton'
-                      icon={HiX}/>
-                  </div>
+                    additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
+                    equipmentDetails={reservationDetails}
+                    detailsType='reservation'/>
+                  {reservationsFilterStatus === 'Requested' && (
+                    <div className='Dashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title={"Approve"}
+                        onClick={OnAddEquipmentClick}
+                        className='Dashboard-ReservationActionButton'
+                        icon={HiCheck}/>
+                      <StandardButton
+                        title={"Reject"}
+                        onClick={OnAddEquipmentClick}
+                        className='Dashboard-ReservationActionButton'
+                        icon={HiX}/>
+                    </div>
+                  )}
                 </>
                )}
             </div>
