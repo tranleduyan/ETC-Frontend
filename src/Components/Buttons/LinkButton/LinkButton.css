@@ -1,5 +1,8 @@
 .LinkButton-Container {
     color: var(--Blue1);
+    border: none;
+    background-color: transparent;
+    padding: 0;
 }
 
 .LinkButton-Container:hover {

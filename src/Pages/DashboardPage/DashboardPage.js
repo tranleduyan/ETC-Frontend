@@ -7,12 +7,6 @@ import ReservationList from '../../Components/Lists/ReservationList/ReservationL
 import FilterButton from '../../Components/Buttons/FilterButton/FilterButton';
 import SearchBarInputField from '../../Components/InputFields/SearchBarInputField/SearchBarInputField';
 import DetailSection from '../../Components/Sections/DetailSection/DetailSection';
-
-// Import Stylings
-import './DashboardPage.css';
-
-// Import Icons
-import { HiPlus, HiCheck, HiX } from 'react-icons/hi';
 import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
          InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
          ReservationDetailsAmandaLeeResponse, 
@@ -22,7 +16,13 @@ import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer,
          UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
          UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../ResponseBody';
 
-// All Pages must be inherit General Page
+// Import Stylings
+import './DashboardPage.css';
+
+// Import Icons
+import { HiPlus, HiCheck, HiX } from 'react-icons/hi';
+
+// Define the DashboardPage Component
 function DashboardPage() {
   
   // Search Query Object
@@ -30,51 +30,66 @@ function DashboardPage() {
     equipmentType: '',
   });
 
+  // Arrays for in-use equipment details
   const inUseEquipmentDetailsResponse = [InUseVoltmeter, InUseThermometer, InUseBarometer, 
                                          InUseAmmeter, InUseMultimeter, InUseHydrometer, 
                                          InUseOscilloscope, InUseSpectrophotometer, InUseManometer, InUseLuxmeter];
+
+  // Arrays for under-repair equipment details
   const underRepairEquipmentDetailsResponse = [UnderRepairVoltmeter, UnderRepairThermometer, UnderRepairBarometer, 
                                                UnderRepairAmmeter, UnderRepairMultimeter, UnderRepairHydrometer, 
-                                               UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairManometer, UnderRepairLuxmeter
+                                               UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairManometer, UnderRepairLuxmeter];
 
-];
-
+  // State for selected inventory type and reservation
   const [selectedInventoryType, setSelectedInventoryType] = useState(null);
-
   const [selectedReservation, setSelectedReservation] = useState(null);
 
+  // State for reservations filter status
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
 
+  // State for equipment details
   const [inUseEquipmentDetails, setInUseEquipmentDetails] = useState([]);
-
   const [underRepairEquipmentDetails, setUnderRepairEquipmentDetails] = useState([]);
 
+  // State for reservation details
   const [reservationDetails, setReservationDetails] = useState([]);
-
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
-  
+  // Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
   }
 
+  // Function to triggered when equipment type summary card is clicked
+  // TODO: These will be changed when there are APIs for this.
   const OnEquipmentTypeSummaryCardClick = async(selectedEquipmentType) => {
+    // Set selected reservation to null
     setSelectedReservation(null);
+    
+    // Toggle the selected inventory type, await until finish setSelectedInventoryType then continue.
     await Promise.resolve(setSelectedInventoryType((prevSelectedEquipmentType) => 
       prevSelectedEquipmentType === selectedEquipmentType ? null : selectedEquipmentType
     ));
+
+    // Set in-use and under-repair equipment details based on the selected type.
     setInUseEquipmentDetails(inUseEquipmentDetailsResponse[selectedEquipmentType - 1]);
     setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
   }
 
+  // Function triggered when reservation card is clicked
+  // TODO: These will be changed when there are APIs for this.
   const OnReservationCardClick = async(selectedReservation) => {
+    // Set selected inventory type to null
     setSelectedInventoryType(null);
+    // Toggle the selected reservations, await until finish setSelectedReservation then continue.
     await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
       prevSelectedReservation === selectedReservation ? null : selectedReservation
     ));
 
+    // Find reservation details based on the selected reservation
     const details = AllReservationsResponse.find(reservation => reservation.reservationID === selectedReservation);
 
+    // Set reservation details based on the selected reservation ID
     setSelectedReservationDetails(details);
 
     if(selectedReservation === 7) {
@@ -94,15 +109,19 @@ function DashboardPage() {
     }
   }
 
+  // Function triggered when reservation status filter button is clicked
   const OnReservationStatusFilterButtonClick = (status) => {
       setReservationsFilterStatus(status);
       setSelectedReservation(null);
   }
 
+  // Function triggered when "Add Equipment" button is clicked
+  // TODO: Go to AddEquipment Page.
   const OnAddEquipmentClick = () => {
     console.log("Add Equipment Clicked");
   }
 
+  // TODO: Search APIs
   const Search = () => {
     console.log(searchQuery);
   }

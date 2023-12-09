@@ -9,13 +9,15 @@ import './EquipmentDetailList.css';
 // Import Icons
 
 
-// Render EquipmentDetailList
+// Define EquipmentDetailList Component
 function EquipmentDetailList(props) {
 
+  // Destructure props to extract relevant information
   const { className, equipmentDetails, detailsType } = props;
   
   return (
     <div className={`${className} EquipmentDetailList-Container`}>
+      {/* Render EquipmentDetailCard components for inventory details */}
       {detailsType === 'inventory' && (
         equipmentDetails.map((item) => (
           <EquipmentDetailCard
@@ -25,6 +27,7 @@ function EquipmentDetailList(props) {
             information={[item.typeName, item.serialNumber]}/>
         )
       ))}
+      {/* Render EquipmentDetailCard components for reservation details */}
       {detailsType === 'reservation' && (
         equipmentDetails.map((item) => (
           <EquipmentDetailCard
@@ -38,12 +41,14 @@ function EquipmentDetailList(props) {
   )
 }
 
+// Define PropTypes for type-checking and documentation
 EquipmentDetailList.propTypes = {
   className: PropTypes.string,
   equipmentDetails: PropTypes.array,
   detailsType: PropTypes.oneOf(['inventory', 'reservation']),
 }
 
+// Set default values for props to avoid potential issues if not provided
 EquipmentDetailList.defaultProps = {
   className: '',
   equipmentDetails: [],

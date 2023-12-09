@@ -9,16 +9,21 @@ import './ReservationList.css';
 
 // Import Icons
 
-// Render Reservation List
+// Define Reservation List Commponent
 function ReservationList(props) {
 
+  // Destructure props to extract relevant information
   const { className, filterMode, filterStatus, OnReservationCardClick, selectedReservation } = props;
 
+  // State to hold the sorted reservations
   const [sortedReservations, setSortedReservations] = useState([]);
 
+  // Function to sort and filter reservations based on filterMode and filterStatus
   const sortReservations = (reservations) => {
     const today = new Date();
     let filteredReservations = reservations;
+
+    // Filter reservations based on filterMode
     switch(filterMode) {
       case 'upcoming':
         filteredReservations = filteredReservations.filter(
@@ -34,17 +39,20 @@ function ReservationList(props) {
         break;
     }
 
+    // Filter reservations based on filterStatus
     if(filterStatus === 'Approved' || filterStatus === 'Requested') {
       filteredReservations = filteredReservations.filter(
         (reservation) => reservation.status === filterStatus
       );
     }
 
+    // Sort the filtered reservations by start date
     const sorted = filteredReservations.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
     return sorted;
   };
 
+  // useEffect to update sortedReservations when filterMode or filterStatus changes
   useEffect(() => {
     setSortedReservations(sortReservations(AllReservationsResponse));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,6 +60,7 @@ function ReservationList(props) {
 
   return (
     <div className={`${className} ReservationList-Container`}>
+      {/* Render ReservationCard components for each reservation */}
       {sortedReservations.map((reservation) => (
         <ReservationCard 
           key={reservation.reservationID}
@@ -68,6 +77,7 @@ function ReservationList(props) {
   )
 }
 
+// Define PropTypes for type-checking and documentation
 ReservationList.propTypes = {
   className: PropTypes.string,
   filterMode: PropTypes.oneOf(['all', 'past', 'upcoming']),
@@ -76,6 +86,7 @@ ReservationList.propTypes = {
   OnReservationCardClick: PropTypes.func,
 }
 
+// Set default values for props to avoid potential issues if not provided
 ReservationList.defaultProps = {
   className: '',
   filterMode: 'all',

@@ -10,17 +10,20 @@ import './InventorySummaryList.css';
 // Import Icons
 
 
-// Render Inventory Summary List
+// Define Inventory Summary List component
 function InventorySummaryList(props) {
 
+  // Destructure props to extract relevant information
   const { className, selectedInventoryType, OnEquipmentTypeSummaryCardClick } = props;
 
+  // Sort the inventory response alphabetically by equipment type name
   const sortedInventoryResponse = [...InventorySummaryResponse].sort((a, b) =>
     a.typeName.localeCompare(b.typeName)
   );
 
   return (
     <div className={`${className} InventorySummaryList-Container`}>
+      {/* Render EquipmentTypeSummaryCard components for each inventory type summary */}
       {sortedInventoryResponse.map((item) => (
         <EquipmentTypeSummaryCard
           key={item.typeID}
@@ -35,12 +38,14 @@ function InventorySummaryList(props) {
   )
 }
 
+// Define PropTypes for type-checking and documentation
 InventorySummaryList.propTypes = {
   className: PropTypes.string,
   selectedInventoryType: PropTypes.number,
   OnEquipmentTypeSummaryCardClick: PropTypes.func,
 }
 
+// Set default values for props to avoid potential issues if not provided
 InventorySummaryList.defaultProps = {
   className: '',
   selectedInventoryType: null,

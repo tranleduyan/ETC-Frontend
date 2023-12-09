@@ -1,3 +1,6 @@
+//#region Dashboard API Response Body Simulation
+
+// Inventory Summary Response - Simulate the API Response Body that populates the inventory list in Dashboard
 const InventorySummaryResponse = [
   {
     typeID: 1,
@@ -61,6 +64,7 @@ const InventorySummaryResponse = [
   },
 ];
 
+// All Reservations Response  - Simulate the API Response Body that populates the reservations list in Dashboard (For Admin and Faculty view)
 const AllReservationsResponse = [
   {
     reservationID: 7,
@@ -96,6 +100,7 @@ const AllReservationsResponse = [
   },
 ];
 
+// In Use Ammeter Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseAmmeter = [
   {
     typeID: 4,
@@ -139,6 +144,7 @@ const InUseAmmeter = [
   }
 ];
 
+// In Use Voltmeter Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseVoltmeter = [
   {
     typeID: 1,
@@ -158,6 +164,7 @@ const InUseVoltmeter = [
   },
 ];
 
+// In Use Thermometer Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseThermometer = [
   {
     typeID: 2,
@@ -201,6 +208,7 @@ const InUseThermometer = [
   },
 ];
 
+// In Use Barometer Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseBarometer = [
   {
     typeID: 3,
@@ -244,6 +252,7 @@ const InUseBarometer = [
   },
 ];
 
+// In Use Multimeter Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseMultimeter = [
   {
     typeID: 5,
@@ -287,6 +296,7 @@ const InUseMultimeter = [
   },
 ];
 
+// In Use Hydrometer Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseHydrometer = [
   {
     typeID: 6,
@@ -314,6 +324,7 @@ const InUseHydrometer = [
   },
 ];
 
+// In Use Oscilloscope Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseOscilloscope = [
   {
     typeID: 7,
@@ -325,6 +336,7 @@ const InUseOscilloscope = [
   },
 ];
 
+// In Use Spectrophotometer Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseSpectrophotometer = [
   {
     typeID: 8,
@@ -344,6 +356,7 @@ const InUseSpectrophotometer = [
   },
 ];
 
+// In Use Manometer Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseManometer = [
   {
     typeID: 9,
@@ -355,6 +368,7 @@ const InUseManometer = [
   },
 ];
 
+// In Use Luxmeter Reponse - Simulate the API Response Body that populates the equipment that is in use upon clicking on an inventory summary card in Dashboard.
 const InUseLuxmeter = [
   {
     typeID: 10,
@@ -366,6 +380,7 @@ const InUseLuxmeter = [
   },
 ];
 
+// Under repair Ammeter Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairAmmeter = [
   {
     typeID: 4,
@@ -393,6 +408,7 @@ const UnderRepairAmmeter = [
   }
 ];
 
+// Under repair Voltmeter Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairVoltmeter = [
   {
     typeID: 1,
@@ -420,6 +436,7 @@ const UnderRepairVoltmeter = [
   },
 ];
 
+// Under repair Thermometer Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairThermometer = [
   {
     typeID: 2,
@@ -447,6 +464,7 @@ const UnderRepairThermometer = [
   },
 ];
 
+// Under repair Barometer Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairBarometer = [
   {
     typeID: 3,
@@ -474,6 +492,7 @@ const UnderRepairBarometer = [
   },
 ];
 
+// Under repair Multimeter Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairMultimeter = [
   {
     typeID: 5,
@@ -501,6 +520,7 @@ const UnderRepairMultimeter = [
   },
 ];
 
+// Under repair Hydrometer Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairHydrometer = [
   {
     typeID: 6,
@@ -520,6 +540,7 @@ const UnderRepairHydrometer = [
   },
 ];
 
+// Under repair Oscilloscope Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairOscilloscope = [
   {
     typeID: 7,
@@ -555,6 +576,7 @@ const UnderRepairOscilloscope = [
   },
 ];
 
+// Under repair Spectrophotometer Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairSpectrophotometer = [
   {
     typeID: 8,
@@ -566,6 +588,7 @@ const UnderRepairSpectrophotometer = [
   },
 ];
 
+// Under repair Manometer Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairManometer = [
   {
     typeID: 9,
@@ -585,6 +608,7 @@ const UnderRepairManometer = [
   },
 ];
 
+// Under repair Lux meter Reponse - Simulate the API Response Body that populates the equipment that is under repair upon clicking on an inventory summary card in Dashboard.
 const UnderRepairLuxmeter = [
   {
     typeID: 10,
@@ -604,6 +628,7 @@ const UnderRepairLuxmeter = [
   },
 ];
 
+//ReservationDetailsAPI Simulation Response body to populate the details of the reservation upon clicking on the reservation card.
 const ReservationDetailsEmilyWilsonResponse = [
   {
     reservedEquipmentID: 2,
@@ -625,6 +650,7 @@ const ReservationDetailsEmilyWilsonResponse = [
   },
 ];
 
+//ReservationDetailsAPI Simulation Response body to populate the details of the reservation upon clicking on the reservation card.
 const ReservationDetailsAmandaLeeResponse = [
   {
     reservedEquipmentID: 1,
@@ -646,6 +672,7 @@ const ReservationDetailsAmandaLeeResponse = [
   },
 ];
 
+//ReservationDetailsAPI Simulation Response body to populate the details of the reservation upon clicking on the reservation card.
 const ReservationDetailsRobertWhiteResponse = [
   {
     reservedEquipmentID: 8,
@@ -667,6 +694,7 @@ const ReservationDetailsRobertWhiteResponse = [
   },
 ];
 
+//ReservationDetailsAPI Simulation Response body to populate the details of the reservation upon clicking on the reservation card.
 const ReservationDetailsSophiaJohnsonResponse = [
   {
     reservedEquipmentID: 12,
@@ -687,6 +715,7 @@ const ReservationDetailsSophiaJohnsonResponse = [
     reservedQuantity: 1, 
   },
 ];
+//#endregion
 
 export { 
   InventorySummaryResponse, 
