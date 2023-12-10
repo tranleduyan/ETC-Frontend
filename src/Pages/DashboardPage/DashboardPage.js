@@ -1,5 +1,6 @@
 // Import Components 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import GeneralPage from '../GeneralPage/GeneralPage';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import InventorySummaryList from '../../Components/Lists/InventorySummaryList/InventorySummaryList';
@@ -7,6 +8,8 @@ import ReservationList from '../../Components/Lists/ReservationList/ReservationL
 import FilterButton from '../../Components/Buttons/FilterButton/FilterButton';
 import SearchBarInputField from '../../Components/InputFields/SearchBarInputField/SearchBarInputField';
 import DetailSection from '../../Components/Sections/DetailSection/DetailSection';
+import Logo from '../../Components/Logo/Logo';
+import IconButton from '../../Components/Buttons/IconButton/IconButton';
 import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
          InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
          ReservationDetailsAmandaLeeResponse, 
@@ -20,11 +23,13 @@ import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer,
 import './DashboardPage.css';
 
 // Import Icons
-import { HiPlus, HiCheck, HiX } from 'react-icons/hi';
+import { HiPlus, HiCheck, HiX, HiBell, HiCog } from 'react-icons/hi';
 
 // Define the DashboardPage Component
 function DashboardPage() {
   
+  const navigate = useNavigate();
+
   // Search Query Object
   const [searchQuery, setSearchQuery] = useState({
     equipmentType: '',
@@ -126,12 +131,35 @@ function DashboardPage() {
     console.log(searchQuery);
   }
 
+  const NavigateNotifications = () => {
+    navigate('/Notifications')
+  }
+
+  const NavigateSettings = () => {
+    navigate('/Settings')
+  }
+
   return (
     <GeneralPage>
       <div className='Dashboard-PageContentContainer'>
         {/* Page Header - Dashboard */}
         <div className='Dashboard-PageHeaderContainer'>
-          <p className='heading-2'>Dashboard</p>
+          <div className='Dashboard-PageHeader'>
+            <Logo className='Dashboard-LogoContainer'/>
+            <p className='heading-2'>Dashboard</p>
+          </div>
+          <div className='Dashboard-ActionContainer'>
+            {/* Notifications Button */}
+            <IconButton 
+              icon={HiBell} 
+              className='Dashboard-ActionButton'
+              onClick={NavigateNotifications}/>
+            {/* Settings Button */}
+            <IconButton 
+              icon={HiCog} 
+              className='Dashboard-ActionButton'
+              onClick={NavigateSettings}/>
+          </div>
         </div>
         {/* Page Content */}
         <div className='Dashboard-ContentContainer'>

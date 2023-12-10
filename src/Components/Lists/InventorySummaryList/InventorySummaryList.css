@@ -1,8 +1,21 @@
-.InventorySummaryList-Container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-    gap: calc(3.02vmin);
+@media screen and (min-width: 481px) {
+    .InventorySummaryList-Container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+        gap: calc(3.02vmin);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .InventorySummaryList-Container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+        gap: calc(4.45vmin);
+    }
 }

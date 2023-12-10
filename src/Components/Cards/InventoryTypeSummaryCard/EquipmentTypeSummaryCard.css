@@ -39,6 +39,7 @@
     overflow: hidden;
     white-space: normal;
     word-wrap: break-word;
+    text-align: left;
 }
 
 .EquipmentTypeSummaryCard-Active {
@@ -49,4 +50,42 @@
 
 .EquipmentTypeSummaryCard-Container:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .EquipmentTypeSummaryCard-Container {
+        width: 100%;
+        height: auto;
+        min-height: calc(32.2625vmin);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border: calc(0.55625vmin) solid var(--Gray1);
+        border-radius: calc(2.78125vmin);
+        box-sizing: border-box;
+        padding: calc(3.3375vmin);
+        background-color: transparent;
+    }
+
+    .EquipmentTypeSummaryCard-Icon {
+        font-size: calc(16.6875vmin);
+    }
+
+    .EquipmentTypeSummaryCard-Information {
+        margin-left: calc(4.45vmin);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+    }
+
+    .EquipmentTypeSummaryCard-TypeName {
+        display: block;
+        overflow: visible;
+        white-space: normal;
+        word-wrap: break-word;
+        text-align: left;
+    }
 }
