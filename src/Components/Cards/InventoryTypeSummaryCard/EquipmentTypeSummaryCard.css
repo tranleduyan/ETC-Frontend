@@ -1,13 +1,8 @@
 .EquipmentTypeSummaryCard-Container {
-    width: calc(37.4078125vmin);
-    height: calc(16.13125vmin);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border: calc(0.278125vmin) solid var(--Gray1);
-    border-radius: calc(1.390625vmin);
     box-sizing: border-box;
-    padding: calc(1.66875vmin);
     background-color: transparent;
 }
 
@@ -18,12 +13,7 @@
     align-items: center;
 }
 
-.EquipmentTypeSummaryCard-Icon {
-    font-size: calc(8.34375vmin);
-}
-
 .EquipmentTypeSummaryCard-Information {
-    margin-left: calc(2.225vmin);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -32,19 +22,8 @@
     overflow: hidden;
 }
 
-.EquipmentTypeSummaryCard-TypeName {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: normal;
-    word-wrap: break-word;
-    text-align: left;
-}
-
 .EquipmentTypeSummaryCard-Active {
     background-color: var(--Red1);
-    border: calc(0.278125vmin) solid var(--Red1);
     color: var(--White1);
 }
 
@@ -52,19 +31,46 @@
     cursor: pointer;
 }
 
+@media screen and (min-width: 481px) {
+    .EquipmentTypeSummaryCard-Container {
+        width: calc(37.4078125vmin);
+        height: calc(16.13125vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        border-radius: calc(1.390625vmin);
+        padding: calc(1.66875vmin);
+    }
+
+    .EquipmentTypeSummaryCard-Icon {
+        font-size: calc(8.34375vmin);
+    }
+
+    .EquipmentTypeSummaryCard-Information {
+        margin-left: calc(2.225vmin);
+    }
+
+    .EquipmentTypeSummaryCard-TypeName {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        white-space: normal;
+        word-wrap: break-word;
+        text-align: left;
+    }
+
+    .EquipmentTypeSummaryCard-Active {
+        border: calc(0.278125vmin) solid var(--Red1);
+    }
+}
+
 @media screen and (max-width: 480px) {
     .EquipmentTypeSummaryCard-Container {
         width: 100%;
         height: auto;
         min-height: calc(32.2625vmin);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         border: calc(0.55625vmin) solid var(--Gray1);
         border-radius: calc(2.78125vmin);
-        box-sizing: border-box;
         padding: calc(3.3375vmin);
-        background-color: transparent;
     }
 
     .EquipmentTypeSummaryCard-Icon {
@@ -73,12 +79,6 @@
 
     .EquipmentTypeSummaryCard-Information {
         margin-left: calc(4.45vmin);
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        overflow: hidden;
     }
 
     .EquipmentTypeSummaryCard-TypeName {
@@ -87,5 +87,9 @@
         white-space: normal;
         word-wrap: break-word;
         text-align: left;
+    }
+
+    .EquipmentTypeSummaryCard-Active {
+        border: calc(0.55625vmin) solid var(--Red1);
     }
 }

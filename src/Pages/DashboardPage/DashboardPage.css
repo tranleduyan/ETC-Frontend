@@ -8,19 +8,15 @@
 
 .Dashboard-PageHeaderContainer {
     width: 100%;
-    height: calc(9.45625vmin);
-    border-bottom: calc(0.278125vmin) solid var(--Gray1);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: calc(2.225vmin) calc(2.225vmin);
 }
 
 .Dashboard-ContentContainer {
     width: 100%;
-    height: 100% - calc(9.45625vmin);
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -31,10 +27,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    flex: 1;
-    height: calc(100% - calc(4.45vmin));
     box-sizing: border-box;
-    margin: calc(2.225vmin) calc(2.225vmin);
     overflow-y: hidden;
 }
 
@@ -44,26 +37,17 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
 }
 
 .Dashboard-InventorySection {
     width: 100%;
-    height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-bottom: calc(4.171875vmin)
-}
-
-.Dashboard-SearchBar {
-    width: calc(38.9375vmin);
 }
 
 .Dashboard-InventorySummaryList {
     width: 100%;
-    height: calc(calc(100%) - calc(6.675vmin));
-    margin-top: calc(2.225vmin);
 }
 
 .Dashboard-ReservationSection {
@@ -136,24 +120,53 @@
 }
 
 @media screen and (min-width: 481px) {
+    .Dashboard-PageHeaderContainer {
+        height: calc(9.45625vmin);
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        padding: calc(2.225vmin) calc(2.225vmin);
+    }
+
     .Dashboard-LogoContainer {
         display: none;
     }
+
     .Dashboard-ActionContainer {
         display: none;
+    }
+
+    .Dashboard-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+    }
+
+    .Dashboard-LeftContentPanel {
+        flex: 1;
+        height: calc(100% - calc(4.45vmin));
+        margin: calc(2.225vmin) calc(2.225vmin);
+    }
+
+    .Dashboard-SectionHeader {
+        height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
+    }
+
+    .Dashboard-InventorySection {
+        height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        margin-bottom: calc(4.171875vmin)
+    }
+
+    .Dashboard-SearchBar {
+        width: calc(38.9375vmin);
+    }
+
+    .Dashboard-InventorySummaryList {
+        height: calc(calc(100%) - calc(6.675vmin));
+        margin-top: calc(2.225vmin);
     }
 }
 
 @media screen and (max-width: 480px) {
     .Dashboard-PageHeaderContainer {
-        width: 100%;
         height: calc(17.8vmin);
         border-bottom: calc(0.55625vmin) solid var(--Gray1);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        box-sizing: border-box;
         padding: calc(4.45vmin) calc(4.45vmin);
     }
 
@@ -189,40 +202,21 @@
     }
 
     .Dashboard-ContentContainer {
-        width: 100%;
         height: 100% - calc(17.8vmin);
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        overflow-y: scroll;
     }
     
     .Dashboard-LeftContentPanel {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         width: 100%;
         height: calc(100% - calc(4.45vmin));
-        box-sizing: border-box;
         margin: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
-        overflow-y: hidden;
     }    
 
     .Dashboard-SectionHeader {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: calc(calc(13.35vmin) + calc(2 * calc(0.278125vmin)));
+        height: calc(calc(13.35vmin) + calc(2 * calc(0.55625vmin)));
     }
 
     .Dashboard-InventorySection {
-        width: 100%;
         height: calc(67.8625vmin);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         margin-bottom: calc(8.34375vmin);
     }
     
@@ -231,7 +225,6 @@
     }
 
     .Dashboard-InventorySummaryList {
-        width: 100%;
         height: calc(calc(100%) - calc(13.35vmin));
         margin-top: calc(4.45vmin);
     }
