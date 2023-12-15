@@ -31,20 +31,20 @@ function ReservationCard(props) {
       onClick={OnCardClick}>
       {/* Clock icon representing a reservation */}
       <HiClock className='ReservationCard-Icon'/>
-        {/* Container for reservation information */}
-        <div className='ReservationCard-InformationContainer'>
-          {/* Display reservation date range */}
-          <p className='heading-5 ReservationCard-ReserveDate'>{startDate} - {endDate}</p>
-            {/* Container for renter name and reservation amount */}
-            <div className='ReservationCard-Information'>
-              {/* Renter's name */}
-              <p className='paragraph-3 ReservationCard-RenterName'>{renterName}</p>
-              {/* Colon separator */}
-              <p className='paragraph-3'>:&nbsp;</p>
-              {/* Display the reservation amount and item text */}
-              <p className='paragraph-3 ReservationCard-ReserveAmount'>{reserveAmount} {itemText}</p>
-            </div>
+      {/* Container for reservation information */}
+      <div className='ReservationCard-InformationContainer'>
+        {/* Display reservation date range */}
+        <p className='heading-5 ReservationCard-ReserveDate'>{startDate} - {endDate}</p>
+        {/* Container for renter name and reservation amount */}
+        <div className='ReservationCard-Information'>
+          {/* Renter's name */}
+          <p className='paragraph-3 ReservationCard-RenterName'>{renterName}</p>
+          {/* Colon separator */}
+          <p className='paragraph-3'>:&nbsp;</p>
+          {/* Display the reservation amount and item text */}
+          <p className='paragraph-3 ReservationCard-ReserveAmount'>{reserveAmount} {itemText}</p>
         </div>
+      </div>
     </button>
   )
 }

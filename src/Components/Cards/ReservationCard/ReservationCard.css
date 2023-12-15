@@ -1,23 +1,14 @@
 .ReservationCard-Container {
-    width: calc(37.4078125vmin);
-    height: calc(12.79375vmin);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border: calc(00.278125vmin) solid var(--Gray1);
-    border-radius: calc(1.390625vmin);
     box-sizing: border-box;
     background-color: transparent;
-    padding: calc(1.66875vmin) calc(1.1125vmin) calc(1.66875vmin) calc(1.66875vmin);
-}
-
-.ReservationCard-Icon {
-    font-size: calc(4.45vmin);
+    color: var(--Black1);
 }
 
 .ReservationCard-InformationContainer {
-    margin-left: calc(2vmin);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -40,7 +31,6 @@
 }
 
 .ReservationCard-RenterName {
-    max-width: calc(15.9921875vmin);
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -49,16 +39,71 @@
     word-wrap: break-word;
 }
 
-.ReservationCard-ReserveAmount {
-    max-width: calc(8.9vmin);
-}
-
 .ReservationCard-Active {
     background-color: var(--Red1);
-    border: calc(0.278125vmin) solid var(--Red1);
     color: var(--White1);
 }
 
 .ReservationCard-Container:hover {
     cursor: pointer;
+}
+
+@media screen and (min-width: 481px) {
+    .ReservationCard-Container {
+        width: calc(37.4078125vmin);
+        height: calc(12.79375vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        border-radius: calc(1.390625vmin);
+        padding: calc(1.66875vmin) calc(1.1125vmin) calc(1.66875vmin) calc(1.66875vmin);
+    }
+
+    .ReservationCard-Icon {
+        font-size: calc(4.45vmin);
+    }
+
+    .ReservationCard-InformationContainer {
+        margin-left: calc(2vmin);
+    }
+
+    .ReservationCard-RenterName {
+        max-width: calc(15.9921875vmin);
+    }
+
+    .ReservationCard-ReserveAmount {
+        max-width: calc(8.9vmin);
+    }
+
+    .ReservationCard-Active {
+        border: calc(0.278125vmin) solid var(--Red1);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .ReservationCard-Container {
+        width: 100%;
+        height: calc(25.5875vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        border-radius: calc(2.78125vmin);
+        padding: calc(3.3375vmin) calc(2.225vmin) calc(3.3375vmin) calc(3.3375vmin);
+    }
+
+    .ReservationCard-Icon {
+        font-size: calc(8.9vmin);
+    }
+
+    .ReservationCard-InformationContainer {
+        margin-left: calc(4vmin);
+    }
+
+    .ReservationCard-RenterName {
+        max-width: calc(31.984375vmin);
+    }
+
+    .ReservationCard-ReserveAmount {
+        max-width: calc(17.8vmin);
+    }
+
+    .ReservationCard-Active {
+        border: calc(0.55625vmin) solid var(--Red1);
+    }
 }
