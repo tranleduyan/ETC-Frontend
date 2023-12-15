@@ -81,7 +81,8 @@
 @media screen and (max-width: 480px) {
     .ReservationCard-Container {
         width: 100%;
-        height: calc(25.5875vmin);
+        min-height: calc(25.5875vmin);
+        max-height: calc(25.5875vmin);
         border: calc(0.55625vmin) solid var(--Gray1);
         border-radius: calc(2.78125vmin);
         padding: calc(3.3375vmin) calc(2.225vmin) calc(3.3375vmin) calc(3.3375vmin);
@@ -105,5 +106,9 @@
 
     .ReservationCard-Active {
         border: calc(0.55625vmin) solid var(--Red1);
+    }
+
+    .ReservationCard-Container:last-child {
+        margin-bottom: calc(4.45vmin);
     }
 }

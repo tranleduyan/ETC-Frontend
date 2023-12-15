@@ -1,19 +1,21 @@
 .ReservationList-Container {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
     overflow-y: scroll;
 }
 
 @media screen and (min-width: 481px) {
     .ReservationList-Container {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
         gap: calc(3.02vmin);
     }
 }
 
 @media screen and (max-width: 480px) {
     .ReservationList-Container {
+        flex-direction: column;
+        justify-content: flex-start;
         gap: calc(4.45vmin);
     }
 }

@@ -19,7 +19,7 @@
     flex: 1;
     display: flex;
     flex-direction: row;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .Dashboard-LeftContentPanel {
@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .Dashboard-ReservationFilterContainer {
@@ -97,7 +97,7 @@
 .Dashboard-ReservationDetailSection {
     width: 100%;
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .Dashboard-ReservationActionContainer {
@@ -172,13 +172,6 @@
 @media screen and (max-width: 480px) {
     .Dashboard-PageContentContainer {
         height: 0px;
-    }
-
-    .Dashboard-PageContentContainer {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
     }
 
     .Dashboard-PageHeaderContainer {
