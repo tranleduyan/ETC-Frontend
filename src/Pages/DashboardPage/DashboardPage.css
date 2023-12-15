@@ -116,6 +116,10 @@
     margin-left: 0px;
 }
 
+.Dashboard-Hide {
+    display: none;
+}
+
 @media screen and (min-width: 481px) {
     .Dashboard-PageContentContainer {
         height: 100%;
@@ -246,5 +250,11 @@
 
     .Dashboard-RightContentPanel {
         display: none;
+    }
+
+    .Dashboard-RightContentPanelActive {
+        width: calc(calc(45.6125vmin));
+        height: 100%;
+        border-left: calc(0.278125vmin) solid var(--Gray1);
     }
 }

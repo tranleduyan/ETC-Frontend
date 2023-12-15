@@ -1,5 +1,5 @@
 // Import Components 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom'
 import GeneralPage from '../GeneralPage/GeneralPage';
 import StandardButton from '../../Components/Buttons/StandardButton';
@@ -59,6 +59,18 @@ function DashboardPage() {
   // State for reservation details
   const [reservationDetails, setReservationDetails] = useState([]);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+
+  const [isRightPanelVisible, setIsRightPanelVisible] = useState((window.innerWidth <= 480) ? false : true);
+
+  const UpdateMobileView = () => {
+    setIsMobileView(window.innerWidth <= 480);
+  }
+
+  const ToggleRightPanelVisibility = () => {
+    setIsRightPanelVisible((prevState) => !prevState);
+  }
 
   // Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
@@ -139,6 +151,20 @@ function DashboardPage() {
     navigate('/Settings')
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', UpdateMobileView);
+    return () => {
+      window.removeEventListener('resize', UpdateMobileView);
+    }
+  }, []);
+
+  useEffect(() => {
+    if(isMobileView && selectedInventoryType) {
+      ToggleRightPanelVisibility();
+      console.log(isRightPanelVisible);
+    }
+  }, [selectedInventoryType]);
+
   return (
     <GeneralPage>
       <div className='Dashboard-PageContentContainer'>
@@ -164,7 +190,7 @@ function DashboardPage() {
         {/* Page Content */}
         <div className='Dashboard-ContentContainer'>
           {/* Left Content Panel */}
-          <div className='Dashboard-LeftContentPanel'>
+          <div className={`Dashboard-LeftContentPanel ${isMobileView && isRightPanelVisible ? 'Dashboard-Hide' : ''}`}>
             {/* Inventory Section */}
             <div className='Dashboard-InventorySection'>
               {/* Section Header */}
@@ -214,7 +240,7 @@ function DashboardPage() {
             </div>
           </div>
           {/* Right Content Panel */}
-          <div className='Dashboard-RightContentPanel'>
+          <div className={`Dashboard-RightContentPanel${isMobileView && isRightPanelVisible ? 'Active' : ''}`}>
             <div className='Dashboard-RightContent'>
               {selectedInventoryType === null && selectedReservation === null && (
               <StandardButton
