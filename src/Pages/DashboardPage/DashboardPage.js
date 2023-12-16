@@ -64,9 +64,9 @@ function DashboardPage() {
 
   const [isRightPanelVisible, setIsRightPanelVisible] = useState((window.innerWidth <= 480) ? false : true);
 
-  const UpdateMobileView = () => {
+  const UpdateMobileView = useCallback(() => {
     setIsMobileView(window.innerWidth <= 480);
-  }
+  }, []);
 
   const ToggleRightPanelVisibility = () => {
     setIsRightPanelVisible((prevState) => !prevState);
@@ -156,14 +156,19 @@ function DashboardPage() {
     return () => {
       window.removeEventListener('resize', UpdateMobileView);
     }
-  }, []);
+  }, [UpdateMobileView]);
 
   useEffect(() => {
     if(isMobileView && selectedInventoryType) {
       ToggleRightPanelVisibility();
-      console.log(isRightPanelVisible);
     }
-  }, [selectedInventoryType]);
+    if(isMobileView && !selectedInventoryType) {
+      setIsRightPanelVisible(false);
+    }
+    else if(isMobileView && selectedInventoryType) {
+      setIsRightPanelVisible(true);
+    }
+  }, [selectedInventoryType, isMobileView]);
 
   return (
     <GeneralPage>
