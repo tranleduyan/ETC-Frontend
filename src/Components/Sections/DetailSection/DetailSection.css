@@ -31,6 +31,10 @@
         height: calc(calc(100%) - calc(6.675vmin));
         margin-top: calc(2.25vmin);
     }
+
+    .DetailSection-ActionIcon {
+        font-size: calc(3.3375vmin);
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -41,5 +45,11 @@
     .DetailSection-EquipmentDetailList {
         height: calc(calc(100%) - calc(6.675vmin));
         margin-top: calc(4.45vmin);
+    }
+
+    .DetailSection-ActionIcon {
+        font-size: calc(6.675vmin);
+        box-sizing: border-box;
+        padding: 0;
     }
 }

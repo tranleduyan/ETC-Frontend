@@ -1,6 +1,7 @@
 // Import Components
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '../../Buttons/IconButton/IconButton';
 
 // Import Stylings
 import './DetailSection.css';
@@ -12,7 +13,7 @@ import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetail
 // Render Details Section
 function DetailSection(props) {
 
-  const { className, title, additionalInformation, equipmentDetails, detailsType } = props;
+  const { className, title, additionalInformation, equipmentDetails, detailsType, actionIcon: ActionIcon, action } = props;
 
   const itemCount = equipmentDetails.length;
 
@@ -25,7 +26,15 @@ function DetailSection(props) {
           <p className='heading-5'>{title}</p>
           <p className='paragraph-3 additionalInformation'>{additionalInformation}</p>
         </div>
-        <p className='paragraph-1'>{itemCount} {itemText}</p>
+        {(ActionIcon) 
+          ? 
+          <IconButton 
+            icon={ActionIcon} 
+            className='DetailSection-ActionIcon' 
+            onClick={action}/>
+          :
+          <p className='paragraph-1'>{itemCount} {itemText}</p>
+        }
       </div>
       <EquipmentDetailList 
         className='DetailSection-EquipmentDetailList'
@@ -41,6 +50,8 @@ DetailSection.propTypes = {
   additionalInformation: PropTypes.string,
   equipmentDetails: PropTypes.array,
   detailsType: PropTypes.oneOf(['inventory', 'reservation']),
+  actionIcon: PropTypes.elementType,
+  action: PropTypes.func,
 }
 
 DetailSection.defaultProps = {
@@ -49,6 +60,8 @@ DetailSection.defaultProps = {
   additionalInformation: '',
   equipmentDetails: [],
   detailsType: 'inventory',
+  actionIcon: null,
+  action: () => {},
 }
 
 export default DetailSection;

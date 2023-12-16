@@ -170,6 +170,10 @@ function DashboardPage() {
     }
   }, [selectedInventoryType, isMobileView]);
 
+  const CloseDetailSection = () => {
+    setSelectedInventoryType(null);
+  }
+
   return (
     <GeneralPage>
       <div className='Dashboard-PageContentContainer'>
@@ -247,7 +251,7 @@ function DashboardPage() {
           {/* Right Content Panel */}
           <div className={`Dashboard-RightContentPanel${isMobileView && isRightPanelVisible ? 'Active' : ''}`}>
             <div className='Dashboard-RightContent'>
-              {selectedInventoryType === null && selectedReservation === null && (
+              {!isMobileView && selectedInventoryType === null && selectedReservation === null && (
               <StandardButton
                 title={"Add Equipment"}
                 onClick={OnAddEquipmentClick}
@@ -259,7 +263,9 @@ function DashboardPage() {
                   <DetailSection 
                     className='Dashboard-InUseSection'
                     title='In Use'
-                    equipmentDetails={inUseEquipmentDetails}/>
+                    equipmentDetails={inUseEquipmentDetails}
+                    actionIcon={(isMobileView) ? HiX : null}
+                    action={CloseDetailSection}/>
                   <DetailSection
                     className='Dashboard-UnderRepairSection'
                     title='Under Repair'
