@@ -7,9 +7,20 @@
 
 .EquipmentDetailList-EquipmentDetailCard {
     width: 100%;
-    margin-top: calc(2.225vmin);
 }
 
 .EquipmentDetailList-EquipmentDetailCard:first-child {
     margin-top: 0px;
+}
+
+@media screen and (min-width: 481px) {
+    .EquipmentDetailList-EquipmentDetailCard {
+        margin-top: calc(2.225vmin);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .EquipmentDetailList-EquipmentDetailCard {
+        margin-top: calc(4.45vmin);
+    }
 }
