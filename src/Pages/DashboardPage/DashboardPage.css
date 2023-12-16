@@ -68,29 +68,15 @@
     width: 100%;
 }
 
-.Dashboard-RightContentPanel {
-    width: calc(calc(45.6125vmin));
-    height: 100%;
-    border-left: calc(0.278125vmin) solid var(--Gray1);
-}
-
 .Dashboard-RightContent {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     box-sizing: border-box;
-    height: calc(100% - calc(2.225vmin));
-    padding: calc(2.25vmin) calc(2.225vmin) 0px calc(2.225vmin);
-}
-
-.Dashboard-AddEquipmentButton {
-    width: 100%;
 }
 
 .Dashboard-InUseSection {
     width: 100%;
-    height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
-    margin-bottom: calc(4.171875vmin);
 }
 
 .Dashboard-UnderRepairSection,
@@ -170,6 +156,26 @@
     .Dashboard-ReservationList {
         height: calc(calc(100%) - calc(6.675vmin));
         margin-top: calc(2.225vmin);
+    }
+
+    .Dashboard-RightContentPanel {
+        width: calc(calc(45.6125vmin));
+        height: 100%;
+        border-left: calc(0.278125vmin) solid var(--Gray1);
+    }
+
+    .Dashboard-RightContent {
+        height: calc(100% - calc(2.225vmin));
+        padding: calc(2.25vmin) calc(2.225vmin) 0px calc(2.225vmin);
+    }
+
+    .Dashboard-AddEquipmentButton {
+        width: 100%;
+    }
+
+    .Dashboard-InUseSection {
+        height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        margin-bottom: calc(4.171875vmin);
     }
 }
 
@@ -253,8 +259,18 @@
     }
 
     .Dashboard-RightContentPanelActive {
-        width: calc(calc(45.6125vmin));
+        width: 100%;
         height: 100%;
-        border-left: calc(0.278125vmin) solid var(--Gray1);
+    }
+
+    .Dashboard-RightContent {
+        height: 100%;
+        padding: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
+    }
+
+    .Dashboard-InUseSection {
+        width: 100%;
+        height: calc(67.8625vmin);
+        margin-bottom: calc(8.34375vmin);
     }
 }
