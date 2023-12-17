@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 import { AllReservationsResponse } from '../../../ResponseBody';
+import { MESSAGE } from '../../../Constants';
 
 // Import Stylings
 import './ReservationList.css';
@@ -20,6 +21,9 @@ function ReservationList(props) {
 
   // Function to sort and filter reservations based on filterMode and filterStatus
   const sortReservations = (reservations) => {
+    if (reservations?.length === 0) {
+      return;
+    }
     const today = new Date();
     let filteredReservations = reservations;
 
@@ -61,18 +65,22 @@ function ReservationList(props) {
   return (
     <div className={`${className} ReservationList-Container`}>
       {/* Render ReservationCard components for each reservation */}
-      {sortedReservations.map((reservation) => (
-        <ReservationCard 
-          key={reservation.reservationID}
-          reservationID={reservation.reservationID}
-          renterName={reservation.renterName}
-          startDate={reservation.startDate}
-          endDate={reservation.endDate}
-          status={reservation.status}
-          reserveAmount={reservation.reserveAmount}
-          isSelected={selectedReservation === reservation.reservationID}
-          OnReservationCardClick={OnReservationCardClick}/>
-      ))}
+      {sortedReservations?.length > 0 
+        ? 
+        sortedReservations.map((reservation) => (
+          <ReservationCard 
+            key={reservation.reservationID}
+            reservationID={reservation.reservationID}
+            renterName={reservation.renterName}
+            startDate={reservation.startDate}
+            endDate={reservation.endDate}
+            status={reservation.status}
+            reserveAmount={reservation.reserveAmount}
+            isSelected={selectedReservation === reservation.reservationID}
+            OnReservationCardClick={OnReservationCardClick}/>
+      ))
+       :
+       <p className='paragraph-1 ReservationList-Message'>{MESSAGE.emptyReservation}</p>}
     </div>
   )
 }

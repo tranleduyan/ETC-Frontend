@@ -14,7 +14,7 @@ import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 function EquipmentDetailCard(props) {
 
   // Destructure props to extract className, title, and information
-  const { className, title, information } = props;
+  const { className, title, information, modelPhotoPath } = props;
 
   // Map through the information array and assign unique IDs using UUID
   const informationWithIDs = information.map((details) => ({
@@ -24,9 +24,15 @@ function EquipmentDetailCard(props) {
 
   return (
     <div className={`${className} EquipmentDetailCard-Container`}>
-      {/* Equipment image with a default icon */}
-      <div className='EquipmentDetailCard-Image'>
-        <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+      {/* Equipment image with a default icon if no photo */}
+      <div className='EquipmentDetailCard-ModelPhoto'>
+        {
+          modelPhotoPath 
+            ?
+              <img src={modelPhotoPath} alt='Equipment Model'/>
+            :
+              <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentDetailCard-DefaultEquipmentIcon'/>
+        }
       </div>
       {/* Details section containing title and mapped information with unique IDs */}
       <div className='EquipmentDetailCard-Details'>
@@ -44,6 +50,7 @@ EquipmentDetailCard.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   information: PropTypes.array,
+  modelPhotoPath: PropTypes.string,
 }
 
 // Set default values for props to avoid potential issues if not provided
@@ -51,6 +58,7 @@ EquipmentDetailCard.defaultProps = {
   className: '',
   title: '',
   information: [],
+  modelPhotoPath: null,
 }
 
 export default EquipmentDetailCard;

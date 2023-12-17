@@ -36,11 +36,13 @@ function DashboardPage() {
   });
 
   // Arrays for in-use equipment details
+  // TODO: Implement APIs.
   const inUseEquipmentDetailsResponse = [InUseVoltmeter, InUseThermometer, InUseBarometer, 
                                          InUseAmmeter, InUseMultimeter, InUseHydrometer, 
                                          InUseOscilloscope, InUseSpectrophotometer, InUseManometer, InUseLuxmeter];
 
   // Arrays for under-repair equipment details
+  // TODO: Implement APIs.
   const underRepairEquipmentDetailsResponse = [UnderRepairVoltmeter, UnderRepairThermometer, UnderRepairBarometer, 
                                                UnderRepairAmmeter, UnderRepairMultimeter, UnderRepairHydrometer, 
                                                UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairManometer, UnderRepairLuxmeter];
@@ -60,17 +62,14 @@ function DashboardPage() {
   const [reservationDetails, setReservationDetails] = useState([]);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
+  // State for handle mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+  const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
-  const [isRightPanelVisible, setIsRightPanelVisible] = useState((window.innerWidth <= 480) ? false : true);
-
+  // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
     setIsMobileView(window.innerWidth <= 480);
   }, []);
-
-  const ToggleRightPanelVisibility = () => {
-    setIsRightPanelVisible((prevState) => !prevState);
-  }
 
   // Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
@@ -143,35 +142,45 @@ function DashboardPage() {
     console.log(searchQuery);
   }
 
+  //#region Navigations
+  // Navigate to Notifications Page
   const NavigateNotifications = () => {
     navigate('/Notifications')
   }
 
+  // Navigate to Settings Page
   const NavigateSettings = () => {
     navigate('/Settings')
   }
+  //#endregion
 
+  //#region side effects
   useEffect(() => {
+    // Add event listener for window resize to update mobile view
     window.addEventListener('resize', UpdateMobileView);
     return () => {
+      // Remove event listener when component unmounts
       window.removeEventListener('resize', UpdateMobileView);
     }
   }, [UpdateMobileView]);
 
   useEffect(() => {
-    if(isMobileView && selectedInventoryType) {
-      ToggleRightPanelVisibility();
+    // If in mobile view, hide right panel when no selection, show when there's a selection
+    if(isMobileView) {
+      if(!selectedInventoryType && !selectedReservation) {
+        setIsRightPanelVisible(false);
+      }
+      else if (selectedInventoryType || selectedReservation) {
+        setIsRightPanelVisible(true);
+      }
     }
-    if(isMobileView && !selectedInventoryType) {
-      setIsRightPanelVisible(false);
-    }
-    else if(isMobileView && selectedInventoryType) {
-      setIsRightPanelVisible(true);
-    }
-  }, [selectedInventoryType, isMobileView]);
+  }, [selectedInventoryType, selectedReservation, isMobileView]);
+  //#endregion
 
+  // Close detail section when clicked on the "X" icon
   const CloseDetailSection = () => {
     setSelectedInventoryType(null);
+    setSelectedReservation(null);
   }
 
   return (
@@ -279,6 +288,8 @@ function DashboardPage() {
                     title='Reservation Details'
                     additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
                     equipmentDetails={reservationDetails}
+                    actionIcon={(isMobileView) ? HiX : null}
+                    action={CloseDetailSection}
                     detailsType='reservation'/>
                   {reservationsFilterStatus === 'Requested' && (
                     <div className='Dashboard-ReservationActionContainer'>

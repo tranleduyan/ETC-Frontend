@@ -1,3 +1,4 @@
+/* General Stylings */
 .DetailSection-Container {
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@
     width: 100%;
 }
 
+/* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .DetailSection-SectionHeader {
         min-height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
@@ -37,6 +39,7 @@
     }
 }
 
+/* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
     .DetailSection-SectionHeader {
         min-height: calc(6.675vmin);

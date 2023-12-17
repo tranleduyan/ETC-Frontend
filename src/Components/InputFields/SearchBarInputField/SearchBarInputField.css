@@ -1,3 +1,4 @@
+/* General Stylings */
 .SearchBarInputField-Container {
     box-sizing: border-box;
     background-color: var(--Gray2);
@@ -27,6 +28,7 @@
     color: var(--Black1);
 }
 
+/* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .SearchBarInputField-Container {
         height: calc(6.675vmin);
@@ -51,6 +53,7 @@
     }
 }
 
+/* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
     .SearchBarInputField-Container {
         height: calc(13.35vmin);

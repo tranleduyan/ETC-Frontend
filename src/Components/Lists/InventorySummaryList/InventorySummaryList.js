@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
 import { InventorySummaryResponse } from '../../../ResponseBody';
+import { MESSAGE } from '../../../Constants';
 
 // Import Stylings
 import './InventorySummaryList.css';
@@ -24,16 +25,21 @@ function InventorySummaryList(props) {
   return (
     <div className={`${className} InventorySummaryList-Container`}>
       {/* Render EquipmentTypeSummaryCard components for each inventory type summary */}
-      {sortedInventoryResponse.map((item) => (
-        <EquipmentTypeSummaryCard
-          key={item.typeID}
-          typeID={item.typeID}
-          typeName={item.typeName}
-          isSelected={selectedInventoryType === item.typeID}
-          inventoryAmount={item.inventoryAmount}
-          reservationAmount={item.reservationAmount}
-          OnEquipmentTypeSummaryCardClick={OnEquipmentTypeSummaryCardClick}/>
-      ))}
+      {InventorySummaryResponse?.length > 0 
+        ? 
+          sortedInventoryResponse.map((item) => (
+            <EquipmentTypeSummaryCard
+              key={item.typeID}
+              typeID={item.typeID}
+              typeName={item.typeName}
+              isSelected={selectedInventoryType === item.typeID}
+              inventoryAmount={item.inventoryAmount}
+              reservationAmount={item.reservationAmount}
+              OnEquipmentTypeSummaryCardClick={OnEquipmentTypeSummaryCardClick}/>
+        ))
+        :
+          <p className='paragraph-1 InventorySummaryList-Message'>{MESSAGE.emptyInventory}</p>
+      }
     </div>
   )
 }

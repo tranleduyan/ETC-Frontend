@@ -1,3 +1,4 @@
+/* General Stylings */
 .ReservationCard-Container {
     display: flex;
     flex-direction: row;
@@ -48,6 +49,7 @@
     cursor: pointer;
 }
 
+/* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .ReservationCard-Container {
         width: calc(37.4078125vmin);
@@ -78,6 +80,7 @@
     }
 }
 
+/* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
     .ReservationCard-Container {
         width: 100%;

@@ -18,3 +18,8 @@ export const REGEX = {
     // must be exactly 9 characters (must all be digits)
     schoolId: /^\d{9}$/,
 };
+
+export const MESSAGE = {
+    emptyInventory: "There are no items in the inventory.",
+    emptyReservation: "There are no reservations."
+};

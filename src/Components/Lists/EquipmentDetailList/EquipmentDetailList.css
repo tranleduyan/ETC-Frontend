@@ -2,7 +2,7 @@
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .EquipmentDetailList-EquipmentDetailCard {
@@ -13,12 +13,18 @@
     margin-top: 0px;
 }
 
+.EquipmentDetailList-Container::-webkit-scrollbar {
+
+}
+
+/* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .EquipmentDetailList-EquipmentDetailCard {
         margin-top: calc(2.225vmin);
     }
 }
 
+/* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
     .EquipmentDetailList-EquipmentDetailCard {
         margin-top: calc(4.45vmin);

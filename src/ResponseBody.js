@@ -171,7 +171,7 @@ const InUseThermometer = [
     typeName: 'Thermometer',
     modelID: 14,
     modelName: 'ThermoPro TP50',
-    modelPhotoPath: null,
+    modelPhotoPath: 'https://dam-assets.fluke.com/s3fs-public/F-179_01e-350x500.png',
     serialNumber: 'TM-9876'
   },
   {

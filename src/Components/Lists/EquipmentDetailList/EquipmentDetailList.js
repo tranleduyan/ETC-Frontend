@@ -24,7 +24,8 @@ function EquipmentDetailList(props) {
             className='EquipmentDetailList-EquipmentDetailCard'
             key={item.serialNumber}
             title={item.modelName}
-            information={[item.typeName, item.serialNumber]}/>
+            information={[item.typeName, item.serialNumber]}
+            modelPhotoPath={item.modelPhotoPath}/>
         )
       ))}
       {/* Render EquipmentDetailCard components for reservation details */}
@@ -34,7 +35,8 @@ function EquipmentDetailList(props) {
             className='EquipmentDetailList-EquipmentDetailCard'
             key={item.reservedEquipmentID}
             title={item.modelName}
-            information={[item.typeName, `Quantity: ${item.reservedQuantity}`]}/>
+            information={[item.typeName, `Quantity: ${item.reservedQuantity}`]}
+            modelPhotoPath={item.modelPhotoPath}/>
         )
       ))}
     </div>
