@@ -1,7 +1,7 @@
 /* General Stylings */
 .InventorySummaryList-Container {
-    display: flex;
-    overflow-y: scroll;
+    display: grid;
+    overflow-y: auto;
 }
 
 .InventorySummaryList-Message {
@@ -17,18 +17,19 @@
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .InventorySummaryList-Container {
-        flex-direction: row;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
         gap: calc(3.02vmin);
+    }
+
+    .InventorySummaryList-Container::-webkit-scrollbar {
+        display: none;
     }
 }
 
 /* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
     .InventorySummaryList-Container {
-        flex-direction: column;
-        justify-content: flex-start;
+        grid-template-columns: 1fr;
         gap: calc(4.45vmin);
     }
 }

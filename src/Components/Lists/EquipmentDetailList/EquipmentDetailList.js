@@ -13,7 +13,7 @@ import './EquipmentDetailList.css';
 function EquipmentDetailList(props) {
 
   // Destructure props to extract relevant information
-  const { className, equipmentDetails, detailsType } = props;
+  const { className, equipmentDetails, detailsType, isMargin } = props;
   
   return (
     <div className={`${className} EquipmentDetailList-Container`}>
@@ -21,7 +21,7 @@ function EquipmentDetailList(props) {
       {detailsType === 'inventory' && (
         equipmentDetails.map((item) => (
           <EquipmentDetailCard
-            className='EquipmentDetailList-EquipmentDetailCard'
+            className={`EquipmentDetailList-EquipmentDetailCard ${isMargin ? 'EquipmentDetailList-Margin' : ''}`}
             key={item.serialNumber}
             title={item.modelName}
             information={[item.typeName, item.serialNumber]}
@@ -32,7 +32,7 @@ function EquipmentDetailList(props) {
       {detailsType === 'reservation' && (
         equipmentDetails.map((item) => (
           <EquipmentDetailCard
-            className='EquipmentDetailList-EquipmentDetailCard'
+            className={`EquipmentDetailList-EquipmentDetailCard ${isMargin ? 'EquipmentDetailList-Margin' : ''}`}
             key={item.reservedEquipmentID}
             title={item.modelName}
             information={[item.typeName, `Quantity: ${item.reservedQuantity}`]}
@@ -48,6 +48,7 @@ EquipmentDetailList.propTypes = {
   className: PropTypes.string,
   equipmentDetails: PropTypes.array,
   detailsType: PropTypes.oneOf(['inventory', 'reservation']),
+  isMargin: PropTypes.bool,
 }
 
 // Set default values for props to avoid potential issues if not provided
@@ -55,6 +56,7 @@ EquipmentDetailList.defaultProps = {
   className: '',
   equipmentDetails: [],
   detailsType: 'inventory',
+  isMargin: false,
 }
 
 export default EquipmentDetailList;

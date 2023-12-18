@@ -1,6 +1,6 @@
 .ReservationList-Container {
-    display: flex;
-    overflow-y: scroll;
+    display: grid;
+    overflow-y: auto;
 }
 
 .ReservationList-Message {
@@ -15,17 +15,18 @@
 
 @media screen and (min-width: 481px) {
     .ReservationList-Container {
-        flex-direction: row;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
         gap: calc(3.02vmin);
+    }
+
+    .ReservationList-Container::-webkit-scrollbar {
+        display: none;
     }
 }
 
 @media screen and (max-width: 480px) {
     .ReservationList-Container {
-        flex-direction: column;
-        justify-content: flex-start;
+        grid-template-columns: 1fr;
         gap: calc(4.45vmin);
     }
 }

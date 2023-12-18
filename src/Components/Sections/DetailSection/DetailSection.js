@@ -13,7 +13,7 @@ import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetail
 // Render Details Section
 function DetailSection(props) {
 
-  const { className, title, additionalInformation, equipmentDetails, detailsType, actionIcon: ActionIcon, action } = props;
+  const { className, title, additionalInformation, equipmentDetails, detailsType, actionIcon: ActionIcon, action, isMargin } = props;
 
   const itemCount = equipmentDetails.length;
 
@@ -39,7 +39,8 @@ function DetailSection(props) {
       <EquipmentDetailList 
         className='DetailSection-EquipmentDetailList'
         equipmentDetails={equipmentDetails}
-        detailsType={detailsType}/>
+        detailsType={detailsType}
+        isMargin={isMargin}/>
     </div>
   )
 }
@@ -52,6 +53,7 @@ DetailSection.propTypes = {
   detailsType: PropTypes.oneOf(['inventory', 'reservation']),
   actionIcon: PropTypes.elementType,
   action: PropTypes.func,
+  isMargin: PropTypes.bool,
 }
 
 DetailSection.defaultProps = {
@@ -62,6 +64,7 @@ DetailSection.defaultProps = {
   detailsType: 'inventory',
   actionIcon: null,
   action: () => {},
+  isMargin: false,
 }
 
 export default DetailSection;

@@ -73,8 +73,4 @@
     .EquipmentDetailCard-Details {
         margin-left: calc(4.45vmin);
     }
-
-    .EquipmentDetailCard-Container:last-child {
-        margin-bottom: calc(4.45vmin);
-    }
 }

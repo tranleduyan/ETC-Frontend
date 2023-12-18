@@ -83,12 +83,14 @@
 .Dashboard-UnderRepairSection,
 .Dashboard-ReservationDetailSection {
     width: 100%;
-
     overflow-y: auto;
 }
 
+.Dashboard-ReservationDetailSection {
+    flex: 1;
+}
+
 .Dashboard-ReservationActionContainer {
-    margin-top: calc(2.225vmin);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -96,7 +98,6 @@
 
 .Dashboard-ReservationActionButton {
     width: 100%;
-    margin-left: calc(2.225vmin);
 }
 
 .Dashboard-ReservationActionButton:first-child {
@@ -178,6 +179,14 @@
     .Dashboard-InUseSection {
         height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
         margin-bottom: calc(4.171875vmin);
+    }
+    
+    .Dashboard-ReservationActionContainer {
+        margin-top: calc(2.225vmin);
+    }
+
+    .Dashboard-ReservationActionButton {
+        margin-left: calc(2.225vmin);
     }
 }
 
@@ -275,5 +284,13 @@
         width: 100%;
         height: calc(67.8625vmin);
         margin-bottom: calc(8.34375vmin);
+    }
+
+    .Dashboard-ReservationActionContainer {
+        margin-bottom: calc(4.45vmin);
+    }
+
+    .Dashboard-ReservationActionButton {
+        margin-left: calc(4.45vmin);
     }
 }

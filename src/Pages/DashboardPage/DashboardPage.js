@@ -278,7 +278,8 @@ function DashboardPage() {
                   <DetailSection
                     className='Dashboard-UnderRepairSection'
                     title='Under Repair'
-                    equipmentDetails={underRepairEquipmentDetails}/>
+                    equipmentDetails={underRepairEquipmentDetails}
+                    isMargin={true}/>
                 </>
               )}
               {selectedReservation && (
