@@ -1,0 +1,296 @@
+/* General Stylings */
+.AdminDashboard-PageContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.AdminDashboard-PageHeaderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.AdminDashboard-ContentContainer {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+}
+
+.AdminDashboard-LeftContentPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+.AdminDashboard-SectionHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.AdminDashboard-InventorySection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.AdminDashboard-InventorySummaryList {
+    width: 100%;
+}
+
+.AdminDashboard-ReservationSection {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.AdminDashboard-ReservationFilterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.AdminDashboard-ReservationList {
+    width: 100%;
+}
+
+.AdminDashboard-RightContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.AdminDashboard-InUseSection {
+    width: 100%;
+}
+
+.AdminDashboard-UnderRepairSection,
+.AdminDashboard-ReservationDetailSection {
+    width: 100%;
+    overflow-y: auto;
+}
+
+.AdminDashboard-ReservationDetailSection {
+    flex: 1;
+}
+
+.AdminDashboard-ReservationActionContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.AdminDashboard-ReservationActionButton {
+    width: 100%;
+}
+
+.AdminDashboard-ReservationActionButton:first-child {
+    margin-left: 0px;
+}
+
+.AdminDashboard-Hide {
+    display: none;
+}
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .AdminDashboard-PageContentContainer {
+        height: 100%;
+    }
+
+    .AdminDashboard-PageHeaderContainer {
+        height: calc(9.45625vmin);
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        padding: calc(2.225vmin) calc(2.225vmin);
+    }
+
+    .AdminDashboard-LogoContainer {
+        display: none;
+    }
+
+    .AdminDashboard-ActionContainer {
+        display: none;
+    }
+
+    .AdminDashboard-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+    }
+
+    .AdminDashboard-LeftContentPanel {
+        flex: 1;
+        height: calc(100% - calc(4.45vmin));
+        margin: calc(2.225vmin) calc(2.225vmin);
+    }
+
+    .AdminDashboard-SectionHeader {
+        height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
+    }
+
+    .AdminDashboard-InventorySection {
+        height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        margin-bottom: calc(4.171875vmin)
+    }
+
+    .AdminDashboard-SearchBar {
+        width: calc(38.9375vmin);
+    }
+
+    .AdminDashboard-InventorySummaryList {
+        height: calc(calc(100%) - calc(6.675vmin));
+        margin-top: calc(2.225vmin);
+    }
+
+    .AdminDashboard-ReservationList {
+        height: calc(calc(100%) - calc(6.675vmin));
+        margin-top: calc(2.225vmin);
+    }
+
+    .AdminDashboard-RightContentPanel {
+        width: calc(calc(45.6125vmin));
+        height: 100%;
+        border-left: calc(0.278125vmin) solid var(--Gray1);
+    }
+
+    .AdminDashboard-RightContent {
+        height: calc(100% - calc(2.225vmin));
+        padding: calc(2.25vmin) calc(2.225vmin) 0px calc(2.225vmin);
+    }
+
+    .AdminDashboard-AddEquipmentButton {
+        width: 100%;
+    }
+
+    .AdminDashboard-InUseSection {
+        height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        margin-bottom: calc(4.171875vmin);
+    }
+    
+    .AdminDashboard-ReservationActionContainer {
+        margin-top: calc(2.225vmin);
+    }
+
+    .AdminDashboard-ReservationActionButton {
+        margin-left: calc(2.225vmin);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .AdminDashboard-PageContentContainer {
+        height: 0px;
+    }
+
+    .AdminDashboard-PageHeaderContainer {
+        height: calc(17.8vmin);
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+        padding: calc(4.45vmin) calc(4.45vmin);
+    }
+
+    .AdminDashboard-PageHeaderContainer p.heading-2 {
+        font-size: calc(5.562vmin);
+        margin-left: calc(4.45vmin);
+    }
+    
+    .AdminDashboard-PageHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .AdminDashboard-LogoContainer {
+        width: calc(8.9vmin); 
+    }
+    
+    .AdminDashboard-LogoContainer img {
+        width:100%;
+        height:100%;
+    }
+
+    .AdminDashboard-ActionContainer {
+        width: calc(24.475vmin);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .AdminDashboard-ActionButton {
+        width: calc(6.675vmin);
+    }
+
+    .AdminDashboard-ContentContainer {
+        height: 100% - calc(17.8vmin);
+    }
+    
+    .AdminDashboard-LeftContentPanel {
+        width: 100%;
+        height: calc(100% - calc(4.45vmin));
+        margin: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
+    }    
+
+    .AdminDashboard-SectionHeader {
+        height: calc(calc(13.35vmin) + calc(2 * calc(0.55625vmin)));
+    }
+
+    .AdminDashboard-InventorySection {
+        height: calc(67.8625vmin);
+        margin-bottom: calc(8.34375vmin);
+    }
+    
+    .AdminDashboard-SearchBar {
+        width: calc(64.525vmin);
+    }
+
+    .AdminDashboard-InventorySummaryList {
+        height: calc(calc(100%) - calc(13.35vmin));
+        margin-top: calc(4.45vmin);
+    }
+
+    .AdminDashboard-ReservationList {
+        height: calc(calc(100%) - calc(13.35vmin));
+        margin-top: calc(4.45vmin);
+    }
+
+    .AdminDashboard-RightContentPanel {
+        display: none;
+    }
+
+    .AdminDashboard-RightContentPanelActive {
+        width: 100%;
+        height: 100%;
+    }
+
+    .AdminDashboard-RightContent {
+        height: 100%;
+        padding: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
+    }
+
+    .AdminDashboard-InUseSection {
+        width: 100%;
+        height: calc(67.8625vmin);
+        margin-bottom: calc(8.34375vmin);
+    }
+
+    .AdminDashboard-ReservationActionContainer {
+        margin-bottom: calc(4.45vmin);
+    }
+
+    .AdminDashboard-ReservationActionButton {
+        margin-left: calc(4.45vmin);
+    }
+}
