@@ -46,29 +46,8 @@
     justify-content: flex-start;
 }
 
-.FilterCardList-Container {
-    display: grid;
-    overflow-y: auto;
-}
-
 .StudentDashboard-EquipmentFilterCardList {
     width: 100%;
-}
-
-.FilterCard-Container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: transparent;
-    color: var(--Black1);
-}
-
-.FilterCard-Information {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .StudentDashboard-ReservationSection {
@@ -102,9 +81,6 @@
 .StudentDashboard-ReservationDetailSection {
     width: 100%;
     overflow-y: auto;
-}
-
-.StudentDashboard-ReservationDetailSection {
     flex: 1;
 }
 
@@ -291,28 +267,9 @@
         width: calc(56.625vmin);
     }
 
-    .FilterCardList-Container {
-        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
-        gap: calc(4.45vmin);
-    }
-
     .StudentDashboard-EquipmentFilterCardList {
         height: calc(30.8125vmin);
         margin-top: calc(4.45vmin);
-    }
-
-    .FilterCard-Container {
-        padding: calc(3.3375vmin);
-        border: calc(0.55625vmin) solid var(--Gray1);
-        border-radius: calc(2.78125vmin);
-    }
-
-    .FilterCard-Icon {
-        display: none;
-    }
-    
-    .FilterCard-Information {
-        margin-left: 0px;
     }
 
     .StudentDashboard-ReservationList {

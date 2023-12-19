@@ -2,15 +2,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import FilterButton from '../../Buttons/FilterButton/FilterButton';
-
-// Import Stylings
-import './StudentDashboard.css';
 import Logo from '../../Logo/Logo';
 import IconButton from '../../Buttons/IconButton/IconButton';
-import { HiCalendar, HiClipboardList, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
 import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
+import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
+
+// Import Stylings
+import './StudentDashboard.css';
+
+// Import Icons
+import { HiCalendar, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
 
 // Define Student Dashboard Component;
 function StudentDashboard() {
@@ -31,14 +34,24 @@ function StudentDashboard() {
     setIsMobileView(window.innerWidth <= 480);
   }, []);
 
-  const OnMakeReservationClick = () => {
-    console.log('reserve');
-  }
+  const OnEquipmentFilterCardClick = async(selectedEquipmentFilter) => {
+    // Set selected reservation to null
+    setSelectedReservation(null);
 
-  const SignOut = () => {
-    console.log('Sign Out');
+    // Toggle the selected equipment filter, await until finish then continue.
+    await Promise.resolve(setSelectedEquipmentFilter((prevSelectedEquipmentFilter) => 
+    prevSelectedEquipmentFilter === selectedEquipmentFilter ? null : selectedEquipmentFilter
+    ));
+    console.log(selectedEquipmentFilter);
   };
 
+  // Function triggered when reservation status filter button is clicked
+  const OnReservationStatusFilterButtonClick = (status) => {
+    setReservationsFilterStatus(status);
+    setSelectedReservation(null);
+  };
+
+  // OnReservationCardClick - Handle to set selectedreservation
   const OnReservationCardClick = async(selectedReservation) => {
     // Set selected equipment filter to null
     setSelectedEquipmentFilter(null);
@@ -51,19 +64,25 @@ function StudentDashboard() {
     console.log('handle');
   };
 
-  // Function triggered when reservation status filter button is clicked
-  const OnReservationStatusFilterButtonClick = (status) => {
-    setReservationsFilterStatus(status);
-    setSelectedReservation(null);
-  };
-
+  // OnEditReservationClick - TODO: Navigate to update reservation.
   const OnEditReservationClick = () => {
     console.log('not yet');
   }
 
+  // OnCancelReservationClick - TODO: Implement Cancel Reservation API
   const OnCancelReservationClick = () => {
     console.log('...');
   }
+
+  // TODO: Navigate to Make Reservation Page.
+  const OnMakeReservationClick = () => {
+    console.log('reserve');
+  }
+
+  // Sign Out - Reset the data.
+  const SignOut = () => {
+    console.log('Sign Out');
+  };
 
   //#region side effects
   useEffect(() => {
@@ -89,7 +108,8 @@ function StudentDashboard() {
   //#endregion
 
   const CloseDetailSection = () => {
-    console.log('Close Detail Section');
+    setSelectedEquipmentFilter(null);
+    setSelectedReservation(null);
   };
 
   return (
@@ -127,24 +147,10 @@ function StudentDashboard() {
                   icon={HiCalendar}/>
               </div>
               {/* Equipment Filters */}
-              <div className='FilterCardList-Container StudentDashboard-EquipmentFilterCardList'>
-                <div className='FilterCard-Container'>
-                  <HiClipboardList className='FilterCard-Icon'/>
-                  <div className='FilterCard-Information'>
-                    {/* Filter Card Title */}
-                    <p className='heading-5'>Currently Using</p>
-                    <p className='paragraph-1'>1 items</p>
-                  </div>
-                </div>
-                <div className='FilterCard-Container'>
-                  <HiClipboardList className='FilterCard-Icon'/>
-                  <div className='FilterCard-Information'>
-                    {/* Filter Card Title */}
-                    <p className='heading-5'>Recently Used</p>
-                    <p className='paragraph-1'>4 items</p>
-                  </div>
-                </div>
-              </div>
+              <EquipmentFilterCardList 
+                className='StudentDashboard-EquipmentFilterCardList'
+                selectedEquipmentFilter={selectedEquipmentFilter}
+                OnEquipmentFilterCardClick={OnEquipmentFilterCardClick}/>
             </div>
             {/* Reservation Section */}
             <div className='StudentDashboard-ReservationSection'>
