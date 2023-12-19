@@ -19,6 +19,7 @@
     .InventorySummaryList-Container {
         grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
         gap: calc(3.02vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(16.13125vmin), calc(16.13125vmin)));
     }
 
     .InventorySummaryList-Container::-webkit-scrollbar {
@@ -31,5 +32,6 @@
     .InventorySummaryList-Container {
         grid-template-columns: 1fr;
         gap: calc(4.45vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(32.2625vmin), calc(32.2625vmin)));
     }
 }
