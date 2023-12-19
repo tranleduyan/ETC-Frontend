@@ -17,6 +17,7 @@
     .ReservationList-Container {
         grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
         gap: calc(3.02vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(12.79375vmin), calc(12.79375vmin)));
     }
 
     .ReservationList-Container::-webkit-scrollbar {
@@ -28,5 +29,6 @@
     .ReservationList-Container {
         grid-template-columns: 1fr;
         gap: calc(4.45vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(25.5875vmin), calc(25.5875vmin)));
     }
 }
