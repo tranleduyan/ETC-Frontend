@@ -25,7 +25,7 @@ import './AdminDashboard.css';
 // Import Icons
 import { HiPlus, HiCheck, HiX, HiBell, HiCog } from 'react-icons/hi';
 
-// Define the DashboardPage Component
+// Define the AdminDashboard Component
 function AdminDashboard() {
   
   const navigate = useNavigate();
@@ -262,7 +262,7 @@ function AdminDashboard() {
             <div className='AdminDashboard-RightContent'>
               {!isMobileView && selectedInventoryType === null && selectedReservation === null && (
               <StandardButton
-                title={"Add Equipment"}
+                title='Add Equipment'
                 onClick={OnAddEquipmentClick}
                 className='AdminDashboard-AddEquipmentButton'
                 icon={HiPlus}/>

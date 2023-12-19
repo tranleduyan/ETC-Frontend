@@ -1,0 +1,344 @@
+/* General Stylings */
+.StudentDashboard-PageContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.StudentDashboard-PageHeaderContainer {
+    width: 100%;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.StudentDashboard-ContentContainer {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+}
+
+.StudentDashboard-LeftContentPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+.StudentDashboard-SectionHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.StudentDashboard-EquipmentFilterSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.FilterCardList-Container {
+    display: grid;
+    overflow-y: auto;
+}
+
+.StudentDashboard-EquipmentFilterCardList {
+    width: 100%;
+}
+
+.FilterCard-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: var(--Black1);
+}
+
+.FilterCard-Information {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.StudentDashboard-ReservationSection {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.StudentDashboard-ReservationFilterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.StudentDashboard-ReservationList {
+    width: 100%;
+}
+
+.StudentDashboard-RightContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.StudentDashboard-CurrentlyUsingSection,
+.StudentDashboard-RecentlyUsedSection,
+.StudentDashboard-ReservationDetailSection {
+    width: 100%;
+    overflow-y: auto;
+}
+
+.StudentDashboard-ReservationDetailSection {
+    flex: 1;
+}
+
+.StudentDashboard-ReservationActionContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.StudentDashboard-ReservationActionButton {
+    width: 100%;
+}
+
+.StudentDashboard-ReservationActionButton:first-child {
+    margin-left: 0px;
+}
+
+.StudentDashboard-Hide {
+    display: none;
+}
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .StudentDashboard-PageContentContainer {
+        height: 100%;
+    }
+
+    .StudentDashboard-PageHeaderContainer {
+        height: calc(9.45625vmin);
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        padding: calc(2.225vmin);
+    }
+
+    .StudentDashboard-LogoContainer {
+        display: none;
+    }
+
+    .StudentDashboard-ActionContainer {
+        display: none;
+    }
+
+    .StudentDashboard-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+    }
+
+    .StudentDashboard-LeftContentPanel {
+        flex: 1;
+        height: calc(100% - calc(4.45vmin));
+        margin: calc(2.225vmin);
+    }
+
+    .StudentDashboard-SectionHeader {
+        height: calc(calc(6.675vmin) + calc(2 * calc(0.278125vmin)));
+    }
+
+    .StudentDashboard-EquipmentFilterSection {
+        height: calc(4 * calc(2.225vmin) + calc(calc(13.90625vmin)));
+        margin-bottom: calc(4.171875vmin);
+    }
+
+    .FilterCardList-Container {
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        gap: calc(3.02vmin);
+    }
+
+    .StudentDashboard-EquipmentFilterCardList {
+        height: calc(13.90625vmin);
+        margin-top: calc(2.225vmin);
+    }
+
+    .StudentDashboard-EquipmentFilterCardList::-webkit-scrollbar {
+        display: none;
+    }
+
+    .StudentDashboard-MobileMakeReservationButton {
+        display: none;
+    }
+    .FilterCard-Container {
+        padding: calc(1.66875vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .FilterCard-Icon {
+        font-size: calc(5.00625vmin);
+    }
+    
+    .FilterCard-Information {
+        margin-left: calc(2.225vmin);
+    }
+
+    .StudentDashboard-ReservationList {
+        height: calc(calc(100%) - calc(6.675vmin));
+        margin-top: calc(2.225vmin);
+    }
+
+    .StudentDashboard-RightContentPanel {
+        width: calc(calc(45.6125vmin));
+        height: 100%;
+        border-left: calc(0.27812vmin) solid var(--Gray1);
+    }
+
+    .StudentDashboard-RightContent {
+        height: calc(100% - calc(2.225vmin));
+        padding: calc(2.225vmin) calc(2.225vmin) 0px calc(2.225vmin);
+    }
+
+    .StudentDashboard-MakeReservationButton {
+        width: 100%;
+    }
+
+    .StudentDashboard-ReservationActionContainer {
+        margin-top: calc(2.225vmin);
+    }
+
+    .StudentDashboard-ReservationActionButton {
+        margin-left: calc(2.225vmin);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .StudentDashboard-PageContentContainer {
+        height: 0px;
+    }
+
+    .StudentDashboard-PageHeaderContainer {
+        height: calc(17.8vmin);
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+        padding: calc(4.45vmin);
+    }
+
+    .StudentDashboard-PageHeaderContainer p.heading-2 {
+        font-size: calc(5.562vmin);
+        margin-left: calc(4.45vmin);
+    }
+
+    .StudentDashboard-PageHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .StudentDashboard-LogoContainer {
+        width: calc(8.9vmin);
+    }
+
+    .StudentDashboard-LogoContainer img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .StudentDashboard-ActionContainer {
+        width: calc(calc(6.675vmin) + calc(2.78125vmin));
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .StudentDashboard-ActionButton {
+        width: calc(6.675vmin);
+    }
+
+    .StudentDashboard-ContentContainer {
+        height: 100% - calc(17.8vmin);
+    }
+
+    .StudentDashboard-LeftContentPanel {
+        width: 100%;
+        height: calc(100% - calc(4.45vmin));
+        margin: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
+    }
+
+    .StudentDashboard-SectionHeader {
+        height: calc(calc(13.35vmin) + calc(2 * calc(0.55625vmin)));
+    }
+
+    .StudentDashboard-EquipmentFilterSection {
+        height: calc(45.6125vmin);
+        margin-bottom: calc(8.34375vmin);
+    }
+
+    .StudentDashboard-MobileMakeReservationButton {
+        width: calc(56.625vmin);
+    }
+
+    .FilterCardList-Container {
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        gap: calc(4.45vmin);
+    }
+
+    .StudentDashboard-EquipmentFilterCardList {
+        height: calc(30.8125vmin);
+        margin-top: calc(4.45vmin);
+    }
+
+    .FilterCard-Container {
+        padding: calc(3.3375vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .FilterCard-Icon {
+        display: none;
+    }
+    
+    .FilterCard-Information {
+        margin-left: 0px;
+    }
+
+    .StudentDashboard-ReservationList {
+        height: calc(calc(100%) - calc(13.35vmin));
+        margin-top: calc(4.45vmin);
+    }
+
+    .StudentDashboard-RightContentPanel {
+        display: none;
+    }
+
+    .StudentDashboard-RightContentPanelActive {
+        width: 100%;
+        height: 100%;
+    }
+
+    .StudentDashboard-RightContent {
+        height: 100%;
+        padding: calc(4.45vmin) calc(4.45vmin) 0px calc(4.45vmin);
+    }
+
+    .StudentDashboard-ReservationActionContainer {
+        margin-bottom: calc(4.45vmin);
+    }
+
+    .StudentDashboard-ReservationActionButton {
+        margin-left: calc(4.45vmin);
+    }
+}

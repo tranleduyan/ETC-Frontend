@@ -177,7 +177,8 @@
     }
 
     .AdminDashboard-InUseSection {
-        height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        min-height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
+        max-height: calc(4 * calc(2.225vmin) + calc(calc(34.4875vmin) + calc(1vmin)));
         margin-bottom: calc(4.171875vmin);
     }
     
@@ -223,7 +224,7 @@
     }
 
     .AdminDashboard-ActionContainer {
-        width: calc(24.475vmin);
+        width: calc(23.15vmin);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
