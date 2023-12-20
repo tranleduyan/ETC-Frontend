@@ -23,7 +23,7 @@ function FilterCard(props) {
 
   return (
     <button 
-      className={`FilterCard-Container ${className} ${isSelected ? `FilterCard-Active` : ''}`}
+      className={`${className} FilterCard-Container ${isSelected ? 'FilterCard-Active' : ''}`}
       onClick={OnCardClick}>
       { Icon && <Icon className={`FilterCard-Icon ${iconClassName}`}/> }
         <div className='FilterCard-Information'>

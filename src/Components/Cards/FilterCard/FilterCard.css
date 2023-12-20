@@ -39,6 +39,10 @@
     .FilterCard-Information {
         margin-left: calc(2.225vmin);
     }
+
+    .FilterCard-Active {
+        border: calc(0.278125vmin) solid var(--Red1);
+    }
 }
 
 @media screen and (max-width: 480px) {

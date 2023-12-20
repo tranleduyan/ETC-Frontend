@@ -1,5 +1,8 @@
 // Import Components
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import FilterButton from '../../Buttons/FilterButton/FilterButton';
 import Logo from '../../Logo/Logo';
@@ -14,9 +17,14 @@ import './StudentDashboard.css';
 
 // Import Icons
 import { HiCalendar, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
+import { resetUserData } from '../../../storage';
 
 // Define Student Dashboard Component;
-function StudentDashboard() {
+function StudentDashboard(props) {
+
+  const { resetUserData } = props;
+
+  const navigate = useNavigate();
 
   // State for handle mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
@@ -66,22 +74,24 @@ function StudentDashboard() {
 
   // OnEditReservationClick - TODO: Navigate to update reservation.
   const OnEditReservationClick = () => {
-    console.log('not yet');
+    console.log('Edit Reservation');
   }
 
   // OnCancelReservationClick - TODO: Implement Cancel Reservation API
   const OnCancelReservationClick = () => {
-    console.log('...');
+    console.log('Cancel Reservation');
   }
 
   // TODO: Navigate to Make Reservation Page.
   const OnMakeReservationClick = () => {
-    console.log('reserve');
+    console.log('Make Reservation');
   }
 
   // Sign Out - Reset the data.
   const SignOut = () => {
-    console.log('Sign Out');
+    //Dispatch the resetUserData action
+    resetUserData();
+    navigate('/');
   };
 
   //#region side effects
@@ -245,4 +255,18 @@ function StudentDashboard() {
   )
 }
 
-export default StudentDashboard;
+// Define PropTypes for the NavigationBar component
+StudentDashboard.propTypes = {
+  resetUserData: PropTypes.func.isRequired,
+};
+
+StudentDashboard.defaultProps = {
+
+}
+
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
+export default connect(null, mapDispatchToProps)(StudentDashboard);

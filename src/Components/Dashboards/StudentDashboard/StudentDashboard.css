@@ -158,19 +158,6 @@
     .StudentDashboard-MobileMakeReservationButton {
         display: none;
     }
-    .FilterCard-Container {
-        padding: calc(1.66875vmin);
-        border: calc(0.278125vmin) solid var(--Gray1);
-        border-radius: calc(1.390625vmin);
-    }
-
-    .FilterCard-Icon {
-        font-size: calc(5.00625vmin);
-    }
-    
-    .FilterCard-Information {
-        margin-left: calc(2.225vmin);
-    }
 
     .StudentDashboard-ReservationList {
         height: calc(calc(100%) - calc(6.675vmin));
