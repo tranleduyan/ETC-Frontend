@@ -34,36 +34,36 @@ function NavigationBar(props) {
 
     // Else return empty class name
     return '';
-  }
+  };
 
   //#region Navigation Pages (For Scaling Purpose)
   const NavigateDashboard = () => {
     navigate('/Dashboard')
-  }
+  };
 
   const NavigateReservations = () => {
     navigate('/Reservations')
-  }
+  };
 
   const NavigateInventory = () => {
     navigate('/Inventory')
-  }
+  };
 
   const NavigateAddEquipment = () => {
     navigate('/AddEquipment')
-  }
+  };
 
   const NavigateUsers = () => {
     navigate('/Users')
-  }
+  };
 
   const NavigateNotifications = () => {
     navigate('/Notifications')
-  }
+  };
 
   const NavigateSettings = () => {
     navigate('/Settings')
-  }
+  };
   //#endregion
 
   // Sign the user out by reset user data in Redux
@@ -71,7 +71,7 @@ function NavigationBar(props) {
     // Dispatch the resetUserData action
     resetUserData();
     navigate('/');
-  }
+  };
 
   return (
     <div className='NavigationBar-Container'>
@@ -134,7 +134,7 @@ NavigationBar.propTypes = {
 
 NavigationBar.defaultProps = {
   userRole: 'Student',
-}
+};
 
 // Map the userRole from Redux store to props
 const mapStateToProps = (state) => ({

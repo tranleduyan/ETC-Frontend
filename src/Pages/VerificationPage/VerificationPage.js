@@ -34,18 +34,18 @@ function VerificationPage() {
   // Handle Input Change to update the state of userInformation object
   const HandleInputChange = (propertyName, inputValue) => {
     setVerificationCode(inputValue);
-  }
+  };
 
   // Verify - Check if everything is fine, if it is fine then sign up
   const Verify = () => {
     if(IsValid()) {
         SignUp();
     }
-  }
+  };
 
   const NavigateSignIn = () => {
     navigate('/');
-  }
+  };
 
   // IsValid, check for the correctness of the verification code
   const IsValid = () => {
@@ -90,7 +90,7 @@ function VerificationPage() {
         setIsError(true);
         setErrorMessage(error.response.data.message);
       });
-  }
+  };
 
   return (
     <div className='wrapper VerificationPage-Wrapper'>

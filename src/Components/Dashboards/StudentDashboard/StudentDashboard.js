@@ -11,13 +11,13 @@ import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
+import { resetUserData } from '../../../storage';
 
 // Import Stylings
 import './StudentDashboard.css';
 
 // Import Icons
 import { HiCalendar, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
-import { resetUserData } from '../../../storage';
 
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
@@ -42,15 +42,14 @@ function StudentDashboard(props) {
     setIsMobileView(window.innerWidth <= 480);
   }, []);
 
-  const OnEquipmentFilterCardClick = async(selectedEquipmentFilter) => {
+  const OnEquipmentFilterCardClick = (selectedEquipmentFilter) => {
     // Set selected reservation to null
     setSelectedReservation(null);
 
     // Toggle the selected equipment filter, await until finish then continue.
-    await Promise.resolve(setSelectedEquipmentFilter((prevSelectedEquipmentFilter) => 
-    prevSelectedEquipmentFilter === selectedEquipmentFilter ? null : selectedEquipmentFilter
-    ));
-    console.log(selectedEquipmentFilter);
+    setSelectedEquipmentFilter((prevSelectedEquipmentFilter) => 
+      prevSelectedEquipmentFilter === selectedEquipmentFilter ? null : selectedEquipmentFilter
+    );
   };
 
   // Function triggered when reservation status filter button is clicked
@@ -65,33 +64,37 @@ function StudentDashboard(props) {
     setSelectedEquipmentFilter(null);
     
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
-    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
+    setSelectedReservation((prevSelectedReservation) => 
       prevSelectedReservation === selectedReservation ? null : selectedReservation
-    ));
-
-    console.log('handle');
+    );
   };
 
   // OnEditReservationClick - TODO: Navigate to update reservation.
   const OnEditReservationClick = () => {
     console.log('Edit Reservation');
-  }
+  };
 
   // OnCancelReservationClick - TODO: Implement Cancel Reservation API
   const OnCancelReservationClick = () => {
     console.log('Cancel Reservation');
-  }
+  };
 
-  // TODO: Navigate to Make Reservation Page.
+  // Navigate to Make Reservation Page.
   const OnMakeReservationClick = () => {
-    console.log('Make Reservation');
-  }
+    navigate('/Reservations');
+  };
 
   // Sign Out - Reset the data.
   const SignOut = () => {
     //Dispatch the resetUserData action
     resetUserData();
     navigate('/');
+  };
+
+  // Close the detail section
+  const CloseDetailSection = () => {
+    setSelectedEquipmentFilter(null);
+    setSelectedReservation(null);
   };
 
   //#region side effects
@@ -116,11 +119,6 @@ function StudentDashboard(props) {
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
   //#endregion
-
-  const CloseDetailSection = () => {
-    setSelectedEquipmentFilter(null);
-    setSelectedReservation(null);
-  };
 
   return (
     <GeneralPage>
@@ -235,12 +233,12 @@ function StudentDashboard(props) {
                     detailsType='reservation'/>
                   <div className='StudentDashboard-ReservationActionContainer'>
                     <StandardButton
-                      title={"Edit"}
+                      title='Edit'
                       onClick={OnEditReservationClick}
                       className='StudentDashboard-ReservationActionButton'
                       icon={HiPencilAlt}/>
                     <StandardButton
-                      title={"Cancel"}
+                      title='Cancel'
                       onClick={OnCancelReservationClick}
                       className='StudentDashboard-ReservationActionButton'
                       icon={HiMinusCircle}/>
@@ -259,10 +257,6 @@ function StudentDashboard(props) {
 StudentDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
 };
-
-StudentDashboard.defaultProps = {
-
-}
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {

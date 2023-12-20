@@ -19,7 +19,7 @@ function FilterCard(props) {
     if(onClick) {
       onClick(title);
     }
-  }
+  };
 
   return (
     <button 

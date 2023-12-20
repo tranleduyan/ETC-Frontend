@@ -74,7 +74,7 @@ function AdminDashboard() {
   // Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
-  }
+  };
 
   // Function to triggered when equipment type summary card is clicked
   // TODO: These will be changed when there are APIs for this.
@@ -90,7 +90,7 @@ function AdminDashboard() {
     // Set in-use and under-repair equipment details based on the selected type.
     setInUseEquipmentDetails(inUseEquipmentDetailsResponse[selectedEquipmentType - 1]);
     setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
-  }
+  };
 
   // Function triggered when reservation card is clicked
   // TODO: These will be changed when there are APIs for this.
@@ -123,35 +123,40 @@ function AdminDashboard() {
     else {
       setReservationDetails([]);
     }
-  }
+  };
 
   // Function triggered when reservation status filter button is clicked
   const OnReservationStatusFilterButtonClick = (status) => {
       setReservationsFilterStatus(status);
       setSelectedReservation(null);
-  }
+  };
 
-  // Function triggered when "Add Equipment" button is clicked
-  // TODO: Go to AddEquipment Page.
+  // Function triggered when "Add Equipment" button is clicked - Go to Add Equipment Page
   const OnAddEquipmentClick = () => {
-    console.log("Add Equipment Clicked");
-  }
+    navigate('/AddEquipment');
+  };
 
   // TODO: Search APIs
   const Search = () => {
     console.log(searchQuery);
-  }
+  };
 
-    //#region Navigations
+  // Close detail section when clicked on the "X" icon
+  const CloseDetailSection = () => {
+    setSelectedInventoryType(null);
+    setSelectedReservation(null);
+  };
+
+  //#region Navigations
   // Navigate to Notifications Page
   const NavigateNotifications = () => {
     navigate('/Notifications')
-  }
+  };
 
   // Navigate to Settings Page
   const NavigateSettings = () => {
     navigate('/Settings')
-  }
+  };
   //#endregion
 
   //#region side effects
@@ -176,12 +181,6 @@ function AdminDashboard() {
     }
   }, [selectedInventoryType, selectedReservation, isMobileView]);
   //#endregion
-
-  // Close detail section when clicked on the "X" icon
-  const CloseDetailSection = () => {
-    setSelectedInventoryType(null);
-    setSelectedReservation(null);
-  }
 
   return (
     <GeneralPage>

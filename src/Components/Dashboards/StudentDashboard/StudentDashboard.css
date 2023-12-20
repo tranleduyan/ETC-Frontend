@@ -141,11 +141,6 @@
         margin-bottom: calc(4.171875vmin);
     }
 
-    .FilterCardList-Container {
-        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
-        gap: calc(3.02vmin);
-    }
-
     .StudentDashboard-EquipmentFilterCardList {
         height: calc(13.90625vmin);
         margin-top: calc(2.225vmin);

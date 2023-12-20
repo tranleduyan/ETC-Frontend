@@ -26,7 +26,7 @@ function DashboardPage(props) {
   // Dispatch the resetUserData action
   resetUserData();
   navigate('/');
-}
+};
 
   return (
     <>
@@ -42,8 +42,6 @@ function DashboardPage(props) {
             onClick={SignOut} 
             title={'Sign Out.'}/>
         </div>
-        
-
       </div>
 )}
     </>
@@ -55,12 +53,12 @@ DashboardPage.propTypes = {
 };
 
 DashboardPage.defaultProps = {
-  userRole: 'Student',
+  userRole: 'Faculty',
 };
 
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
-})
+});
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {

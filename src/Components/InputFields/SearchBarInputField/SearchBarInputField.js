@@ -21,17 +21,17 @@ function SearchBarInputField(props) {
   const HandleInputChange = (event) => {
     const { name, value} = event.target;
     onChange(name, value);
-  }
+  };
 
   // Handle focus event by updating the isFocused state
   const OnFocus = () => {
     setIsFocused(true);
-  }
+  };
 
   // Handle blur event by updating the isFocused state
   const OnBlur = () => {
     setIsFocused(false);
-  }
+  };
 
   // Determine the container class based on the focus state and value
   const containerClassName = `${className} SearchBarInputField-Container ${ value || isFocused ? 'SearchBarInputField-Focused' : ''}`;

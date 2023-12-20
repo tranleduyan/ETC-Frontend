@@ -23,7 +23,7 @@ function ReservationCard(props) {
     if(OnReservationCardClick) {
       OnReservationCardClick(reservationID);
     }
-  }
+  };
 
   return (
     <button 

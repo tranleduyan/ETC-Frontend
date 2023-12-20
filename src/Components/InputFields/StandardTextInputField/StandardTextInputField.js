@@ -17,7 +17,7 @@ function StandardTextInputField(props) {
   const HandleInputChange = (event) => {
     const { name, value } = event.target;
     onChange(name, value);
-  }
+  };
 
   return (
     <input type={type}

@@ -22,7 +22,7 @@ function EquipmentTypeSummaryCard(props) {
     if(OnEquipmentTypeSummaryCardClick) {
       OnEquipmentTypeSummaryCardClick(typeID);
     }    
-  }
+  };
 
   return (
     <button 
