@@ -53,7 +53,7 @@ DashboardPage.propTypes = {
 };
 
 DashboardPage.defaultProps = {
-  userRole: 'Faculty',
+  userRole: '',
 };
 
 const mapStateToProps = (state) => ({
