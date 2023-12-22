@@ -1,3 +1,4 @@
+/* For tablets and larger devices */
 @media screen and (min-width: 481px) {
     .GeneralPage-Wrapper {
         display: flex;
@@ -6,6 +7,7 @@
     }
 }
 
+/* For mobile and smaller devices */
 @media screen and (max-width: 480px) {
     .GeneralPage-Wrapper {
         display: flex;

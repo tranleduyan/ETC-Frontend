@@ -6,9 +6,6 @@ import EquipmentDetailCard from '../../Cards/EquipmentDetailCard/EquipmentDetail
 // Import Stylings
 import './EquipmentDetailList.css';
 
-// Import Icons
-
-
 // Define EquipmentDetailList Component
 function EquipmentDetailList(props) {
 
@@ -41,7 +38,7 @@ function EquipmentDetailList(props) {
       ))}
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 EquipmentDetailList.propTypes = {
@@ -49,7 +46,7 @@ EquipmentDetailList.propTypes = {
   equipmentDetails: PropTypes.array,
   detailsType: PropTypes.oneOf(['inventory', 'reservation']),
   isMargin: PropTypes.bool,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 EquipmentDetailList.defaultProps = {
@@ -57,6 +54,7 @@ EquipmentDetailList.defaultProps = {
   equipmentDetails: [],
   detailsType: 'inventory',
   isMargin: false,
-}
+};
 
+// Exports the EquipmentDetailList component as the default export for the EquipmentDetailList module.
 export default EquipmentDetailList;

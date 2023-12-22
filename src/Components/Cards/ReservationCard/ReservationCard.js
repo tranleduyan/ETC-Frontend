@@ -47,7 +47,7 @@ function ReservationCard(props) {
       </div>
     </button>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 ReservationCard.propTypes = {
@@ -59,7 +59,7 @@ ReservationCard.propTypes = {
   reserveAmount: PropTypes.number,
   isSelected: PropTypes.bool,
   OnReservationCardClick: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 ReservationCard.defaultProps = {
@@ -70,6 +70,7 @@ ReservationCard.defaultProps = {
   reserveAmount: 0,
   isSelected: true,
   OnReservationCardClick: null,
-}
+};
 
+// Exports the ReservationCard component as the default export for the ReservationCard module.
 export default ReservationCard;

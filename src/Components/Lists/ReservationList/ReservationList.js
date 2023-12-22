@@ -83,7 +83,7 @@ function ReservationList(props) {
        <p className='paragraph-1 ReservationList-Message'>{MESSAGE.emptyReservation}</p>}
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 ReservationList.propTypes = {
@@ -92,7 +92,7 @@ ReservationList.propTypes = {
   filterStatus: PropTypes.oneOf(['Approved', 'Requested']),
   selectedReservation: PropTypes.number,
   OnReservationCardClick: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 ReservationList.defaultProps = {
@@ -101,6 +101,7 @@ ReservationList.defaultProps = {
   filterStatus: 'Approved',
   selectedReservation: null,
   OnReservationCardClick: null,
-}
+};
 
+// Exports the ReservationList component as the default export for the ReservationList module.
 export default ReservationList;

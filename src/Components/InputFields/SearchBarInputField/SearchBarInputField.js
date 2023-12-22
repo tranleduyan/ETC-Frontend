@@ -54,7 +54,7 @@ function SearchBarInputField(props) {
         />
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 SearchBarInputField.propTypes = {
@@ -64,13 +64,14 @@ SearchBarInputField.propTypes = {
   value: PropTypes.any,
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 SearchBarInputField.defaultProps = {
   className: '',
   placeholder: 'Search here',
   onKeyDown: () => {}
-}
+};
 
+// Exports the SearchBarInputField component as the default export for the SearchBarInputField module.
 export default SearchBarInputField;

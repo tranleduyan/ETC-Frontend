@@ -1,6 +1,9 @@
 // Declaring all the API credentials
 export const API = {
+    // API key for authentication
     key: process.env.REACT_APP_API_KEY,
+    
+    // Domain or base URL for making API requests
     domain: process.env.REACT_APP_API_DOMAIN,
 };
 
@@ -19,7 +22,11 @@ export const REGEX = {
     schoolId: /^\d{9}$/,
 };
 
+// Contains in-app predefined messages
 export const MESSAGE = {
+    // Message for indicating empty inventory
     emptyInventory: "There are no items in the inventory.",
+
+    // Message for indicating empty reservations
     emptyReservation: "There are no reservations."
 };

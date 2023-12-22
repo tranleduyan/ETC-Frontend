@@ -17,7 +17,7 @@ function IconButton(props) {
         <Icon className={`${iconClassName}`} />
     </button>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 IconButton.propTypes = {
@@ -34,4 +34,5 @@ IconButton.defaultProps = {
   onClick: () => {},
 };
 
+// Exports the IconButton component as the default export for the IconButton module.
 export default IconButton;

@@ -209,6 +209,7 @@ function SignInPage() {
       </div>
     </div>
   )
-}
+};
 
+// Connect the component to Redux, mapping state and actions to props
 export default connect()(SignInPage);

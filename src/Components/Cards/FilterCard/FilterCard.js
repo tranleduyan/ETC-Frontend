@@ -32,8 +32,9 @@ function FilterCard(props) {
         </div>
     </button>
   )
-}
+};
 
+// Define PropTypes for type-checking and documentation
 FilterCard.propTypes = {
   icon: PropTypes.elementType,
   className: PropTypes.string,
@@ -45,6 +46,7 @@ FilterCard.propTypes = {
   onClick: PropTypes.func,
 };
 
+// Set default values for props to avoid potential issues if not provided
 FilterCard.defaultProps = {
   icon: null,
   className: '',
@@ -55,4 +57,5 @@ FilterCard.defaultProps = {
   onClick: () => {},
 };
 
+// Exports the FilterCard component as the default export for the FilterCard module.
 export default FilterCard;

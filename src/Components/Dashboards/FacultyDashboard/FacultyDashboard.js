@@ -257,8 +257,9 @@ function FacultyDashboard(props) {
     </GeneralPage>
     
   )
-}
+};
 
+// Define PropTypes for type-checking and documentation
 FacultyDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
 };
@@ -268,4 +269,5 @@ const mapDispatchToProps = {
   resetUserData,
 };
 
+// Connect the component to Redux, mapping state and actions to props
 export default connect(null, mapDispatchToProps)(FacultyDashboard);

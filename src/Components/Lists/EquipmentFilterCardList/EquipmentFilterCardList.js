@@ -27,18 +27,21 @@ function EquipmentFilterCardList(props) {
           onClick={OnEquipmentFilterCardClick}/>
     </div>
   )
-}
+};
 
+// Define PropTypes for type-checking and documentation
 EquipmentFilterCardList.propTypes = {
   className: PropTypes.string,
   selectedEquipmentFilter: PropTypes.string,
   OnEquipmentFilterCardClick: PropTypes.func,
 };
 
+// Set default values for props to avoid potential issues if not provided
 EquipmentFilterCardList.defaultProps = {
   className: '',
   selectedEquipmentFilter: null,
   OnEquipmentFilterCardClick: null,
 };
 
+// Exports the EquipmentFilterCardList component as the default export for the EquipmentFilterCardList module.
 export default EquipmentFilterCardList;

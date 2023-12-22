@@ -251,7 +251,7 @@ function StudentDashboard(props) {
       </div>
     </GeneralPage>
   )
-}
+};
 
 // Define PropTypes for the NavigationBar component
 StudentDashboard.propTypes = {
@@ -263,4 +263,5 @@ const mapDispatchToProps = {
   resetUserData,
 };
 
+// Connect the component to Redux, mapping state and actions to props
 export default connect(null, mapDispatchToProps)(StudentDashboard);

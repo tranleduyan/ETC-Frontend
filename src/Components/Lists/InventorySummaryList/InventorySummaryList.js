@@ -8,9 +8,6 @@ import { MESSAGE } from '../../../Constants';
 // Import Stylings
 import './InventorySummaryList.css';
 
-// Import Icons
-
-
 // Define Inventory Summary List component
 function InventorySummaryList(props) {
 
@@ -42,20 +39,21 @@ function InventorySummaryList(props) {
       }
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 InventorySummaryList.propTypes = {
   className: PropTypes.string,
   selectedInventoryType: PropTypes.number,
   OnEquipmentTypeSummaryCardClick: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 InventorySummaryList.defaultProps = {
   className: '',
   selectedInventoryType: null,
   OnEquipmentTypeSummaryCardClick: null,
-}
+};
 
+// Exports the InventorySummaryList component as the default export for the InventorySummaryList module.
 export default InventorySummaryList;

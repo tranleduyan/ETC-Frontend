@@ -313,6 +313,7 @@ function AdminDashboard() {
       </div>
     </GeneralPage>
   )
-}
+};
 
+// Exports the AdminDashboard component as the default export for the AdminDashboard module.
 export default AdminDashboard;

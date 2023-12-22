@@ -24,7 +24,7 @@ function Message(props) {
       <p className='paragraph-1'>{message}</p>
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 Message.propTypes = {
@@ -32,7 +32,7 @@ Message.propTypes = {
   message: PropTypes.string,
   className: PropTypes.string,
   visibility: PropTypes.bool,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 Message.defaultProps = {
@@ -40,6 +40,7 @@ Message.defaultProps = {
   message: '',
   className: '',
   visibility: true
-}
+};
 
+// Exports the Message component as the default export for the Message module.
 export default Message;

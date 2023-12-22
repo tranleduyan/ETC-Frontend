@@ -43,7 +43,7 @@ function EquipmentDetailCard(props) {
       </div>
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 EquipmentDetailCard.propTypes = {
@@ -51,7 +51,7 @@ EquipmentDetailCard.propTypes = {
   title: PropTypes.string,
   information: PropTypes.array,
   modelPhotoPath: PropTypes.string,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 EquipmentDetailCard.defaultProps = {
@@ -59,6 +59,7 @@ EquipmentDetailCard.defaultProps = {
   title: '',
   information: [],
   modelPhotoPath: null,
-}
+};
 
+// Exports the EquipmentDetailCard component as the default export for the EquipmentDetailCard module.
 export default EquipmentDetailCard;

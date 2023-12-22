@@ -1,3 +1,4 @@
+/* General Stylings */
 .ReservationList-Container {
     display: grid;
     overflow-y: auto;
@@ -13,6 +14,7 @@
     align-items: center;
 }
 
+/* For tablets and larger devices */
 @media screen and (min-width: 481px) {
     .ReservationList-Container {
         grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
@@ -25,6 +27,7 @@
     }
 }
 
+/* For mobile and smaller devices */
 @media screen and (max-width: 480px) {
     .ReservationList-Container {
         grid-template-columns: 1fr;

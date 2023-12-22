@@ -141,6 +141,7 @@ function VerificationPage() {
         </div>
     </div> 
   )
-}
+};
 
+// Exports the VerificationPage component as the default export for the VerificationPage module.
 export default VerificationPage;

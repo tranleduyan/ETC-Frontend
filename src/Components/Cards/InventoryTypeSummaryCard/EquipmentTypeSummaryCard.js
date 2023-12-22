@@ -42,7 +42,7 @@ function EquipmentTypeSummaryCard(props) {
         <p className='paragraph-1'>Reserved: {reservationAmount}</p>
     </button>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 EquipmentTypeSummaryCard.propTypes = {
@@ -53,7 +53,7 @@ EquipmentTypeSummaryCard.propTypes = {
   reservationAmount: PropTypes.number,
   isSelected: PropTypes.bool,
   OnEquipmentTypeSummaryCardClick: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 EquipmentTypeSummaryCard.defaultProps = {
@@ -63,6 +63,7 @@ EquipmentTypeSummaryCard.defaultProps = {
   reservationAmount: 0,
   isSelected: false,
   OnEquipmentTypeSummaryCardClick: null,
-}
+};
 
+// Exports the EquipmentTypeSummaryCard component as the default export for the EquipmentTypeSummaryCard module.
 export default EquipmentTypeSummaryCard;

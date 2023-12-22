@@ -348,6 +348,7 @@ function SignUpPage() {
       </div>
     </div>
   )
-}
+};
 
+// Exports the SignUpPage component as the default export for the SignUpPage module.
 export default SignUpPage;

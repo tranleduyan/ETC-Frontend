@@ -14,11 +14,12 @@ function GeneralPage({ children }) {
       { children }
     </div>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 GeneralPage.propTypes = {
   children: PropTypes.node, // 'children' can be any node (React element, string, number, etc.)
 };
 
+// Exports the GeneralPage component as the default export for the GeneralPage module.
 export default GeneralPage;

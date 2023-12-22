@@ -12,12 +12,10 @@ import LinkButton from '../../Components/Buttons/LinkButton/LinkButton.js';
 // Import Stylings
 import './DashboardPage.css';
 
-// Import Icons
-
-
 // Define the DashboardPage Component
 function DashboardPage(props) {
 
+  // Destructure props to extract userRole and Redux action
   const { userRole } = props;
   const navigate = useNavigate();
 
@@ -43,19 +41,22 @@ function DashboardPage(props) {
             title={'Sign Out.'}/>
         </div>
       </div>
-)}
+    )}
     </>
   )
-}
+};
 
+// Define PropTypes for type-checking and documentation
 DashboardPage.propTypes = {
   userRole: PropTypes.string,
 };
 
+// Set default values for props to avoid potential issues if not provided
 DashboardPage.defaultProps = {
   userRole: '',
 };
 
+// Map userRole from Redux state to component props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
 });
@@ -65,4 +66,5 @@ const mapDispatchToProps = {
   resetUserData,
 };
 
+// Connect the component to Redux, mapping state and actions to props
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

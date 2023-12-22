@@ -22,7 +22,7 @@ function FilterButton(props) {
       <p className='heading-5'>{title}</p>
     </button>
   )
-}
+};
 
 // Define PropTypes for type-checking and documentation
 FilterButton.propTypes = {
@@ -30,7 +30,7 @@ FilterButton.propTypes = {
   className: PropTypes.string,
   isActive: PropTypes.bool,
   onClick: PropTypes.func,
-}
+};
 
 // Set default values for props to avoid potential issues if not provided
 FilterButton.defaultProps = {
@@ -38,6 +38,7 @@ FilterButton.defaultProps = {
   className: '',
   isActive: false,
   onClick: null,
-}
+};
 
+// Exports the FilterButton component as the default export for the FilterButton module.
 export default FilterButton;

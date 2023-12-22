@@ -1,3 +1,4 @@
+/* General Stylings */
 .FilterCard-Container {
     display: flex;
     flex-direction: row;
@@ -25,6 +26,7 @@
     cursor: pointer;
 }
 
+/* For tablets and larger screen */
 @media screen and (min-width: 481px) {
     .FilterCard-Container {
         padding: calc(1.66875vmin);
@@ -45,6 +47,7 @@
     }
 }
 
+/* For mobile and smaller screen */
 @media screen and (max-width: 480px) {
     .FilterCard-Container {
         padding: calc(3.3375vmin);

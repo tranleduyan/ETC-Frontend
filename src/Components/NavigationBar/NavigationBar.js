@@ -124,7 +124,7 @@ function NavigationBar(props) {
       onClick={SignOut}/>
     </div>
   )
-}
+};
 
 // Define PropTypes for the NavigationBar component
 NavigationBar.propTypes = {
