@@ -115,7 +115,7 @@
     }
 
     .FacultyDashboard-LogoContainer {
-        display: none;
+        display: none !important;
     }
 
     .FacultyDashboard-ActionContainer {

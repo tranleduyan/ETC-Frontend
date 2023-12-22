@@ -115,7 +115,7 @@
     }
 
     .StudentDashboard-LogoContainer {
-        display: none;
+        display: none !important;
     }
 
     .StudentDashboard-ActionContainer {
