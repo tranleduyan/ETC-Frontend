@@ -8,7 +8,7 @@ import './Logo.css';
 function Logo(props) {
   const { className } = props;
   return (
-    <div className={`${className} Logo-Container`}>
+    <div className={`Logo-Container ${className} `}>
       <img src={ETC_Color_Logo} alt='ETC Logo'/>
     </div>
   )
