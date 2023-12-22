@@ -121,7 +121,7 @@
     }
 
     .AdminDashboard-LogoContainer {
-        display: none;
+        display: none !important;
     }
 
     .AdminDashboard-ActionContainer {
