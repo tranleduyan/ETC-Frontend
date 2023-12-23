@@ -1,0 +1,38 @@
+/* General Stylings */
+.FilterButton-Container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: var(--Black1);
+}
+
+.FilterButton-Active {
+    background-color: var(--Red1);
+    color: var(--White1);
+}
+
+.FilterButton-Container:hover {
+    cursor: pointer;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px) {
+    .FilterButton-Container {
+        height: calc(6.675vmin);
+        border-radius: calc(3.4765625vmin);
+        padding: calc(1.66875vmin);
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 480px) {
+    .FilterButton-Container {
+        height: calc(13.35vmin);
+        border-radius: calc(6.953125vmin);
+        padding: calc(2.225vmin);
+    }
+}

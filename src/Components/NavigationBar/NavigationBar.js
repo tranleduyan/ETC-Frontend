@@ -1,6 +1,6 @@
 // Import Components
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom';
 import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
 import Logo from '../../Components/Logo/Logo.js';
 import { connect } from 'react-redux';
@@ -16,7 +16,7 @@ import { HiViewGrid, HiCalendar, HiArchive, HiPlusCircle, HiUserGroup, HiBell, H
 // Render the navigation bar
 function NavigationBar(props) {
 
-  const { resetUserData } = props;
+  const { resetUserData, userRole } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,36 +34,36 @@ function NavigationBar(props) {
 
     // Else return empty class name
     return '';
-  }
+  };
 
   //#region Navigation Pages (For Scaling Purpose)
   const NavigateDashboard = () => {
     navigate('/Dashboard')
-  }
+  };
 
   const NavigateReservations = () => {
     navigate('/Reservations')
-  }
+  };
 
   const NavigateInventory = () => {
     navigate('/Inventory')
-  }
+  };
 
   const NavigateAddEquipment = () => {
     navigate('/AddEquipment')
-  }
+  };
 
   const NavigateUsers = () => {
     navigate('/Users')
-  }
+  };
 
   const NavigateNotifications = () => {
     navigate('/Notifications')
-  }
+  };
 
   const NavigateSettings = () => {
     navigate('/Settings')
-  }
+  };
   //#endregion
 
   // Sign the user out by reset user data in Redux
@@ -71,48 +71,50 @@ function NavigationBar(props) {
     // Dispatch the resetUserData action
     resetUserData();
     navigate('/');
-  }
+  };
 
-  // TODO: Show/Hide buttons based on user classes after sign in!
   return (
     <div className='NavigationBar-Container'>
     <Logo className='NavigationBar-LogoContainer'/>
     {/* Main Menu */}
-    <div className='NavigationBar-Menu'>
+    <div className={`NavigationBar-Menu NavigationBar-${userRole}`}>
       {/* Dashboard Button */}
       <IconButton 
         icon={HiViewGrid} 
-        className={`${ActivateButton('Dashboard')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Dashboard')} NavigationBarButton-Container NavigationBarButton-DashboardButton`} 
         onClick={NavigateDashboard}/>
       {/* Reservations Button */}
       <IconButton 
         icon={HiCalendar} 
-        className={`${ActivateButton('Reservations')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Reservations')} NavigationBarButton-Container NavigationBarButton-ReservationsButton`} 
         onClick={NavigateReservations}/>
       {/* Inventory Button */}
       <IconButton 
         icon={HiArchive} 
-        className={`${ActivateButton('Inventory')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Inventory')} NavigationBarButton-Container NavigationBarButton-InventoryButton`} 
         onClick={NavigateInventory}/>
+          
       {/* Add Equipment Button */}
       <IconButton 
         icon={HiPlusCircle} 
-        className={`${ActivateButton('AddEquipment')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('AddEquipment')} NavigationBarButton-Container NavigationBarButton-AddEquipmentButton`} 
         onClick={NavigateAddEquipment}/>
+          
       {/* Users Button */}
       <IconButton 
         icon={HiUserGroup} 
-        className={`${ActivateButton('Users')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Users')} NavigationBarButton-Container NavigationBarButton-UsersButton`} 
         onClick={NavigateUsers}/>
+      
       {/* Notifications Button */}
       <IconButton 
         icon={HiBell} 
-        className={`${ActivateButton('Notifications')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Notifications')} NavigationBarButton-Container NavigationBarButton-NotificationsButton`} 
         onClick={NavigateNotifications}/>
       {/* Settings Button */}
       <IconButton 
         icon={HiCog} 
-        className={`${ActivateButton('Settings')} NavigationBarButton-Container`} 
+        className={`${ActivateButton('Settings')} NavigationBarButton-Container NavigationBarButton-SettingsButton`} 
         onClick={NavigateSettings}/>
     </div>
     {/* Log Out Button */}
@@ -122,18 +124,27 @@ function NavigationBar(props) {
       onClick={SignOut}/>
     </div>
   )
-}
+};
 
 // Define PropTypes for the NavigationBar component
 NavigationBar.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  userRole: PropTypes.string,
 };
 
+NavigationBar.defaultProps = {
+  userRole: 'Student',
+};
+
+// Map the userRole from Redux store to props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+});
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
   resetUserData,
-}
+};
 
 // Connect the components to the ReduxStore for actions
-export default connect(null, mapDispatchToProps)(NavigationBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

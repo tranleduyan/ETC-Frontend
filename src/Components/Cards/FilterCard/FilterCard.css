@@ -1,0 +1,65 @@
+/* General Stylings */
+.FilterCard-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: var(--Black1);
+}
+
+.FilterCard-Information {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.FilterCard-Active {
+    background-color: var(--Red1);
+    color: var(--White1);
+}
+
+.FilterCard-Container:hover {
+    cursor: pointer;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px) {
+    .FilterCard-Container {
+        padding: calc(1.66875vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .FilterCard-Icon {
+        font-size: calc(5.00625vmin);
+    }
+    
+    .FilterCard-Information {
+        margin-left: calc(2.225vmin);
+    }
+
+    .FilterCard-Active {
+        border: calc(0.278125vmin) solid var(--Red1);
+    }
+}
+
+/* For mobile and smaller screen */
+@media screen and (max-width: 480px) {
+    .FilterCard-Container {
+        padding: calc(3.3375vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .FilterCard-Icon {
+        display: none;
+    }
+    
+    .FilterCard-Information {
+        margin-left: 0px;
+    }
+}

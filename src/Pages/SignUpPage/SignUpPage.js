@@ -50,12 +50,12 @@ function SignUpPage() {
   // Handle Input Change to update the state of userInformation object
   const HandleInputChange = (propertyName, inputValue) => {
     setUserInformation({...userInformation, [propertyName]: inputValue});
-  }
+  };
 
   // Control the visibility of the input field
   const isVisible = (promptState) => {
     return (promptState <= currentPromptState);
-  }
+  };
 
   // Set the input field styling to be last input field due to the behavior of last-child is conflicting with display:none.
   const SetCurrentLastInputFieldClass = (promptState) => {
@@ -63,7 +63,7 @@ function SignUpPage() {
       return 'SignUpPage-LastInputField';
     }
     return '';
-  }
+  };
 
   // IsValidEmailAddress, Check that the email address is valid to continue.
   const IsValidEmailAddress = () => {
@@ -82,7 +82,7 @@ function SignUpPage() {
     }
 
     return true;
-  }
+  };
 
   // IsValidName, check for if the names are valid.
   const IsValidName = () => {
@@ -134,7 +134,7 @@ function SignUpPage() {
     }
 
     return true;
-  }
+  };
 
   // IsValidSchoolId, every SPU member must need to provide schoolId.
   const IsValidSchoolId = () => {
@@ -153,7 +153,7 @@ function SignUpPage() {
     }
     
     return true;
-  }
+  };
 
   // IsValidPassword, Check for if the password is valid - must be 6 character long or more
   const IsValidPassword = () => {
@@ -171,7 +171,7 @@ function SignUpPage() {
     }
 
     return true;
-  }
+  };
 
   // IsValidConfirmPassword, Check for if the confirm password is valid and matched the password
   const IsValidConfirmPassword = () => {
@@ -189,7 +189,7 @@ function SignUpPage() {
     }
 
     return true;
-  }
+  };
 
   // IsValid, Check if the form is ready to continue
   const IsValid = () => {
@@ -201,7 +201,7 @@ function SignUpPage() {
       return true;
     }
     return false;
-  }
+  };
 
   // Continuing reveal the next input field when the current one is filled
   const Continue = async () => {
@@ -215,7 +215,7 @@ function SignUpPage() {
         setCurrentPromptState(currentState);
       }
     }
-  }
+  };
 
   // SendVerification: This function generates verification code and call the API to send the generated code to the user's registered email. If every thing is success, navigate to email verification page to continue the sign up process.
   const SendVerification = async () => {
@@ -244,18 +244,18 @@ function SignUpPage() {
         setIsError(true);
         setErrorMessage(error.response.data.message);
       });
-  }
+  };
 
   //#region Navigation
   const NavigateSignIn = () => {
     navigate('/');
-  }
+  };
 
   // Navigate to the verification page with the parameters of userInformation and the generated verificationCode
   const NavigateEmailVerification = (requestBody) => {
     navigate('/Verification', { state: {userInformation,
                                         verificationCode: requestBody.verificationCode}});
-  }
+  };
   //#endregion
   
   return (
@@ -348,6 +348,7 @@ function SignUpPage() {
       </div>
     </div>
   )
-}
+};
 
+// Exports the SignUpPage component as the default export for the SignUpPage module.
 export default SignUpPage;

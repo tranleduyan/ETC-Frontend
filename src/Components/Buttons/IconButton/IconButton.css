@@ -1,13 +1,27 @@
 .IconButton-Container {
-    font-size: calc(3.3375vmin);
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border:none;
     background: transparent;
+    color: var(--Black1);
 }
 
 .IconButton-Container:hover {
     cursor: pointer;
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .IconButton-Container {
+        font-size: calc(3.3375vmin);
+    }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 480px) {
+    .IconButton-Container {
+        font-size: calc(6.675vmin);
+    }
 }
