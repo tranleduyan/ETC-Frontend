@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const SignInPage = lazy(() => import('./Pages/SignInPage'));
 const SignUpPage = lazy(() => import('./Pages/SignUpPage'));
 const DashboardPage = lazy(() => import('./Pages/DashboardPage'));
-const AddEquipmentPage = lazy(() => import('./Pages/AddEquipmentPage'));
+const AddToInventoryPage = lazy(() => import('./Pages/AddToInventoryPage'));
 const InventoryPage = lazy(() => import('./Pages/InventoryPage'));
 const NotificationsPage = lazy(() => import('./Pages/NotificationsPage'));
 const ReservationsPage = lazy(() => import('./Pages/ReservationsPage'));
@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={<SignInPage />} />
           <Route path="/SignUp" element={<SignUpPage />} />
           <Route path="/Dashboard" element={<DashboardPage />} />
-          <Route path="/AddEquipment" element={<AddEquipmentPage />} />
+          <Route path="/AddToInventory" element={<AddToInventoryPage />} />
           <Route path="/Inventory" element={<InventoryPage />} />
           <Route path="/Notifications" element={<NotificationsPage />} />
           <Route path="/Reservations" element={<ReservationsPage />} />

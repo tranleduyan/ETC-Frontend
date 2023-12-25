@@ -133,7 +133,7 @@ function AdminDashboard() {
 
   // Function triggered when "Add Equipment" button is clicked - Go to Add Equipment Page
   const OnAddEquipmentClick = () => {
-    navigate('/AddEquipment');
+    navigate('/AddToInventory');
   };
 
   // TODO: Search APIs

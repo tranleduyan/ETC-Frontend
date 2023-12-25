@@ -1,0 +1,191 @@
+.AddToInventoryPage-PageContentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.AddToInventoryPage-PageHeaderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.AddToInventoryPage-ContentContainer {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .AddToInventoryPage-PageContentContainer {
+        height: 100%;
+    }
+
+    .AddToInventoryPage-PageHeaderContainer {
+        height: calc(9.45625vmin);
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        padding: calc(2.225vmin);
+    }
+    
+    .AddToInventoryPage-LogoContainer {
+        display: none !important;
+    }
+    
+    .AddToInventoryPage-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+        padding: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-ContentHeaderContainer {
+        height: calc(calc(6.675vmin));
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .AddToInventoryPage-HeaderContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-ActionContainer {
+        height: calc(6.675vmin);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-AddEquipmentButton {
+        width: calc(27.8125vmin);
+    }
+
+    .AddToInventoryPage-ImportEquipmentButton {
+        width: calc(20.58125vmin);
+    }
+    
+    .AddToInventoryPage-Content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+        width: 100%;
+        margin-top: calc(2.225vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-VisualContainer {
+        height: 100%;
+        width: calc(35.04375vmin);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .AddToInventoryPage-PromptContainer {
+        width: 100%;
+        height: calc(35.04375vmin);
+        background-color: var(--Gray2);
+        border-radius: calc(1.390625vmin);
+        color: var(--Gray3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .AddToInventoryPage-PromptIcon {
+        font-size: calc(8.34375vmin);
+    }
+
+    .AddToInventoryPage-Prompt {
+        width: calc(24.475vmin);
+        text-align: center;
+    }
+    
+    .AddToInventoryPage-FormContainer {
+        width: calc(100% - calc(35.04375vmin));
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: calc(1.66875vmin);
+    }
+
+    .AddToInventoryPage-EquipmentInformationGroup,
+    .AddToInventoryPage-EquipmentStatusGroup,
+    .AddToInventoryPage-EquipmentLocationGroup,
+    .AddToInventoryPage-EquipmentAcquisitionInformationGroup {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-EquipmentTypeAndModel,
+    .AddToInventoryPage-EquipmentStatus,
+    .AddToInventoryPage-EquipmentLocation,
+    .AddToInventoryPage-EquipmentPurchaseCostAndDate {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: calc(2.225vmin);
+    }
+
+    .AddToInventoryPage-InputField {
+        width: 100%;
+    }
+
+    .AddToInventoryPage-Instructions {
+        font-style: italic;
+        color: var(--Gray3);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .AddToInventoryPage-PageContentContainer {
+        height: 0px;
+    }
+
+    .AddToInventoryPage-PageHeaderContainer {
+        height: calc(17.8vmin);
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+        padding: calc(4.45vmin);
+    }
+
+    .AddToInventoryPage-PageHeaderContainer p.heading-2 {
+        font-size: calc(5.562vmin);
+        margin-left: calc(4.45vmin);
+    }
+
+    .AddToInventoryPage-LogoContainer {
+        width: calc(8.9vmin); 
+    }
+    
+    .AddToInventoryPage-LogoContainer img {
+        width:100%;
+        height:100%;
+    }
+
+    .AddToInventoryPage-ContentContainer {
+        height: 100% - calc(17.8vmin);
+    }
+}

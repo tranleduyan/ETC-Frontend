@@ -49,8 +49,8 @@ function NavigationBar(props) {
     navigate('/Inventory')
   };
 
-  const NavigateAddEquipment = () => {
-    navigate('/AddEquipment')
+  const NavigateAddToInventory = () => {
+    navigate('/AddToInventory')
   };
 
   const NavigateUsers = () => {
@@ -94,11 +94,11 @@ function NavigationBar(props) {
         className={`${ActivateButton('Inventory')} NavigationBarButton-Container NavigationBarButton-InventoryButton`} 
         onClick={NavigateInventory}/>
           
-      {/* Add Equipment Button */}
+      {/* Add To Inventory Button */}
       <IconButton 
         icon={HiPlusCircle} 
-        className={`${ActivateButton('AddEquipment')} NavigationBarButton-Container NavigationBarButton-AddEquipmentButton`} 
-        onClick={NavigateAddEquipment}/>
+        className={`${ActivateButton('AddToInventory')} NavigationBarButton-Container NavigationBarButton-AddEquipmentButton`} 
+        onClick={NavigateAddToInventory}/>
           
       {/* Users Button */}
       <IconButton 
