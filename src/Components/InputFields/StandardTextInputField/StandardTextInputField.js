@@ -22,7 +22,7 @@ function StandardTextInputField(props) {
   return (
     <input type={type}
            placeholder={placeholder}
-           className={`${visibility === false ? hiddenClassName : className} StandardTextInputField`} 
+           className={`StandardTextInputField ${visibility === false ? hiddenClassName : className}`} 
            name={name}
            value={value}
            onChange={HandleInputChange}

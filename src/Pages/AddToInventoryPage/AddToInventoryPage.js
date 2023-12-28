@@ -1,5 +1,5 @@
 // Import Components 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
@@ -12,11 +12,53 @@ import './AddToInventoryPage.css';
 
 // Import Icons
 import { HiDocumentText, HiPhotograph, HiPlus } from 'react-icons/hi';
+import StandardDropDown from '../../Components/DropDowns/StandardDropDown/StandardDropDown';
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage() {
 
   const [currentSection, setCurrentSection] = useState('Equipment');
+  const [equipmentAdditionInformation, setEquipmentAdditionInformation] = useState({
+    serialNumber: '',
+    type: null,
+    model: null,
+    maintenanceStatus: null,
+    reservationStatus: null,
+    RFIDTag: '',
+    homeLocation: null,
+    condition: '',
+    purchaseCost: null,
+    purchaseDate: null,
+  });
+
+  const equipmentTypes = [
+    {
+      label: 'Ammeter',
+      value: '2'
+    },
+    {
+      label: 'Voltmeter',
+      value: '5'
+    },
+    {
+      label: 'Multimeter',
+      value: '1'
+    },
+    {
+      label: 'Barometer',
+      value: '10'
+    },
+    {
+      label: 'Lux Meter',
+      value: '8'
+    },
+    {
+      label: 'Thermometer',
+      value: '9'
+    },
+  ];
+
+  const equipmentModels = [];
 
   const AddEquipment = () => {
     console.log('Add Equipment');
@@ -26,6 +68,16 @@ function AddToInventoryPage() {
     console.log('Import Equipment');
   }
 
+  const HandleEquipmentAdditionInputChange = (propertyName, selectedValue) => {
+    setEquipmentAdditionInformation({...equipmentAdditionInformation, [propertyName]: selectedValue})
+    console.log(selectedValue);
+    console.log(propertyName);
+  };
+
+  useEffect(() => {
+    console.log(equipmentAdditionInformation);
+  }, [equipmentAdditionInformation]);
+  
   return (
     <GeneralPage>
       <div className='AddToInventoryPage-PageContentContainer'>
@@ -76,22 +128,22 @@ function AddToInventoryPage() {
                 <p className='heading-5'>Equipment Information</p>
                 <StandardTextInputField 
                   placeholder='Enter equipment serial number' 
-                  name='Serial Number'
+                  name='serialNumber'
                   onChange={()=> {}}
                   onKeyDown={() => {}}/>
                 <div className='AddToInventoryPage-EquipmentTypeAndModel'>
-                  <StandardTextInputField 
-                    placeholder='Select type' 
+                  <StandardDropDown
+                    placeholder='Select type'
                     className='AddToInventoryPage-InputField'
-                    name='Type'
-                    onChange={()=> {}}
-                    onKeyDown={() => {}}/>
-                  <StandardTextInputField 
-                    placeholder='Select model' 
+                    name='type'
+                    options={equipmentTypes}
+                    onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+                  <StandardDropDown
+                    placeholder='Select model'
                     className='AddToInventoryPage-InputField'
-                    name='Model'
-                    onChange={()=> {}}
-                    onKeyDown={() => {}}/>
+                    name='model'
+                    options={equipmentModels}
+                    onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
                 </div>
               </div>
               <div className='AddToInventoryPage-EquipmentStatusGroup'>
@@ -150,7 +202,8 @@ function AddToInventoryPage() {
                     onKeyDown={() => {}}/>
                 </div>
               </div>
-              <p className='paragraph-1 AddToInventoryPage-Instructions'>To add to inventory, please provide the details to ensure accurate and comprehensive record-keeping.</p>
+              <p className='paragraph-1 AddToInventoryPage-Instructions'>
+Please provide the details of the equipment.</p>
             </div>
           </div>
         </div>

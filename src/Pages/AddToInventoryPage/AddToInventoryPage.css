@@ -56,7 +56,7 @@
     .AddToInventoryPage-HeaderContainer {
         display: flex;
         flex-direction: row;
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
         gap: calc(2.225vmin);
     }
