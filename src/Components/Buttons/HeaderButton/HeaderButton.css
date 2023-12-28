@@ -8,6 +8,7 @@
     background-color: transparent;
     border: none;
     padding: 0;
+    color: var(--Black1);
 }
 
 .HeaderButton-Active {

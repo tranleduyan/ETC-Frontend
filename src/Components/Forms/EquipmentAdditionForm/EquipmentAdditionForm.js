@@ -1,24 +1,27 @@
 // Import Components
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
-import { HiPhotograph } from 'react-icons/hi';
 import { OPTIONS } from '../../../Constants';
 
 // Import Stylings
 import './EquipmentAdditionForm.css';
 
+// Import Icons
+import { HiPhotograph } from 'react-icons/hi';
+
 // Define EquipmentAdditionForm Component
 function EquipmentAdditionForm(props) {
 
-  const { equipmentAdditionInformation, setEquipmentAdditionInformation } = props;
+  const { className, equipmentAdditionInformation, setEquipmentAdditionInformation } = props;
 
   const HandleEquipmentAdditionInputChange = (propertyName, selectedValue) => {
     setEquipmentAdditionInformation({...equipmentAdditionInformation, [propertyName]: selectedValue})
   };
   
   return (
-    <div className='EquipmentAdditionForm-Container'>
+    <div className={`EquipmentAdditionForm-Container ${className}`}>
       <div className='EquipmentAdditionForm-VisualContainer'>
         <div className='EquipmentAdditionForm-PromptContainer'>
           <HiPhotograph className='EquipmentAdditionForm-PromptIcon'/>
@@ -96,7 +99,7 @@ function EquipmentAdditionForm(props) {
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
             <StandardTextInputField
               placeholder='Enter purchase date'
-              className='EquipmentAdditionForm-Field'
+              className='EquipmentAdditionForm-Field EquipmentAdditionForm-MarginField'
               name='purchaseDate'
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
@@ -107,6 +110,18 @@ function EquipmentAdditionForm(props) {
       </div>
     </div>
   )
+};
+
+// Define PropTypes for the Form component
+EquipmentAdditionForm.propTypes = {
+  className: PropTypes.string,
+  equipmentAdditionInformation: PropTypes.any.isRequired,
+  setEquipmentAdditionInformation: PropTypes.func.isRequired,
+};
+
+// Define Default Props for the component
+EquipmentAdditionForm.defaultProps = {
+  className: '',
 };
 
 // Exports the EquipmentAdditionForm component as the default export for the EquipmentAdditionForm module.

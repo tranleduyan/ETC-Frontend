@@ -4,13 +4,14 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
+import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
+import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
 
 // Import Stylings
 import './AddToInventoryPage.css';
 
 // Import Icons
 import { HiDocumentText, HiPlus } from 'react-icons/hi';
-import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage() {
@@ -29,8 +30,16 @@ function AddToInventoryPage() {
     purchaseDate: null,
   });
 
+  const [typeAdditionInformation, setTypeAdditionInformation] = useState({
+
+  });
+
   const AddEquipment = () => {
     console.log('Add Equipment');
+  };
+
+  const AddType = () => {
+    console.log('Add Type');
   };
 
   const ImportEquipment = () => {
@@ -67,21 +76,59 @@ function AddToInventoryPage() {
                 onClick={() => setCurrentSection('Model')}/>
             </div>
             <div className='AddToInventoryPage-ActionContainer'>
+              {currentSection === 'Equipment' && (
+                <>
+                  <StandardButton 
+                    title='Add Equipment'
+                    onClick={AddEquipment}
+                    className='AddToInventoryPage-AddButton'
+                    icon={HiPlus}/>
+                  <StandardButton 
+                    title='Import'
+                    onClick={ImportEquipment}
+                    className='AddToInventoryPage-ImportEquipmentButton'
+                    icon={HiDocumentText}/>
+                </>
+              )}
+              {currentSection === 'Type' && (
+                <>
+                  <StandardButton 
+                    title='Add Type'
+                    onClick={AddType}
+                    className='AddToInventoryPage-AddButton'
+                    icon={HiPlus}/>
+                </>
+              )}
+            </div>
+          </div>
+          {currentSection === 'Equipment' && 
+            (<>
+              <EquipmentAdditionForm 
+                equipmentAdditionInformation={equipmentAdditionInformation}
+                setEquipmentAdditionInformation={setEquipmentAdditionInformation}/>
               <StandardButton 
                 title='Add Equipment'
                 onClick={AddEquipment}
-                className='AddToInventoryPage-AddEquipmentButton'
+                className='AddToInventoryPage-MobileAddButton'
                 icon={HiPlus}/>
+            </>
+            )
+          }
+          {currentSection === 'Type' &&
+            (
+              <>
+                <TypeAdditionForm
+                  typeAdditionInformation={typeAdditionInformation}
+                  setTypeAdditionInformation={setTypeAdditionInformation}/>
               <StandardButton 
-                title='Import'
-                onClick={ImportEquipment}
-                className='AddToInventoryPage-ImportEquipmentButton'
-                icon={HiDocumentText}/>
-            </div>
-          </div>
-          <EquipmentAdditionForm 
-            equipmentAdditionInformation={equipmentAdditionInformation}
-            setEquipmentAdditionInformation={setEquipmentAdditionInformation}/>
+                title='Add Type'
+                onClick={AddType}
+                className='AddToInventoryPage-MobileAddButton'
+                icon={HiPlus}/>
+              </>
+            )
+            
+          }
         </div>
       </div>
     </GeneralPage>

@@ -1,21 +1,8 @@
 /* General Stylings */
-.EquipmentAdditionForm-Container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
-    margin-top: calc(2.225vmin);
-    gap: calc(2.225vmin);
-}
-
 .EquipmentAdditionForm-VisualContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100%; 
-    width: calc(35.04375vmin);
 }
 
 .EquipmentAdditionForm-PromptContainer {
@@ -25,18 +12,11 @@
     align-items: center;
     color: var(--Gray3);
     width: 100%;
-    height: calc(35.04375vmin);
     background-color: var(--Gray2);
-    border-radius: calc(1.390625vmin);
-}
-
-.EquipmentAdditionForm-PromptIcon {
-    font-size: calc(8.34375vmin);
 }
 
 .EquipmentAdditionForm-Prompt {
     text-align: center;
-    width: calc(24.475vmin);
 }
 
 .EquipmentAdditionForm-FormContainer {
@@ -44,8 +24,6 @@
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    width: calc(100% - calc(35.04375vmin));
-    gap: calc(1.66875vmin);
 }
 
 .EquipmentAdditionForm-EquipmentInformationGroup,
@@ -56,15 +34,10 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    gap: calc(2.225vmin);
 }
 
 .EquipmentAdditionForm-BinaryFieldGroup {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     width: 100%;
-    gap: calc(2.225vmin);
 }
 
 .EquipmentAdditionForm-Field {
@@ -74,4 +47,114 @@
 .EquipmentAdditionForm-Instructions {
     font-style: italic;
     color: var(--Gray3);
+}
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .EquipmentAdditionForm-Container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+        margin-top: calc(2.225vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .EquipmentAdditionForm-VisualContainer {
+        width: calc(35.04375vmin);
+        height: 100%; 
+    }
+
+    .EquipmentAdditionForm-PromptContainer {
+        height: calc(35.04375vmin);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .EquipmentAdditionForm-PromptIcon {
+        font-size: calc(8.34375vmin);
+    }
+
+    .EquipmentAdditionForm-Prompt {
+        width: calc(24.475vmin);
+    }
+
+    .EquipmentAdditionForm-FormContainer {
+        width: calc(100% - calc(35.04375vmin));
+        gap: calc(1.66875vmin);
+    }
+
+    .EquipmentAdditionForm-EquipmentInformationGroup,
+    .EquipmentAdditionForm-EquipmentStatusGroup,
+    .EquipmentAdditionForm-EquipmentLocationGroup,
+    .EquipmentAdditionForm-EquipmentAcquisitionInformationGroup {
+        gap: calc(2.225vmin);
+    }
+
+    .EquipmentAdditionForm-BinaryFieldGroup {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: calc(2.225vmin);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .EquipmentAdditionForm-Container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+        margin: calc(4.45vmin) 0px;
+        gap: calc(4.45vmin);
+        overflow-y: auto;
+    }
+    
+    .EquipmentAdditionForm-VisualContainer {
+        height: calc(68.975vmin);
+        width: 100%; 
+    }
+
+    .EquipmentAdditionForm-PromptContainer {
+        height: calc(68.975vmin);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .EquipmentAdditionForm-PromptIcon {
+        font-size: calc(16.6875vmin);
+    }
+
+    .EquipmentAdditionForm-Prompt {
+        width: calc(48.95vmin);
+    }
+
+    .EquipmentAdditionForm-FormContainer {
+        width: 100%;
+        gap: calc(3.3375vmin);
+    }
+
+    .EquipmentAdditionForm-EquipmentInformationGroup,
+    .EquipmentAdditionForm-EquipmentStatusGroup,
+    .EquipmentAdditionForm-EquipmentLocationGroup,
+    .EquipmentAdditionForm-EquipmentAcquisitionInformationGroup {
+        gap: calc(4.45vmin);
+    }
+
+    .EquipmentAdditionForm-BinaryFieldGroup {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: calc(4.45vmin);
+    }
+
+    .EquipmentAdditionForm-MarginField {
+        margin-bottom: calc(2.225vmin);
+    }
+
+    .EquipmentAdditionForm-Instructions {
+        display: none;
+    }
 }

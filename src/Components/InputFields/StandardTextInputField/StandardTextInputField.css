@@ -2,6 +2,11 @@
 .StandardTextInputField {
     font-family: 'Poppins Regular', sans-serif;
     box-sizing: border-box;
+    outline: none;
+}
+
+.StandardTextInputField::placeholder {
+    color: var(--Gray3);
 }
 
 /* For tablet and bigger devices */
@@ -13,6 +18,10 @@
         border: calc(0.278125vmin) solid var(--Gray1);
         font-size: calc(2.225vmin);
     }
+    
+    .StandardTextInputField:focus {
+        border: calc(0.278125vmin) solid var(--Blue1);
+    }
 }
 
 /* For phone and smaller devices */
@@ -23,5 +32,9 @@
         border-radius: calc(2.78125vmin);
         border: calc(0.55625vmin) solid var(--Gray1);
         font-size: calc(4.45vmin);
+    }
+
+    .StandardTextInputField:focus {
+        border: calc(0.55625vmin) solid var(--Blue1);
     }
 }

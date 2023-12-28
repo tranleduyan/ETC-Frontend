@@ -26,7 +26,7 @@
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .AddToInventoryPage-PageContentContainer {
-        height: 100%;
+        height: 100dvh;
     }
 
     .AddToInventoryPage-PageHeaderContainer {
@@ -45,12 +45,12 @@
     }
 
     .AddToInventoryPage-ContentHeaderContainer {
-        height: calc(calc(6.675vmin));
-        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        height: calc(calc(6.675vmin));
+        width: 100%;
     }
 
     .AddToInventoryPage-HeaderContainer {
@@ -70,92 +70,16 @@
         gap: calc(2.225vmin);
     }
 
-    .AddToInventoryPage-AddEquipmentButton {
-        width: calc(27.8125vmin);
+    .AddToInventoryPage-AddButton {
+        width: calc(30vmin);
     }
 
     .AddToInventoryPage-ImportEquipmentButton {
         width: calc(20.58125vmin);
     }
-    
-    .AddToInventoryPage-Content {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
-        width: 100%;
-        margin-top: calc(2.225vmin);
-        gap: calc(2.225vmin);
-    }
 
-    .AddToInventoryPage-VisualContainer {
-        height: 100%;
-        width: calc(35.04375vmin);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-
-    .AddToInventoryPage-PromptContainer {
-        width: 100%;
-        height: calc(35.04375vmin);
-        background-color: var(--Gray2);
-        border-radius: calc(1.390625vmin);
-        color: var(--Gray3);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .AddToInventoryPage-PromptIcon {
-        font-size: calc(8.34375vmin);
-    }
-
-    .AddToInventoryPage-Prompt {
-        width: calc(24.475vmin);
-        text-align: center;
-    }
-    
-    .AddToInventoryPage-FormContainer {
-        width: calc(100% - calc(35.04375vmin));
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: calc(1.66875vmin);
-    }
-
-    .AddToInventoryPage-EquipmentInformationGroup,
-    .AddToInventoryPage-EquipmentStatusGroup,
-    .AddToInventoryPage-EquipmentLocationGroup,
-    .AddToInventoryPage-EquipmentAcquisitionInformationGroup {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: calc(2.225vmin);
-    }
-
-    .AddToInventoryPage-EquipmentTypeAndModel,
-    .AddToInventoryPage-EquipmentStatus,
-    .AddToInventoryPage-EquipmentLocation,
-    .AddToInventoryPage-EquipmentPurchaseCostAndDate {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: calc(2.225vmin);
-    }
-
-    .AddToInventoryPage-InputField {
-        width: 100%;
-    }
-
-    .AddToInventoryPage-Instructions {
-        font-style: italic;
-        color: var(--Gray3);
+    .AddToInventoryPage-MobileAddButton {
+        display: none;
     }
 }
 
@@ -187,5 +111,31 @@
 
     .AddToInventoryPage-ContentContainer {
         height: 100% - calc(17.8vmin);
+        padding: calc(4.45vmin);
+    }
+
+    .AddToInventoryPage-ContentHeaderContainer {
+        height: calc(13.35vmin);
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .AddToInventoryPage-HeaderContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: calc(4.45vmin);
+    }
+
+    .AddToInventoryPage-ActionContainer {
+        display: none !important;
+    }
+
+    .AddToInventoryPage-MobileAddButton {
+        width: 100%;
     }
 }
