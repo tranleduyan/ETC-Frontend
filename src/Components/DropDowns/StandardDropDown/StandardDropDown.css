@@ -1,0 +1,28 @@
+/*
+.StandardDropDown {
+    font-family: 'Poppins Regular', sans-serif;
+    box-sizing: border-box;
+}
+
+.StandardDropDown-SelectBox {
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins Regular', sans-serif;
+    border: none;
+    appearance: none;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width: 481px) {
+}
+
+@media screen and (max-width: 480px) {
+    .StandardDropDown {
+        height: calc(13.35vmin);
+        padding: calc(3.3375vmin);
+        border-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        font-size: calc(4.45vmin);
+    }
+}
+*/

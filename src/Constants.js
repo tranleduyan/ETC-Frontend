@@ -30,3 +30,38 @@ export const MESSAGE = {
     // Message for indicating empty reservations
     emptyReservation: "There are no reservations."
 };
+
+export const OPTIONS = {
+    equipment: {
+        conditions: [
+            {
+                label: 'New',
+                value: 'New',
+            },
+            {
+                label: 'Used',
+                value: 'Used,'
+            },
+        ],
+        maintenanceStatus: [
+            {
+                label: 'Ready',
+                value: 'Ready',
+            },
+            {
+                label: 'Under Repair',
+                value: 'Under Repair',
+            }
+        ],
+        reservationStatus: [
+            {
+                label: 'In Use',
+                value: 'In Use',
+            },
+            {
+                label: 'Available',
+                value: 'Available',
+            }
+        ],
+    },
+};

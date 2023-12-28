@@ -1,0 +1,77 @@
+/* General Stylings */
+.EquipmentAdditionForm-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+    margin-top: calc(2.225vmin);
+    gap: calc(2.225vmin);
+}
+
+.EquipmentAdditionForm-VisualContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%; 
+    width: calc(35.04375vmin);
+}
+
+.EquipmentAdditionForm-PromptContainer {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--Gray3);
+    width: 100%;
+    height: calc(35.04375vmin);
+    background-color: var(--Gray2);
+    border-radius: calc(1.390625vmin);
+}
+
+.EquipmentAdditionForm-PromptIcon {
+    font-size: calc(8.34375vmin);
+}
+
+.EquipmentAdditionForm-Prompt {
+    text-align: center;
+    width: calc(24.475vmin);
+}
+
+.EquipmentAdditionForm-FormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: calc(100% - calc(35.04375vmin));
+    gap: calc(1.66875vmin);
+}
+
+.EquipmentAdditionForm-EquipmentInformationGroup,
+.EquipmentAdditionForm-EquipmentStatusGroup,
+.EquipmentAdditionForm-EquipmentLocationGroup,
+.EquipmentAdditionForm-EquipmentAcquisitionInformationGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    gap: calc(2.225vmin);
+}
+
+.EquipmentAdditionForm-BinaryFieldGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: calc(2.225vmin);
+}
+
+.EquipmentAdditionForm-Field {
+    width: 100%;
+}
+
+.EquipmentAdditionForm-Instructions {
+    font-style: italic;
+    color: var(--Gray3);
+}
