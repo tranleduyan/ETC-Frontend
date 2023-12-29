@@ -1,10 +1,10 @@
 // Import Components
 import React from 'react';
 import PropTypes from 'prop-types';
+import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 
 // Import Stylings
 import './TypeAdditionForm.css';
-import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 
 // Define TypeAdditionForm Component
 function TypeAdditionForm(props) {
@@ -27,7 +27,7 @@ function TypeAdditionForm(props) {
             onChange={(name, value) => HandleTypeAdditionInputChange(name, value)}/>
         </div>
         <p className='paragraph-1 TypeAdditionForm-Instructions'>
-          Please provide the details of the equipment.
+          Please provide the details of the type.
         </p>
       </div>
     </div>

@@ -1,0 +1,133 @@
+/* General Stylings */
+.ModelAdditionForm-VisualContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ModelAdditionForm-PromptContainer {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--Gray3);
+    width: 100%;
+    background-color: var(--Gray2);
+}
+
+.ModelAdditionForm-Prompt {
+    text-align: center;
+}
+
+.ModelAdditionForm-FormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.ModelAdditionForm-ModelInformationGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.ModelAdditionForm-Field {
+    width: 100%;
+}
+
+.ModelAdditionForm-Instructions {
+    font-style: italic;
+    color: var(--Gray3);
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .ModelAdditionForm-Container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+        margin-top: calc(2.225vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .ModelAdditionForm-VisualContainer {
+        width: calc(35.04375vmin);
+        height: 100%; 
+    }
+
+    .ModelAdditionForm-PromptContainer {
+        height: calc(35.04375vmin);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .ModelAdditionForm-PromptIcon {
+        font-size: calc(8.34375vmin);
+    }
+
+    .ModelAdditionForm-Prompt {
+        width: calc(24.475vmin);
+    }
+
+    .ModelAdditionForm-FormContainer {
+        width: calc(100% - calc(35.04375vmin));
+        gap: calc(1.66875vmin);
+    }
+
+    .ModelAdditionForm-ModelInformationGroup {
+        gap: calc(2.225vmin);
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 480px) {
+    .ModelAdditionForm-Container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+        margin: calc(4.45vmin) 0px;
+        gap: calc(4.45vmin);
+        overflow-y: auto;
+    }
+
+    .ModelAdditionForm-VisualContainer {
+        height: calc(68.975vmin);
+        width: 100%; 
+    }
+
+    .ModelAdditionForm-PromptContainer {
+        height: calc(68.975vmin);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .ModelAdditionForm-PromptIcon {
+        font-size: calc(16.6875vmin);
+    }
+
+    .ModelAdditionForm-Prompt {
+        width: calc(48.95vmin);
+    }
+
+    .ModelAdditionForm-FormContainer {
+        width: 100%;
+        gap: calc(3.3375vmin);
+    }
+    
+    .ModelAdditionForm-ModelInformationGroup {
+        gap: calc(4.45vmin);
+    }
+
+    .ModelAdditionForm-MarginField {
+        margin-bottom: calc(2.225vmin);
+    }
+
+    .ModelAdditionForm-Instructions {
+        display: none;
+    }
+}

@@ -12,11 +12,13 @@ import './AddToInventoryPage.css';
 
 // Import Icons
 import { HiDocumentText, HiPlus } from 'react-icons/hi';
+import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage() {
 
   const [currentSection, setCurrentSection] = useState('Equipment');
+
   const [equipmentAdditionInformation, setEquipmentAdditionInformation] = useState({
     serialNumber: '',
     type: null,
@@ -31,20 +33,29 @@ function AddToInventoryPage() {
   });
 
   const [typeAdditionInformation, setTypeAdditionInformation] = useState({
+    name: '',
+  });
 
+  const [modelAdditionInformation, setModelAdditionInformation] = useState({
+    name: '',
+    type: null,
   });
 
   const AddEquipment = () => {
-    console.log('Add Equipment');
-  };
-
-  const AddType = () => {
-    console.log('Add Type');
+    console.log(equipmentAdditionInformation);
   };
 
   const ImportEquipment = () => {
     console.log('Import Equipment');
   };
+
+  const AddType = () => {
+    console.log(typeAdditionInformation);
+  };
+
+  const AddModel = () => {
+    console.log(modelAdditionInformation);
+  }
 
   useEffect(() => {
     console.log(equipmentAdditionInformation);
@@ -99,6 +110,15 @@ function AddToInventoryPage() {
                     icon={HiPlus}/>
                 </>
               )}
+              {currentSection === 'Model' && (
+                <>
+                  <StandardButton 
+                    title='Add Model'
+                    onClick={AddType}
+                    className='AddToInventoryPage-AddButton'
+                    icon={HiPlus}/>
+                </>
+              )}
             </div>
           </div>
           {currentSection === 'Equipment' && 
@@ -120,15 +140,27 @@ function AddToInventoryPage() {
                 <TypeAdditionForm
                   typeAdditionInformation={typeAdditionInformation}
                   setTypeAdditionInformation={setTypeAdditionInformation}/>
-              <StandardButton 
-                title='Add Type'
-                onClick={AddType}
-                className='AddToInventoryPage-MobileAddButton'
-                icon={HiPlus}/>
+                <StandardButton 
+                  title='Add Type'
+                  onClick={AddType}
+                  className='AddToInventoryPage-MobileAddButton'
+                  icon={HiPlus}/>
               </>
             )
-            
           }
+          {currentSection === 'Model' && 
+            (
+              <>
+                <ModelAdditionForm
+                  modelAdditionInformation={modelAdditionInformation}
+                  setModelAdditionInformation={setModelAdditionInformation}/>
+                <StandardButton 
+                  title='Add Model'
+                  onClick={AddModel}
+                  className='AddToInventoryPage-MobileAddButton'
+                  icon={HiPlus}/>
+              </>
+            )}
         </div>
       </div>
     </GeneralPage>
