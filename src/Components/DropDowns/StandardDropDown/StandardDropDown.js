@@ -24,7 +24,7 @@ function StandardDropDown(props) {
   const HandleInputChange = (selectedOption) => {
     const { value } = selectedOption;
     console.log(selectedOption);
-    onChange(name, value); 
+    onChange(name, selectedOption); 
   };
 
   // Component to sub for Drop Down Indicator of 'Select' - Override Icon and Styling Font Size

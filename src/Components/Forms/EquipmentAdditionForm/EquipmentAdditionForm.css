@@ -5,14 +5,29 @@
     justify-content: flex-start;
 }
 
+.EquipmentAdditionForm-TypeModelPhoto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.EquipmentAdditionForm-TypeModelPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.EquipmentAdditionForm-DefaultModelPhotoContainer, 
 .EquipmentAdditionForm-PromptContainer {
     display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: var(--Gray3);
-    width: 100%;
     background-color: var(--Gray2);
+    width: 100%;
 }
 
 .EquipmentAdditionForm-Prompt {
@@ -67,11 +82,13 @@
         height: 100%; 
     }
 
-    .EquipmentAdditionForm-PromptContainer {
+    .EquipmentAdditionForm-PromptContainer,
+    .EquipmentAdditionForm-TypeModelPhoto img{
         height: calc(35.04375vmin);
         border-radius: calc(1.390625vmin);
     }
 
+    .EquipmentAdditionForm-DefaultModelIcon,
     .EquipmentAdditionForm-PromptIcon {
         font-size: calc(8.34375vmin);
     }
@@ -118,11 +135,13 @@
         width: 100%; 
     }
 
-    .EquipmentAdditionForm-PromptContainer {
+    .EquipmentAdditionForm-PromptContainer,
+    .EquipmentAdditionForm-TypeModelPhoto {
         height: calc(68.975vmin);
         border-radius: calc(2.78125vmin);
     }
 
+    .EquipmentAdditionForm-DefaultModelIcon,
     .EquipmentAdditionForm-PromptIcon {
         font-size: calc(16.6875vmin);
     }

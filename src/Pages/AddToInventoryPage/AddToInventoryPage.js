@@ -1,5 +1,8 @@
 // Import Components 
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
@@ -13,9 +16,12 @@ import './AddToInventoryPage.css';
 // Import Icons
 import { HiDocumentText, HiPlus } from 'react-icons/hi';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
+import { API } from '../../Constants';
 
 // Define AddEquipmentPage Component
-function AddToInventoryPage() {
+function AddToInventoryPage(props) {
+
+  const { userRole, schoolId } = props;
 
   const [currentSection, setCurrentSection] = useState('Equipment');
 
@@ -50,7 +56,23 @@ function AddToInventoryPage() {
   };
 
   const AddType = () => {
-    console.log(typeAdditionInformation);
+    console.log(schoolId);
+    const requestBody = {
+      schoolId: schoolId,
+      equipmentTypeName: typeAdditionInformation.name,
+    };
+    axios
+      .post(`${API.domain}/api/inventory/types`, requestBody, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const AddModel = () => {
@@ -60,7 +82,7 @@ function AddToInventoryPage() {
   useEffect(() => {
     console.log(equipmentAdditionInformation);
   }, [equipmentAdditionInformation]);
-  
+
   return (
     <GeneralPage>
       <div className='AddToInventoryPage-PageContentContainer'>
@@ -102,27 +124,23 @@ function AddToInventoryPage() {
                 </>
               )}
               {currentSection === 'Type' && (
-                <>
                   <StandardButton 
                     title='Add Type'
                     onClick={AddType}
                     className='AddToInventoryPage-AddButton'
                     icon={HiPlus}/>
-                </>
               )}
               {currentSection === 'Model' && (
-                <>
                   <StandardButton 
                     title='Add Model'
                     onClick={AddType}
                     className='AddToInventoryPage-AddButton'
                     icon={HiPlus}/>
-                </>
               )}
             </div>
           </div>
-          {currentSection === 'Equipment' && 
-            (<>
+          {currentSection === 'Equipment' && (
+            <>
               <EquipmentAdditionForm 
                 equipmentAdditionInformation={equipmentAdditionInformation}
                 setEquipmentAdditionInformation={setEquipmentAdditionInformation}/>
@@ -132,10 +150,8 @@ function AddToInventoryPage() {
                 className='AddToInventoryPage-MobileAddButton'
                 icon={HiPlus}/>
             </>
-            )
-          }
-          {currentSection === 'Type' &&
-            (
+          )}
+          {currentSection === 'Type' && (
               <>
                 <TypeAdditionForm
                   typeAdditionInformation={typeAdditionInformation}
@@ -146,10 +162,8 @@ function AddToInventoryPage() {
                   className='AddToInventoryPage-MobileAddButton'
                   icon={HiPlus}/>
               </>
-            )
-          }
-          {currentSection === 'Model' && 
-            (
+          )}
+          {currentSection === 'Model' && (
               <>
                 <ModelAdditionForm
                   modelAdditionInformation={modelAdditionInformation}
@@ -160,12 +174,28 @@ function AddToInventoryPage() {
                   className='AddToInventoryPage-MobileAddButton'
                   icon={HiPlus}/>
               </>
-            )}
+          )}
         </div>
       </div>
     </GeneralPage>
   )
 };
 
+AddToInventoryPage.propTypes = {
+  userRole: PropTypes.string,
+  schoolId: PropTypes.string,
+};
+
+AddToInventoryPage.defaultProps = {
+  userRole: '',
+  schoolId: '',
+};
+
+// Map schoolId and userRole from Redux state to component props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
 // Exports the AddEquipmentPage component as the default export for the AddEquipmentPage module.
-export default AddToInventoryPage;
+export default connect(mapStateToProps)(AddToInventoryPage);
