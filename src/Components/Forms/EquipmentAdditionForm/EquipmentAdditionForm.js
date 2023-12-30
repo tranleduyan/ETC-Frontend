@@ -2,10 +2,9 @@
 import React, { useState, useEffect }from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { API } from '../../../Constants';
+import { API, OPTIONS } from '../../../Constants';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
-import { OPTIONS } from '../../../Constants';
 
 // Import Stylings
 import './EquipmentAdditionForm.css';
@@ -19,8 +18,6 @@ import { HiPhotograph } from 'react-icons/hi';
 function EquipmentAdditionForm(props) {
 
   const { className, equipmentAdditionInformation, setEquipmentAdditionInformation } = props;
-
-  const [equipmentTypes, setEquipmentTypes] = useState([]);
 
   const [equipmentModels, setEquipmentModels] = useState([]);
 
@@ -46,13 +43,11 @@ function EquipmentAdditionForm(props) {
         value: type.typeId,
         label: type.typeName,
       }));
-      setEquipmentTypes(response.data.responseObject);
       setEquipmentTypeOptions(options);
     })
     .catch(error => {
-      setEquipmentTypes([]);
-      setEquipmentModels([]);
       setEquipmentTypeOptions([]);
+      setEquipmentModels([]);
       setEquipmentModelOptions([]);
       setEquipmentTypeModelPhoto(null);
     });
@@ -81,8 +76,10 @@ function EquipmentAdditionForm(props) {
         }
       });
     }
+    
     HandleEquipmentAdditionInputChange('model', null);
     setEquipmentTypeModelPhoto(null);
+    // eslint-disable-next-line
   }, [equipmentAdditionInformation.type]);
 
   useEffect(() => {
@@ -95,11 +92,7 @@ function EquipmentAdditionForm(props) {
         setEquipmentTypeModelPhoto(selectedModel.modelPhoto);
       }
     }
-  }, [equipmentAdditionInformation.type, equipmentAdditionInformation.model]);
-
-  useEffect(() => {
-    console.log(equipmentTypeModelPhoto);
-  }, [equipmentTypeModelPhoto]);
+  }, [equipmentAdditionInformation.type, equipmentAdditionInformation.model, equipmentModels]);
   
   return (
     <div className={`EquipmentAdditionForm-Container ${className}`}>
@@ -108,12 +101,12 @@ function EquipmentAdditionForm(props) {
           <div className='EquipmentAdditionForm-TypeModelPhoto'>
             <img src={equipmentTypeModelPhoto} 
                  alt='Equipment Model' 
-                 onError={() => setEquipmentTypeModelPhoto(null)}/>
+                 onError={() => setEquipmentTypeModelPhoto(null)} />
           </div>
         )}
         {equipmentAdditionInformation.type && equipmentAdditionInformation.model && !equipmentTypeModelPhoto && (
-          <div className='EquipmentAdditionForm-PromptContainer'>
-            <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentAdditionForm-PromptIcon'/>
+          <div className='EquipmentAdditionForm-DefaultModelPhotoContainer'>
+            <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentAdditionForm-DefaultModelIcon'/>
         </div>
         )}
         {(!equipmentAdditionInformation.type || !equipmentAdditionInformation.model) && (

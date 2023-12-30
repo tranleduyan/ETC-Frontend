@@ -34,8 +34,8 @@ function AddToInventoryPage(props) {
     RFIDTag: '',
     homeLocation: null,
     condition: '',
-    purchaseCost: null,
-    purchaseDate: null,
+    purchaseCost: '',
+    purchaseDate: '',
   });
 
   const [typeAdditionInformation, setTypeAdditionInformation] = useState({
@@ -45,6 +45,7 @@ function AddToInventoryPage(props) {
   const [modelAdditionInformation, setModelAdditionInformation] = useState({
     name: '',
     type: null,
+    photo: null,
   });
 
   const AddEquipment = () => {
@@ -77,11 +78,27 @@ function AddToInventoryPage(props) {
 
   const AddModel = () => {
     console.log(modelAdditionInformation);
-  }
+    const formData = new FormData();
 
-  useEffect(() => {
-    console.log(equipmentAdditionInformation);
-  }, [equipmentAdditionInformation]);
+    formData.append('modelName', modelAdditionInformation.name);
+    formData.append('typeId', modelAdditionInformation.type.value);
+    formData.append('image', modelAdditionInformation.photo);
+    formData.append('schoolId', schoolId);
+
+    axios
+      .post(`${API.domain}/api/inventory/models`, formData, {
+        headers: {
+          'X-API-KEY': API.key,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   return (
     <GeneralPage>

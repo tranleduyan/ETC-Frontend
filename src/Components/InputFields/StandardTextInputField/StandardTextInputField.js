@@ -48,6 +48,7 @@ StandardTextInputField.defaultProps = {
   placeholder: '',
   type: 'text',
   visibility: true,
+  value: '',
   onKeyDown: () => {}
 };
 

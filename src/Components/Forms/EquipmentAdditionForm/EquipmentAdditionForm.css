@@ -136,7 +136,7 @@
     }
 
     .EquipmentAdditionForm-PromptContainer,
-    .EquipmentAdditionForm-TypeModelPhoto {
+    .EquipmentAdditionForm-TypeModelPhoto img{
         height: calc(68.975vmin);
         border-radius: calc(2.78125vmin);
     }
