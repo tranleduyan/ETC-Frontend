@@ -84,8 +84,7 @@
     }
 
     .VerificationPage-StandardTextInputField {
-        height: calc(6.675vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
-        width: calc(39.215625vmin - calc(2 * 1.66875vmin)); /* Always minus for the padding */
+        width: calc(39.215625vmin);
     }
 
     .Verification-ErrorMessage {
@@ -112,8 +111,7 @@
     }
 
     .VerificationPage-StandardTextInputField {
-        height: calc(13.35vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
-        width: calc(78.43125vmin - calc(2 * 3.3375vmin)); /* Always minus for the padding */
+        width: calc(78.43125vmin);
     }
 
     .Verification-ErrorMessage {

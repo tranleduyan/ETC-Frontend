@@ -42,7 +42,7 @@ function SignUpPage() {
   /* Prompt State includes: 
      0 - emailAddress
      1 - firstName, middleName, lastName
-     2- schoolId
+     2 - schoolId
      3 - password, confirmPassword
   */
   const [currentPromptState, setCurrentPromptState] = useState(0);
@@ -277,6 +277,7 @@ function SignUpPage() {
             name='emailAddress'
             visibility={isVisible(0)}
             onChange={HandleInputChange}
+            value={userInformation.emailAddress}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* First Name Input Field */}
           <StandardTextInputField 
@@ -285,6 +286,7 @@ function SignUpPage() {
             name='firstName'
             visibility={isVisible(1)}
             onChange={HandleInputChange}
+            value={userInformation.firstName}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Middle Name Input Field */}
           <StandardTextInputField 
@@ -293,6 +295,7 @@ function SignUpPage() {
             name='middleName'
             visibility={isVisible(1)}
             onChange={HandleInputChange}
+            value={userInformation.middleName}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Last Name Input Field */}
           <StandardTextInputField 
@@ -301,6 +304,7 @@ function SignUpPage() {
             name='lastName'
             visibility={isVisible(1)}
             onChange={HandleInputChange}
+            value={userInformation.lastName}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* School ID Input Field */}
           <StandardTextInputField 
@@ -309,6 +313,7 @@ function SignUpPage() {
             name='schoolId'
             visibility={isVisible(2)}
             onChange={HandleInputChange}
+            value={userInformation.schoolId}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
@@ -318,6 +323,7 @@ function SignUpPage() {
             type='password'
             visibility={isVisible(3)}
             onChange={HandleInputChange}
+            value={userInformation.password}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Confirm Password Input Field */}
           <StandardTextInputField 
@@ -327,6 +333,7 @@ function SignUpPage() {
             type='password'
             visibility={isVisible(3)}
             onChange={HandleInputChange}
+            value={userInformation.confirmPassword}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 

@@ -120,6 +120,7 @@ function VerificationPage() {
                     name='verificationCode'
                     visibility={true}
                     onChange={HandleInputChange}
+                    value={verificationCode}
                     onKeyDown={(e) => e.key === 'Enter' && Verify()}/>
                 {/* Error Message */}
                 <Message 

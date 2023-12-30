@@ -177,6 +177,7 @@ function SignInPage() {
             name='emailAddress'
             visibility={isVisible(0)}
             onChange={HandleInputChange}
+            value={userInformation.emailAddress}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
@@ -186,6 +187,7 @@ function SignInPage() {
             name='password'
             visibility={isVisible(1)}
             onChange={HandleInputChange}
+            value={userInformation.password}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 
