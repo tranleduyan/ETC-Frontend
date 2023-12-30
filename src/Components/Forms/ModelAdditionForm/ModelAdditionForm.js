@@ -5,18 +5,19 @@ import PropTypes from 'prop-types';
 import { API } from '../../../Constants';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
+import Message from '../../Message/Message';
 
 // Import Stylings
 import './ModelAdditionForm.css';
 
 // Import Icons 
-import { HiPhotograph } from 'react-icons/hi';
+import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
 
 // Define ModelAdditionForm Component
 function ModelAdditionForm(props) {
 
   // Extract relevant information
-  const { className, modelAdditionInformation, setModelAdditionInformation } = props;
+  const { className, modelAdditionInformation, setModelAdditionInformation, isError, errorMessage } = props;
 
   // Options for equipment types dropdown
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
@@ -113,13 +114,22 @@ function ModelAdditionForm(props) {
             placeholder='Select type'
             className='ModelAdditionForm-Field ModelAdditionForm-MarginField'
             name='type'
+            value={modelAdditionInformation.type}
             options={equipmentTypeOptions}
             onChange={(name, value) => HandleModelAdditionInputChange(name, value)}/>
         </div>
         {/* Instructions/Messages */}
-        <p className='paragraph-1 EquipmentAdditionForm-Instructions'>
-            Please provide the details of the model.
-        </p>
+        {!isError && (
+          <p className='paragraph-1 ModelAdditionForm-Instructions'>
+              Please provide the details of the model.
+          </p>
+        )}
+        {/* Error Message */}
+        <Message 
+            icon={HiExclamationCircle} 
+            message={errorMessage} 
+            className='ModelAdditionForm-ErrorMessageContainer' 
+            visibility={isError}/>
       </div>
     </div>
   )
@@ -130,11 +140,15 @@ ModelAdditionForm.propTypes = {
   className: PropTypes.string,
   modelAdditionInformation: PropTypes.any.isRequired,
   setModelAdditionInformation: PropTypes.func.isRequired,
+  isError: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 // Define default props for the component
 ModelAdditionForm.defaultProps = {
   className: '',
+  isError: false,
+  errorMessage: '',
 };
 
 // Exports the ModelAdditionForm component as the default export for the ModelAdditionForm module.

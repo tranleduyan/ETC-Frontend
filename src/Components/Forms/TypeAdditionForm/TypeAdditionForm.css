@@ -22,6 +22,11 @@
     color: var(--Gray3);
 }
 
+.TypeAdditionForm-ErrorMessageContainer {
+    width: 100%;
+    color: var(--Red2);
+}
+
 /* For tablets and larger screen */
 @media screen and (min-width: 481px) {
     .TypeAdditionForm-Container {

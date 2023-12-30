@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API, OPTIONS } from '../../../Constants';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
+import Message from '../../Message/Message';
 
 // Import Stylings
 import './EquipmentAdditionForm.css';
@@ -12,13 +13,13 @@ import './EquipmentAdditionForm.css';
 // Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
-import { HiPhotograph } from 'react-icons/hi';
+import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
 
 // Define EquipmentAdditionForm Component
 function EquipmentAdditionForm(props) {
 
   // Extract relevant information
-  const { className, equipmentAdditionInformation, setEquipmentAdditionInformation } = props;
+  const { className, equipmentAdditionInformation, setEquipmentAdditionInformation, isError, errorMessage } = props;
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
@@ -36,7 +37,7 @@ function EquipmentAdditionForm(props) {
   const HandleEquipmentAdditionInputChange = (propertyName, value) => {
     setEquipmentAdditionInformation({...equipmentAdditionInformation, [propertyName]: value})
   };
-  
+
   // #region Side Effects
   // Fetch all the equipment types upon the component mounting
   useEffect(() => {
@@ -257,9 +258,17 @@ function EquipmentAdditionForm(props) {
           </div>
         </div>
         {/* Instructions/Messages */}
-        <p className='paragraph-1 EquipmentAdditionForm-Instructions'>
-          Please provide the details of the equipment.
-        </p>
+        {!isError && (
+          <p className='paragraph-1 EquipmentAdditionForm-Instructions'>
+            Please provide the details of the equipment.
+          </p>
+        )}
+        {/* Error Message */}
+        <Message 
+            icon={HiExclamationCircle} 
+            message={errorMessage} 
+            className='EquipmentAdditionForm-ErrorMessageContainer' 
+            visibility={isError}/>
       </div>
     </div>
   )
@@ -270,11 +279,15 @@ EquipmentAdditionForm.propTypes = {
   className: PropTypes.string,
   equipmentAdditionInformation: PropTypes.any.isRequired,
   setEquipmentAdditionInformation: PropTypes.func.isRequired,
+  isError: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 // Define Default Props for the component
 EquipmentAdditionForm.defaultProps = {
   className: '',
+  isError: false,
+  errorMessage: '',
 };
 
 // Exports the EquipmentAdditionForm component as the default export for the EquipmentAdditionForm module.

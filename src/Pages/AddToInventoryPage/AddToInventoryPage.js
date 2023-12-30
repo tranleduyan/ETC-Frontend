@@ -27,6 +27,15 @@ function AddToInventoryPage(props) {
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
 
+  const [equipmentIsError, setEquipmentIsError] = useState(false);
+  const [equipmentErrorMessage, setEquipmentErrorMessage] = useState('');
+
+  const [typeIsError, setTypeIsError] = useState(false);
+  const [typeErrorMessage, setTypeErrorMessage] = useState('');
+
+  const [modelIsError, setModelIsError] = useState(false); 
+  const [modelErrorMessage, setModelErrorMessage] = useState('');
+
   // #region Addition Information
   // Information for adding equipment
   const [equipmentAdditionInformation, setEquipmentAdditionInformation] = useState({
@@ -35,7 +44,7 @@ function AddToInventoryPage(props) {
     model: null,
     maintenanceStatus: '',
     reservationStatus: '',
-    RFIDTag: '',
+    rfidTag: '',
     homeLocation: null,
     condition: '',
     purchaseCost: '',
@@ -57,7 +66,9 @@ function AddToInventoryPage(props) {
 
   // TODO: Add Equipment - Add the equipment to the database.
   const AddEquipment = () => {
-    console.log(equipmentAdditionInformation);
+    if(IsEquipmentFormValid()) {
+      console.log(equipmentAdditionInformation);
+    }
   };
 
   // TODO: Import Equipment - Import CSV and add the content to the database
@@ -67,64 +78,154 @@ function AddToInventoryPage(props) {
 
   // Add Type - Add the type to the database
   const AddType = () => {
-    const requestBody = {
-      schoolId: schoolId,
-      equipmentTypeName: typeAdditionInformation.name,
-    };
-
-    // HTTP post request to post the request body
-    axios
-      .post(`${API.domain}/api/inventory/types`, requestBody, {
-        headers: {
-          'X-API-KEY': API.key,
-        }
-      })
-      .then(response => {
-        // TODO: Implement modal
-        // Reset the field.
-        setTypeAdditionInformation({
-          name: '',
+    if(IsTypeFormValid()) {
+      const requestBody = {
+        schoolId: schoolId,
+        equipmentTypeName: typeAdditionInformation.name,
+      };
+  
+      // HTTP post request to post the request body
+      axios
+        .post(`${API.domain}/api/inventory/types`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          }
+        })
+        .then(response => {
+          // TODO: Implement modal
+          // Reset the field.
+          setTypeAdditionInformation({
+            name: '',
+          });
+        })
+        .catch(error => {
+          setTypeIsError(true);
+          setTypeErrorMessage(error.response.data.message);
         });
-      })
-      .catch(error => {
-        // TODO: Implement Message
-        console.log(error);
-      });
+    }
   };
 
   // Add Model - Add the model to the database
   const AddModel = () => {
-    
-    // Form data to submit the image
-    const formData = new FormData();
-
-    // Append neccessary information to the form data
-    formData.append('modelName', modelAdditionInformation.name);
-    formData.append('typeId', modelAdditionInformation.type.value);
-    formData.append('image', modelAdditionInformation.photo);
-    formData.append('schoolId', schoolId);
-
-    // HTTP post request to post the form data
-    axios
-      .post(`${API.domain}/api/inventory/models`, formData, {
-        headers: {
-          'X-API-KEY': API.key,
-          'Content-Type': 'multipart/form-data',
-        }
-      })
-      .then(response => {
-        // TODO: Implement modal
-        // Reset the information
-        setModelAdditionInformation({
-          name: '',
-          type: null,
-          photo: null,
+    if(IsModelFormValid()) {
+      // Form data to submit the image
+      const formData = new FormData();
+  
+      // Append neccessary information to the form data
+      formData.append('modelName', modelAdditionInformation.name);
+      formData.append('typeId', modelAdditionInformation.type.value);
+      formData.append('image', modelAdditionInformation.photo);
+      formData.append('schoolId', schoolId);
+  
+      // HTTP post request to post the form data
+      axios
+        .post(`${API.domain}/api/inventory/models`, formData, {
+          headers: {
+            'X-API-KEY': API.key,
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+        .then(response => {
+          // TODO: Implement modal
+          // Reset the information
+          setModelAdditionInformation({
+            name: '',
+            type: null,
+            photo: null,
+          });
+        })
+        .catch(error => {
+          setModelIsError(true);
+          setModelErrorMessage(error.response.data.message);
         });
-      })
-      .catch(error => {
-        // TODO: Implement message
-        console.log(error);
-      });
+    }
+  };
+
+  const IsEquipmentFormValid = () => {
+    if(!equipmentAdditionInformation.serialNumber) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment serial number.');
+      return false;
+    }
+    
+    if(!equipmentAdditionInformation.type) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment type.');
+      return false;
+    }
+
+    if (!equipmentAdditionInformation.model) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment model.');
+      return false;
+    }
+
+    if (!equipmentAdditionInformation.maintenanceStatus) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the maintenance status.');
+      return false;
+    }
+
+    if (!equipmentAdditionInformation.reservationStatus) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the reservation status.');
+      return false;
+    }
+
+    if (!equipmentAdditionInformation.condition) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the equipment condition.');
+      return false;
+    }
+
+    if(equipmentIsError) {
+      setEquipmentIsError(false);
+      setEquipmentErrorMessage('');
+    }
+
+    return true;
+  };
+
+  const IsTypeFormValid = () => {
+    if(!typeAdditionInformation.name) {
+      setTypeIsError(true);
+      setTypeErrorMessage('Please enter the type name.');
+      return false;
+    }
+
+    if(typeIsError) {
+      setTypeIsError(false);
+      setTypeErrorMessage('');
+    }
+
+    return true;
+  };
+
+  const IsModelFormValid = () => {
+    if(!modelAdditionInformation.name) {
+      setModelIsError(true);
+      setModelErrorMessage('Please enter the model name.');
+      return false;
+    }
+
+    if(!modelAdditionInformation.type) {
+      setModelIsError(true);
+      setModelErrorMessage('Please select the model type.');
+      return false;
+    }
+
+    if(!modelAdditionInformation.photo) {
+      setModelIsError(true);
+      setModelErrorMessage('Please upload the model photo.');
+      return false;
+    }
+
+    if(modelIsError) {
+      setModelIsError(false);
+      setModelErrorMessage('');
+    }
+
+    return true;
   };
 
   return (
@@ -186,7 +287,7 @@ function AddToInventoryPage(props) {
               {currentSection === 'Model' && (
                   <StandardButton 
                     title='Add Model'
-                    onClick={AddType}
+                    onClick={AddModel}
                     className='AddToInventoryPage-AddButton'
                     icon={HiPlus}/>
               )}
@@ -198,7 +299,9 @@ function AddToInventoryPage(props) {
               {/* Equipment Form */}
               <EquipmentAdditionForm 
                 equipmentAdditionInformation={equipmentAdditionInformation}
-                setEquipmentAdditionInformation={setEquipmentAdditionInformation}/>
+                setEquipmentAdditionInformation={setEquipmentAdditionInformation}
+                isError={equipmentIsError}
+                errorMessage={equipmentErrorMessage}/>
               {/* Mobile Add Equipment Button */}
               <StandardButton 
                 title='Add Equipment'
@@ -213,7 +316,9 @@ function AddToInventoryPage(props) {
                 {/* Type Addition Form */}
                 <TypeAdditionForm
                   typeAdditionInformation={typeAdditionInformation}
-                  setTypeAdditionInformation={setTypeAdditionInformation}/>
+                  setTypeAdditionInformation={setTypeAdditionInformation}
+                  isError={typeIsError}
+                  errorMessage={typeErrorMessage}/>
                 {/* Mobile Add Type Button */}
                 <StandardButton 
                   title='Add Type'
@@ -228,7 +333,9 @@ function AddToInventoryPage(props) {
                 {/* Model Addition Form */}
                 <ModelAdditionForm
                   modelAdditionInformation={modelAdditionInformation}
-                  setModelAdditionInformation={setModelAdditionInformation}/>
+                  setModelAdditionInformation={setModelAdditionInformation}
+                  isError={modelIsError}
+                  errorMessage={modelErrorMessage}/>
                 {/* Mobile Add Model Button */}
                 <StandardButton 
                   title='Add Model'

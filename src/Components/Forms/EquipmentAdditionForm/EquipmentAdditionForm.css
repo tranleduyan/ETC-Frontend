@@ -64,6 +64,11 @@
     color: var(--Gray3);
 }
 
+.EquipmentAdditionForm-ErrorMessageContainer {
+    width: 100%;
+    color: var(--Red2);
+}
+
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .EquipmentAdditionForm-Container {

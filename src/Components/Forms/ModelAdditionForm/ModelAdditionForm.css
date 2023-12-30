@@ -64,6 +64,11 @@
     color: var(--Gray3);
 }
 
+.ModelAdditionForm-ErrorMessageContainer {
+    width: 100%;
+    color: var(--Red2);
+}
+
 /* For tablets and larger devices */
 @media screen and (min-width: 481px) {
     .ModelAdditionForm-Container {

@@ -2,15 +2,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
+import Message from '../../Message/Message';
 
 // Import Stylings
 import './TypeAdditionForm.css';
+
+// Import Icons 
+import { HiExclamationCircle } from 'react-icons/hi';
 
 // Define TypeAdditionForm Component
 function TypeAdditionForm(props) {
 
   // Extract relevant information
-  const { className, typeAdditionInformation, setTypeAdditionInformation } = props;
+  const { className, typeAdditionInformation, setTypeAdditionInformation, isError, errorMessage } = props;
 
   // HandleTypeAdditionInputChange - Update the information of the typeAdditionInformation new value to the propertyName
   const HandleTypeAdditionInputChange = (propertyName, value) => {
@@ -30,12 +34,21 @@ function TypeAdditionForm(props) {
             placeholder='Enter type name'
             className='TypeAdditionForm-Field'
             name='name'
+            value={typeAdditionInformation.name}
             onChange={(name, value) => HandleTypeAdditionInputChange(name, value)}/>
         </div>
         {/* Instructions/Messages */}
-        <p className='paragraph-1 TypeAdditionForm-Instructions'>
-          Please provide the details of the type.
-        </p>
+          {!isError && (
+          <p className='paragraph-1 TypeAdditionForm-Instructions'>
+            Please provide the details of the type.
+          </p>
+        )}
+        {/* Error Message */}
+        <Message 
+            icon={HiExclamationCircle} 
+            message={errorMessage} 
+            className='TypeAdditionForm-ErrorMessageContainer' 
+            visibility={isError}/>
       </div>
     </div>
   )
@@ -46,11 +59,15 @@ TypeAdditionForm.propTypes = {
   className: PropTypes.string,
   typeAdditionInformation: PropTypes.any.isRequired,
   setTypeAdditionInformation: PropTypes.func.isRequired,
+  isError: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 // Define default props for the component
 TypeAdditionForm.defaultProps = {
   className: '',
+  isError: false,
+  errorMessage: '',
 };
 
 // Exports the TypeAdditionForm component as the default export for the TypeAdditionForm module.
