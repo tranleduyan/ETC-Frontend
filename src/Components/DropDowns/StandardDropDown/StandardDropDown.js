@@ -6,11 +6,40 @@ import Select, { components} from 'react-select';
 // Import Icons
 import { HiChevronDown } from 'react-icons/hi';
 
+// This component serves as a substitute for the default dropdown indicator in the 'Select' component. It allows for overriding the default icon and dynamically adjusts styling based on the window width.
+const DropdownIndicator = (props) => {
+  // State to track mobile view
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+  
+  // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
+  const UpdateMobileView = useCallback(() => {
+    setIsMobileView(window.innerWidth <= 480);
+  }, []);
+
+  useEffect(() => {
+    // Add event listener for window resize to update mobile view
+    window.addEventListener('resize', UpdateMobileView);
+    return () => {
+      // Remove event listener when component unmounts
+      window.removeEventListener('resize', UpdateMobileView);
+    }
+  }, [UpdateMobileView]);
+
+  return (
+    <components.DropdownIndicator {...props}>
+      <HiChevronDown 
+        style={{fontSize: !isMobileView ? 'calc(3.3375vmin)' : 'calc(6.675vmin)'}} />
+    </components.DropdownIndicator>
+  );
+};
+
 // Define StandardDropDown Component
 function StandardDropDown(props) {
 
+  // Extract relevant information
   const { className, placeholder, name, value, onChange, options, visibility } = props;
 
+  // CSS class for hiding the component
   const hiddenClassName= `hide ${className}`;
 
   // State for handle mobile view
@@ -21,20 +50,9 @@ function StandardDropDown(props) {
     setIsMobileView(window.innerWidth <= 480);
   }, []);
 
+  // HandleInputChange - Invoked when the dropdown value changes
   const HandleInputChange = (selectedOption) => {
-    const { value } = selectedOption;
-    console.log(selectedOption);
     onChange(name, selectedOption); 
-  };
-
-  // Component to sub for Drop Down Indicator of 'Select' - Override Icon and Styling Font Size
-  const DropdownIndicator = props => {
-    return (
-      <components.DropdownIndicator {...props}>
-        <HiChevronDown 
-          style={{fontSize: !isMobileView ? 'calc(3.3375vmin)' : 'calc(6.675vmin)'}} />
-      </components.DropdownIndicator>
-    );
   };
 
   // Component to remove Indicator Separator of 'Select' 
@@ -49,6 +67,7 @@ function StandardDropDown(props) {
     }
   }, [UpdateMobileView]);
 
+  // Styling configurations for the 'react-select' component
   const styles = {
     control: (provided, state) => {
       let baseStyles = {
@@ -173,7 +192,6 @@ function StandardDropDown(props) {
     }
   };
   
-
   return (
       <Select
         styles={styles}
@@ -182,7 +200,9 @@ function StandardDropDown(props) {
         name={name}
         value={value}
         options={options}
-        components={{DropdownIndicator, IndicatorSeparator}}
+        components={{
+          DropdownIndicator, 
+          IndicatorSeparator}}
         onChange={HandleInputChange}/>
   )
 };

@@ -9,23 +9,30 @@ import './TypeAdditionForm.css';
 // Define TypeAdditionForm Component
 function TypeAdditionForm(props) {
 
+  // Extract relevant information
   const { className, typeAdditionInformation, setTypeAdditionInformation } = props;
 
-  const HandleTypeAdditionInputChange = (propertyName, selectedValue) => {
-    setTypeAdditionInformation({...typeAdditionInformation, [propertyName]: selectedValue})
+  // HandleTypeAdditionInputChange - Update the information of the typeAdditionInformation new value to the propertyName
+  const HandleTypeAdditionInputChange = (propertyName, value) => {
+    setTypeAdditionInformation({...typeAdditionInformation, [propertyName]: value})
   };
 
   return (
     <div className={`TypeAdditionForm-Container ${className}`}>
+      {/* Form Container */}
       <div className='TypeAdditionForm-FormContainer'>
+        {/* Type Information Group */}
         <div className='TypeAdditionForm-TypeInformationGroup'>
+          {/* Group Header */}
           <p className='heading-5'>Type Information</p>
+          {/* Type Name Input Field */}
           <StandardTextInputField
             placeholder='Enter type name'
             className='TypeAdditionForm-Field'
             name='name'
             onChange={(name, value) => HandleTypeAdditionInputChange(name, value)}/>
         </div>
+        {/* Instructions/Messages */}
         <p className='paragraph-1 TypeAdditionForm-Instructions'>
           Please provide the details of the type.
         </p>

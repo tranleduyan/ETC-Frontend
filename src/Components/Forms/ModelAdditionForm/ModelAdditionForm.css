@@ -32,6 +32,11 @@
     border: none;
 }
 
+.ModelAdditionForm-TypeModelPhoto img,
+.ModelAdditionForm-PromptContainer {
+    cursor: pointer;
+}
+
 .ModelAdditionForm-Prompt {
     text-align: center;
 }

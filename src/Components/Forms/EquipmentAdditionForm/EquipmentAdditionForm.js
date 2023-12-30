@@ -17,35 +17,47 @@ import { HiPhotograph } from 'react-icons/hi';
 // Define EquipmentAdditionForm Component
 function EquipmentAdditionForm(props) {
 
+  // Extract relevant information
   const { className, equipmentAdditionInformation, setEquipmentAdditionInformation } = props;
 
+  // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
 
+  // Options for equipment types dropdowns
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
   
+  // Options for equipment models dropdowns
   const [equipmentModelOptions, setEquipmentModelOptions] = useState([]);
 
+  // Photo of the equipment model
   const [equipmentTypeModelPhoto, setEquipmentTypeModelPhoto] = useState(null);
 
-  const HandleEquipmentAdditionInputChange = (propertyName, selectedValue) => {
-    console.log(propertyName)
-    setEquipmentAdditionInformation({...equipmentAdditionInformation, [propertyName]: selectedValue})
+  // HandleEquipmentAdditionInputChange - Update the information of equipmentAdditionInformation with the new value to the propertyName
+  const HandleEquipmentAdditionInputChange = (propertyName, value) => {
+    setEquipmentAdditionInformation({...equipmentAdditionInformation, [propertyName]: value})
   };
   
+  // #region Side Effects
+  // Fetch all the equipment types upon the component mounting
   useEffect(() => {
+    // HTTP get request to fetch all the type
     axios.get(`${API.domain}/api/inventory/types`, {
       headers: {
         'X-API-KEY': API.key,
       }
     })
     .then(response => {
+      // Map value and label
       const options = response.data.responseObject.map(type => ({
         value: type.typeId,
         label: type.typeName,
       }));
+
+      // Set the options
       setEquipmentTypeOptions(options);
     })
     .catch(error => {
+      // Type not found, reset type options and models, model options as well as the model photo
       setEquipmentTypeOptions([]);
       setEquipmentModels([]);
       setEquipmentModelOptions([]);
@@ -53,23 +65,31 @@ function EquipmentAdditionForm(props) {
     });
   }, []);
 
+  // Fetch all the equipment models of a selected type.
   useEffect(() => {
-    console.log(equipmentModels);
+    // If the equipment type is selected, fetch all the equipment models of a selected type
     if(equipmentAdditionInformation.type != null) {
+      // HTTP get request to fetch all the models of a selected type.
       axios.get(`${API.domain}/api/inventory/types/${equipmentAdditionInformation.type.value}/models`, {
         headers: {
           'X-API-KEY': API.key,
         }
       })
       .then(response => {
+        // Map value and label
         const options = response.data.responseObject?.map(model => ({
           value: model.modelId,
           label: model.modelName,
         }));
+        
+        // Set the equipmentModels to the response object - Array of all models of a type
         setEquipmentModels(response.data.responseObject);
+        
+        // Set the equipmentModelOptions to options
         setEquipmentModelOptions(options);
       })
       .catch(error => {
+        // If not found, reset to empty equipment models and options
         if(error.response.status === 404) {
           setEquipmentModels([]);
           setEquipmentModelOptions([]);
@@ -77,54 +97,74 @@ function EquipmentAdditionForm(props) {
       });
     }
     
+    // Reset the model information and model photo whenever the type is changed/updated
     HandleEquipmentAdditionInputChange('model', null);
     setEquipmentTypeModelPhoto(null);
     // eslint-disable-next-line
   }, [equipmentAdditionInformation.type]);
 
+  // Set the model photo when there is type and model selected.
   useEffect(() => {
+    // If the type and model and equipment models is not null or has value, find the selected model and if it exists, set the model photo.
     if(equipmentAdditionInformation.type && equipmentAdditionInformation.model && equipmentModels) {
       const selectedModel = equipmentModels.find(
         (model) => model.modelId === equipmentAdditionInformation.model.value
       );
-
+      
+      // if selectedModel found, set the photo
       if (selectedModel) {
         setEquipmentTypeModelPhoto(selectedModel.modelPhoto);
       }
+
+      // else, set the photo to null
+      else {
+        setEquipmentTypeModelPhoto(null);
+      }
     }
   }, [equipmentAdditionInformation.type, equipmentAdditionInformation.model, equipmentModels]);
+  // #endregion
   
   return (
     <div className={`EquipmentAdditionForm-Container ${className}`}>
+      {/* Visual/Media Container */}
       <div className='EquipmentAdditionForm-VisualContainer'>
+        {/* If there is type and model selected and model photo, show the photo */}
         {equipmentAdditionInformation.type && equipmentAdditionInformation.model && equipmentTypeModelPhoto && (
           <div className='EquipmentAdditionForm-TypeModelPhoto'>
+            {/* Model Photo */}
             <img src={equipmentTypeModelPhoto} 
                  alt='Equipment Model' 
                  onError={() => setEquipmentTypeModelPhoto(null)} />
           </div>
         )}
+        {/* If there is type and model selected but not model photo, means photo is not uploaded or empty, show the default equipment visual icon */}
         {equipmentAdditionInformation.type && equipmentAdditionInformation.model && !equipmentTypeModelPhoto && (
           <div className='EquipmentAdditionForm-DefaultModelPhotoContainer'>
             <FontAwesomeIcon icon={faScrewdriverWrench} className='EquipmentAdditionForm-DefaultModelIcon'/>
         </div>
         )}
+        {/* If there is not type or model, prompt to select. */}
         {(!equipmentAdditionInformation.type || !equipmentAdditionInformation.model) && (
           <div className='EquipmentAdditionForm-PromptContainer'>
             <HiPhotograph className='EquipmentAdditionForm-PromptIcon'/>
-            <p className='paragraph-1 EquipmentAdditionForm-Prompt'>Please select type and model</p>
+            <p className='paragraph-1 EquipmentAdditionForm-Prompt'>Please select type and model.</p>
           </div>
         )}       
       </div>
+      {/* Form Container */}
       <div className='EquipmentAdditionForm-FormContainer'>
-        <div className='EquipmentAdditionForm-EquipmentInformationGroup'>        
+        {/* Equipment Information Group */}
+        <div className='EquipmentAdditionForm-EquipmentInformationGroup'>   
+          {/* Group Header */}     
           <p className='heading-5'>Equipment Information</p>
+          {/* Serial Number Input Field */}
           <StandardTextInputField
             placeholder='Enter equipment serial number'
             name='serialNumber'
             value={equipmentAdditionInformation.serialNumber}
             onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           <div className='EquipmentAdditionForm-BinaryFieldGroup'>
+            {/* Type DropDown */}
             <StandardDropDown
               placeholder='Select type'
               className='EquipmentAdditionForm-Field'
@@ -132,6 +172,7 @@ function EquipmentAdditionForm(props) {
               options={equipmentTypeOptions}
               value={equipmentAdditionInformation.type}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+            {/* Model DropDown */}
             <StandardDropDown
               placeholder='Select model'
               className='EquipmentAdditionForm-Field'
@@ -141,9 +182,12 @@ function EquipmentAdditionForm(props) {
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
         </div>
+        {/* Equipment Status Group */}
         <div className='EquipmentAdditionForm-EquipmentStatusGroup'>
+          {/* Group Header */}
           <p className='heading-5'>Status</p>
           <div className='EquipmentAdditionForm-BinaryFieldGroup'>
+            {/* Maintenance Status DropDown */}
             <StandardDropDown
               placeholder='Select maintenance status'
               className='EquipmentAdditionForm-Field'
@@ -151,6 +195,7 @@ function EquipmentAdditionForm(props) {
               options={OPTIONS.equipment.maintenanceStatus}
               value={equipmentAdditionInformation.maintenanceStatus}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+            {/* Reservation Status DropDown */}
             <StandardDropDown
               placeholder='Select reservation status'
               className='EquipmentAdditionForm-Field'
@@ -160,15 +205,19 @@ function EquipmentAdditionForm(props) {
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
         </div>
+        {/* Equipment Location Group */}
         <div className='EquipmentAdditionForm-EquipmentLocationGroup'>
+          {/* Group Header */}
           <p className='heading-5'>Location</p>
           <div className='EquipmentAdditionForm-BinaryFieldGroup'>
+            {/* RFID Tag Input Field */}
             <StandardTextInputField 
               placeholder='Enter RFID tag'
               className='EquipmentAdditionForm-Field'
               name='rfidTag'
               value={equipmentAdditionInformation.rfidTag}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+            {/* Home Location DropDown */}
             <StandardDropDown
               placeholder='Select home location'
               className='EquipmentAdditionForm-Field'
@@ -178,8 +227,11 @@ function EquipmentAdditionForm(props) {
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
         </div>
+        {/* Equipment Acquisition Information Group */}
         <div className='EquipmentAdditionForm-EquipmentAcquisitionInformationGroup'>
+          {/* Group Header */}
           <p className='heading-5'>Acquisition Information</p>
+          {/* Condition DropDown */}
           <StandardDropDown
             placeholder='Select condition'
             className='EquipmentAdditionForm-Field'
@@ -188,12 +240,14 @@ function EquipmentAdditionForm(props) {
             value={equipmentAdditionInformation.condition}
             onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           <div className='EquipmentAdditionForm-BinaryFieldGroup'>
+            {/* Purchase Cost Input Field */}
             <StandardTextInputField
               placeholder='Enter purchase cost (U.S. dollar)'
               className='EquipmentAdditionForm-Field'
               name='purchaseCost'
               value={equipmentAdditionInformation.purchaseCost}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+            {/* TODO: PurchaseDate Date Select */}
             <StandardTextInputField
               placeholder='Enter purchase date'
               className='EquipmentAdditionForm-Field EquipmentAdditionForm-MarginField'
@@ -202,6 +256,7 @@ function EquipmentAdditionForm(props) {
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
         </div>
+        {/* Instructions/Messages */}
         <p className='paragraph-1 EquipmentAdditionForm-Instructions'>
           Please provide the details of the equipment.
         </p>
