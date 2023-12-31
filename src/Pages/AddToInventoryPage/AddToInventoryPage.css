@@ -23,6 +23,10 @@
     box-sizing: border-box;
 }
 
+.AddToInventoryPage-ModalIcon {
+    color: var(--Red1);
+}
+
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .AddToInventoryPage-PageContentContainer {
@@ -81,6 +85,11 @@
     .AddToInventoryPage-MobileAddButton {
         display: none;
     }
+
+    .AddToInventoryPage-ModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
 }
 
 /* For mobile and any smaller devices */
@@ -137,5 +146,10 @@
 
     .AddToInventoryPage-MobileAddButton {
         width: 100%;
+    }
+
+    .AddToInventoryPage-ModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }

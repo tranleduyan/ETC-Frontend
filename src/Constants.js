@@ -25,10 +25,19 @@ export const REGEX = {
 // Contains in-app predefined messages
 export const MESSAGE = {
     // Message for indicating empty inventory
-    emptyInventory: "There are no items in the inventory.",
+    emptyInventory: 'There are no items in the inventory.',
 
     // Message for indicating empty reservations
-    emptyReservation: "There are no reservations."
+    emptyReservation: 'There are no reservations.',
+
+    // Message for successfully added an equipment type
+    successTypeAddition: 'The type has been successfully added to the inventory.',
+
+    // Message for successfully added an equipment type
+    successModelAddition: 'The model has been successfully added to the inventory.',
+
+    // Message for successfully added an equipment type
+    successEquipmentAddition: 'The equipment has been successfully added to the inventory.',
 };
 
 export const OPTIONS = {

@@ -16,7 +16,9 @@ import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdd
 import './AddToInventoryPage.css';
 
 // Import Icons
-import { HiDocumentText, HiPlus } from 'react-icons/hi';
+import { HiCheckCircle, HiDocumentText, HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import { MESSAGE } from '../../Constants';
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage(props) {
@@ -27,14 +29,22 @@ function AddToInventoryPage(props) {
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
 
+  // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
   const [equipmentErrorMessage, setEquipmentErrorMessage] = useState('');
 
+  // Type form error state and error message
   const [typeIsError, setTypeIsError] = useState(false);
   const [typeErrorMessage, setTypeErrorMessage] = useState('');
 
+  // Model form error state and error message
   const [modelIsError, setModelIsError] = useState(false); 
   const [modelErrorMessage, setModelErrorMessage] = useState('');
+
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalVisibility, setModalVisibility] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // #region Addition Information
   // Information for adding equipment
@@ -79,6 +89,9 @@ function AddToInventoryPage(props) {
   // Add Type - Add the type to the database
   const AddType = () => {
     if(IsTypeFormValid()) {
+      setModalMessage('Adding to inventory...');
+      setIsLoading(true);
+
       const requestBody = {
         schoolId: schoolId,
         equipmentTypeName: typeAdditionInformation.name,
@@ -92,13 +105,26 @@ function AddToInventoryPage(props) {
           }
         })
         .then(response => {
-          // TODO: Implement modal
+          setIsLoading(false);
+          
+          setModalMessage(MESSAGE.successTypeAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage('');
+          }, 1500);
+
           // Reset the field.
           setTypeAdditionInformation({
             name: '',
           });
         })
         .catch(error => {
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage('');
           setTypeIsError(true);
           setTypeErrorMessage(error.response.data.message);
         });
@@ -108,6 +134,9 @@ function AddToInventoryPage(props) {
   // Add Model - Add the model to the database
   const AddModel = () => {
     if(IsModelFormValid()) {
+      setModalMessage('Adding to inventory...');
+      setIsLoading(true);
+
       // Form data to submit the image
       const formData = new FormData();
   
@@ -126,7 +155,16 @@ function AddToInventoryPage(props) {
           }
         })
         .then(response => {
-          // TODO: Implement modal
+          setIsLoading(false);
+
+          setModalMessage(MESSAGE.successModelAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage('');
+          }, 1500);
           // Reset the information
           setModelAdditionInformation({
             name: '',
@@ -135,6 +173,9 @@ function AddToInventoryPage(props) {
           });
         })
         .catch(error => {
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage('');
           setModelIsError(true);
           setModelErrorMessage(error.response.data.message);
         });
@@ -230,6 +271,12 @@ function AddToInventoryPage(props) {
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='AddToInventoryPage-ModalContainer'
+        icon={isLoading ? HiSwitchHorizontal : HiCheckCircle}
+        iconClassName='AddToInventoryPage-ModalIcon'
+        message={modalMessage}
+        isVisible={modalVisibility || isLoading}/>
       <div className='AddToInventoryPage-PageContentContainer'>
         {/* Page Header - Add to Inventory */}
         <div className='AddToInventoryPage-PageHeaderContainer'>
