@@ -11,14 +11,16 @@ import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
 import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
 import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import { MESSAGE } from '../../Constants';
+import { resetUserData } from '../../storage';
+import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 
 // Import Stylings
 import './AddToInventoryPage.css';
 
 // Import Icons
 import { HiCheckCircle, HiDocumentText, HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import { MESSAGE } from '../../Constants';
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage(props) {
@@ -182,6 +184,8 @@ function AddToInventoryPage(props) {
     }
   };
 
+  //#region  Form Validation
+  // IsEquipmentFormValid - Check for form validation
   const IsEquipmentFormValid = () => {
     if(!equipmentAdditionInformation.serialNumber) {
       setEquipmentIsError(true);
@@ -227,6 +231,7 @@ function AddToInventoryPage(props) {
     return true;
   };
 
+    // IsTypeFormValid - Check for form validation
   const IsTypeFormValid = () => {
     if(!typeAdditionInformation.name) {
       setTypeIsError(true);
@@ -242,6 +247,7 @@ function AddToInventoryPage(props) {
     return true;
   };
 
+  // IsModelFormValid - Check for form validation
   const IsModelFormValid = () => {
     if(!modelAdditionInformation.name) {
       setModelIsError(true);
@@ -268,132 +274,139 @@ function AddToInventoryPage(props) {
 
     return true;
   };
+  //#endregion
 
   return (
-    <GeneralPage>
-      <IconModal 
-        className='AddToInventoryPage-ModalContainer'
-        icon={isLoading ? HiSwitchHorizontal : HiCheckCircle}
-        iconClassName='AddToInventoryPage-ModalIcon'
-        message={modalMessage}
-        isVisible={modalVisibility || isLoading}/>
-      <div className='AddToInventoryPage-PageContentContainer'>
-        {/* Page Header - Add to Inventory */}
-        <div className='AddToInventoryPage-PageHeaderContainer'>
-          <Logo className='AddToInventoryPage-LogoContainer'/>
-          <p className='heading-2'>Add to Inventory</p>
-        </div>
-        {/* Page Content */}
-        <div className='AddToInventoryPage-ContentContainer'>
-          {/* Content Header Container */}
-          <div className='AddToInventoryPage-ContentHeaderContainer'>
-            {/* Header Container */}
-            <div className='AddToInventoryPage-HeaderContainer'>
-              {/* Equipment Tab Button */}
-              <HeaderButton
-                title='Equipment'
-                isSelected={currentSection === 'Equipment'}
-                onClick={() => setCurrentSection('Equipment')}/>
-              {/* Type Tab Button */}
-              <HeaderButton
-                title='Type'
-                isSelected={currentSection === 'Type'}
-                onClick={() => setCurrentSection('Type')}/>
-              {/* Model Tab Button */}
-              <HeaderButton
-                title='Model'
-                isSelected={currentSection === 'Model'}
-                onClick={() => setCurrentSection('Model')}/>
+    <>
+      { userRole === 'Admin' ? (
+        <GeneralPage>
+          <IconModal 
+            className='AddToInventoryPage-ModalContainer'
+            icon={isLoading ? HiSwitchHorizontal : HiCheckCircle}
+            iconClassName='AddToInventoryPage-ModalIcon'
+            message={modalMessage}
+            isVisible={modalVisibility || isLoading}/>
+          <div className='AddToInventoryPage-PageContentContainer'>
+            {/* Page Header - Add to Inventory */}
+            <div className='AddToInventoryPage-PageHeaderContainer'>
+              <Logo className='AddToInventoryPage-LogoContainer'/>
+              <p className='heading-2'>Add to Inventory</p>
             </div>
-            {/* Action Container */}
-            <div className='AddToInventoryPage-ActionContainer'>
-              {/* If equipment tab, display Add Equipment and Import buttons */}
+            {/* Page Content */}
+            <div className='AddToInventoryPage-ContentContainer'>
+              {/* Content Header Container */}
+              <div className='AddToInventoryPage-ContentHeaderContainer'>
+                {/* Header Container */}
+                <div className='AddToInventoryPage-HeaderContainer'>
+                  {/* Equipment Tab Button */}
+                  <HeaderButton
+                    title='Equipment'
+                    isSelected={currentSection === 'Equipment'}
+                    onClick={() => setCurrentSection('Equipment')}/>
+                  {/* Type Tab Button */}
+                  <HeaderButton
+                    title='Type'
+                    isSelected={currentSection === 'Type'}
+                    onClick={() => setCurrentSection('Type')}/>
+                  {/* Model Tab Button */}
+                  <HeaderButton
+                    title='Model'
+                    isSelected={currentSection === 'Model'}
+                    onClick={() => setCurrentSection('Model')}/>
+                </div>
+                {/* Action Container */}
+                <div className='AddToInventoryPage-ActionContainer'>
+                  {/* If equipment tab, display Add Equipment and Import buttons */}
+                  {currentSection === 'Equipment' && (
+                    <>
+                      <StandardButton 
+                        title='Add Equipment'
+                        onClick={AddEquipment}
+                        className='AddToInventoryPage-AddButton'
+                        icon={HiPlus}/>
+                      <StandardButton 
+                        title='Import'
+                        onClick={ImportEquipment}
+                        className='AddToInventoryPage-ImportEquipmentButton'
+                        icon={HiDocumentText}/>
+                    </>
+                  )}
+                  {/* If type tab, display Add Type Button */}
+                  {currentSection === 'Type' && (
+                      <StandardButton 
+                        title='Add Type'
+                        onClick={AddType}
+                        className='AddToInventoryPage-AddButton'
+                        icon={HiPlus}/>
+                  )}
+                  {/* If model tab, display Add Model button */}
+                  {currentSection === 'Model' && (
+                      <StandardButton 
+                        title='Add Model'
+                        onClick={AddModel}
+                        className='AddToInventoryPage-AddButton'
+                        icon={HiPlus}/>
+                  )}
+                </div>
+              </div>
+              {/* Equipment Tab */}
               {currentSection === 'Equipment' && (
                 <>
+                  {/* Equipment Form */}
+                  <EquipmentAdditionForm 
+                    equipmentAdditionInformation={equipmentAdditionInformation}
+                    setEquipmentAdditionInformation={setEquipmentAdditionInformation}
+                    isError={equipmentIsError}
+                    errorMessage={equipmentErrorMessage}/>
+                  {/* Mobile Add Equipment Button */}
                   <StandardButton 
                     title='Add Equipment'
                     onClick={AddEquipment}
-                    className='AddToInventoryPage-AddButton'
+                    className='AddToInventoryPage-MobileAddButton'
                     icon={HiPlus}/>
-                  <StandardButton 
-                    title='Import'
-                    onClick={ImportEquipment}
-                    className='AddToInventoryPage-ImportEquipmentButton'
-                    icon={HiDocumentText}/>
                 </>
               )}
-              {/* If type tab, display Add Type Button */}
+              {/* Type Tab */}
               {currentSection === 'Type' && (
-                  <StandardButton 
-                    title='Add Type'
-                    onClick={AddType}
-                    className='AddToInventoryPage-AddButton'
-                    icon={HiPlus}/>
+                  <>
+                    {/* Type Addition Form */}
+                    <TypeAdditionForm
+                      typeAdditionInformation={typeAdditionInformation}
+                      setTypeAdditionInformation={setTypeAdditionInformation}
+                      isError={typeIsError}
+                      errorMessage={typeErrorMessage}/>
+                    {/* Mobile Add Type Button */}
+                    <StandardButton 
+                      title='Add Type'
+                      onClick={AddType}
+                      className='AddToInventoryPage-MobileAddButton'
+                      icon={HiPlus}/>
+                  </>
               )}
-              {/* If model tab, display Add Model button */}
+              {/* Model Tab */}
               {currentSection === 'Model' && (
-                  <StandardButton 
-                    title='Add Model'
-                    onClick={AddModel}
-                    className='AddToInventoryPage-AddButton'
-                    icon={HiPlus}/>
+                  <>
+                    {/* Model Addition Form */}
+                    <ModelAdditionForm
+                      modelAdditionInformation={modelAdditionInformation}
+                      setModelAdditionInformation={setModelAdditionInformation}
+                      isError={modelIsError}
+                      errorMessage={modelErrorMessage}/>
+                    {/* Mobile Add Model Button */}
+                    <StandardButton 
+                      title='Add Model'
+                      onClick={AddModel}
+                      className='AddToInventoryPage-MobileAddButton'
+                      icon={HiPlus}/>
+                  </>
               )}
             </div>
           </div>
-          {/* Equipment Tab */}
-          {currentSection === 'Equipment' && (
-            <>
-              {/* Equipment Form */}
-              <EquipmentAdditionForm 
-                equipmentAdditionInformation={equipmentAdditionInformation}
-                setEquipmentAdditionInformation={setEquipmentAdditionInformation}
-                isError={equipmentIsError}
-                errorMessage={equipmentErrorMessage}/>
-              {/* Mobile Add Equipment Button */}
-              <StandardButton 
-                title='Add Equipment'
-                onClick={AddEquipment}
-                className='AddToInventoryPage-MobileAddButton'
-                icon={HiPlus}/>
-            </>
-          )}
-          {/* Type Tab */}
-          {currentSection === 'Type' && (
-              <>
-                {/* Type Addition Form */}
-                <TypeAdditionForm
-                  typeAdditionInformation={typeAdditionInformation}
-                  setTypeAdditionInformation={setTypeAdditionInformation}
-                  isError={typeIsError}
-                  errorMessage={typeErrorMessage}/>
-                {/* Mobile Add Type Button */}
-                <StandardButton 
-                  title='Add Type'
-                  onClick={AddType}
-                  className='AddToInventoryPage-MobileAddButton'
-                  icon={HiPlus}/>
-              </>
-          )}
-          {/* Model Tab */}
-          {currentSection === 'Model' && (
-              <>
-                {/* Model Addition Form */}
-                <ModelAdditionForm
-                  modelAdditionInformation={modelAdditionInformation}
-                  setModelAdditionInformation={setModelAdditionInformation}
-                  isError={modelIsError}
-                  errorMessage={modelErrorMessage}/>
-                {/* Mobile Add Model Button */}
-                <StandardButton 
-                  title='Add Model'
-                  onClick={AddModel}
-                  className='AddToInventoryPage-MobileAddButton'
-                  icon={HiPlus}/>
-              </>
-          )}
-        </div>
-      </div>
-    </GeneralPage>
+        </GeneralPage>
+      ) :
+        <UnauthorizedPanel />
+      }
+    </>
   )
 };
 
@@ -415,5 +428,11 @@ const mapStateToProps = (state) => ({
   schoolId: state.user.userData?.schoolId,
 });
 
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
+
 // Exports the AddToInventoryPage component as the default export for the AddToInventoryPage module.
-export default connect(mapStateToProps)(AddToInventoryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToInventoryPage);

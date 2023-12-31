@@ -63,7 +63,7 @@ function ReservationList(props) {
   }, [filterMode, filterStatus]);
 
   return (
-    <div className={`${className} ReservationList-Container`}>
+    <div className={`${sortedReservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
       {/* Render ReservationCard components for each reservation */}
       {sortedReservations?.length > 0 
         ? 
@@ -80,7 +80,8 @@ function ReservationList(props) {
             OnReservationCardClick={OnReservationCardClick}/>
       ))
        :
-       <p className='paragraph-1 ReservationList-Message'>{MESSAGE.emptyReservation}</p>}
+         <p className='paragraph-1'>{MESSAGE.emptyReservation}</p>
+      }
     </div>
   )
 };

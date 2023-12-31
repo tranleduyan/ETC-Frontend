@@ -20,7 +20,8 @@ function InventorySummaryList(props) {
   );
 
   return (
-    <div className={`${className} InventorySummaryList-Container`}>
+    // TODO: Center the message
+    <div className={`InventorySummaryList-Container ${className}`}>
       {/* Render EquipmentTypeSummaryCard components for each inventory type summary */}
       {InventorySummaryResponse?.length > 0 
         ? 

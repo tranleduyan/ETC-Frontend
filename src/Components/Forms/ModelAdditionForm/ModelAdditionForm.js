@@ -76,7 +76,7 @@ function ModelAdditionForm(props) {
             <input
               type='file'
               ref={modelPhotoRef}
-              accept='image/png, image/jpeg, image/jpg'
+              accept='image/*'
               style={{ display: 'none' }}
               onChange={HandleImageChange}
             />
@@ -90,7 +90,7 @@ function ModelAdditionForm(props) {
             <input
               type='file'
               ref={modelPhotoRef}
-              accept='image/png, image/jpeg, image/jpg'
+              accept='image/*'
               style={{ display: 'none' }} 
               onChange={HandleImageChange}/>
           </button>
