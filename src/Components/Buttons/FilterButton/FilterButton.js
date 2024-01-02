@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 // Import Stylings
 import './FilterButton.css';
 
-// Import Icons
-
 // Define FilterButton Component
 function FilterButton(props) {
 
