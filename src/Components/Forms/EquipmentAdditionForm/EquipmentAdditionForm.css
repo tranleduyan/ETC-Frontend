@@ -88,6 +88,7 @@
     }
 
     .EquipmentAdditionForm-PromptContainer,
+    .EquipmentAdditionForm-DefaultModelPhotoContainer,
     .EquipmentAdditionForm-TypeModelPhoto img{
         height: calc(35.04375vmin);
         border-radius: calc(1.390625vmin);
@@ -141,6 +142,7 @@
     }
 
     .EquipmentAdditionForm-PromptContainer,
+    .EquipmentAdditionForm-DefaultModelPhotoContainer,
     .EquipmentAdditionForm-TypeModelPhoto img{
         height: calc(68.975vmin);
         border-radius: calc(2.78125vmin);
