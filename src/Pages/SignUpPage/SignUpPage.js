@@ -1,5 +1,7 @@
 // Import Components
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
 import Message from '../../Components/Message/Message';
@@ -16,7 +18,9 @@ import './SignUpPage.css';
 import { HiExclamationCircle } from 'react-icons/hi';
 
 // Render the sign up page
-function SignUpPage() {
+function SignUpPage(props) {
+
+  const { userData } = props;
   
   const navigate = useNavigate();
 
@@ -246,6 +250,14 @@ function SignUpPage() {
       });
   };
 
+  useEffect(() => {
+    // Check if userData is not null
+    if (userData) {
+      navigate('/Dashboard');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   //#region Navigation
   const NavigateSignIn = () => {
     navigate('/');
@@ -357,5 +369,20 @@ function SignUpPage() {
   )
 };
 
+// Define PropTypes for type-checking and documentation
+SignUpPage.propTypes = {
+  userData: PropTypes.any,
+};
+
+// Set default values for props to avoid potential issues if not provided
+SignUpPage.defaultProps = {
+  userData: null,
+};
+
+// Map userData from Redux state to component props
+const mapStateToProps = (state) => ({
+  userData: state.user.userData,
+});
+
 // Exports the SignUpPage component as the default export for the SignUpPage module.
-export default SignUpPage;
+export default connect(mapStateToProps)(SignUpPage);

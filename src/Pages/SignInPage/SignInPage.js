@@ -1,6 +1,7 @@
 // Import Components
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
@@ -18,7 +19,9 @@ import './SignInPage.css';
 import { HiExclamationCircle } from 'react-icons/hi';
 
 // Render Sign In Page
-function SignInPage() {
+function SignInPage(props) {
+
+  const { userData } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -148,6 +151,14 @@ function SignInPage() {
     return true;
   };
 
+  useEffect(() => {
+    // Check if userData is not null
+    if (userData) {
+      navigate('/Dashboard');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //#region Navigation
   const NavigateForgotPassword = () => {
     // TODO: Navigate to forgot password page
@@ -213,5 +224,20 @@ function SignInPage() {
   )
 };
 
+// Define PropTypes for type-checking and documentation
+SignInPage.propTypes = {
+  userData: PropTypes.any,
+};
+
+// Set default values for props to avoid potential issues if not provided
+SignInPage.defaultProps = {
+  userData: null,
+};
+
+// Map userData from Redux state to component props
+const mapStateToProps = (state) => ({
+  userData: state.user.userData,
+});
+
 // Connect the component to Redux, mapping state and actions to props
-export default connect()(SignInPage);
+export default connect(mapStateToProps)(SignInPage);
