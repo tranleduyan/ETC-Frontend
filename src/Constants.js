@@ -1,6 +1,9 @@
 // Declaring all the API credentials
 export const API = {
+    // API key for authentication
     key: process.env.REACT_APP_API_KEY,
+    
+    // Domain or base URL for making API requests
     domain: process.env.REACT_APP_API_DOMAIN,
 };
 
@@ -17,4 +20,57 @@ export const REGEX = {
 
     // must be exactly 9 characters (must all be digits)
     schoolId: /^\d{9}$/,
+};
+
+// Contains in-app predefined messages
+export const MESSAGE = {
+    // Message for indicating empty inventory
+    emptyInventory: 'There are no items in the inventory.',
+
+    // Message for indicating empty reservations
+    emptyReservation: 'There are no reservations.',
+
+    // Message for successfully added an equipment type
+    successTypeAddition: 'The type has been successfully added to the inventory.',
+
+    // Message for successfully added an equipment type
+    successModelAddition: 'The model has been successfully added to the inventory.',
+
+    // Message for successfully added an equipment type
+    successEquipmentAddition: 'The equipment has been successfully added to the inventory.',
+};
+
+export const OPTIONS = {
+    equipment: {
+        conditions: [
+            {
+                label: 'New',
+                value: 'New',
+            },
+            {
+                label: 'Used',
+                value: 'Used,'
+            },
+        ],
+        maintenanceStatus: [
+            {
+                label: 'Ready',
+                value: 'Ready',
+            },
+            {
+                label: 'Under Repair',
+                value: 'Under Repair',
+            }
+        ],
+        reservationStatus: [
+            {
+                label: 'In Use',
+                value: 'In Use',
+            },
+            {
+                label: 'Available',
+                value: 'Available',
+            }
+        ],
+    },
 };

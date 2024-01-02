@@ -1,0 +1,40 @@
+/* General Stylings */
+.HeaderButton-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: var(--Black1);
+}
+
+.HeaderButton-Active {
+    color: var(--Red1);
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .HeaderButton-Container {
+        height: calc(6.675vmin);
+        border-bottom: calc(0.278125vmin) solid transparent;
+    }
+
+    .HeaderButton-Active {
+        border-bottom: calc(0.278125vmin) solid var(--Red1);
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 480px) {
+    .HeaderButton-Container {
+        height: calc(13.35vmin);
+        border-bottom: calc(0.55625vmin) solid transparent;
+    }
+    
+    .HeaderButton-Active {
+        border-bottom: calc(0.55625vmin) solid var(--Red1);
+    }
+}

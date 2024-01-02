@@ -1,5 +1,17 @@
-.GeneralPage-Wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .GeneralPage-Wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 480px) {
+    .GeneralPage-Wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }    
 }

@@ -1,0 +1,29 @@
+.IconModal-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .IconModal-Container {
+        gap: calc(2.225vmin);
+    }
+
+    .IconModal-Icon {
+        font-size: calc(8.34375vmin);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .IconModal-Container {
+        gap: calc(4.45vmin);
+    }
+
+    .IconModal-Icon {
+        font-size: calc(16.6875vmin);
+    }
+}

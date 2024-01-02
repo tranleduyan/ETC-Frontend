@@ -46,12 +46,12 @@ function SignInPage() {
   // Handle Input Change to update the state of userInformation object
   const HandleInputChange = (propertyName, inputValue) => {
     setUserInformation({...userInformation, [propertyName]: inputValue});
-  }
+  };
 
   // Control the visibility of the input field
   const isVisible = (promptState) => {
     return (promptState <= currentPromptState);
-  }
+  };
 
   // Set the input field styling to be last input field due to the behavior of last-child is conflicting with display:none.
   const SetCurrentLastInputFieldClass = (promptState) => {
@@ -59,7 +59,7 @@ function SignInPage() {
       return 'SignInPage-LastInputField';
     }
     return '';
-  }
+  };
 
   // Continuing reveal the next input field when the current one is filled
   const Continue = () => {
@@ -76,7 +76,7 @@ function SignInPage() {
         }
       }
     }
-  }
+  };
 
   // Sign In, post the request body to the API end point. If responseBody is fine/success, capture all the user data, else return the error message for the user's further instructions.
   const SignIn = () => {
@@ -115,7 +115,7 @@ function SignInPage() {
           setErrorMessage(error.response.data.message);
         });
     }
-  }
+  };
 
   // IsValid, Check if the form is ready to continue
   const IsValid = () => {
@@ -146,16 +146,16 @@ function SignInPage() {
     }
 
     return true;
-  }
+  };
 
   //#region Navigation
   const NavigateForgotPassword = () => {
     // TODO: Navigate to forgot password page
-  }
+  };
 
   const NavigateSignUp = () => {
     navigate('/SignUp');
-  }
+  };
   //#endregion
   
   return (
@@ -177,6 +177,7 @@ function SignInPage() {
             name='emailAddress'
             visibility={isVisible(0)}
             onChange={HandleInputChange}
+            value={userInformation.emailAddress}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Password Input Field */}
           <StandardTextInputField 
@@ -186,6 +187,7 @@ function SignInPage() {
             name='password'
             visibility={isVisible(1)}
             onChange={HandleInputChange}
+            value={userInformation.password}
             onKeyDown={(e) => e.key === 'Enter' && Continue()}/>
           {/* Error Message */}
           <Message 
@@ -209,6 +211,7 @@ function SignInPage() {
       </div>
     </div>
   )
-}
+};
 
+// Connect the component to Redux, mapping state and actions to props
 export default connect()(SignInPage);

@@ -14,36 +14,39 @@
 
 /* Global Stylings */
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   margin:0px;
   color: var(--Black1);
+  font-family: 'Poppins Regular', sans-serif;
 }
 
 .heading-1, .heading-2, .heading-3,
 .heading-4, .heading-5, .heading-6,
-.paragraph-1, .paragraph-2 {
+.paragraph-1, .paragraph-2, .paragraph-3 {
   margin: 0px;
 }
 
 .heading-1, .heading-2, .heading-3, .heading-4 {
-  font-family: 'Poppins Semi Bold';
+  font-family: 'Poppins Semi Bold', sans-serif;
 }
 
 .heading-5, .heading-6 {
-  font-family: 'Poppins Medium';
+  font-family: 'Poppins Medium', sans-serif;
 }
 
 .paragraph-1, .paragraph-3 {
-  font-family: 'Poppins Regular';
+  font-family: 'Poppins Regular', sans-serif;
 }
 
 .paragraph-2 {
-  font-family: 'Poppins Medium';
+  font-family: 'Poppins Medium', sans-serif;
 }
 
 .wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
 }
 
 .hide {

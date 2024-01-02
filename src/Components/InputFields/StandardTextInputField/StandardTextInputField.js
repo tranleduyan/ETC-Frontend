@@ -17,20 +17,20 @@ function StandardTextInputField(props) {
   const HandleInputChange = (event) => {
     const { name, value } = event.target;
     onChange(name, value);
-  }
+  };
 
   return (
     <input type={type}
            placeholder={placeholder}
-           className={`${visibility === false ? hiddenClassName : className} StandardTextInputField`} 
+           className={`StandardTextInputField ${visibility === false ? hiddenClassName : className}`} 
            name={name}
            value={value}
            onChange={HandleInputChange}
            onKeyDown={onKeyDown}/>
   )
-}
+};
 
-// Set Types for Props 
+// Define PropTypes for type-checking and documentation
 StandardTextInputField.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
@@ -40,15 +40,17 @@ StandardTextInputField.propTypes = {
   onChange: PropTypes.func.isRequired,
   visibility: PropTypes.bool,
   onKeyDown: PropTypes.func
-}
+};
 
-// Set Default Values for Props
+// Set default values for props to avoid potential issues if not provided
 StandardTextInputField.defaultProps = {
   className: '',
   placeholder: '',
   type: 'text',
   visibility: true,
+  value: '',
   onKeyDown: () => {}
-}
+};
 
+// Exports the StandardTextInputField component as the default export for the StandardTextInputField module.
 export default StandardTextInputField;

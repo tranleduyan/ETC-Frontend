@@ -1,0 +1,36 @@
+.GeneralModal-Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25); /* Semi-transparent black background for dimming effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure the modal is on top */
+}
+
+.GeneralModal-Container {
+    background-color: var(--White1);
+    text-align: center;
+    z-index: 1001; /* Place the modal above the overlay */
+    box-sizing: border-box;
+}
+
+
+/* For tablets and any larger devices */
+@media screen and (min-width: 481px) {
+    .GeneralModal-Container {
+        padding: calc(5.00625vmin);
+        border-radius: calc(1.390625vmin);
+    }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+    .GeneralModal-Container {
+        padding: calc(10.0125vmin);
+        border-radius: calc(2.78125vmin);
+    }
+}

@@ -1,0 +1,23 @@
+.EquipmentFilterCardList-Container {
+    display: grid;
+    overflow-y: auto;
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .EquipmentFilterCardList-Container {
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        gap: calc(3.02vmin);
+    }
+    .EquipmentFilterCardList-Container::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 480px) {
+    .EquipmentFilterCardList-Container {
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        gap: calc(4.45vmin);
+    }
+}
