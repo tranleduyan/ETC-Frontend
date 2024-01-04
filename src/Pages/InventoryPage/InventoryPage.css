@@ -91,10 +91,6 @@
     .InventoryPage-MobileAddButton {
         display: none !important;
     }
-
-    .InventoryPage-InventoryList {
-        margin-top: calc(2.225vmin);
-    }
 }
 
 /* For mobiles and smaller devices */
@@ -151,9 +147,5 @@
 
     .InventoryPage-MobileAddButton {
         width: 100%;
-    }
-
-    .InventoryPage-InventoryList {
-        margin-top: calc(4.45vmin);
     }
 }
