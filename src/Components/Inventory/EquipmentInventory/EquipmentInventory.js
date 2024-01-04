@@ -30,10 +30,12 @@ function EquipmentInventory(props) {
   )
 };
 
+// Define PropTypes for Equipment Inventory
 EquipmentInventory.propTypes = {
     className: PropTypes.string,
 };
 
+// Define defaultProps for EquipmentInventory
 EquipmentInventory.defaultProps = {
     className: '',
 };

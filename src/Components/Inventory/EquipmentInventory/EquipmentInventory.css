@@ -23,6 +23,6 @@
         margin: calc(4.45vmin) 0px;
         grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
         gap: calc(4.45vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(27.8125vmin), auto));
+        grid-template-rows: repeat(auto-fill, minmax(calc(32.25vmin), calc(32.25vmin)));
     }
 }

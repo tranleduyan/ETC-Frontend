@@ -1,0 +1,132 @@
+/* General Stylings */
+.TypeInventoryCard-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: var(--Black1);
+}
+
+.TypeInventoryCard-IconContainer {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--Black1);
+}
+
+.TypeInventoryCard-InformationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    overflow: hidden;
+}
+
+.TypeInventoryCard-Information {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0px;
+}
+
+.TypeInventoryCard-SelectionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.TypeInventoryCard-SelectButton {
+    width: 100%;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px) {
+    .TypeInventoryCard-Container {
+        height: calc(13.90625vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        border-radius: calc(1.390625vmin);
+        padding: calc(1.66875vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .TypeInventoryCard-IconContainer {
+        height: calc(8.9vmin);
+        width: calc(8.9vmin);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .TypeInventoryCard-Icon {
+        font-size: calc(6.675vmin);
+    }
+
+    .TypeInventoryCard-InformationContainer {
+        height: calc(8.9vmin);
+        gap: calc(0.55625vmin);
+    }
+
+    .TypeInventoryCard-Information {
+        height: calc(5.00625vmin);
+    }
+    
+    .TypeInventoryCard-SelectionContainer {
+        height: calc(8.9vmin);
+        width: calc(3.3375vmin);
+    }
+
+    .TypeInventoryCard-InformationContainer p.heading-5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* For mobiles and smaller screen */
+@media screen and (max-width: 480px) {
+    .TypeInventoryCard-Container {
+        height: auto;
+        border: calc(0.55625vmin) solid var(--Gray1);
+        border-radius: calc(2.78125vmin);
+        padding: calc(3.3375vmin);
+        gap: calc(4.45vmin);
+    }
+
+    .TypeInventoryCard-IconContainer {
+        width: calc(17.8vmin);
+        height: calc(17.8vmin);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .TypeInventoryCard-Icon {
+        font-size: calc(13.35vmin);
+    }
+
+    .TypeInventoryCard-InformationContainer {
+        gap: calc(0.55625vmin);
+        flex: 1;
+    }
+
+    .TypeInventoryCard-Information {
+        height: calc(10.0125vmin);
+    }
+    
+    .TypeInventoryCard-SelectionContainer {
+        height: 100%;
+        width: calc(6.675vmin);
+    }
+
+    .TypeInventoryCard-InformationContainer p.heading-5 {
+        white-space: normal;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -moz-box-lines: 2;
+        overflow: hidden;
+    }
+}

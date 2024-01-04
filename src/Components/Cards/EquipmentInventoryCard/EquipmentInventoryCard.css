@@ -129,10 +129,10 @@
         white-space: normal;
         word-wrap: break-word;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         -moz-box-orient: vertical;
-        -moz-box-lines: 3;
+        -moz-box-lines: 2;
         overflow: hidden;
     }
 }

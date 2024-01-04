@@ -14,7 +14,7 @@ import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 // Define Equipment Inventory Card
 function EquipmentInventoryCard(props) {
 
-  const { className, modelPhoto, typeId, typeName, serialNumber, maintenanceStatus, isSelected } = props;
+  const { className, modelPhoto, typeName, serialNumber, maintenanceStatus, isSelected } = props;
 
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
 
@@ -52,7 +52,6 @@ function EquipmentInventoryCard(props) {
 EquipmentInventoryCard.propTypes = {
   className: PropTypes.string,
   modelPhoto: PropTypes.string.isRequired,
-  typeId: PropTypes.number.isRequired,
   typeName: PropTypes.string.isRequired,
   serialNumber: PropTypes.string.isRequired,
   maintenanceStatus: PropTypes.string.isRequired,

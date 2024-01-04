@@ -726,7 +726,7 @@ const EquipmentInventoryResponse = [
     maintenanceStatus: 'Ready',
     modelId: 122,
     modelName: 'AMT-222',
-    modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
+    modelPhoto: 'https://sm.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
   },
   {
     equipmentSerialId: 'A217S2',
@@ -737,7 +737,7 @@ const EquipmentInventoryResponse = [
     modelName: 'AMT-222',
     modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
   },
-    {
+  {
     equipmentSerialId: 'A217S5',
     typeId: 122241,
     typeName: 'Ammeter',
@@ -746,12 +746,46 @@ const EquipmentInventoryResponse = [
     modelName: 'AMT-222',
     modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
   },
-  
 ];
+
+const TypeInventoryResponse = [
+  {
+    typeId: 19,
+    typeName: 'Ammeter',
+    modelAmount: 2,
+    equipmentAmount: 4,
+  },
+  {
+    typeId: 20,
+    typeName: 'Barometer',
+    modelAmount: 1,
+    equipmentAmount: 6,
+  },
+  {
+    typeId: 21,
+    typeName: 'Multimeter',
+    modelAmount: 5,
+    equipmentAmount: 2,
+  },
+  {
+    typeId: 22,
+    typeName: 'Lux Meter',
+    modelAmount: 8,
+    equipmentAmount: 8,
+  },
+  {
+    typeId: 23,
+    typeName: 'Microscope',
+    modelAmount: 4,
+    equipmentAmount: 8,
+  },
+];
+
 //#endregion
 
 export { 
   EquipmentInventoryResponse,
+  TypeInventoryResponse,
 
   InventorySummaryResponse, 
   AllReservationsResponse, 

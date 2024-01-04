@@ -9,6 +9,7 @@ import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import { HiAdjustments, HiPlus } from 'react-icons/hi';
 import EquipmentInventory from '../../Components/Inventory/EquipmentInventory/EquipmentInventory';
+import TypeInventory from '../../Components/Inventory/TypeInventory/TypeInventory';
 
 // Define InventoryPage Component
 function InventoryPage() {
@@ -96,11 +97,20 @@ function InventoryPage() {
           {/* Equipment Tab */}
           {currentSection === 'Equipment' && (
             <>
-              <EquipmentInventory 
-                className='InventoryPage-InventoryList'/>
+              <EquipmentInventory />
               <StandardButton
                 title='Add Equipment'
                 onClick={AddEquipment}
+                className={'InventoryPage-MobileAddButton'}
+                icon={HiPlus}/>
+            </>
+          )}
+          {currentSection === 'Type' && (
+            <>
+              <TypeInventory />
+              <StandardButton
+                title='Add Type'
+                onClick={AddType}
                 className={'InventoryPage-MobileAddButton'}
                 icon={HiPlus}/>
             </>
