@@ -26,9 +26,10 @@ function EquipmentInventoryCard(props) {
                alt='Equipment Model'
                onError={() => setEquipmentModelPhoto(null)}/>
         )}
-        {!equipmentModelPhoto && (<FontAwesomeIcon 
-          icon={faScrewdriverWrench} 
-          className='EquipmentInventoryCard-DefaultModelIcon'/>
+        {!equipmentModelPhoto && (
+          <FontAwesomeIcon 
+            icon={faScrewdriverWrench} 
+            className='EquipmentInventoryCard-DefaultModelIcon'/>
         )}
       </div>
       <div className='EquipmentInventoryCard-InformationContainer'>

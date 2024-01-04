@@ -1,11 +1,11 @@
 // Import Components
 import React from 'react';
 import PropTypes from 'prop-types';
+import TypeInventoryCard from '../../Cards/TypeInventoryCard/TypeInventoryCard';
+import { TypeInventoryResponse } from '../../../ResponseBody';
 
 // Import Stylings
 import './TypeInventory.css';
-import TypeInventoryCard from '../../Cards/TypeInventoryCard/TypeInventoryCard';
-import { TypeInventoryResponse } from '../../../ResponseBody';
 
 // Define TypeInventory Component
 function TypeInventory(props) {

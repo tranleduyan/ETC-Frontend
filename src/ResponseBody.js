@@ -781,11 +781,36 @@ const TypeInventoryResponse = [
   },
 ];
 
+const ModelInventoryResponse = [
+  {
+    modelId: 88,
+    modelPhoto: 'https://dam-assets.fluke.com/s3fs-public/F-87_V_01b_1500x1000.jpg',
+    modelName: 'Fluke 87V',
+    typeName: 'Multimeter',
+    equipmentAmount: 5,
+  },
+  {
+    modelId: 89,
+    modelPhoto: 'https://dam-assets.fluke.com/s3fs-public/flukeig/products/images/dmm/jpeg/113_300dpi_249x349mm_c_nr-12396-1500x1000.jpg',
+    modelName: 'Fluke 113',
+    typeName: 'Multimeter',
+    equipmentAmount: 1,
+  },
+  {
+    modelId: 90,
+    modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71KeZNnypZS.jpg',
+    modelName: 'Etekcity',
+    typeName: 'Multimeter',
+    equipmentAmount: 8,
+  },
+];
+
 //#endregion
 
 export { 
   EquipmentInventoryResponse,
   TypeInventoryResponse,
+  ModelInventoryResponse,
 
   InventorySummaryResponse, 
   AllReservationsResponse, 

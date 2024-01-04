@@ -10,6 +10,7 @@ import StandardButton from '../../Components/Buttons/StandardButton/StandardButt
 import { HiAdjustments, HiPlus } from 'react-icons/hi';
 import EquipmentInventory from '../../Components/Inventory/EquipmentInventory/EquipmentInventory';
 import TypeInventory from '../../Components/Inventory/TypeInventory/TypeInventory';
+import ModelInventory from '../../Components/Inventory/ModelInventory/ModelInventory';
 
 // Define InventoryPage Component
 function InventoryPage() {
@@ -111,6 +112,16 @@ function InventoryPage() {
               <StandardButton
                 title='Add Type'
                 onClick={AddType}
+                className={'InventoryPage-MobileAddButton'}
+                icon={HiPlus}/>
+            </>
+          )}
+          {currentSection === 'Model' && (
+            <>
+              <ModelInventory />
+              <StandardButton
+                title='Add Model'
+                onClick={AddModel}
                 className={'InventoryPage-MobileAddButton'}
                 icon={HiPlus}/>
             </>
