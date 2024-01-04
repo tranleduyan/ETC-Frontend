@@ -12,7 +12,7 @@ function IconButton(props) {
   const { icon: Icon, className, iconClassName, onClick } = props;
   
   return (
-    <button className={`${className} IconButton-Container`} onClick={onClick}>
+    <button className={`IconButton-Container ${className}`} onClick={onClick}>
       {/* Render the specified Icon component with the provided iconClassName */}
         <Icon className={`${iconClassName}`} />
     </button>

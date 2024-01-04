@@ -10,7 +10,9 @@ function StandardButton(props) {
   const { title, onClick, className, icon: Icon } = props;
   return (
     <button className={`${className} StandardButton-Container`} onClick={onClick}>
-      <p className='paragraph-2'>{title}</p>
+      {title !== '' && (
+        <p className='paragraph-2'>{title}</p>
+      )}
       {Icon &&
         <Icon className='StandardButton-Icon'/>
       }

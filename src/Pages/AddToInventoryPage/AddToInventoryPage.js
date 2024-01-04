@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { API } from '../../Constants';
+import { API, MESSAGE } from '../../Constants';
 import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
@@ -12,7 +12,6 @@ import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/
 import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
-import { MESSAGE } from '../../Constants';
 import { resetUserData } from '../../storage';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 

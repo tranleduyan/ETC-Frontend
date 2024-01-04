@@ -717,7 +717,32 @@ const ReservationDetailsSophiaJohnsonResponse = [
 ];
 //#endregion
 
+//#region Inventory API Placeholder Response 
+const EquipmentInventoryResponse = [
+  {
+    equipmentSerialId: 'A817S12',
+    typeId: 122248,
+    typeName: 'Ammeter',
+    maintenanceStatus: 'Ready',
+    modelId: 122,
+    modelName: 'AMT-222',
+    modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
+  },
+  {
+    equipmentSerialId: 'A217S2',
+    typeId: 122241,
+    typeName: 'Ammeter',
+    maintenanceStatus: 'Ready',
+    modelId: 124,
+    modelName: 'AMT-222',
+    modelPhoto: 'https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71wHk9xqToL._AC_UF1000,1000_QL80_.jpg',
+  },
+];
+//#endregion
+
 export { 
+  EquipmentInventoryResponse,
+
   InventorySummaryResponse, 
   AllReservationsResponse, 
 

@@ -17,11 +17,11 @@
     .StandardButton-Container {
         border-radius: calc(1.390625vmin);
         height: 6.675vmin;
+        gap: calc(1.1125vmin);
     }
 
     .StandardButton-Icon {
         font-size: calc(3.3375vmin);
-        margin-left: calc(1.1125vmin);
         min-width: calc(4.45vmin);
     }
 }
@@ -31,11 +31,11 @@
     .StandardButton-Container {
         border-radius: calc(2.78125vmin);
         height: calc(13.35vmin);
+        gap: calc(2.225vmin);
     }
 
     .StandardButton-Icon {
         font-size: calc(6.675vmin);
-        margin-left: calc(2.225vmin);
         min-width: calc(8.9vmin);
     }
 }

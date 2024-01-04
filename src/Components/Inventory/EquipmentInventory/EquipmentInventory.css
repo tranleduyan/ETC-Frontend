@@ -1,0 +1,24 @@
+/* General Stylings */
+.EquipmentInventory-Container {
+    display: grid;
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px){
+    .EquipmentInventory-Container {
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        gap: calc(3.02vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(13.90625vmin), calc(13.90625vmin)));
+    }
+}
+
+/* For mobiles and smaller screen */
+@media screen and (max-width: 480px) {
+    .EquipmentInventory-Container {
+        grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
+        gap: calc(4.45vmin);
+        grid-template-rows: repeat(auto-fill, minmax(calc(27.8125vmin), auto));
+    }
+}

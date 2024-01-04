@@ -1,9 +1,9 @@
 // Import Components
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
-import { InventorySummaryResponse } from '../../../ResponseBody';
-import { MESSAGE } from '../../../Constants';
+import { API, MESSAGE } from '../../../Constants';
 
 // Import Stylings
 import './InventorySummaryList.css';
@@ -14,29 +14,45 @@ function InventorySummaryList(props) {
   // Destructure props to extract relevant information
   const { className, selectedInventoryType, OnEquipmentTypeSummaryCardClick } = props;
 
-  // Sort the inventory response alphabetically by equipment type name
-  const sortedInventoryResponse = [...InventorySummaryResponse].sort((a, b) =>
-    a.typeName.localeCompare(b.typeName)
-  );
+  // State to store the fetched inventory types from the API
+  const [inventoryTypes, setInventoryTypes] = useState([]);
 
+  // Fetch inventory types when the component mounts
+  useEffect(() => {
+    axios.get(`${API.domain}/api/inventory/types`, {
+      headers: {
+        'X-API-KEY': API.key,
+      }
+    })
+    .then(response => {
+      // Update state with sorted inventory types from the API response
+      setInventoryTypes([...response.data.responseObject].sort((a, b) => 
+                        a.typeName.localeCompare(b.typeName)));
+    })
+    .catch(error => {
+      // Handle errors if not found, setting inventoryTypes to an empty array
+      setInventoryTypes([]);
+    });
+  }, []);
+
+  /* TODO: Not modelCount but should be equipmentCount */
   return (
-    // TODO: Center the message
-    <div className={`InventorySummaryList-Container ${className}`}>
+    <div className={`${inventoryTypes?.length > 0 ? 'InventorySummaryList-Container' : 'InventorySummaryList-Message'} ${className}`}>
       {/* Render EquipmentTypeSummaryCard components for each inventory type summary */}
-      {InventorySummaryResponse?.length > 0 
+      {inventoryTypes?.length > 0 
         ? 
-          sortedInventoryResponse.map((item) => (
+        inventoryTypes.map((item) => (
             <EquipmentTypeSummaryCard
-              key={item.typeID}
-              typeID={item.typeID}
+              key={item.typeId}
+              typeID={item.typeId}
               typeName={item.typeName}
-              isSelected={selectedInventoryType === item.typeID}
-              inventoryAmount={item.inventoryAmount}
-              reservationAmount={item.reservationAmount}
+              isSelected={selectedInventoryType === item.typeId}
+              inventoryAmount={item.modelCount}
+              reservationAmount={item.reserved}
               OnEquipmentTypeSummaryCardClick={OnEquipmentTypeSummaryCardClick}/>
         ))
         :
-          <p className='paragraph-1 InventorySummaryList-Message'>{MESSAGE.emptyInventory}</p>
+          <p className='paragraph-1'>{MESSAGE.emptyInventory}</p>
       }
     </div>
   )
