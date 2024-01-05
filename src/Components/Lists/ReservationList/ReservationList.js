@@ -8,8 +8,6 @@ import { MESSAGE } from '../../../Constants';
 // Import Stylings
 import './ReservationList.css';
 
-// Import Icons
-
 // Define Reservation List Commponent
 function ReservationList(props) {
 

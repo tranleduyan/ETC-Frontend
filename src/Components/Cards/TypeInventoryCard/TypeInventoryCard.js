@@ -7,20 +7,24 @@ import IconButton from '../../Buttons/IconButton/IconButton';
 import './TypeInventoryCard.css';
 
 // Import Icons
-import { MdCheckBoxOutlineBlank } from 'react-icons/md';
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { HiArchive } from 'react-icons/hi';
 
 // Define TypeInventoryCard Component
 function TypeInventoryCard(props) {
 
-  const { className, typeId, typeName, modelAmount, equipmentAmount, isSelected } = props;
+  const { className, typeId, typeName, modelAmount, equipmentAmount, isSelected, onSelect } = props;
 
   const modelText = modelAmount > 1 ? 'models' : 'model';
 
   const itemText = equipmentAmount > 1 ? 'items' : 'item';
 
+  const HandleOnSelect = () => {
+    onSelect(typeId);
+  };
+
   return (
-    <div className={`TypeInventoryCard-Container ${className}`}>
+    <div className={`TypeInventoryCard-Container ${isSelected ? 'TypeInventoryCard-Active' : ''}${className}`}>
       <div className='TypeInventoryCard-IconContainer'>
         <HiArchive className='TypeInventoryCard-Icon'/>
       </div>
@@ -33,9 +37,9 @@ function TypeInventoryCard(props) {
       </div>
       <div className='TypeInventoryCard-SelectionContainer'>
         <IconButton 
-          icon={MdCheckBoxOutlineBlank}
-          className='TypeInventoryCard-SelectButton'
-          onClick={() => {}}/>
+          icon={!isSelected ? MdCheckBoxOutlineBlank :  MdCheckBox}
+          className={`TypeInventoryCard-SelectButton${isSelected ? 'Active' : ''}`}
+          onClick={HandleOnSelect}/>
       </div>
     </div>
   )
@@ -49,12 +53,14 @@ TypeInventoryCard.propTypes = {
   modelAmount: PropTypes.number.isRequired,
   equipmentAmount: PropTypes.number.isRequired,
   isSelected: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 // Define defaultProps for TypeInventoryCard
 TypeInventoryCard.defaultProps = {
   className: '',
   isSelected: false,
+  onSelect: () => {},
 };
 
 // Exports the TypeInventoryCard component as the default export for the TypeInventoryCard module.

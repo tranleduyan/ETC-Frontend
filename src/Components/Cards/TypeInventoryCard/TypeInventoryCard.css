@@ -40,18 +40,27 @@
     align-items: center;
 }
 
+.TypeInventoryCard-SelectButtonActive,
 .TypeInventoryCard-SelectButton {
     width: 100%;
+}
+
+.TypeInventoryCard-SelectButtonActive {
+    color: var(--Red1);
 }
 
 /* For tablets and larger screen */
 @media screen and (min-width: 481px) {
     .TypeInventoryCard-Container {
-        height: calc(13.90625vmin);
+        min-height: calc(13.90625vmin);
         border: calc(0.278125vmin) solid var(--Gray1);
         border-radius: calc(1.390625vmin);
         padding: calc(1.66875vmin);
         gap: calc(2.225vmin);
+    }
+
+    .TypeInventoryCard-Active {
+        border: calc(0.278125vmin) solid var(--Black1);
     }
 
     .TypeInventoryCard-IconContainer {
@@ -88,11 +97,15 @@
 /* For mobiles and smaller screen */
 @media screen and (max-width: 480px) {
     .TypeInventoryCard-Container {
-        height: auto;
+        min-height: calc(32.25vmin);
         border: calc(0.55625vmin) solid var(--Gray1);
         border-radius: calc(2.78125vmin);
         padding: calc(3.3375vmin);
         gap: calc(4.45vmin);
+    }
+
+    .TypeInventoryCard-Active {
+        border: calc(0.55625vmin) solid var(--Black1);
     }
 
     .TypeInventoryCard-IconContainer {

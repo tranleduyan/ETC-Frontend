@@ -15,6 +15,11 @@
     color: var(--Red1);
 }
 
+.HeaderButton-Active,
+.HeaderButton-Container {
+    cursor: pointer;
+}
+
 /* For tablets and larger devices */
 @media screen and (min-width: 481px) {
     .HeaderButton-Container {

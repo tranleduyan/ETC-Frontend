@@ -45,6 +45,10 @@
     align-items: center;
 }
 
+.InventoryPage-ResponseModalIcon {
+    color: var(--Red1);
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .InventoryPage-PageContentContainer {
@@ -75,21 +79,41 @@
     }
 
     .InventoryPage-ActionContainer {
-        width: calc(36.7125vmin);
+        width: calc(55.625vmin);
         height: calc(6.675vmin);
         gap: calc(2.225vmin);
+    }
+
+    .InventoryPage-CancelButton,
+    .InventoryPage-EditButton {
+        width: calc(22.25vmin);
     }
 
     .InventoryPage-AddButton {
         width: calc(27.8125vmin);
     }
 
+    .InventoryPage-DeleteButton,
     .InventoryPage-FilterButton {
         width: calc(6.675vmin);
     }
 
     .InventoryPage-MobileAddButton {
         display: none !important;
+    }
+
+    .InventoryPage-MobileBottomActionContainer {
+        display: none !important;
+    }
+
+    .InventoryPage-ConfirmationModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
+
+    .InventoryPage-ModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
     }
 }
 
@@ -137,15 +161,44 @@
         height: calc(13.35vmin);
     }
 
+    .InventoryPage-EditButton,
+    .InventoryPage-CancelButton,
     .InventoryPage-AddButton {
         display: none !important;
     }
 
+    .InventoryPage-DeleteButton,
     .InventoryPage-FilterButton {
         width: calc(13.35vmin);
     }
 
+    .InventoryPage-MobileEditButton {
+        width: calc(44.5vmin);
+    }
+
+    .InventoryPage-MobileCancelButton {
+        flex: 1;
+    }
+
+    .InventoryPage-MobileBottomActionContainer,
     .InventoryPage-MobileAddButton {
         width: 100%;
+    }
+
+    .InventoryPage-MobileBottomActionContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: calc(4.45vmin);
+    }
+
+    .InventoryPage-ConfirmationModalContainer {
+        width: calc(91.225vmin);
+        height: calc(103.4625vmin);
+    }
+
+    .InventoryPage-ResponseModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }
