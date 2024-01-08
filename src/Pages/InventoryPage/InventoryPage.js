@@ -1,5 +1,6 @@
 // Import Components 
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage';
@@ -24,6 +25,7 @@ import { HiAdjustments, HiCheckCircle, HiExclamationCircle, HiMinusCircle, HiPen
 // Define InventoryPage Component
 function InventoryPage(props) {
 
+  // eslint-disable-next-line 
   const { userRole, schoolId } = props;
 
   const navigate = useNavigate();
@@ -33,6 +35,9 @@ function InventoryPage(props) {
 
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [typeInventory, setTypeInventory] = useState([]);
+
+  const [selectedModels, setSelectedModels] = useState([]);
+  const [modelInventory, setModelInventory] = useState([]);
 
   const [confirmationModal, setConfirmationModal] = useState({
     title: '',
@@ -79,14 +84,98 @@ function InventoryPage(props) {
     setSelectedTypes(updatedSelectedType);
   };
 
+  const SelectModel = (modelId) => {
+    let updatedSelectedModel = [...selectedModels];
+
+    if(updatedSelectedModel.includes(modelId)) {
+      updatedSelectedModel = updatedSelectedModel.filter(id => id !== modelId);
+    }
+
+    else {
+      updatedSelectedModel.push(modelId);
+    }
+
+    setSelectedModels(updatedSelectedModel);
+  };
+
   const CancelSelection = () => {
     if(currentSection === 'Type') {
       setSelectedTypes([]);
     }
+    else if(currentSection === 'Model') {
+      setSelectedModels([]);
+    }
+  };
+
+  const EditSelectedModel = () => {
+    console.log('Render Edit Model Component');
   };
 
   const EditSelectedType = () => {
     console.log('Render Edit Type Component');
+  };
+
+  const DeleteSelectedModels = () => {
+    setConfirmationModal({
+      title: 'Remove Model',
+      content: 'Are you sure you want to remove the selected equipment models?',
+      warning: 'This will also permanently delete all equipment associated with the selected models and the action cannot be undone.',
+      onYes: () => {
+        CloseConfirmationModal();
+        setResponseModal({
+          message: 'Deleting the selected models...',
+          isVisible: true,
+        });
+        setIsProcessing(true);
+
+        axios
+          .delete(`${API.domain}/api/inventory/models`, {
+            headers: {
+              'X-API-KEY': API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              modelIds: selectedModels,
+            },
+          })
+          .then(reponse => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: MESSAGE.successModelMassRemoval,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+            FetchTypeInventory();
+            setSelectedTypes([]);
+            FetchModelInventory();
+            setSelectedModels([]);
+          })
+          .catch(error => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: 'Something went wrong while deleting the selected models.',
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          })
+      },
+      onNo: () => {
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
   };
 
   const DeleteSelectedTypes = () => {
@@ -128,6 +217,8 @@ function InventoryPage(props) {
             }, 1500);
             FetchTypeInventory();
             setSelectedTypes([]);
+            FetchModelInventory();
+            setSelectedModels([]);
           })
           .catch(error => {
             setIsProcessing(false);
@@ -164,28 +255,53 @@ function InventoryPage(props) {
   };
   
   const FetchTypeInventory = () => {
-    axios.get(`${API.domain}/api/inventory/types`, {
-      headers: {
-        'X-API-KEY': API.key,
-      }
-    })
-    .then(response => {
-      setTypeInventory(response.data.responseObject);
-    })
-    .catch(error => {
-      setTypeInventory([]);
-    });
+    axios
+      .get(`${API.domain}/api/inventory/types`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTypeInventory(response.data.responseObject);
+      })
+      .catch(error => {
+        setTypeInventory([]);
+      });
+  };
+
+  const FetchModelInventory = () => {
+    axios
+      .get(`${API.domain}/api/inventory/models`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setModelInventory(response.data.responseObject);
+      })
+      .catch(error => {
+        setModelInventory([]);
+      })
   };
 
   useEffect(() => {
     FetchTypeInventory();
+    FetchModelInventory();
   }, []);
+
+  const ResponseIcon = () => {
+    if (isProcessing) {
+      return HiSwitchHorizontal;
+    } else {
+      return responseModal.error ? HiExclamationCircle : HiCheckCircle;
+    }
+  };
 
   return (
     <GeneralPage>
       <IconModal
         className='InventoryPage-ResponseModalContainer'
-        icon={isProcessing ? HiSwitchHorizontal : (responseModal.error ? HiExclamationCircle : HiCheckCircle)}
+        icon={ResponseIcon()}
         iconClassName='InventoryPage-ResponseModalIcon'
         message={responseModal.message}
         isVisible={responseModal.isVisible || isProcessing} />
@@ -282,11 +398,43 @@ function InventoryPage(props) {
                 </>
               )}
               {currentSection === 'Model' && (
-                <StandardButton
-                  title='Add Model'
-                  onClick={AddModel}
-                  className='InventoryPage-AddButton'
-                  icon={HiPlus}/>
+                <>
+                  {selectedModels.length === 1 && (
+                    <StandardButton
+                      title='Edit'
+                      onClick={EditSelectedModel}
+                      className='InventoryPage-EditButton'
+                      icon={HiPencilAlt}/>
+                  )}
+                  {selectedModels.length > 0 && (
+                    <>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={CancelSelection}
+                        className='InventoryPage-CancelButton'
+                        icon={HiMinusCircle}/>
+                      <StandardButton
+                        title=''
+                        onClick={DeleteSelectedModels}
+                        className='InventoryPage-DeleteButton'
+                        icon={HiTrash}/>
+                    </>
+                  )}
+                  {selectedModels.length === 0 && (
+                    <>
+                      <StandardButton
+                      title='Add Model'
+                      onClick={AddModel}
+                      className='InventoryPage-AddButton'
+                      icon={HiPlus}/>
+                      <StandardButton
+                        title=''
+                        onClick={OnFilterClick}
+                        className='InventoryPage-FilterButton'
+                        icon={HiAdjustments}/>                    
+                    </>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -334,7 +482,10 @@ function InventoryPage(props) {
           )}
           {currentSection === 'Model' && (
             <>
-              <ModelInventory />
+              <ModelInventory 
+                modelInventory={modelInventory}
+                selectedModels={selectedModels}
+                onSelectModel={SelectModel}/>
               <StandardButton
                 title='Add Model'
                 onClick={AddModel}
@@ -346,6 +497,16 @@ function InventoryPage(props) {
       </div>
     </GeneralPage>
   )
+};
+
+InventoryPage.propTypes = {
+  userRole: PropTypes.string,
+  schoolId: PropTypes.string,
+};
+
+InventoryPage.defaultProps = {
+  userRole: '',
+  schoolId: '',
 };
 
 // Map from Redux state to component props

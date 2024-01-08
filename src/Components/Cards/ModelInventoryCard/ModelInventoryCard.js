@@ -9,19 +9,23 @@ import './ModelInventoryCard.css';
 // Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
-import { MdCheckBoxOutlineBlank } from 'react-icons/md';
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 
 // Define ModelInventoryCard Component
 function ModelInventoryCard(props) {
 
-  const { className, modelId, modelPhoto, modelName, typeName, equipmentAmount, isSelected } = props;
+  const { className, modelId, modelPhoto, modelName, typeName, equipmentAmount, isSelected, onSelect } = props;
 
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
 
   const itemText = equipmentAmount > 1 ? 'items' : 'item';
 
+  const HandleOnSelect = () => {
+    onSelect(modelId);
+  };
+
   return (
-    <div className={`ModelInventoryCard-Container ${className}`}>
+    <div className={`ModelInventoryCard-Container ${isSelected ? 'ModelInventoryCard-Active' : ''} ${className}`}>
       <div className='ModelInventoryCard-ModelPhoto'>
         {equipmentModelPhoto && (
           <img src={modelPhoto}
@@ -43,9 +47,9 @@ function ModelInventoryCard(props) {
       </div>
       <div className='ModelInventoryCard-SelectionContainer'>
         <IconButton
-          icon={MdCheckBoxOutlineBlank}
-          className='ModelInventoryCard-SelectButton'
-          onClick={() => {}}/>
+          icon={!isSelected ? MdCheckBoxOutlineBlank : MdCheckBox}
+          className={`ModelInventoryCard-SelectButton${isSelected ? 'Active' : ''}`}
+          onClick={HandleOnSelect}/>
       </div>
     </div>
   )
@@ -59,11 +63,13 @@ ModelInventoryCard.propTypes = {
   typeName: PropTypes.string.isRequired,
   equipmentAmount: PropTypes.number.isRequired,
   isSelected: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 ModelInventoryCard.defaultProps = {
   className: '',
   isSelected: false,
+  onSelect: () => {},
 };
 
 // Exports the ModelInventoryCard component as the default export for the ModelInventoryCard module.
