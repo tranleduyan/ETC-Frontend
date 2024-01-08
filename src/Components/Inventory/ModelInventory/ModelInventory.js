@@ -20,7 +20,7 @@ function ModelInventory(props) {
           <ModelInventoryCard
             key={item.modelId}
             modelId={item.modelId}
-            modelPhoto={null}
+            modelPhoto={item.modelPhoto}
             modelName={item.modelName}
             typeName={item.typeName}
             equipmentAmount={item.equipmentCount}

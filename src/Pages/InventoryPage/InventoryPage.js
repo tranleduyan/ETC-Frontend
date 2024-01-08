@@ -382,7 +382,6 @@ function InventoryPage(props) {
             </div>
             {/* Action Container */}
             <div className='InventoryPage-ActionContainer'>
-              {/* If equipment tab, display Add Equipment */}
               {currentSection === 'Equipment' && (
                 <>
                   <StandardButton
@@ -488,6 +487,7 @@ function InventoryPage(props) {
                 icon={HiPlus}/>
             </>
           )}
+          {/* Type Tab */}
           {currentSection === 'Type' && (
             <>
               <TypeInventory 
@@ -519,17 +519,36 @@ function InventoryPage(props) {
               </div>
             </>
           )}
+          {/* Model Tab */}
           {currentSection === 'Model' && (
             <>
               <ModelInventory 
                 modelInventory={modelInventory}
                 selectedModels={selectedModels}
                 onSelectModel={SelectModel}/>
-              <StandardButton
-                title='Add Model'
-                onClick={AddModel}
-                className={'InventoryPage-MobileAddButton'}
-                icon={HiPlus}/>
+              <div className='InventoryPage-MobileBottomActionContainer'>
+                {selectedModels.length === 1 && (
+                  <StandardButton
+                    title='Edit'
+                    onClick={EditSelectedModel}
+                    className={'InventoryPage-MobileEditButton'}
+                    icon={HiPencilAlt}/>
+                )}
+                {selectedModels.length > 0 && (
+                  <StandardButton
+                    title='Cancel'
+                    onClick={CancelSelection}
+                    className={'InventoryPage-MobileCancelButton'}
+                    icon={HiMinusCircle}/>
+                )}
+                {selectedModels.length === 0 && (
+                  <StandardButton
+                    title='Add Model'
+                    onClick={AddModel}
+                    className={'InventoryPage-MobileAddButton'}
+                    icon={HiPlus}/>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -538,11 +557,13 @@ function InventoryPage(props) {
   )
 };
 
+// Define propTypes for InventoryPage
 InventoryPage.propTypes = {
   userRole: PropTypes.string,
   schoolId: PropTypes.string,
 };
 
+// Define defaultProps for InventoryPage
 InventoryPage.defaultProps = {
   userRole: '',
   schoolId: '',

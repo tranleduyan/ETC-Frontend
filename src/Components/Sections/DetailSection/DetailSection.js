@@ -30,10 +30,12 @@ function DetailSection(props) {
         {/* Render either the action icon or item count */}
         {(ActionIcon) 
           ? 
-          <IconButton 
-            icon={ActionIcon} 
-            className='DetailSection-ActionIcon' 
-            onClick={action}/>
+          <div className='DetailSection-ActionContainer'>
+            <IconButton 
+              icon={ActionIcon} 
+              className='DetailSection-ActionIcon' 
+              onClick={action}/>
+          </div>
           :
           <p className='paragraph-1'>{itemCount} {itemText}</p>
         }
