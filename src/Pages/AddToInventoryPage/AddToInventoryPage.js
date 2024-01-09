@@ -490,7 +490,8 @@ function AddToInventoryPage(props) {
                       modelAdditionInformation={modelAdditionInformation}
                       setModelAdditionInformation={setModelAdditionInformation}
                       isError={modelIsError}
-                      errorMessage={modelErrorMessage}/>
+                      errorMessage={modelErrorMessage}
+                      equipmentTypeOptions={equipmentTypeOptions}/>
                     {/* Mobile Add Model Button */}
                     <StandardButton 
                       title='Add Model'

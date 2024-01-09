@@ -189,6 +189,8 @@ function InventoryPage(props) {
             setIsProcessing(false);
             setResponseModal({
               message: 'Something went wrong while deleting the selected models.',
+              error: true,
+              isVisible: true,
             });
             setTimeout(() => {
               setResponseModal({
