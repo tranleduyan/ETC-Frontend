@@ -1,8 +1,12 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import Message from '../../Message/Message';
+//#endregion
 
 // Import Stylings
 import './TypeAdditionForm.css';

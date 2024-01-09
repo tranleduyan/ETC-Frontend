@@ -1,6 +1,9 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import GeneralModal from '../GeneralModal/GeneralModal';
 
 // Import Stylings
@@ -9,6 +12,7 @@ import './IconModal.css';
 // Define Icon Modal Component
 function IconModal(props) {
 
+  // Extract necessary props
   const { icon: Icon, className, iconClassName, message, isVisible } = props;
   
   return (

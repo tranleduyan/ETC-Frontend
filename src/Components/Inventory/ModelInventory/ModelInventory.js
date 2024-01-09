@@ -1,8 +1,11 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModelInventoryCard from '../../Cards/ModelInventoryCard/ModelInventoryCard';
 import { MESSAGE } from '../../../Constants';
+//#endregion
+
+// Import UI Components
+import ModelInventoryCard from '../../Cards/ModelInventoryCard/ModelInventoryCard';
 
 // Import Stylings
 import './ModelInventory.css';
@@ -10,6 +13,7 @@ import './ModelInventory.css';
 // Define ModelInventory Component
 function ModelInventory(props) {
 
+  // Extract necessary props
   const { className, selectedModels, onSelectModel, modelInventory } = props;
 
   return (

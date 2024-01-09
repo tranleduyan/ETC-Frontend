@@ -1,9 +1,12 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
 import { API, MESSAGE } from '../../../Constants';
+//#endregion
+
+// Import UI Components
+import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
 
 // Import Stylings
 import './InventorySummaryList.css';

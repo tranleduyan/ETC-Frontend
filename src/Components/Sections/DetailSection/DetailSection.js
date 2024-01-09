@@ -1,11 +1,15 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import IconButton from '../../Buttons/IconButton/IconButton';
+import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
+//#endregion
 
 // Import Stylings
 import './DetailSection.css';
-import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
 
 // Define Details Section Component
 function DetailSection(props) {

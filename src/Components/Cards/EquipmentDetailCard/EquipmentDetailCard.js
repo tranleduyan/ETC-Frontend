@@ -1,14 +1,16 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
+//#endregion
 
 // Import Stylings
 import './EquipmentDetailCard.css';
 
-// Import Icons
+//#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+//#endregion
 
 // Define EquipmentDetailCard Component
 function EquipmentDetailCard(props) {

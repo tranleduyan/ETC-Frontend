@@ -23,15 +23,16 @@ import StandardButton from '../../Components/Buttons/StandardButton/StandardButt
 // Import Stylings
 import './InventoryPage.css';
 
-// Import Icons
+//#region Import Icons
 import { HiAdjustments, HiCheckCircle, HiExclamationCircle, 
          HiMinusCircle, HiPencilAlt, HiPlus, HiSwitchHorizontal, 
          HiTrash } from 'react-icons/hi';
+//#endregion
 
 // Define InventoryPage Component
 function InventoryPage(props) {
 
-  // Extract neccessary props
+  // Extract necessary props - TODO: Implement userRole restriction access
   const { userRole, schoolId } = props;
 
   const navigate = useNavigate();
@@ -213,13 +214,19 @@ function InventoryPage(props) {
       content: 'Are you sure you want to remove the selected equipment types?',
       warning: 'This will also permanently delete all equipment and models associated with the selected types and the action cannot be undone.',
       onYes: () => {
+        // Close the confirmation modal
         CloseConfirmationModal();
+
+        // Set and show the response modal
         setResponseModal({
           message: 'Deleting the selected types...',
           isVisible: true,
         });
+
+        // Set state to is Processing
         setIsProcessing(true);
 
+        // Process - Perform deletion API
         axios
           .delete(`${API.domain}/api/inventory/types`, {
             headers: {
@@ -265,6 +272,7 @@ function InventoryPage(props) {
             }, 1500);
           });
       },
+      // Close the confirmation modal if choose not to proceed further
       onNo: () => {
         CloseConfirmationModal();
       },

@@ -1,9 +1,12 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+// Import UI Components
 import NavigationBar from '../../Components/NavigationBar/NavigationBar.js';
 
-//Import Stylings
+// Import Stylings
 import './GeneralPage.css';
 
 // Define GeneralPage component

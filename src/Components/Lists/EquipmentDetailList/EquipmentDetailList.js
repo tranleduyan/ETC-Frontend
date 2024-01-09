@@ -1,6 +1,9 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+// Import UI Components
 import EquipmentDetailCard from '../../Cards/EquipmentDetailCard/EquipmentDetailCard';
 
 // Import Stylings

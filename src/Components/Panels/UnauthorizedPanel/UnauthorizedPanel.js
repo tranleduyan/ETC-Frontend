@@ -1,9 +1,12 @@
-// Import components
+//#region Import Necessary Dependencies
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { resetUserData } from '../../../storage';
-import LinkButton from '../../Buttons/LinkButton/LinkButton';
 import { connect } from 'react-redux';
+//#endregion
+
+// Import UI Components
+import LinkButton from '../../Buttons/LinkButton/LinkButton';
 
 // Import stylings
 import './UnauthorizedPanel.css';

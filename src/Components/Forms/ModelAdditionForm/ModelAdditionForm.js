@@ -1,11 +1,15 @@
-// Import Components
+//#region Import Components
 import React, { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { API } from '../../../Constants';
+//#endregion
+
+//#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
+//#endregion
 
 // Import Stylings
 import './ModelAdditionForm.css';

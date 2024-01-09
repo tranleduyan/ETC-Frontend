@@ -1,6 +1,7 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
 
 // Import Stylings
 import './Message.css';

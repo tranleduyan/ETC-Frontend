@@ -1,9 +1,13 @@
-// Import Components 
+//#region Import Necessary Dependencies
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { API, MESSAGE } from '../../Constants';
+import { resetUserData } from '../../storage';
+//#endregion
+
+//#region Import UI Components
 import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
@@ -12,14 +16,16 @@ import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/
 import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
-import { resetUserData } from '../../storage';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+//#endregion
 
 // Import Stylings
 import './AddToInventoryPage.css';
 
-// Import Icons
-import { HiCheckCircle, HiDocumentText, HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+//#region Import Icons
+import { HiCheckCircle, HiDocumentText, 
+         HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+//#endregion
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage(props) {
@@ -141,7 +147,7 @@ function AddToInventoryPage(props) {
       // Form data to submit the image
       const formData = new FormData();
   
-      // Append neccessary information to the form data
+      // Append necessary information to the form data
       formData.append('modelName', modelAdditionInformation.name);
       formData.append('typeId', modelAdditionInformation.type.value);
       formData.append('image', modelAdditionInformation.photo);

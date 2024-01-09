@@ -1,8 +1,11 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
-import TypeInventoryCard from '../../Cards/TypeInventoryCard/TypeInventoryCard';
 import { MESSAGE } from '../../../Constants';
+//#endregion
+
+// Import UI Components
+import TypeInventoryCard from '../../Cards/TypeInventoryCard/TypeInventoryCard';
 
 // Import Stylings
 import './TypeInventory.css';
@@ -10,6 +13,7 @@ import './TypeInventory.css';
 // Define TypeInventory Component
 function TypeInventory(props) {
 
+  // Extract necessary props
   const { className, selectedTypes, onSelectType, typeInventory } = props;
 
   return (

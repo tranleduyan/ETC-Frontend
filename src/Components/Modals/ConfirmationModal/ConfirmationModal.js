@@ -1,8 +1,12 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import GeneralModal from '../GeneralModal/GeneralModal';
 import StandardButton from '../../Buttons/StandardButton/StandardButton';
+//#endregion
 
 // Import Stylings
 import './ConfirmationModal.css';
@@ -10,6 +14,7 @@ import './ConfirmationModal.css';
 // Define ConfirmationModal Component
 function ConfirmationModal(props) {
 
+  // Extract necessary props
   const { className, title, content, warning, onYes, onNo, isVisible } = props;
 
   return (
@@ -18,9 +23,12 @@ function ConfirmationModal(props) {
       isVisible={isVisible}>
         <p className='heading-5'>{title}</p>
         <div className='ConfirmationModal-MessageContainer'>
+          {/* Content Message */}
           <p className='paragraph-1'>{content}</p>
+          {/* Warning Message */}
           <p className='paragraph-1 ConfirmationModal-Warning'>{warning}</p>
         </div>
+        {/* Action Container */}
         <div className='ConfirmationModal-ActionContainer'>
           <StandardButton
             title='Yes'

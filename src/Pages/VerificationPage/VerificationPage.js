@@ -1,13 +1,17 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState } from 'react';
+import axios from 'axios';
+import { API } from '../../Constants';
 import { useLocation, useNavigate } from 'react-router-dom';
+//#endregion
+
+//#region Import UI Components
 import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
-import axios from 'axios';
-import { API } from '../../Constants';
+//#endregion
 
 // Import Stylings
 import './VerificationPage.css';

@@ -1,8 +1,11 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
-import EquipmentInventoryCard from '../../Cards/EquipmentInventoryCard/EquipmentInventoryCard';
 import { EquipmentInventoryResponse } from '../../../ResponseBody';
+//#endregion
+
+// Import UI Components
+import EquipmentInventoryCard from '../../Cards/EquipmentInventoryCard/EquipmentInventoryCard';
 
 // Import Stylings
 import './EquipmentInventory.css';
@@ -10,6 +13,7 @@ import './EquipmentInventory.css';
 // Define Equipment Inventory Component
 function EquipmentInventory(props) {
   
+  // Extract necessary props - TODO: Implement Get All Equipment APIs
   const { className } = props;
 
   return (

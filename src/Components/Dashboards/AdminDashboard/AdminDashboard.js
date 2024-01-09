@@ -1,6 +1,17 @@
-// Import Components 
+//#region Import Necessary Dependencies 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
+         InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
+         ReservationDetailsAmandaLeeResponse, 
+         ReservationDetailsEmilyWilsonResponse, 
+         ReservationDetailsRobertWhiteResponse, 
+         ReservationDetailsSophiaJohnsonResponse, 
+         UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
+         UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../../ResponseBody';
+//#endregion
+
+//#region Import UI Components  
 import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import StandardButton from '../../Buttons/StandardButton';
 import InventorySummaryList from '../../Lists/InventorySummaryList/InventorySummaryList';
@@ -10,14 +21,7 @@ import SearchBarInputField from '../../InputFields/SearchBarInputField/SearchBar
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import Logo from '../../Logo/Logo';
 import IconButton from '../../Buttons/IconButton/IconButton';
-import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
-         InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
-         ReservationDetailsAmandaLeeResponse, 
-         ReservationDetailsEmilyWilsonResponse, 
-         ReservationDetailsRobertWhiteResponse, 
-         ReservationDetailsSophiaJohnsonResponse, 
-         UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
-         UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../../ResponseBody';
+//#endregion
 
 // Import Stylings
 import './AdminDashboard.css';

@@ -1,15 +1,19 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+// Import UI Components
 import IconButton from '../../Buttons/IconButton/IconButton';
 
 // Import Stylings
 import './EquipmentInventoryCard.css';
 
-// Import Icons
+//#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
+//#endregion
 
 // Define Equipment Inventory Card
 function EquipmentInventoryCard(props) {

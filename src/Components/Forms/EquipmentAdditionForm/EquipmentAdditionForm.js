@@ -1,19 +1,24 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState, useEffect }from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { API, OPTIONS } from '../../../Constants';
+//#endregion
+
+//#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
+//#endregion
 
 // Import Stylings
 import './EquipmentAdditionForm.css';
 
-// Import Icons
+//#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
+//#endregion
 
 // Define EquipmentAdditionForm Component
 function EquipmentAdditionForm(props) {
