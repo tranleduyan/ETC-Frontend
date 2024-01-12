@@ -1,14 +1,15 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 import { AllReservationsResponse } from '../../../ResponseBody';
 import { MESSAGE } from '../../../Constants';
+//#endregion
+
+// Import UI Components
+import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 
 // Import Stylings
 import './ReservationList.css';
-
-// Import Icons
 
 // Define Reservation List Commponent
 function ReservationList(props) {

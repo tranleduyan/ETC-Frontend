@@ -1,6 +1,7 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
 
 // Import Stylings
 import './GeneralModal.css';
@@ -8,6 +9,7 @@ import './GeneralModal.css';
 // Define General Modal
 function GeneralModal(props) {
 
+  // Extract necessary props
   const { children, className, isVisible } = props;
 
   return (

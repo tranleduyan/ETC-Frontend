@@ -1,11 +1,15 @@
-// Import Components 
+//#region Import Necessary Components
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import AdminDashboard from '../../Components/Dashboards/AdminDashboard/AdminDashboard';
 import FacultyDashboard from '../../Components/Dashboards/FacultyDashboard/FacultyDashboard';
 import StudentDashboard from '../../Components/Dashboards/StudentDashboard/StudentDashboard';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel.js';
+//#endregion
 
 // Define the DashboardPage Component
 function DashboardPage(props) {

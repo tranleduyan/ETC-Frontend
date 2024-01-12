@@ -1,0 +1,65 @@
+/* General Stylings */
+.ConfirmationModal-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.ConfirmationModal-MessageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.ConfirmationModal-Warning {
+    font-style: italic;
+    color: var(--Gray3);
+}
+
+.ConfirmationModal-ActionContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* For tablets and bigger screens */
+@media screen and (min-width: 481px) {
+    .ConfirmationModal-Container {
+        gap: calc(2.225vmin);
+    }
+    
+    .ConfirmationModal-MessageContainer {
+        gap: calc(0.55625vmin);
+    }
+
+    .ConfirmationModal-ActionContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .ConfirmationModal-ActionButton {
+        width: calc(16.6875vmin);
+    }
+}
+
+/* For mobiles and smaller screens */
+@media screen and (max-width: 480px) {
+    .ConfirmationModal-Container {
+        gap: calc(4.45vmin);
+    }
+
+    .ConfirmationModal-MessageContainer {
+        gap: calc(1.1125vmin);
+    }
+
+    .ConfirmationModal-ActionContainer {
+        gap: calc(4.45vmin);
+    }
+
+    .ConfirmationModal-ActionButton {
+        width: calc(33.375vmin);
+    }
+}

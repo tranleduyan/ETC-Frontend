@@ -30,14 +30,41 @@ export const MESSAGE = {
     // Message for indicating empty reservations
     emptyReservation: 'There are no reservations.',
 
+    // Message for indicating empty types
+    emptyType: 'There are no types in the inventory.',
+
+    // Message for indicating empty models
+    emptyModel: 'There are no models in the inventory.',
+
+    // Message for indicating empty equipments
+    emptyEquipment: 'There are no equipments in the inventory.',
+
     // Message for successfully added an equipment type
     successTypeAddition: 'The type has been successfully added to the inventory.',
 
-    // Message for successfully added an equipment type
+    // Message for successfully added an equipment model
     successModelAddition: 'The model has been successfully added to the inventory.',
 
-    // Message for successfully added an equipment type
+    // Message for successfully added an equipment 
     successEquipmentAddition: 'The equipment has been successfully added to the inventory.',
+
+    // Message for successfully removed mass equipment types
+    successTypeMassRemoval: 'The selected types have been successfully removed from the inventory.',
+
+    // Message for successfully removed mass equipment models
+    successModelMassRemoval: 'The selected models have been successfully removed from the inventory.',
+
+    // Message for successfully removed mass equipments
+    successEquipmentMassRemoval: 'The selected equipments have been successfully removed from the inventory.',
+
+    // Message for successfully removed an equipment type
+    successTypeRemoval: 'The type has been successfully removed from the inventory.',
+
+    // Message for successfully removed an equipment model
+    successModelRemoval: 'The model has been successfully removed from the inventory.',
+
+    // Message for successfully removed an equipment
+    successEquipmentRemoval: 'The equipment has been successfully removed from the inventory.',
 };
 
 export const OPTIONS = {

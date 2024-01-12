@@ -1,16 +1,20 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { API, REGEX } from '../../Constants';
+import { setUserData } from '../../storage';
+//#endregion
+
+//#region Import UI Components
 import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
 import Message from '../../Components/Message/Message';
 import StandardButton from '../../Components/Buttons/StandardButton';
 import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
 import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
-import { API, REGEX } from '../../Constants';
-import axios from 'axios';
-import { connect, useDispatch } from 'react-redux';
-import { setUserData } from '../../storage';
+//#endregion
 
 // Import Stylings
 import './SignInPage.css';

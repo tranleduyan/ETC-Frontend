@@ -1,9 +1,13 @@
-// Import Components 
-import React, { useState } from 'react';
+//#region Import Necessary Dependencies
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { API } from '../../Constants';
+import { API, MESSAGE } from '../../Constants';
+import { resetUserData } from '../../storage';
+//#endregion
+
+//#region Import UI Components
 import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
@@ -12,15 +16,16 @@ import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/
 import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
-import { MESSAGE } from '../../Constants';
-import { resetUserData } from '../../storage';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+//#endregion
 
 // Import Stylings
 import './AddToInventoryPage.css';
 
-// Import Icons
-import { HiCheckCircle, HiDocumentText, HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+//#region Import Icons
+import { HiCheckCircle, HiDocumentText, 
+         HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+//#endregion
 
 // Define AddEquipmentPage Component
 function AddToInventoryPage(props) {
@@ -30,6 +35,15 @@ function AddToInventoryPage(props) {
 
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
+
+  // Contains all the equipment models information
+  const [equipmentModels, setEquipmentModels] = useState([]);
+
+  // Options for equipment models dropdowns
+  const [equipmentModelOptions, setEquipmentModelOptions] = useState([]);
+
+  // Options for equipment types dropdowns
+  const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
 
   // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
@@ -47,6 +61,7 @@ function AddToInventoryPage(props) {
   const [modalVisibility, setModalVisibility] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isTypeFetched, setIsTypeFetched] = useState(false);
 
   // #region Addition Information
   // Information for adding equipment
@@ -122,6 +137,8 @@ function AddToInventoryPage(props) {
           setTypeAdditionInformation({
             name: '',
           });
+
+          setIsTypeFetched(false);
         })
         .catch(error => {
           setIsLoading(false);
@@ -142,7 +159,7 @@ function AddToInventoryPage(props) {
       // Form data to submit the image
       const formData = new FormData();
   
-      // Append neccessary information to the form data
+      // Append necessary information to the form data
       formData.append('modelName', modelAdditionInformation.name);
       formData.append('typeId', modelAdditionInformation.type.value);
       formData.append('image', modelAdditionInformation.photo);
@@ -276,6 +293,83 @@ function AddToInventoryPage(props) {
   };
   //#endregion
 
+  //#region Helpers
+  const FetchAllTypeOptions = () => {
+    // HTTP get request to fetch all the type
+    axios.get(`${API.domain}/api/inventory/types`, {
+      headers: {
+        'X-API-KEY': API.key,
+      }
+    })
+    .then(response => {
+      // Map value and label
+      const options = response.data.responseObject.map(type => ({
+        value: type.typeId,
+        label: type.typeName,
+      }));
+
+      // Set the options
+      setEquipmentTypeOptions(options);
+    })
+    .catch(error => {
+      // Type not found, reset type options and models, model options as well as the model photo
+      setEquipmentTypeOptions([]);
+    });
+  };
+  //#endregion
+
+  //#region Side Effects
+  // Fetch all types upon component mounting
+  useEffect(() => {
+    FetchAllTypeOptions();
+  }, []);
+
+  // Conditionally fetched type if there is new type added but not fetched yet.
+  useEffect(() => {
+    if(isTypeFetched === false) {
+      FetchAllTypeOptions();
+      setIsTypeFetched(true);
+    }
+  }, [isTypeFetched]);
+
+  // Fetch all the equipment models of a selected type.
+  useEffect(() => {
+    // If the equipment type is selected, fetch all the equipment models of a selected type
+    if(equipmentAdditionInformation.type != null) {
+      // HTTP get request to fetch all the models of a selected type.
+      axios.get(`${API.domain}/api/inventory/types/${equipmentAdditionInformation.type.value}/models`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        // Map value and label
+        const options = response.data.responseObject?.map(model => ({
+          value: model.modelId,
+          label: model.modelName,
+        }));
+        
+        // Set the equipmentModels to the response object - Array of all models of a type
+        setEquipmentModels(response.data.responseObject);
+        
+        // Set the equipmentModelOptions to options
+        setEquipmentModelOptions(options);
+      })
+      .catch(error => {
+        // If not found, reset to empty equipment models and options
+        if(error.response.status === 404) {
+          setEquipmentModels([]);
+          setEquipmentModelOptions([]);
+        }
+      });
+    }
+    
+    // Reset the model information and model photo whenever the type is changed/updated
+    setEquipmentAdditionInformation({...equipmentAdditionInformation, 'model': null});
+    // eslint-disable-next-line
+  }, [equipmentAdditionInformation.type]);
+  //#endregion
+
   return (
     <>
       { userRole === 'Admin' ? (
@@ -357,7 +451,10 @@ function AddToInventoryPage(props) {
                     equipmentAdditionInformation={equipmentAdditionInformation}
                     setEquipmentAdditionInformation={setEquipmentAdditionInformation}
                     isError={equipmentIsError}
-                    errorMessage={equipmentErrorMessage}/>
+                    errorMessage={equipmentErrorMessage}
+                    equipmentModels={equipmentModels}
+                    equipmentModelOptions={equipmentModelOptions}
+                    equipmentTypeOptions={equipmentTypeOptions}/>
                   {/* Mobile Add Equipment Button */}
                   <StandardButton 
                     title='Add Equipment'
@@ -391,7 +488,8 @@ function AddToInventoryPage(props) {
                       modelAdditionInformation={modelAdditionInformation}
                       setModelAdditionInformation={setModelAdditionInformation}
                       isError={modelIsError}
-                      errorMessage={modelErrorMessage}/>
+                      errorMessage={modelErrorMessage}
+                      equipmentTypeOptions={equipmentTypeOptions}/>
                     {/* Mobile Add Model Button */}
                     <StandardButton 
                       title='Add Model'

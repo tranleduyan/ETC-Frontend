@@ -1,17 +1,24 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
-import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
-import Logo from '../../Components/Logo/Logo.js';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage.js';
-import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
+import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
+import Logo from '../../Components/Logo/Logo.js';
+//#endregion
 
 // Import Stylings
 import './NavigationBar.css';
 
-// Import Icons
-import { HiViewGrid, HiCalendar, HiArchive, HiPlusCircle, HiUserGroup, HiBell, HiCog, HiLogout } from 'react-icons/hi';
+//#region Import Icons
+import { HiViewGrid, HiCalendar, HiArchive, 
+         HiPlusCircle, HiUserGroup, HiBell, 
+         HiCog, HiLogout } from 'react-icons/hi';
+//#endregion
 
 // Render the navigation bar
 function NavigationBar(props) {

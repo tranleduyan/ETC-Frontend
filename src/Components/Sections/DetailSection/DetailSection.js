@@ -1,11 +1,15 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import IconButton from '../../Buttons/IconButton/IconButton';
+import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
+//#endregion
 
 // Import Stylings
 import './DetailSection.css';
-import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
 
 // Define Details Section Component
 function DetailSection(props) {
@@ -30,10 +34,12 @@ function DetailSection(props) {
         {/* Render either the action icon or item count */}
         {(ActionIcon) 
           ? 
-          <IconButton 
-            icon={ActionIcon} 
-            className='DetailSection-ActionIcon' 
-            onClick={action}/>
+          <div className='DetailSection-ActionContainer'>
+            <IconButton 
+              icon={ActionIcon} 
+              className='DetailSection-ActionIcon' 
+              onClick={action}/>
+          </div>
           :
           <p className='paragraph-1'>{itemCount} {itemText}</p>
         }

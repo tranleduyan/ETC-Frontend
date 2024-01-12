@@ -1,6 +1,7 @@
-// Import Components 
+//#region Import Necessary Dependencies 
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
 
 // Import Stylings
 import './HeaderButton.css';
@@ -20,13 +21,15 @@ function HeaderButton(props) {
   )
 };
 
-HeaderButton.propsTypes = {
+// Define Header Button Prop Types Validation
+HeaderButton.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
+// Define Header Button default Props values
 HeaderButton.defaultProps = {
   className: '',
   isSelected: false,

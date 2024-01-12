@@ -1,11 +1,13 @@
-// Import Components
-import React, { useRef, useEffect, useState } from 'react';
-import axios from 'axios';
+//#region Import Components
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { API } from '../../../Constants';
+//#endregion
+
+//#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
+//#endregion
 
 // Import Stylings
 import './ModelAdditionForm.css';
@@ -17,10 +19,7 @@ import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
 function ModelAdditionForm(props) {
 
   // Extract relevant information
-  const { className, modelAdditionInformation, setModelAdditionInformation, isError, errorMessage } = props;
-
-  // Options for equipment types dropdown
-  const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
+  const { className, equipmentTypeOptions, modelAdditionInformation, setModelAdditionInformation, isError, errorMessage } = props;
 
   // Ref hooks to the file input
   const modelPhotoRef = useRef(null);
@@ -39,30 +38,6 @@ function ModelAdditionForm(props) {
   const HandleImageChange = (event) => {
     HandleModelAdditionInputChange('photo', event.target.files[0]);
   }
-
-  // Fetch equipment types from the API when the component mounts
-  useEffect(() => {
-    // HTTP get request to fetch equipment types
-    axios.get(`${API.domain}/api/inventory/types`, {
-      headers: {
-        'X-API-KEY': API.key,
-      }
-    })
-    .then(response => {
-      // Map Value and Labels
-      const options = response.data.responseObject.map(type => ({
-        value: type.typeId,
-        label: type.typeName,
-      }));
-      
-      // Set equipmentTypeOptions to options
-      setEquipmentTypeOptions(options);
-    })
-    .catch(error => {
-      // If not found, set to empty
-      setEquipmentTypeOptions([]);
-    });
-  }, []);
 
   return (
     <div className={`ModelAdditionForm-Container ${className}`}>
@@ -142,6 +117,7 @@ ModelAdditionForm.propTypes = {
   setModelAdditionInformation: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   errorMessage: PropTypes.string,
+  equipmentTypeOptions: PropTypes.array.isRequired,
 };
 
 // Define default props for the component

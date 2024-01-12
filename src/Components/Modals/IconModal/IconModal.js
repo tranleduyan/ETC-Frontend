@@ -1,14 +1,20 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+//#region Import UI Components
 import GeneralModal from '../GeneralModal/GeneralModal';
 
 // Import Stylings
 import './IconModal.css';
 
+// Define Icon Modal Component
 function IconModal(props) {
 
+  // Extract necessary props
   const { icon: Icon, className, iconClassName, message, isVisible } = props;
+  
   return (
     <GeneralModal 
       className={`IconModal-Container ${className}`}
@@ -19,6 +25,7 @@ function IconModal(props) {
   )
 };
 
+// Define the propTypes for the component
 IconModal.propTypes = {
   icon: PropTypes.elementType.isRequired,
   className: PropTypes.string,
@@ -27,6 +34,7 @@ IconModal.propTypes = {
   isVisible: PropTypes.bool,
 };
 
+// Define the default props value for the component
 IconModal.defaultProps = {
   className: '',
   iconClassName: '',

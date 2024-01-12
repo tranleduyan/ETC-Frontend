@@ -1,0 +1,37 @@
+/* General Stylings */
+.ModelInventory-Container {
+    display: grid;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.ModelInventory-Message {
+    color: var(--Gray3);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px){
+    .ModelInventory-Container {
+        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(calc(13.90625vmin), calc(13.90625vmin)));
+        margin-top: calc(2.225vmin);
+        gap: calc(3.02vmin);
+    }
+}
+
+/* For mobiles and smaller screen */
+@media screen and (max-width: 480px) {
+    .ModelInventory-Container {
+        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+        grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(calc(32.25vmin), calc(32.25vmin)));
+        margin: calc(4.45vmin) 0px;
+        gap: calc(4.45vmin);
+    }
+}

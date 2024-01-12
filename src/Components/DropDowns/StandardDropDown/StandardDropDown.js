@@ -1,7 +1,8 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select, { components} from 'react-select';
+//#endregion
 
 // Import Icons
 import { HiChevronDown } from 'react-icons/hi';

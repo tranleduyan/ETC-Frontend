@@ -1,34 +1,29 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState, useEffect }from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { API, OPTIONS } from '../../../Constants';
+import { OPTIONS } from '../../../Constants';
+//#endregion
+
+//#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
+//#endregion
 
 // Import Stylings
 import './EquipmentAdditionForm.css';
 
-// Import Icons
+//#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
+//#endregion
 
 // Define EquipmentAdditionForm Component
 function EquipmentAdditionForm(props) {
 
   // Extract relevant information
-  const { className, equipmentAdditionInformation, setEquipmentAdditionInformation, isError, errorMessage } = props;
-
-  // Contains all the equipment models information
-  const [equipmentModels, setEquipmentModels] = useState([]);
-
-  // Options for equipment types dropdowns
-  const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
-  
-  // Options for equipment models dropdowns
-  const [equipmentModelOptions, setEquipmentModelOptions] = useState([]);
+  const { className, equipmentModels, equipmentModelOptions, equipmentTypeOptions, equipmentAdditionInformation, setEquipmentAdditionInformation, isError, errorMessage } = props;
 
   // Photo of the equipment model
   const [equipmentTypeModelPhoto, setEquipmentTypeModelPhoto] = useState(null);
@@ -39,71 +34,6 @@ function EquipmentAdditionForm(props) {
   };
 
   // #region Side Effects
-  // Fetch all the equipment types upon the component mounting
-  useEffect(() => {
-    // HTTP get request to fetch all the type
-    axios.get(`${API.domain}/api/inventory/types`, {
-      headers: {
-        'X-API-KEY': API.key,
-      }
-    })
-    .then(response => {
-      // Map value and label
-      const options = response.data.responseObject.map(type => ({
-        value: type.typeId,
-        label: type.typeName,
-      }));
-
-      // Set the options
-      setEquipmentTypeOptions(options);
-    })
-    .catch(error => {
-      // Type not found, reset type options and models, model options as well as the model photo
-      setEquipmentTypeOptions([]);
-      setEquipmentModels([]);
-      setEquipmentModelOptions([]);
-      setEquipmentTypeModelPhoto(null);
-    });
-  }, []);
-
-  // Fetch all the equipment models of a selected type.
-  useEffect(() => {
-    // If the equipment type is selected, fetch all the equipment models of a selected type
-    if(equipmentAdditionInformation.type != null) {
-      // HTTP get request to fetch all the models of a selected type.
-      axios.get(`${API.domain}/api/inventory/types/${equipmentAdditionInformation.type.value}/models`, {
-        headers: {
-          'X-API-KEY': API.key,
-        }
-      })
-      .then(response => {
-        // Map value and label
-        const options = response.data.responseObject?.map(model => ({
-          value: model.modelId,
-          label: model.modelName,
-        }));
-        
-        // Set the equipmentModels to the response object - Array of all models of a type
-        setEquipmentModels(response.data.responseObject);
-        
-        // Set the equipmentModelOptions to options
-        setEquipmentModelOptions(options);
-      })
-      .catch(error => {
-        // If not found, reset to empty equipment models and options
-        if(error.response.status === 404) {
-          setEquipmentModels([]);
-          setEquipmentModelOptions([]);
-        }
-      });
-    }
-    
-    // Reset the model information and model photo whenever the type is changed/updated
-    HandleEquipmentAdditionInputChange('model', null);
-    setEquipmentTypeModelPhoto(null);
-    // eslint-disable-next-line
-  }, [equipmentAdditionInformation.type]);
-
   // Set the model photo when there is type and model selected.
   useEffect(() => {
     // If the type and model and equipment models is not null or has value, find the selected model and if it exists, set the model photo.
@@ -121,6 +51,10 @@ function EquipmentAdditionForm(props) {
       else {
         setEquipmentTypeModelPhoto(null);
       }
+    }
+    
+    else {
+      setEquipmentTypeModelPhoto(null);
     }
   }, [equipmentAdditionInformation.type, equipmentAdditionInformation.model, equipmentModels]);
   // #endregion
@@ -281,6 +215,9 @@ EquipmentAdditionForm.propTypes = {
   setEquipmentAdditionInformation: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   errorMessage: PropTypes.string,
+  equipmentModels: PropTypes.array.isRequired,
+  equipmentModelOptions: PropTypes.array.isRequired,
+  equipmentTypeOptions: PropTypes.array.isRequired,
 };
 
 // Define Default Props for the component

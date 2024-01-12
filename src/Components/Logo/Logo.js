@@ -1,6 +1,9 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+//#endregion
+
+// Import UI Components
 import ETC_Color_Logo from '../../Assets/Images/ETC-Logo-Color.png';
 
 // Import Stylings

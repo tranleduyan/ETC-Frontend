@@ -1,8 +1,12 @@
-// Import Components
+//#region Import Necessary Dependencies
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { resetUserData } from '../../../storage';
+//#endregion
+
+//#region Import UI Components
 import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import FilterButton from '../../Buttons/FilterButton/FilterButton';
 import Logo from '../../Logo/Logo';
@@ -11,7 +15,7 @@ import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
-import { resetUserData } from '../../../storage';
+//#endregion
 
 // Import Stylings
 import './StudentDashboard.css';
