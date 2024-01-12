@@ -18,6 +18,7 @@ import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 // Define Equipment Inventory Card
 function EquipmentInventoryCard(props) {
 
+  // TODO: Implement Get All Equipment API
   const { className, modelPhoto, typeName, serialNumber, maintenanceStatus, isSelected } = props;
 
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);

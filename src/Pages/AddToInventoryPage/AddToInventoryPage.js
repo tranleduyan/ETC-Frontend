@@ -326,13 +326,11 @@ function AddToInventoryPage(props) {
 
   // Conditionally fetched type if there is new type added but not fetched yet.
   useEffect(() => {
-    if(currentSection === 'Equipment' || currentSection === 'Model') {
-      if(isTypeFetched === false) {
-        FetchAllTypeOptions();
-        setIsTypeFetched(true);
-      }
+    if(isTypeFetched === false) {
+      FetchAllTypeOptions();
+      setIsTypeFetched(true);
     }
-  }, [currentSection]);
+  }, [isTypeFetched]);
 
   // Fetch all the equipment models of a selected type.
   useEffect(() => {

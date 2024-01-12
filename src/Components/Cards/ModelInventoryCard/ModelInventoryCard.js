@@ -37,8 +37,8 @@ function ModelInventoryCard(props) {
       <div className='ModelInventoryCard-ModelPhoto'>
         {/* Display Model Photo */}
         {equipmentModelPhoto && (
-          <img src={modelPhoto}
-               alt='Model of a Type'
+          <img src={equipmentModelPhoto}
+               alt='Model of a Type' 
                onError={() => setEquipmentModelPhoto(null)}/>
         )}
         {/* Display Default Model Icon */}
