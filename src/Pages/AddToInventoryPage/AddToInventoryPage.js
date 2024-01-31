@@ -111,8 +111,6 @@ function AddToInventoryPage(props) {
         purchaseDate: equipmentAdditionInformation.purchaseDate ? new Date(equipmentAdditionInformation.purchaseDate).toISOString().split('T')[0] : null,
       };
 
-      console.log(requestBody);
-
       axios
         .post(`${API.domain}/api/inventory/equipment`, requestBody, {
           headers: {
