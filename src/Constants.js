@@ -76,7 +76,7 @@ export const OPTIONS = {
             },
             {
                 label: 'Used',
-                value: 'Used,'
+                value: 'Used'
             },
         ],
         maintenanceStatus: [

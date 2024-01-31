@@ -8,6 +8,7 @@ import { OPTIONS } from '../../../Constants';
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
+import DatePickerInputField from '../../InputFields/DatePickerInputField/DatePickerInputField';
 //#endregion
 
 // Import Stylings
@@ -135,6 +136,7 @@ function EquipmentAdditionForm(props) {
               placeholder='Select reservation status'
               className='EquipmentAdditionForm-Field'
               name='reservationStatus'
+              isDisabled={true}
               options={OPTIONS.equipment.reservationStatus}
               value={equipmentAdditionInformation.reservationStatus}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
@@ -174,21 +176,21 @@ function EquipmentAdditionForm(props) {
             options={OPTIONS.equipment.conditions}
             value={equipmentAdditionInformation.condition}
             onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
-          <div className='EquipmentAdditionForm-BinaryFieldGroup'>
+          <div className='EquipmentAdditionForm-PurchaseGroup'>
             {/* Purchase Cost Input Field */}
             <StandardTextInputField
               placeholder='Enter purchase cost (U.S. dollar)'
-              className='EquipmentAdditionForm-Field'
+              className='EquipmentAdditionForm-PurchaseCostField'
               name='purchaseCost'
+              type='number'
               value={equipmentAdditionInformation.purchaseCost}
               onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
             {/* TODO: PurchaseDate Date Select */}
-            <StandardTextInputField
-              placeholder='Enter purchase date'
-              className='EquipmentAdditionForm-Field EquipmentAdditionForm-MarginField'
-              name='purchaseDate'
-              value={equipmentAdditionInformation.purchaseDate}
-              onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
+            <DatePickerInputField className='EquipmentAdditionForm-Field EquipmentAdditionForm-MarginField'
+                                  name='purchaseDate'
+                                  placeholder='Select purchase date'
+                                  value={equipmentAdditionInformation.purchaseDate}
+                                  onChange={(name, value) => HandleEquipmentAdditionInputChange(name, value)}/>
           </div>
         </div>
         {/* Instructions/Messages */}

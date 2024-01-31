@@ -38,7 +38,7 @@ const DropdownIndicator = (props) => {
 function StandardDropDown(props) {
 
   // Extract relevant information
-  const { className, placeholder, name, value, onChange, options, visibility } = props;
+  const { className, placeholder, name, value, isSearchable, isDisabled, onChange, options, visibility } = props;
 
   // CSS class for hiding the component
   const hiddenClassName= `hide ${className}`;
@@ -201,6 +201,8 @@ function StandardDropDown(props) {
         name={name}
         value={value}
         options={options}
+        isDisabled={isDisabled}
+        isSearchable={isSearchable}
         components={{
           DropdownIndicator, 
           IndicatorSeparator}}
@@ -214,6 +216,8 @@ StandardDropDown.propTypes = {
   placeholder: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
+  isDisabled: PropTypes.bool,
+  isSearchable: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array,
   visibility: PropTypes.bool,
@@ -223,6 +227,8 @@ StandardDropDown.propTypes = {
 StandardDropDown.defaultProps = {
   className: '',
   placeholder: 'Select an option',
+  isSearchable: false,
+  isDisabled: false,
   options: [],
   visibility: true,
 };

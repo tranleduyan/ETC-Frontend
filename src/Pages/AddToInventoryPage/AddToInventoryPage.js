@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { API, MESSAGE } from '../../Constants';
+import { API, MESSAGE, OPTIONS } from '../../Constants';
 import { resetUserData } from '../../storage';
 //#endregion
 
@@ -70,12 +70,14 @@ function AddToInventoryPage(props) {
     type: null,
     model: null,
     maintenanceStatus: '',
-    reservationStatus: '',
+    reservationStatus: OPTIONS.equipment.reservationStatus.find(
+      (status) => status.value === 'Available'
+    ),
     rfidTag: '',
     homeLocation: null,
     condition: '',
     purchaseCost: '',
-    purchaseDate: '',
+    purchaseDate: null,
   });
 
   // Information for adding type
@@ -94,7 +96,64 @@ function AddToInventoryPage(props) {
   // TODO: Add Equipment - Add the equipment to the database.
   const AddEquipment = () => {
     if(IsEquipmentFormValid()) {
-      console.log(equipmentAdditionInformation);
+      setModalMessage('Adding to inventory...');
+      setIsLoading(true);
+
+      const requestBody = {
+        schoolId: schoolId,
+        serialId: equipmentAdditionInformation.serialNumber,
+        typeId: equipmentAdditionInformation.type.value,
+        modelId: equipmentAdditionInformation.model.value,
+        maintenanceStatus: equipmentAdditionInformation.maintenanceStatus.value,
+        reservationStatus: equipmentAdditionInformation.reservationStatus.value,
+        usageCondition: equipmentAdditionInformation.condition.value,
+        purchaseCost: parseFloat(equipmentAdditionInformation.purchaseCost),
+        purchaseDate: equipmentAdditionInformation.purchaseDate ? new Date(equipmentAdditionInformation.purchaseDate).toISOString().split('T')[0] : null,
+      };
+
+      console.log(requestBody);
+
+      axios
+        .post(`${API.domain}/api/inventory/equipment`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          }
+        })
+        .then(response => {
+          setIsLoading(false);
+
+          setModalMessage(MESSAGE.successEquipmentAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage('');
+          }, 1500);
+
+          // Reset the information
+          setEquipmentAdditionInformation({
+            serialNumber: '',
+            type: null,
+            model: null,
+            maintenanceStatus: '',
+            reservationStatus: OPTIONS.equipment.reservationStatus.find(
+              (status) => status.value === 'Available'
+            ),
+            rfidTag: '',
+            homeLocation: null,
+            condition: '',
+            purchaseCost: '',
+            purchaseDate: null,
+          });
+        })
+        .catch(error => {
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage('');
+          setEquipmentIsError(true);
+          setEquipmentErrorMessage(error.response.data.message);
+        });
     }
   };
 

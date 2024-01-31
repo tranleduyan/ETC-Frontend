@@ -17,6 +17,10 @@ function StandardTextInputField(props) {
   // Update the values of the input object
   const HandleInputChange = (event) => {
     const { name, value } = event.target;
+    // If the input type is 'number', allow only numbers and up to 2 decimals
+    if (type === 'number' && value !== '' && !/^\d+(\.\d{0,2})?$/.test(value)) {
+      return; // Do not update the state if the input is invalid
+    }
     onChange(name, value);
   };
 
@@ -36,7 +40,7 @@ StandardTextInputField.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   name: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['text', 'password']),
+  type: PropTypes.oneOf(['text', 'number','password']),
   value: PropTypes.any,
   onChange: PropTypes.func.isRequired,
   visibility: PropTypes.bool,
