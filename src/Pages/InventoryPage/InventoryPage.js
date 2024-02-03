@@ -27,6 +27,8 @@ import './InventoryPage.css';
 import { HiAdjustments, HiCheckCircle, HiExclamationCircle, 
          HiMinusCircle, HiPencilAlt, HiPlus, HiSwitchHorizontal, 
          HiTrash } from 'react-icons/hi';
+import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+import UpdateTypePage from '../UpdateTypePage/UpdateTypePage';
 //#endregion
 
 // Define InventoryPage Component
@@ -39,6 +41,10 @@ function InventoryPage(props) {
 
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
+  const [editSection, setEditSection] = useState('Type');
+
+  const [selectedEquipment, setSelectedEquipment] = useState([]);
+  const [equipmentInventory, setEquipmentInventory] = useState([]);
 
   // Types Inventory and Selection States
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -68,19 +74,19 @@ function InventoryPage(props) {
     isVisible: false,
   });
 
-  // AddEquipment - TODO: Navigate to AddToInventory's Equipment Section
+  // AddEquipment
   const AddEquipment = () => {
-    navigate('/AddToInventory');
+    navigate('/AddToInventory', {state: { section: 'Equipment'}});
   };
 
-  // AddType - TODO: Navigate to AddToInventory's Type Section
+  // AddType
   const AddType = () => {
-    console.log('Add Type');
+    navigate('/AddToInventory', {state: { section: 'Type'}});
   };
 
-  // AddModel - TODO: Navigate to AddToInventory's Model Section
+  // AddModel
   const AddModel = () => {
-    console.log('Add Model');
+    navigate('/AddToInventory', {state: { section: 'Model'}});
   }
 
   // OnFilterClick - TODO: Open Filter Modal based on the currentSection state
@@ -89,6 +95,20 @@ function InventoryPage(props) {
   };
 
   //#region Selections
+  // SelectEquipment - Update the user's selections of Equipment
+  const SelectEquipment = (equipmentId) => {
+    let updatedSelectedEquipment = [...selectedEquipment];
+
+    if (updatedSelectedEquipment.includes(equipmentId)) {
+      updatedSelectedEquipment = updatedSelectedEquipment.filter(id => id !== equipmentId);
+    }
+    else {
+      updatedSelectedEquipment.push(equipmentId);
+    }
+
+    setSelectedEquipment(updatedSelectedEquipment);
+  };
+
   // SelectType - Update the user's selections of types
   const SelectType = (typeId) => {
     let updatedSelectedType = [...selectedTypes];
@@ -130,18 +150,27 @@ function InventoryPage(props) {
   };
 
   //#region Edit/Update
+  const EditSelectedEquipment = () => {
+    setEditSection('Equipment');
+  };
+
   // EditSelectModel - TODO: Render the Edit Model Component
   const EditSelectedModel = () => {
-    console.log('Render Edit Model Component');
+    setEditSection('Model');
   };
 
   // EditSelectedType - TODO: Render the Edit Type Component
   const EditSelectedType = () => {
-    console.log('Render Edit Type Component');
+    setEditSection('Type');
   };
   //#endregion
 
   //#region Deletion
+  // DeleteSelectedEquipment - TODO: Implement Mass Equipment Deletion API
+  const DeleteSelectedEquipment = () => {
+    console.log('Delete Selected Equipment');
+  };
+
   // DeleteSelectedModels - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
   const DeleteSelectedModels = () => {
     setConfirmationModal({
@@ -180,6 +209,8 @@ function InventoryPage(props) {
                 isVisible: false,
               });
             }, 1500);
+            FetchEquipmentInventory();
+            setSelectedEquipment([]);
             FetchTypeInventory();
             setSelectedTypes([]);
             FetchModelInventory();
@@ -253,6 +284,8 @@ function InventoryPage(props) {
                 isVisible: false,
               });
             }, 1500);
+            FetchEquipmentInventory();
+            setSelectedEquipment([]);
             FetchTypeInventory();
             setSelectedTypes([]);
             FetchModelInventory();
@@ -283,6 +316,22 @@ function InventoryPage(props) {
   };
 
   //#region Helpers
+  // FetchEquipmentInventory - Fetch all equipments in the inventory
+  const FetchEquipmentInventory = () => {
+    axios
+      .get(`${API.domain}/api/inventory/equipment`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setEquipmentInventory(response.data.responseObject)
+      })
+      .catch(error => {
+        setEquipmentInventory([]);
+      });
+  };
+
   // FetchTypeInventory - Fetch all types in the inventory
   const FetchTypeInventory = () => {
     axios
@@ -339,231 +388,297 @@ function InventoryPage(props) {
 
   // Fetch initial data when the component mounts
   useEffect(() => {
+    FetchEquipmentInventory();
     FetchTypeInventory();
     FetchModelInventory();
   }, []);
 
   return (
-    <GeneralPage>
-      {/* Response Modal for displaying successful messages or errors */}
-      <IconModal
-        className='InventoryPage-ResponseModalContainer'
-        icon={ResponseIcon()}
-        iconClassName='InventoryPage-ResponseModalIcon'
-        message={responseModal.message}
-        isVisible={responseModal.isVisible || isProcessing} />
-      {/* Confirmation Modal for warnings and confirmation actions */}
-      <ConfirmationModal
-        className='InventoryPage-ConfirmationModalContainer'
-        title={confirmationModal.title}
-        content={confirmationModal.content}
-        warning={confirmationModal.warning}
-        onYes={confirmationModal.onYes}
-        onNo={confirmationModal.onNo}
-        isVisible={confirmationModal.isVisible} />
-      {/* Page Content Container */}
-      <div className='InventoryPage-PageContentContainer'>
-        {/* Page Header - Inventory */}
-        <div className='InventoryPage-PageHeaderContainer'>
-          <Logo className='InventoryPage-LogoContainer'/>
-          <p className='heading-2'>Inventory</p>
-        </div>
-        {/* Page Content */}
-        <div className='InventoryPage-ContentContainer'>
-          {/* Content Header Container */}
-          <div className='InventoryPage-ContentHeaderContainer'>
-            {/* Header Container */}
-            <div className='InventoryPage-HeaderContainer'>
-              {/* Equipment Tab Button */}
-              <HeaderButton
-                title='Equipment'
-                isSelected={currentSection === 'Equipment'}
-                onClick={() => setCurrentSection('Equipment')}/>
-              {/* Type Tab Button */}
-              <HeaderButton
-                title='Type'
-                isSelected={currentSection === 'Type'}
-                onClick={() => setCurrentSection('Type')}/>
-              {/* Model Tab Button */}
-              <HeaderButton
-                title='Model'
-                isSelected={currentSection === 'Model'}
-                onClick={() => setCurrentSection('Model')}/>
-            </div>
-            {/* Action Container */}
-            <div className='InventoryPage-ActionContainer'>
-              {currentSection === 'Equipment' && (
-                <>
-                  <StandardButton
-                    title='Add Equipment'
-                    onClick={AddEquipment}
-                    className='InventoryPage-AddButton'
-                    icon={HiPlus}/>
-                  <StandardButton
-                    title=''
-                    onClick={OnFilterClick}
-                    className='InventoryPage-FilterButton'
-                    icon={HiAdjustments}/>
-                </>
-              )}
-              {currentSection === 'Type' && (
-                <>
-                  {selectedTypes.length === 1 && (
-                    <StandardButton
-                    title='Edit'
-                    onClick={EditSelectedType}
-                    className='InventoryPage-EditButton'
-                    icon={HiPencilAlt}/>
-                  )}
-                  {selectedTypes.length > 0 && (
-                    <>
-                      <StandardButton
-                        title='Cancel'
-                        onClick={CancelSelection}
-                        className='InventoryPage-CancelButton'
-                        icon={HiMinusCircle}/>
-                      <StandardButton
-                        title=''
-                        onClick={DeleteSelectedTypes}
-                        className='InventoryPage-DeleteButton'
-                        icon={HiTrash}/> 
-                    </>
-                  )}
-                  {selectedTypes.length === 0 && (
-                    <>
-                      <StandardButton
-                      title='Add Type'
-                      onClick={AddType}
-                      className='InventoryPage-AddButton'
-                      icon={HiPlus}/>
-                      <StandardButton
-                        title=''
-                        onClick={OnFilterClick}
-                        className='InventoryPage-FilterButton'
-                        icon={HiAdjustments}/>                    
-                    </>
-                  )}
-                </>
-              )}
-              {currentSection === 'Model' && (
-                <>
-                  {selectedModels.length === 1 && (
-                    <StandardButton
-                      title='Edit'
-                      onClick={EditSelectedModel}
-                      className='InventoryPage-EditButton'
-                      icon={HiPencilAlt}/>
-                  )}
-                  {selectedModels.length > 0 && (
-                    <>
-                      <StandardButton
-                        title='Cancel'
-                        onClick={CancelSelection}
-                        className='InventoryPage-CancelButton'
-                        icon={HiMinusCircle}/>
-                      <StandardButton
-                        title=''
-                        onClick={DeleteSelectedModels}
-                        className='InventoryPage-DeleteButton'
-                        icon={HiTrash}/>
-                    </>
-                  )}
-                  {selectedModels.length === 0 && (
-                    <>
-                      <StandardButton
-                      title='Add Model'
-                      onClick={AddModel}
-                      className='InventoryPage-AddButton'
-                      icon={HiPlus}/>
-                      <StandardButton
-                        title=''
-                        onClick={OnFilterClick}
-                        className='InventoryPage-FilterButton'
-                        icon={HiAdjustments}/>                    
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+    <>
+      {userRole === 'Admin' ? (
+        <GeneralPage>
+        {/* Response Modal for displaying successful messages or errors */}
+        <IconModal
+          className='InventoryPage-ResponseModalContainer'
+          icon={ResponseIcon()}
+          iconClassName='InventoryPage-ResponseModalIcon'
+          message={responseModal.message}
+          isVisible={responseModal.isVisible || isProcessing} />
+        {/* Confirmation Modal for warnings and confirmation actions */}
+        <ConfirmationModal
+          className='InventoryPage-ConfirmationModalContainer'
+          title={confirmationModal.title}
+          content={confirmationModal.content}
+          warning={confirmationModal.warning}
+          onYes={confirmationModal.onYes}
+          onNo={confirmationModal.onNo}
+          isVisible={confirmationModal.isVisible} />
+        {/* Page Content Container */}
+        <div className='InventoryPage-PageContentContainer'>
+          {/* Page Header - Inventory */}
+          <div className='InventoryPage-PageHeaderContainer'>
+            <Logo className='InventoryPage-LogoContainer'/>
+            <p className='heading-2'>Inventory</p>
           </div>
-          {/* Equipment Tab */}
-          {currentSection === 'Equipment' && (
+          {!editSection && (
             <>
-              <EquipmentInventory />
-              <StandardButton
-                title='Add Equipment'
-                onClick={AddEquipment}
-                className={'InventoryPage-MobileAddButton'}
-                icon={HiPlus}/>
-            </>
-          )}
-          {/* Type Tab */}
-          {currentSection === 'Type' && (
-            <>
-              <TypeInventory 
-                typeInventory={typeInventory}
-                selectedTypes={selectedTypes}
-                onSelectType={SelectType}/>
-              <div className='InventoryPage-MobileBottomActionContainer'>
-                {selectedTypes.length === 1 && (
-                  <StandardButton
-                  title='Edit'
-                  onClick={EditSelectedType}
-                  className={'InventoryPage-MobileEditButton'}
-                  icon={HiPencilAlt}/>
+              {/* Page Content */}
+              <div className='InventoryPage-ContentContainer'>
+                {/* Content Header Container */}
+                <div className='InventoryPage-ContentHeaderContainer'>
+                  {/* Header Container */}
+                  <div className='InventoryPage-HeaderContainer'>
+                    {/* Equipment Tab Button */}
+                    <HeaderButton
+                      title='Equipment'
+                      isSelected={currentSection === 'Equipment'}
+                      onClick={() => setCurrentSection('Equipment')}/>
+                    {/* Type Tab Button */}
+                    <HeaderButton
+                      title='Type'
+                      isSelected={currentSection === 'Type'}
+                      onClick={() => setCurrentSection('Type')}/>
+                    {/* Model Tab Button */}
+                    <HeaderButton
+                      title='Model'
+                      isSelected={currentSection === 'Model'}
+                      onClick={() => setCurrentSection('Model')}/>
+                  </div>
+                  {/* Action Container */}
+                  <div className='InventoryPage-ActionContainer'>
+                    {currentSection === 'Equipment' && (
+                      <>
+                        {selectedEquipment.length === 1 && (
+                          <StandardButton
+                          title='Edit'
+                          onClick={EditSelectedEquipment}
+                          className='InventoryPage-EditButton'
+                          icon={HiPencilAlt}/>
+                        )}
+                        {selectedEquipment.length > 0 && (
+                          <>
+                            <StandardButton
+                              title='Cancel'
+                              onClick={CancelSelection}
+                              className='InventoryPage-CancelButton'
+                              icon={HiMinusCircle}/>
+                            <StandardButton
+                              title=''
+                              onClick={DeleteSelectedEquipment}
+                              className='InventoryPage-DeleteButton'
+                              icon={HiTrash}/> 
+                          </>
+                        )}
+                        {selectedEquipment.length === 0 && (
+                          <>
+                            <StandardButton
+                            title='Add Equipment'
+                            onClick={AddEquipment}
+                            className='InventoryPage-AddButton'
+                            icon={HiPlus}/>
+                            <StandardButton
+                              title=''
+                              onClick={OnFilterClick}
+                              className='InventoryPage-FilterButton'
+                              icon={HiAdjustments}/>                    
+                          </>
+                        )}
+                      </>
+                    )}
+                    {currentSection === 'Type' && (
+                      <>
+                        {selectedTypes.length === 1 && (
+                          <StandardButton
+                          title='Edit'
+                          onClick={EditSelectedType}
+                          className='InventoryPage-EditButton'
+                          icon={HiPencilAlt}/>
+                        )}
+                        {selectedTypes.length > 0 && (
+                          <>
+                            <StandardButton
+                              title='Cancel'
+                              onClick={CancelSelection}
+                              className='InventoryPage-CancelButton'
+                              icon={HiMinusCircle}/>
+                            <StandardButton
+                              title=''
+                              onClick={DeleteSelectedTypes}
+                              className='InventoryPage-DeleteButton'
+                              icon={HiTrash}/> 
+                          </>
+                        )}
+                        {selectedTypes.length === 0 && (
+                          <>
+                            <StandardButton
+                            title='Add Type'
+                            onClick={AddType}
+                            className='InventoryPage-AddButton'
+                            icon={HiPlus}/>
+                            <StandardButton
+                              title=''
+                              onClick={OnFilterClick}
+                              className='InventoryPage-FilterButton'
+                              icon={HiAdjustments}/>                    
+                          </>
+                        )}
+                      </>
+                    )}
+                    {currentSection === 'Model' && (
+                      <>
+                        {selectedModels.length === 1 && (
+                          <StandardButton
+                            title='Edit'
+                            onClick={EditSelectedModel}
+                            className='InventoryPage-EditButton'
+                            icon={HiPencilAlt}/>
+                        )}
+                        {selectedModels.length > 0 && (
+                          <>
+                            <StandardButton
+                              title='Cancel'
+                              onClick={CancelSelection}
+                              className='InventoryPage-CancelButton'
+                              icon={HiMinusCircle}/>
+                            <StandardButton
+                              title=''
+                              onClick={DeleteSelectedModels}
+                              className='InventoryPage-DeleteButton'
+                              icon={HiTrash}/>
+                          </>
+                        )}
+                        {selectedModels.length === 0 && (
+                          <>
+                            <StandardButton
+                            title='Add Model'
+                            onClick={AddModel}
+                            className='InventoryPage-AddButton'
+                            icon={HiPlus}/>
+                            <StandardButton
+                              title=''
+                              onClick={OnFilterClick}
+                              className='InventoryPage-FilterButton'
+                              icon={HiAdjustments}/>                    
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+                {/* Equipment Tab */}
+                {currentSection === 'Equipment' && (
+                  <>
+                    <EquipmentInventory 
+                      equipmentInventory={equipmentInventory}
+                      selectedEquipment={selectedEquipment}
+                      onSelectEquipment={SelectEquipment}/>
+                    <div className='InventoryPage-MobileBottomActionContainer'>
+                      {selectedEquipment.length === 1 && (
+                        <StandardButton
+                          title='Edit'
+                          onClick={EditSelectedEquipment}
+                          className={'InventoryPage-MobileEditButton'}
+                          icon={HiPencilAlt}/>
+                      )}
+                      {selectedEquipment.length > 0 && (
+                        <StandardButton
+                          title='Cancel'
+                          onClick={CancelSelection}
+                          className={'InventoryPage-MobileCancelButton'}
+                          icon={HiMinusCircle}/>
+                      )}
+                      {selectedEquipment.length === 0 && (
+                        <StandardButton
+                        title='Add Equipment'
+                        onClick={AddEquipment}
+                        className={'InventoryPage-MobileAddButton'}
+                        icon={HiPlus}/>
+                      )}
+                    </div>
+                  </>
                 )}
-                {selectedTypes.length > 0 && (
-                  <StandardButton
-                    title='Cancel'
-                    onClick={CancelSelection}
-                    className={'InventoryPage-MobileCancelButton'}
-                    icon={HiMinusCircle}/>
+                {/* Type Tab */}
+                {currentSection === 'Type' && (
+                  <>
+                    <TypeInventory 
+                      typeInventory={typeInventory}
+                      selectedTypes={selectedTypes}
+                      onSelectType={SelectType}/>
+                    <div className='InventoryPage-MobileBottomActionContainer'>
+                      {selectedTypes.length === 1 && (
+                        <StandardButton
+                        title='Edit'
+                        onClick={EditSelectedType}
+                        className={'InventoryPage-MobileEditButton'}
+                        icon={HiPencilAlt}/>
+                      )}
+                      {selectedTypes.length > 0 && (
+                        <StandardButton
+                          title='Cancel'
+                          onClick={CancelSelection}
+                          className={'InventoryPage-MobileCancelButton'}
+                          icon={HiMinusCircle}/>
+                      )}
+                      {selectedTypes.length === 0 && (
+                        <StandardButton
+                        title='Add Type'
+                        onClick={AddType}
+                        className={'InventoryPage-MobileAddButton'}
+                        icon={HiPlus}/>
+                      )}
+                    </div>
+                  </>
                 )}
-                {selectedTypes.length === 0 && (
-                  <StandardButton
-                  title='Add Type'
-                  onClick={AddType}
-                  className={'InventoryPage-MobileAddButton'}
-                  icon={HiPlus}/>
+                {/* Model Tab */}
+                {currentSection === 'Model' && (
+                  <>
+                    <ModelInventory 
+                      modelInventory={modelInventory}
+                      selectedModels={selectedModels}
+                      onSelectModel={SelectModel}/>
+                    <div className='InventoryPage-MobileBottomActionContainer'>
+                      {selectedModels.length === 1 && (
+                        <StandardButton
+                          title='Edit'
+                          onClick={EditSelectedModel}
+                          className={'InventoryPage-MobileEditButton'}
+                          icon={HiPencilAlt}/>
+                      )}
+                      {selectedModels.length > 0 && (
+                        <StandardButton
+                          title='Cancel'
+                          onClick={CancelSelection}
+                          className={'InventoryPage-MobileCancelButton'}
+                          icon={HiMinusCircle}/>
+                      )}
+                      {selectedModels.length === 0 && (
+                        <StandardButton
+                          title='Add Model'
+                          onClick={AddModel}
+                          className={'InventoryPage-MobileAddButton'}
+                          icon={HiPlus}/>
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
             </>
           )}
-          {/* Model Tab */}
-          {currentSection === 'Model' && (
-            <>
-              <ModelInventory 
-                modelInventory={modelInventory}
-                selectedModels={selectedModels}
-                onSelectModel={SelectModel}/>
-              <div className='InventoryPage-MobileBottomActionContainer'>
-                {selectedModels.length === 1 && (
-                  <StandardButton
-                    title='Edit'
-                    onClick={EditSelectedModel}
-                    className={'InventoryPage-MobileEditButton'}
-                    icon={HiPencilAlt}/>
-                )}
-                {selectedModels.length > 0 && (
-                  <StandardButton
-                    title='Cancel'
-                    onClick={CancelSelection}
-                    className={'InventoryPage-MobileCancelButton'}
-                    icon={HiMinusCircle}/>
-                )}
-                {selectedModels.length === 0 && (
-                  <StandardButton
-                    title='Add Model'
-                    onClick={AddModel}
-                    className={'InventoryPage-MobileAddButton'}
-                    icon={HiPlus}/>
-                )}
-              </div>
-            </>
-          )}
+          {editSection === 'Type' && (
+              <>
+                <UpdateTypePage 
+                  setEditSection={setEditSection}
+                  typeId={selectedTypes && selectedTypes[0]}/>
+              </>
+            )
+          }
         </div>
-      </div>
-    </GeneralPage>
+      </GeneralPage>
+      ) :
+      (
+        <UnauthorizedPanel />
+      )}
+    </>
   )
 };
 

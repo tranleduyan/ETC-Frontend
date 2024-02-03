@@ -9,41 +9,41 @@ import Message from '../../Message/Message';
 //#endregion
 
 // Import Stylings
-import './TypeAdditionForm.css';
+import './TypeForm.css';
 
 // Import Icons 
 import { HiExclamationCircle } from 'react-icons/hi';
 
-// Define TypeAdditionForm Component
-function TypeAdditionForm(props) {
+// Define TypeForm Component
+function TypeForm(props) {
 
   // Extract relevant information
-  const { className, typeAdditionInformation, setTypeAdditionInformation, isError, errorMessage } = props;
+  const { className, typeInformation, setTypeInformation, isError, errorMessage } = props;
 
   // HandleTypeAdditionInputChange - Update the information of the typeAdditionInformation new value to the propertyName
-  const HandleTypeAdditionInputChange = (propertyName, value) => {
-    setTypeAdditionInformation({...typeAdditionInformation, [propertyName]: value})
+  const HandleTypeInputChange = (propertyName, value) => {
+    setTypeInformation({...typeInformation, [propertyName]: value})
   };
 
   return (
-    <div className={`TypeAdditionForm-Container ${className}`}>
+    <div className={`TypeForm-Container ${className}`}>
       {/* Form Container */}
-      <div className='TypeAdditionForm-FormContainer'>
+      <div className='TypeForm-FormContainer'>
         {/* Type Information Group */}
-        <div className='TypeAdditionForm-TypeInformationGroup'>
+        <div className='TypeForm-TypeInformationGroup'>
           {/* Group Header */}
           <p className='heading-5'>Type Information</p>
           {/* Type Name Input Field */}
           <StandardTextInputField
             placeholder='Enter type name'
-            className='TypeAdditionForm-Field'
+            className='TypeForm-Field'
             name='name'
-            value={typeAdditionInformation.name}
-            onChange={(name, value) => HandleTypeAdditionInputChange(name, value)}/>
+            value={typeInformation.name}
+            onChange={(name, value) => HandleTypeInputChange(name, value)}/>
         </div>
         {/* Instructions/Messages */}
           {!isError && (
-          <p className='paragraph-1 TypeAdditionForm-Instructions'>
+          <p className='paragraph-1 TypeForm-Instructions'>
             Please provide the details of the type.
           </p>
         )}
@@ -51,7 +51,7 @@ function TypeAdditionForm(props) {
         <Message 
             icon={HiExclamationCircle} 
             message={errorMessage} 
-            className='TypeAdditionForm-ErrorMessageContainer' 
+            className='TypeForm-ErrorMessageContainer' 
             visibility={isError}/>
       </div>
     </div>
@@ -59,20 +59,20 @@ function TypeAdditionForm(props) {
 };
 
 // Define PropTypes for the form component
-TypeAdditionForm.propTypes = {
+TypeForm.propTypes = {
   className: PropTypes.string,
-  typeAdditionInformation: PropTypes.any.isRequired,
-  setTypeAdditionInformation: PropTypes.func.isRequired,
+  typeInformation: PropTypes.any.isRequired,
+  setTypeInformation: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
 // Define default props for the component
-TypeAdditionForm.defaultProps = {
+TypeForm.defaultProps = {
   className: '',
   isError: false,
   errorMessage: '',
 };
 
-// Exports the TypeAdditionForm component as the default export for the TypeAdditionForm module.
-export default TypeAdditionForm;
+// Exports the TypeForm component as the default export for the TypeForm module.
+export default TypeForm;

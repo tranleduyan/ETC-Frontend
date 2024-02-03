@@ -1,0 +1,104 @@
+/* General Stylings */
+.UpdateTypePage-ContentContainer {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.UpdateTypePage-ContentHeaderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.UpdateTypePage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.UpdateTypePage-ActionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* For tablets and bigger devices */
+@media screen and (min-width: 481px) {
+    .UpdateTypePage-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+        padding: calc(2.225vmin);
+    }
+
+    .UpdateTypePage-ContentHeaderContainer {
+        height: calc(6.675vmin);
+    }
+
+    .UpdateTypePage-HeaderContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .UpdateTypePage-ActionContainer {
+
+        height: calc(6.675vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .UpdateTypePage-SaveButton {
+        width: calc(22.25vmin);
+    }
+
+    .UpdateTypePage-DeleteButton {
+        width: calc(6.675vmin);
+    }
+
+    .UpdateTypePage-MobileSaveButton {
+        display: none !important;
+    }
+
+    .UpdateTypePage-MobileBottomActionContainer {
+        display: none !important;
+    }
+}
+
+/* For mobiles and smaller devices */
+@media screen and (max-width: 480px) {
+    .UpdateTypePage-ContentContainer {
+        height: 100% - calc(17.8vmin);
+        padding: calc(4.45vmin);
+    }
+
+    .UpdateTypePage-ContentHeaderContainer {
+        height: calc(13.35vmin);
+    }
+
+    .UpdateTypePage-HeaderContainer {
+        gap: calc(4.45vmin);
+    }
+
+    .UpdateTypePage-ActionContainer {
+        width: calc(13.35vmin);
+        height: calc(13.35vmin);
+    }
+
+    .UpdateTypePage-SaveButton {
+        display: none !important;
+    }
+
+    .UpdateTypePage-DeleteButton {
+        width: calc(13.35vmin);
+    }
+
+    .UpdateTypePage-MobileBottomActionContainer,
+    .UpdateTypePage-MobileSaveButton {
+        width: 100%;
+    }
+}

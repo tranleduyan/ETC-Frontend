@@ -1,5 +1,6 @@
 //#region Import Necessary Dependencies
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -13,7 +14,7 @@ import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
 import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
-import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
+import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
 import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
@@ -33,8 +34,11 @@ function AddToInventoryPage(props) {
   // Extract relevant information
   const { userRole, schoolId } = props;
 
+  const { state } = useLocation();
+  const { section } = state || {};
+
   // Section State of the page - Equipment, Type, Model tabs
-  const [currentSection, setCurrentSection] = useState('Equipment');
+  const [currentSection, setCurrentSection] = useState(!section ? 'Equipment' : section);
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
@@ -305,7 +309,7 @@ function AddToInventoryPage(props) {
     return true;
   };
 
-    // IsTypeFormValid - Check for form validation
+  // IsTypeFormValid - Check for form validation
   const IsTypeFormValid = () => {
     if(!typeAdditionInformation.name) {
       setTypeIsError(true);
@@ -524,9 +528,9 @@ function AddToInventoryPage(props) {
               {currentSection === 'Type' && (
                   <>
                     {/* Type Addition Form */}
-                    <TypeAdditionForm
-                      typeAdditionInformation={typeAdditionInformation}
-                      setTypeAdditionInformation={setTypeAdditionInformation}
+                    <TypeForm
+                      typeInformation={typeAdditionInformation}
+                      setTypeInformation={setTypeAdditionInformation}
                       isError={typeIsError}
                       errorMessage={typeErrorMessage}/>
                     {/* Mobile Add Type Button */}
