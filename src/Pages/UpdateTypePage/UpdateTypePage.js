@@ -26,7 +26,7 @@ import { HiBookmarkAlt, HiChevronLeft, HiTrash,
 function UpdateTypePage(props) {
 
   // Extract relevant information
-  const { setEditSection, typeId, schoolId, isUpdated, setIsUpdated } = props; 
+  const { setEditSection, typeId, schoolId, setIsUpdated } = props; 
 
   // Information for updating type
   const[typeInformation, setTypeInformation] = useState({
@@ -255,6 +255,7 @@ function UpdateTypePage(props) {
   // Side Effects
   useEffect(() => {
     FetchTypeInformation();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -324,6 +325,7 @@ function UpdateTypePage(props) {
 UpdateTypePage.propTypes = {
   setEditSection: PropTypes.func.isRequired,
   typeId: PropTypes.number.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
 };
 
 // Map from Redux state to component props

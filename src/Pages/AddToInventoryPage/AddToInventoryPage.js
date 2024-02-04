@@ -15,7 +15,7 @@ import StandardButton from '../../Components/Buttons/StandardButton/StandardButt
 import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
 import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
 import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
-import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
+import ModelForm from '../../Components/Forms/ModelForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 //#endregion
@@ -545,9 +545,9 @@ function AddToInventoryPage(props) {
               {currentSection === 'Model' && (
                   <>
                     {/* Model Addition Form */}
-                    <ModelAdditionForm
-                      modelAdditionInformation={modelAdditionInformation}
-                      setModelAdditionInformation={setModelAdditionInformation}
+                    <ModelForm
+                      modelInformation={modelAdditionInformation}
+                      setModelInformation={setModelAdditionInformation}
                       isError={modelIsError}
                       errorMessage={modelErrorMessage}
                       equipmentTypeOptions={equipmentTypeOptions}/>

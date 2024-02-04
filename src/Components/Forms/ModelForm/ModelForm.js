@@ -10,23 +10,23 @@ import Message from '../../Message/Message';
 //#endregion
 
 // Import Stylings
-import './ModelAdditionForm.css';
+import './ModelForm.css';
 
 // Import Icons 
 import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
 
-// Define ModelAdditionForm Component
-function ModelAdditionForm(props) {
+// Define ModelForm Component
+function ModelForm(props) {
 
   // Extract relevant information
-  const { className, equipmentTypeOptions, modelAdditionInformation, setModelAdditionInformation, isError, errorMessage } = props;
+  const { className, equipmentTypeOptions, modelInformation, setModelInformation, isError, errorMessage } = props;
 
   // Ref hooks to the file input
   const modelPhotoRef = useRef(null);
 
   // HandleModelAdditionInputChange - Update the information of the modelAdditionInformation new value to the propertyName.
-  const HandleModelAdditionInputChange = (propertyName, selectedValue) => {
-    setModelAdditionInformation({...modelAdditionInformation, [propertyName]: selectedValue})
+  const HandleModelInputChange = (propertyName, selectedValue) => {
+    setModelInformation({...modelInformation, [propertyName]: selectedValue})
   }
 
   // Handle Image Click - Opens the file input dialog when the user clicks on the displayed image.
@@ -36,18 +36,18 @@ function ModelAdditionForm(props) {
 
   // Handle Image Change - Updates the model photo in the state when a new image is selected.
   const HandleImageChange = (event) => {
-    HandleModelAdditionInputChange('photo', event.target.files[0]);
+    HandleModelInputChange('photo', event.target.files[0]);
   }
 
   return (
-    <div className={`ModelAdditionForm-Container ${className}`}>
+    <div className={`ModelForm-Container ${className}`}>
       {/* Visual/Media Container */}
-      <div className='ModelAdditionForm-VisualContainer'>
+      <div className='ModelForm-VisualContainer'>
         {/* If the photo is not uploaded, show prompt */}
-        {!modelAdditionInformation.photo && (
-          <button className='ModelAdditionForm-PromptContainer' onClick={HandleImageClick}>
-            <HiPhotograph className='ModelAdditionForm-PromptIcon'/>
-            <p className='paragraph-1 ModelAdditionForm-Prompt'>Upload the model photo here.</p>            
+        {!modelInformation.photo && (
+          <button className='ModelForm-PromptContainer' onClick={HandleImageClick}>
+            <HiPhotograph className='ModelForm-PromptIcon'/>
+            <p className='paragraph-1 ModelForm-Prompt'>Upload the model photo here.</p>            
             <input
               type='file'
               ref={modelPhotoRef}
@@ -58,9 +58,9 @@ function ModelAdditionForm(props) {
           </button>
         )}
         {/* If the photo is uploaded, show the photo (preview) */}
-        {modelAdditionInformation.photo && (
-          <button className='ModelAdditionForm-TypeModelPhoto' onClick={HandleImageClick}>
-            <img src={URL.createObjectURL(modelAdditionInformation.photo)}  
+        {modelInformation.photo && (
+          <button className='ModelForm-TypeModelPhoto' onClick={HandleImageClick}>
+            <img src={URL.createObjectURL(modelInformation.photo)}  
                  alt='Equipment Model' />
             <input
               type='file'
@@ -72,30 +72,30 @@ function ModelAdditionForm(props) {
         )}
       </div>
       {/* Form Container */}
-      <div className='ModelAdditionForm-FormContainer'>
+      <div className='ModelForm-FormContainer'>
         {/* Model Information Group */}
-        <div className='ModelAdditionForm-ModelInformationGroup'>
+        <div className='ModelForm-ModelInformationGroup'>
           {/* Group Header */}
           <p className='heading-5'>Model Information</p>
           {/* Model Name Input Field */}
           <StandardTextInputField
             placeholder='Enter model name'
-            className='ModelAdditionForm-Field'
+            className='ModelForm-Field'
             name='name'
-            value={modelAdditionInformation.name}
-            onChange={(name, value) => HandleModelAdditionInputChange(name, value)}/>
+            value={modelInformation.name}
+            onChange={(name, value) => HandleModelInputChange(name, value)}/>
           {/* Model Type DropDown */}
           <StandardDropDown
             placeholder='Select type'
-            className='ModelAdditionForm-Field ModelAdditionForm-MarginField'
+            className='ModelForm-Field ModelAdditionForm-MarginField'
             name='type'
-            value={modelAdditionInformation.type}
+            value={modelInformation.type}
             options={equipmentTypeOptions}
-            onChange={(name, value) => HandleModelAdditionInputChange(name, value)}/>
+            onChange={(name, value) => HandleModelInputChange(name, value)}/>
         </div>
         {/* Instructions/Messages */}
         {!isError && (
-          <p className='paragraph-1 ModelAdditionForm-Instructions'>
+          <p className='paragraph-1 ModelForm-Instructions'>
               Please provide the details of the model.
           </p>
         )}
@@ -103,7 +103,7 @@ function ModelAdditionForm(props) {
         <Message 
             icon={HiExclamationCircle} 
             message={errorMessage} 
-            className='ModelAdditionForm-ErrorMessageContainer' 
+            className='ModelForm-ErrorMessageContainer' 
             visibility={isError}/>
       </div>
     </div>
@@ -111,21 +111,21 @@ function ModelAdditionForm(props) {
 };
 
 // Define PropTypes for the form component
-ModelAdditionForm.propTypes = {
+ModelForm.propTypes = {
   className: PropTypes.string,
-  modelAdditionInformation: PropTypes.any.isRequired,
-  setModelAdditionInformation: PropTypes.func.isRequired,
+  modelInformation: PropTypes.any.isRequired,
+  setModelInformation: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   errorMessage: PropTypes.string,
   equipmentTypeOptions: PropTypes.array.isRequired,
 };
 
 // Define default props for the component
-ModelAdditionForm.defaultProps = {
+ModelForm.defaultProps = {
   className: '',
   isError: false,
   errorMessage: '',
 };
 
-// Exports the ModelAdditionForm component as the default export for the ModelAdditionForm module.
-export default ModelAdditionForm;
+// Exports the ModelForm component as the default export for the ModelForm module.
+export default ModelForm;

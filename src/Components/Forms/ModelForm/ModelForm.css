@@ -1,11 +1,11 @@
 /* General Stylings */
-.ModelAdditionForm-VisualContainer {
+.ModelForm-VisualContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.ModelAdditionForm-TypeModelPhoto {
+.ModelForm-TypeModelPhoto {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -15,13 +15,13 @@
     background-color: transparent;
 }
 
-.ModelAdditionForm-TypeModelPhoto img {
+.ModelForm-TypeModelPhoto img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.ModelAdditionForm-PromptContainer {
+.ModelForm-PromptContainer {
     display: flex; 
     flex-direction: column;
     justify-content: center;
@@ -32,46 +32,46 @@
     border: none;
 }
 
-.ModelAdditionForm-TypeModelPhoto img,
-.ModelAdditionForm-PromptContainer {
+.ModelForm-TypeModelPhoto img,
+.ModelForm-PromptContainer {
     cursor: pointer;
 }
 
-.ModelAdditionForm-Prompt {
+.ModelForm-Prompt {
     text-align: center;
 }
 
-.ModelAdditionForm-FormContainer {
+.ModelForm-FormContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
 }
 
-.ModelAdditionForm-ModelInformationGroup {
+.ModelForm-ModelInformationGroup {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
 }
 
-.ModelAdditionForm-Field {
+.ModelForm-Field {
     width: 100%;
 }
 
-.ModelAdditionForm-Instructions {
+.ModelForm-Instructions {
     font-style: italic;
     color: var(--Gray3);
 }
 
-.ModelAdditionForm-ErrorMessageContainer {
+.ModelForm-ErrorMessageContainer {
     width: 100%;
     color: var(--Red2);
 }
 
 /* For tablets and larger devices */
 @media screen and (min-width: 481px) {
-    .ModelAdditionForm-Container {
+    .ModelForm-Container {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -82,38 +82,38 @@
         gap: calc(2.225vmin);
     }
 
-    .ModelAdditionForm-VisualContainer {
+    .ModelForm-VisualContainer {
         width: calc(35.04375vmin);
         height: 100%; 
     }
 
-    .ModelAdditionForm-PromptContainer,
-    .ModelAdditionForm-TypeModelPhoto img {
+    .ModelForm-PromptContainer,
+    .ModelForm-TypeModelPhoto img {
         height: calc(35.04375vmin);
         border-radius: calc(1.390625vmin);
     }
 
-    .ModelAdditionForm-PromptIcon {
+    .ModelForm-PromptIcon {
         font-size: calc(8.34375vmin);
     }
 
-    .ModelAdditionForm-Prompt {
+    .ModelForm-Prompt {
         width: calc(24.475vmin);
     }
 
-    .ModelAdditionForm-FormContainer {
+    .ModelForm-FormContainer {
         width: calc(100% - calc(35.04375vmin));
         gap: calc(1.66875vmin);
     }
 
-    .ModelAdditionForm-ModelInformationGroup {
+    .ModelForm-ModelInformationGroup {
         gap: calc(2.225vmin);
     }
 }
 
 /* For mobile and smaller devices */
 @media screen and (max-width: 480px) {
-    .ModelAdditionForm-Container {
+    .ModelForm-Container {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -124,39 +124,39 @@
         overflow-y: auto;
     }
 
-    .ModelAdditionForm-VisualContainer {
+    .ModelForm-VisualContainer {
         height: calc(68.975vmin);
         width: 100%; 
     }
 
-    .ModelAdditionForm-PromptContainer,
-    .ModelAdditionForm-TypeModelPhoto img {
+    .ModelForm-PromptContainer,
+    .ModelForm-TypeModelPhoto img {
         height: calc(68.975vmin);
         border-radius: calc(2.78125vmin);
     }
 
-    .ModelAdditionForm-PromptIcon {
+    .ModelForm-PromptIcon {
         font-size: calc(16.6875vmin);
     }
 
-    .ModelAdditionForm-Prompt {
+    .ModelForm-Prompt {
         width: calc(48.95vmin);
     }
 
-    .ModelAdditionForm-FormContainer {
+    .ModelForm-FormContainer {
         width: 100%;
         gap: calc(3.3375vmin);
     }
     
-    .ModelAdditionForm-ModelInformationGroup {
+    .ModelForm-ModelInformationGroup {
         gap: calc(4.45vmin);
     }
 
-    .ModelAdditionForm-MarginField {
+    .ModelForm-MarginField {
         margin-bottom: calc(2.225vmin);
     }
 
-    .ModelAdditionForm-Instructions {
+    .ModelForm-Instructions {
         display: none;
     }
 }
