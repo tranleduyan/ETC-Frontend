@@ -1,0 +1,128 @@
+/* General Stylings */
+.UpdateModelPage-ContentContainer {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.UpdateModelPage-ContentHeaderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.UpdateModelPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.UpdateModelPage-ActionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.UpdateModelPage-ResponseModalIcon {
+    color: var(--Red1);
+}
+
+/* For tablets and bigger devices */
+@media screen and (min-width: 481px) {
+    .UpdateModelPage-ContentContainer {
+        height: 100% - calc(9.45625vmin);
+        padding: calc(2.225vmin);
+    }
+
+    .UpdateModelPage-ContentHeaderContainer {
+        height: calc(6.675vmin);
+    }
+
+    .UpdateModelPage-HeaderContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .UpdateModelPage-ActionContainer {
+
+        height: calc(6.675vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .UpdateModelPage-SaveButton {
+        width: calc(22.25vmin);
+    }
+
+    .UpdateModelPage-DeleteButton {
+        width: calc(6.675vmin);
+    }
+
+    .UpdateModelPage-MobileSaveButton {
+        display: none !important;
+    }
+
+    .UpdateModelPage-MobileBottomActionContainer {
+        display: none !important;
+    }
+
+    .UpdateModelPage-ConfirmationModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
+
+    .UpdateModelPage-ResponseModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
+}
+
+/* For mobiles and smaller devices */
+@media screen and (max-width: 480px) {
+    .UpdateModelPage-ContentContainer {
+        height: 100% - calc(17.8vmin);
+        padding: calc(4.45vmin);
+    }
+
+    .UpdateModelPage-ContentHeaderContainer {
+        height: calc(13.35vmin);
+    }
+
+    .UpdateModelPage-HeaderContainer {
+        gap: calc(4.45vmin);
+    }
+
+    .UpdateModelPage-ActionContainer {
+        width: calc(13.35vmin);
+        height: calc(13.35vmin);
+    }
+
+    .UpdateModelPage-SaveButton {
+        display: none !important;
+    }
+
+    .UpdateModelPage-DeleteButton {
+        width: calc(13.35vmin);
+    }
+
+    .UpdateModelPage-MobileBottomActionContainer,
+    .UpdateModelPage-MobileSaveButton {
+        width: 100%;
+    }
+
+    .UpdateModelPage-ConfirmationModalContainer {
+        width: calc(91.225vmin);
+        height: calc(103.4625vmin);
+    }
+
+    .UpdateModelPage-ResponseModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
+    }
+}

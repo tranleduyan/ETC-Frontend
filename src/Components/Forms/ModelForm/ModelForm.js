@@ -58,7 +58,7 @@ function ModelForm(props) {
           </button>
         )}
         {/* If the photo is uploaded, show the photo (preview) */}
-        {modelInformation.photo && (
+        {modelInformation.photo && typeof modelInformation.photo !== 'string' && (
           <button className='ModelForm-TypeModelPhoto' onClick={HandleImageClick}>
             <img src={URL.createObjectURL(modelInformation.photo)}  
                  alt='Equipment Model' />
@@ -69,6 +69,18 @@ function ModelForm(props) {
               style={{ display: 'none' }} 
               onChange={HandleImageChange}/>
           </button>
+        )}
+        {modelInformation.photo && typeof modelInformation.photo === 'string' && (
+          <button className='ModelForm-TypeModelPhoto' onClick={HandleImageClick}>
+            <img src={modelInformation.photo}  
+                alt='Equipment Model' />
+            <input
+              type='file'
+              ref={modelPhotoRef}
+              accept='image/*'
+              style={{ display: 'none' }} 
+              onChange={HandleImageChange}/>
+         </button>
         )}
       </div>
       {/* Form Container */}

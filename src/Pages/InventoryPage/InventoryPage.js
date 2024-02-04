@@ -29,6 +29,7 @@ import { HiAdjustments, HiCheckCircle, HiExclamationCircle,
          HiTrash } from 'react-icons/hi';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 import UpdateTypePage from '../UpdateTypePage/UpdateTypePage';
+import UpdateModelPage from '../UpdateModelPage/UpdateModelPage';
 //#endregion
 
 // Define InventoryPage Component
@@ -400,6 +401,9 @@ function InventoryPage(props) {
       FetchModelInventory();
       FetchEquipmentInventory();
       setIsUpdated(false);
+      setSelectedEquipment([]);
+      setSelectedModels([]);
+      setSelectedTypes([]);
       console.log('.asdasd')
     }
   }, [isUpdated]);
@@ -676,15 +680,20 @@ function InventoryPage(props) {
             </>
           )}
           {editSection === 'Type' && (
-              <>
-                <UpdateTypePage 
-                  setEditSection={setEditSection}
-                  typeId={selectedTypes && selectedTypes[0]}
-                  isUpdated={isUpdated}
-                  setIsUpdated={setIsUpdated}/>
-              </>
+            <UpdateTypePage 
+              setEditSection={setEditSection}
+              typeId={selectedTypes && selectedTypes[0]}
+              isUpdated={isUpdated}
+              setIsUpdated={setIsUpdated}/>
             )
           }
+          {editSection === 'Model' && (
+            <UpdateModelPage
+              setEditSection={setEditSection}
+              modelId={selectedModels && selectedModels[0]}
+              isUpdated={isUpdated}
+              setIsUpdated={setIsUpdated}/>
+          )}
         </div>
       </GeneralPage>
       ) :

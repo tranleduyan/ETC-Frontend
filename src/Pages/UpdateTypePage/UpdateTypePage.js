@@ -143,7 +143,7 @@ function UpdateTypePage(props) {
   const DeleteType = () => {
     setConfirmationModal({
       title: 'Remove Type',
-      content: 'Are you sure you want to remove the selected equipment types?',
+      content: 'Are you sure you want to remove the current equipment type?',
       warning: 'This will also permanently delete all equipment and models associated with the current type and the action cannot be undone.',
       onYes: () => {
         // Close the confirmation modal
@@ -303,7 +303,7 @@ function UpdateTypePage(props) {
               icon={HiTrash}/>  
           </div>
         </div>
-        {/* Type Addition Form */}
+        {/* Type Form */}
         <TypeForm
           typeInformation={typeInformation}
           setTypeInformation={setTypeInformation}
@@ -326,6 +326,12 @@ UpdateTypePage.propTypes = {
   setEditSection: PropTypes.func.isRequired,
   typeId: PropTypes.number.isRequired,
   setIsUpdated: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define default props for the component
+UpdateTypePage.defaultProps = {
+  schoolId: '',
 };
 
 // Map from Redux state to component props
