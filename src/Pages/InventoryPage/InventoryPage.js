@@ -396,7 +396,7 @@ function InventoryPage(props) {
   }, []);
 
   useEffect(() => {
-    if(isUpdated) {
+    if(isUpdated && editSection === '') {
       FetchTypeInventory();
       FetchModelInventory();
       FetchEquipmentInventory();
@@ -404,9 +404,8 @@ function InventoryPage(props) {
       setSelectedEquipment([]);
       setSelectedModels([]);
       setSelectedTypes([]);
-      console.log('.asdasd')
     }
-  }, [isUpdated]);
+  }, [isUpdated, editSection]);
 
   return (
     <>

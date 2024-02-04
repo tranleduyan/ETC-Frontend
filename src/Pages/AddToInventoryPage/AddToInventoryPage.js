@@ -97,7 +97,7 @@ function AddToInventoryPage(props) {
   });
   // #endregion
 
-  // TODO: Add Equipment - Add the equipment to the database.
+  // Add Equipment - Add the equipment to the database.
   const AddEquipment = () => {
     if(IsEquipmentFormValid()) {
       setModalMessage('Adding to inventory...');

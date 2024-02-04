@@ -247,8 +247,20 @@ function UpdateTypePage(props) {
         setTypeInformation({...typeInformation, name: response.data.responseObject.typeName});
       })
       .catch(error => {
-        // TODO: Go back to the page and show the modal.
-        console.log(error);
+        setResponseModal({
+          message:'Something went wrong while retrieving the current type information.',
+          error: true,
+          isVisible: true,
+        });
+        setTimeout(() => {
+          setResponseModal({
+            message: '',
+            error: false,
+            isVisible: false,
+          });
+        }, 1500);
+        setIsUpdated(false);
+        OnBack();
       });
   };
 
@@ -284,7 +296,7 @@ function UpdateTypePage(props) {
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className=''
+              className='UpdateTypePage-BackButton'
               onClick={OnBack}/>
             {/* Header */}
             <p className='heading-5'>Update Type</p>

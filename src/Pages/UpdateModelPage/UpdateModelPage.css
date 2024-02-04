@@ -51,7 +51,6 @@
     }
 
     .UpdateModelPage-ActionContainer {
-
         height: calc(6.675vmin);
         gap: calc(2.225vmin);
     }
@@ -80,6 +79,10 @@
     .UpdateModelPage-ResponseModalContainer {
         width: calc(69.53125vmin);
         height: calc(41.71875vmin);
+    }
+
+    .UpdateModelPage-BackButton {
+        width: calc(1.66875vmin);
     }
 }
 
@@ -124,5 +127,9 @@
     .UpdateModelPage-ResponseModalContainer {
         width: calc(91.225vmin);
         height: calc(61.1875vmin);
+    }
+
+    .UpdateModelPage-BackButton {
+        width: calc(3.3375vmin);
     }
 }

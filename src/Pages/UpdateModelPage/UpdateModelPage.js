@@ -209,7 +209,6 @@ function UpdateModelPage(props) {
             OnBack();
           })
           .catch(error => {
-            console.log(error);
             setIsProcessing(false);
             setResponseModal({
               message: 'Something went wrong while deleting the current model.',
@@ -275,8 +274,20 @@ function UpdateModelPage(props) {
         })
       })
       .catch(error => {
-        // TODO: go back to the page and show the modal.
-        console.log(error);
+        setResponseModal({
+          message:'Something went wrong while retrieving the current model information.',
+          error: true,
+          isVisible: true,
+        });
+        setTimeout(() => {
+          setResponseModal({
+            message: '',
+            error: false,
+            isVisible: false,
+          });
+        }, 1500);
+        setIsUpdated(false);
+        OnBack();
       });
   };
 
@@ -339,7 +350,7 @@ function UpdateModelPage(props) {
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className=''
+              className='UpdateModelPage-BackButton'
               onClick={OnBack}/>
             {/* Header */}
             <p className='heading-5'>Update Model</p>
