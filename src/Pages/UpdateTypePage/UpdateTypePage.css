@@ -31,6 +31,10 @@
     align-items: center;
 }
 
+.UpdateTypePage-ResponseModalIcon {
+    color: var(--Red1);
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .UpdateTypePage-ContentContainer {
@@ -67,6 +71,16 @@
     .UpdateTypePage-MobileBottomActionContainer {
         display: none !important;
     }
+
+    .UpdateTypePage-ConfirmationModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
+
+    .UpdateTypePage-ResponseModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
 }
 
 /* For mobiles and smaller devices */
@@ -100,5 +114,15 @@
     .UpdateTypePage-MobileBottomActionContainer,
     .UpdateTypePage-MobileSaveButton {
         width: 100%;
+    }
+
+    .UpdateTypePage-ConfirmationModalContainer {
+        width: calc(91.225vmin);
+        height: calc(103.4625vmin);
+    }
+
+    .UpdateTypePage-ResponseModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }

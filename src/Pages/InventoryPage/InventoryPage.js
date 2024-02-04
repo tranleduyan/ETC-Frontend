@@ -41,7 +41,7 @@ function InventoryPage(props) {
 
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
-  const [editSection, setEditSection] = useState('Type');
+  const [editSection, setEditSection] = useState('');
 
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [equipmentInventory, setEquipmentInventory] = useState([]);
@@ -66,6 +66,7 @@ function InventoryPage(props) {
 
   // IsProcessing State - Determine whether is processing APIs
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   // Response Modal State Object - Control visibility and content of the response
   const [responseModal, setResponseModal] = useState({
@@ -393,6 +394,16 @@ function InventoryPage(props) {
     FetchModelInventory();
   }, []);
 
+  useEffect(() => {
+    if(isUpdated) {
+      FetchTypeInventory();
+      FetchModelInventory();
+      FetchEquipmentInventory();
+      setIsUpdated(false);
+      console.log('.asdasd')
+    }
+  }, [isUpdated]);
+
   return (
     <>
       {userRole === 'Admin' ? (
@@ -668,7 +679,9 @@ function InventoryPage(props) {
               <>
                 <UpdateTypePage 
                   setEditSection={setEditSection}
-                  typeId={selectedTypes && selectedTypes[0]}/>
+                  typeId={selectedTypes && selectedTypes[0]}
+                  isUpdated={isUpdated}
+                  setIsUpdated={setIsUpdated}/>
               </>
             )
           }

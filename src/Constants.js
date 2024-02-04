@@ -55,7 +55,7 @@ export const MESSAGE = {
     successModelMassRemoval: 'The selected models have been successfully removed from the inventory.',
 
     // Message for successfully removed mass equipments
-    successEquipmentMassRemoval: 'The selected equipments have been successfully removed from the inventory.',
+    successEquipmentMassRemoval: 'The selected equipment have been successfully removed from the inventory.',
 
     // Message for successfully removed an equipment type
     successTypeRemoval: 'The type has been successfully removed from the inventory.',
@@ -65,6 +65,15 @@ export const MESSAGE = {
 
     // Message for successfully removed an equipment
     successEquipmentRemoval: 'The equipment has been successfully removed from the inventory.',
+
+    // Message for successfully update a type
+    successTypeUpdate: 'The type has been successfully updated in the inventory.',
+
+    // Message for successfully update a type
+    successEquipmentUpdate: 'The equipment has been successfully updated in the inventory.',
+
+    // Message for successfully update a type
+    successModelUpdate: 'The model has been successfully updated in the inventory.',
 };
 
 export const OPTIONS = {
