@@ -106,7 +106,7 @@ function UpdateTypePage(props) {
           setIsProcessing(false);
 
           setResponseModal({
-            message: MESSAGE.successTypeRemoval,
+            message: MESSAGE.successTypeUpdate,
             error: false,
             isVisible: true
           });

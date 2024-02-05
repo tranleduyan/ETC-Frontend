@@ -128,7 +128,7 @@ function UpdateModelPage(props) {
           setIsProcessing(false);
 
           setResponseModal({
-            message: MESSAGE.successModelRemoval,
+            message: MESSAGE.successModelUpdate,
             error: false,
             isVisible: true,
           });
