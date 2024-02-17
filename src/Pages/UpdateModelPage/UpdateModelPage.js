@@ -6,7 +6,7 @@ import { API, MESSAGE } from '../../Constants';
 import { connect } from 'react-redux';
 //#endregion
 
-//#region import UI Components
+//#region Import UI Components
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
@@ -322,6 +322,7 @@ function UpdateModelPage(props) {
     if(equipmentTypeOptions) {
       FetchModelInformation();
     }
+    // eslint-disable-next-line
   }, [equipmentTypeOptions]);
 
   return (
@@ -385,6 +386,19 @@ function UpdateModelPage(props) {
       </div>
     </>
   )
+};
+
+// Define the props types for the component
+UpdateModelPage.propTypes = {
+  setEditSection: PropTypes.func.isRequired,
+  modelId: PropTypes.number.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define default props for the component
+UpdateModelPage.defaultProps = {
+  schoolId: '',
 };
 
 // Map from Redux state to component props

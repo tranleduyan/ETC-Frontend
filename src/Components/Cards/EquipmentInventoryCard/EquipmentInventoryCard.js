@@ -18,8 +18,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 // Define Equipment Inventory Card
 function EquipmentInventoryCard(props) {
 
-  // TODO: Implement Get All Equipment API
-  const { className, modelPhoto, typeName, serialId, maintenanceStatus, isSelected, onSelect } = props;
+  const { className, modelPhoto, typeName, serialId, maintenanceStatus, isSelected, onSelect, onClick } = props;
 
   // State to handle equipment model photo loading errors
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
@@ -30,7 +29,8 @@ function EquipmentInventoryCard(props) {
   };
 
   return (
-    <div className={`EquipmentInventoryCard-Container ${isSelected ? 'EquipmentInventoryCard-Active' : ''} ${className}`}>
+    <div className={`EquipmentInventoryCard-Container ${isSelected ? 'EquipmentInventoryCard-Active' : ''} ${className}`}
+         onClick={onClick}>
       <div className='EquipmentInventoryCard-ModelPhoto'>
         {/* Display Equipment Model Photo */}
         {equipmentModelPhoto && (
@@ -73,6 +73,7 @@ EquipmentInventoryCard.propTypes = {
   maintenanceStatus: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 // Define the defaultProps for the component
@@ -80,6 +81,7 @@ EquipmentInventoryCard.defaultProps = {
   className: '',
   isSelected: false,
   onSelect: () => {},
+  onClick: () => {},
 };
 
 // Exports the EquipmentInventoryCard component as the default export for the EquipmentInventoryCard module.

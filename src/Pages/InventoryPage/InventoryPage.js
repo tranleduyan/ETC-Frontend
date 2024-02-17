@@ -30,6 +30,7 @@ import { HiAdjustments, HiCheckCircle, HiExclamationCircle,
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 import UpdateTypePage from '../UpdateTypePage/UpdateTypePage';
 import UpdateModelPage from '../UpdateModelPage/UpdateModelPage';
+import EquipmentDetailsPage from '../EquipmentDetailsPage/EquipmentDetailsPage';
 //#endregion
 
 // Define InventoryPage Component
@@ -43,6 +44,7 @@ function InventoryPage(props) {
   // Section State of the page - Equipment, Type, Model tabs
   const [currentSection, setCurrentSection] = useState('Equipment');
   const [editSection, setEditSection] = useState('');
+  const [detailSection, setDetailSection] = useState('');
 
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [equipmentInventory, setEquipmentInventory] = useState([]);
@@ -95,6 +97,10 @@ function InventoryPage(props) {
   const OnFilterClick = () => {
     console.log('Filter');
   };
+
+  const OnEquipmentCardClick = () => {
+    setDetailSection('Equipment');
+  }
 
   //#region Selections
   // SelectEquipment - Update the user's selections of Equipment
@@ -170,7 +176,70 @@ function InventoryPage(props) {
   //#region Deletion
   // DeleteSelectedEquipment - TODO: Implement Mass Equipment Deletion API
   const DeleteSelectedEquipment = () => {
-    console.log('Delete Selected Equipment');
+    setConfirmationModal({
+      title: 'Remove Equipment',
+      content: 'Are you sure you want to remove the selected equipment?',
+      warning: 'This will also permanently delete all equipment and the action cannot be undone.',
+      onYes: () => {
+        CloseConfirmationModal();
+        setResponseModal({
+          message: 'Deleting the selected equipment...',
+          isVisible: true,
+        });
+        setIsProcessing(true);
+
+        axios
+          .delete(`${API.domain}/api/inventory/equipment`, {
+            headers: {
+              'X-API-KEY': API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              serialId: selectedEquipment,
+            },
+          })
+          .then(response => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: MESSAGE.successEquipmentMassRemoval,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500)
+            FetchEquipmentInventory();
+            setSelectedEquipment([]);
+            FetchTypeInventory();
+            setSelectedTypes([]);
+            FetchModelInventory();
+            setSelectedModels([]);
+          })
+          .catch(error => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: 'Something went wrong while deleting the selected equipment.',
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          })
+      },
+      onNo: () => {
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
   };
 
   // DeleteSelectedModels - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
@@ -434,7 +503,7 @@ function InventoryPage(props) {
             <Logo className='InventoryPage-LogoContainer'/>
             <p className='heading-2'>Inventory</p>
           </div>
-          {!editSection && (
+          {!detailSection && !editSection && (
             <>
               {/* Page Content */}
               <div className='InventoryPage-ContentContainer'>
@@ -585,7 +654,8 @@ function InventoryPage(props) {
                     <EquipmentInventory 
                       equipmentInventory={equipmentInventory}
                       selectedEquipment={selectedEquipment}
-                      onSelectEquipment={SelectEquipment}/>
+                      onSelectEquipment={SelectEquipment}
+                      onEquipmentCardClick={OnEquipmentCardClick}/>
                     <div className='InventoryPage-MobileBottomActionContainer'>
                       {selectedEquipment.length === 1 && (
                         <StandardButton
@@ -678,20 +748,23 @@ function InventoryPage(props) {
               </div>
             </>
           )}
-          {editSection === 'Type' && (
+          {!detailSection && editSection === 'Type' && (
             <UpdateTypePage 
               setEditSection={setEditSection}
-              typeId={selectedTypes && selectedTypes[0]}
+              typeId={selectedTypes?.[0]}
               isUpdated={isUpdated}
               setIsUpdated={setIsUpdated}/>
             )
           }
-          {editSection === 'Model' && (
+          {!detailSection && editSection === 'Model' && (
             <UpdateModelPage
               setEditSection={setEditSection}
-              modelId={selectedModels && selectedModels[0]}
+              modelId={selectedModels?.[0]}
               isUpdated={isUpdated}
               setIsUpdated={setIsUpdated}/>
+          )}
+          {detailSection === 'Equipment' && !editSection && (
+            <EquipmentDetailsPage />
           )}
         </div>
       </GeneralPage>

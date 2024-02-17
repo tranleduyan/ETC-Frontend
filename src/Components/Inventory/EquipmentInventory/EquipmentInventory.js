@@ -14,7 +14,7 @@ import './EquipmentInventory.css';
 function EquipmentInventory(props) {
   
   // Extract necessary props
-  const { className, equipmentInventory, selectedEquipment, onSelectEquipment } = props;
+  const { className, equipmentInventory, selectedEquipment, onSelectEquipment, onEquipmentCardClick } = props;
 
   return (
     <div className={`${equipmentInventory?.length > 0 ? 'EquipmentInventory-Container' : 'EquipmentInventory-Message'} ${className}`}>
@@ -28,7 +28,8 @@ function EquipmentInventory(props) {
             modelPhoto={item.modelPhoto}
             maintenanceStatus={item.maintenanceStatus}
             isSelected={selectedEquipment.includes(item.serialId)}
-            onSelect={onSelectEquipment}/>
+            onSelect={onSelectEquipment}
+            onClick={onEquipmentCardClick}/>
       ))
         :
           <p className='paragraph-1'>{MESSAGE.emptyEquipment}</p>
@@ -43,11 +44,13 @@ EquipmentInventory.propTypes = {
     selectedEquipment: PropTypes.array.isRequired,
     onSelectEquipment: PropTypes.func.isRequired,
     equipmentInventory: PropTypes.array.isRequired,
+    onEquipmentCardClick: PropTypes.func,
 };
 
 // Define defaultProps for EquipmentInventory
 EquipmentInventory.defaultProps = {
     className: '',
+    onEquipmentCardClick: () => {},
 };
 
 // Exports the EquipmentInventory component as the default export for the EquipmentInventory module.
