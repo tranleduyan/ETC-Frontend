@@ -130,6 +130,7 @@
     }
 
     .UpdateModelPage-BackButton {
-        width: calc(3.3375vmin);
+        width: calc(0.834375vmin);
+        padding: 0;
     }
 }

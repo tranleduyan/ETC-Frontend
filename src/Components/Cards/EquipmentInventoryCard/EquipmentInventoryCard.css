@@ -15,6 +15,10 @@
     justify-content: center;
     align-items: center;
     color: var(--Black1);
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
 }
 
 .EquipmentInventoryCard-ModelPhoto img {
@@ -29,6 +33,16 @@
     justify-content: center;
     flex: 1;
     overflow: hidden;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    color: var(--Black1);
+}
+
+.EquipmentInventoryCard-ModelPhoto:hover,
+.EquipmentInventoryCard-InformationContainer:hover {
+    cursor: pointer;
 }
 
 .EquipmentInventoryCard-Information {

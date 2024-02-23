@@ -16,7 +16,7 @@ function Message(props) {
   const hiddenClassName = `hide ${className}`;
 
   return (
-    <div className={`${visibility === false ? hiddenClassName : className} Message-Container`}>
+    <div className={`Message-Container ${visibility === false ? hiddenClassName : className}`}>
       {/* Render the specified Icon component if provided */}
       {Icon &&
           <Icon className='Message-Icon'/>

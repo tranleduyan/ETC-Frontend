@@ -28,31 +28,35 @@ function EquipmentInventoryCard(props) {
     onSelect(serialId);
   };
 
+  // HandleOnClick - Handler for card clicking
+  const HandleOnClick = () => {
+    onClick(serialId);
+  };
+
   return (
-    <div className={`EquipmentInventoryCard-Container ${isSelected ? 'EquipmentInventoryCard-Active' : ''} ${className}`}
-         onClick={onClick}>
-      <div className='EquipmentInventoryCard-ModelPhoto'>
-        {/* Display Equipment Model Photo */}
-        {equipmentModelPhoto && (
-          <img src={modelPhoto}
-               alt='Equipment Model'
-               onError={() => setEquipmentModelPhoto(null)}/>
-        )}
-        {/* Display Default Equipment Model Icon */}
-        {!equipmentModelPhoto && (
-          <FontAwesomeIcon 
-            icon={faScrewdriverWrench} 
-            className='EquipmentInventoryCard-DefaultModelIcon'/>
-        )}
-      </div>
-      {/* Equipment Information Section */}
-      <div className='EquipmentInventoryCard-InformationContainer'>
-        <p className='heading-5'>{typeName}</p>
-        <div className='EquipmentInventoryCard-Information'>
-          <p className='paragraph-3'>{serialId}</p>
-          <p className='paragraph-3'>{maintenanceStatus}</p>
-        </div>
-      </div>
+    <div className={`EquipmentInventoryCard-Container ${isSelected ? 'EquipmentInventoryCard-Active' : ''} ${className}`}>
+        <button className='EquipmentInventoryCard-ModelPhoto' onClick={HandleOnClick}>
+          {/* Display Equipment Model Photo */}
+          {equipmentModelPhoto && (
+            <img src={modelPhoto}
+                alt='Equipment Model'
+                onError={() => setEquipmentModelPhoto(null)}/>
+          )}
+          {/* Display Default Equipment Model Icon */}
+          {!equipmentModelPhoto && (
+            <FontAwesomeIcon 
+              icon={faScrewdriverWrench} 
+              className='EquipmentInventoryCard-DefaultModelIcon'/>
+          )}
+        </button>
+        {/* Equipment Information Section */}
+        <button className='EquipmentInventoryCard-InformationContainer' onClick={HandleOnClick}>
+          <p className='heading-5'>{typeName}</p>
+          <div className='EquipmentInventoryCard-Information'>
+            <p className='paragraph-3'>{serialId}</p>
+            <p className='paragraph-3'>{maintenanceStatus}</p>
+          </div>
+        </button>
       {/* Equipment Selection Button */}
       <div className='EquipmentInventoryCard-SelectionContainer'>
         <IconButton

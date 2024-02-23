@@ -1,5 +1,5 @@
 /* General Stylings */
-.UpdateTypePage-ContentContainer {
+.UpdateEquipmentPage-ContentContainer {
     width: 100%;
     flex: 1;
     display: flex;
@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 
-.UpdateTypePage-ContentHeaderContainer {
+.UpdateEquipmentPage-ContentHeaderContainer {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -16,121 +16,138 @@
     align-items: center;
 }
 
-
-.UpdateTypePage-HeaderContainer {
+.UpdateEquipmentPage-HeaderContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
-.UpdateTypePage-ActionContainer {
+.UpdateEquipmentPage-BackButton {
+
+}
+
+.UpdateEquipmentPage-ActionContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 }
 
-.UpdateTypePage-ResponseModalIcon {
+.UpdateEquipmentPage-SaveButton {
+
+}
+
+.UpdateEquipmentPage-DeleteButton {
+
+}
+
+.UpdateEquipmentPage-MobileSaveButton {
+
+}
+
+.UpdateEquipmentPage-ConfirmationModalContainer {
+
+}
+
+.UpdateEquipmentPage-ResponseModalIcon {
     color: var(--Red1);
 }
 
-/* For tablets and bigger devices */
+.UpdateEquipmentPage-ResponseModalContainer {
+
+}
+
+/* For tablets and larger devices */
 @media screen and (min-width: 481px) {
-    .UpdateTypePage-ContentContainer {
+    .UpdateEquipmentPage-ContentContainer {
         height: 100% - calc(9.45625vmin);
         padding: calc(2.225vmin);
     }
 
-    .UpdateTypePage-ContentHeaderContainer {
+    .UpdateEquipmentPage-ContentHeaderContainer {
         height: calc(6.675vmin);
     }
 
-    .UpdateTypePage-HeaderContainer {
+    .UpdateEquipmentPage-HeaderContainer {
         gap: calc(2.225vmin);
     }
 
-    .UpdateTypePage-ActionContainer {
-
+    .UpdateEquipmentPage-ActionContainer {
         height: calc(6.675vmin);
         gap: calc(2.225vmin);
     }
 
-    .UpdateTypePage-SaveButton {
+    .UpdateEquipmentPage-SaveButton {
         width: calc(22.25vmin);
     }
 
-    .UpdateTypePage-DeleteButton {
+    .UpdateEquipmentPage-DeleteButton {
         width: calc(6.675vmin);
     }
 
-    .UpdateTypePage-MobileSaveButton {
+    .UpdateEquipmentPage-MobileSaveButton {
         display: none !important;
     }
 
-    .UpdateTypePage-MobileBottomActionContainer {
-        display: none !important;
-    }
-
-    .UpdateTypePage-ConfirmationModalContainer {
+    .UpdateEquipmentPage-ConfirmationModalContainer {
         width: calc(69.53125vmin);
         height: calc(41.71875vmin);
     }
 
-    .UpdateTypePage-ResponseModalContainer {
+    .UpdateEquipmentPage-ResponseModalContainer {
         width: calc(69.53125vmin);
         height: calc(41.71875vmin);
     }
 
-    .UpdateTypePage-BackButton {
+    .UpdateEquipmentPage-BackButton {
         width: calc(1.66875vmin);
     }
 }
 
-/* For mobiles and smaller devices */
+/* For mobile and smaller devices */
 @media screen and (max-width: 480px) {
-    .UpdateTypePage-ContentContainer {
+    .UpdateEquipmentPage-ContentContainer {
         height: 100% - calc(17.8vmin);
         padding: calc(4.45vmin);
     }
 
-    .UpdateTypePage-ContentHeaderContainer {
+    .UpdateEquipmentPage-ContentHeaderContainer {
         height: calc(13.35vmin);
     }
 
-    .UpdateTypePage-HeaderContainer {
+    .UpdateEquipmentPage-HeaderContainer {
         gap: calc(4.45vmin);
     }
 
-    .UpdateTypePage-ActionContainer {
+    .UpdateEquipmentPage-ActionContainer {
         width: calc(13.35vmin);
         height: calc(13.35vmin);
     }
 
-    .UpdateTypePage-SaveButton {
+    .UpdateEquipmentPage-SaveButton {
         display: none !important;
     }
 
-    .UpdateTypePage-DeleteButton {
+    .UpdateEquipmentPage-DeleteButton {
         width: calc(13.35vmin);
     }
 
-    .UpdateTypePage-MobileBottomActionContainer,
-    .UpdateTypePage-MobileSaveButton {
+    .UpdateEquipmentPage-MobileSaveButton {
         width: 100%;
     }
 
-    .UpdateTypePage-ConfirmationModalContainer {
+    .UpdateEquipmentPage-ConfirmationModalContainer {
         width: calc(91.225vmin);
         height: calc(103.4625vmin);
     }
 
-    .UpdateTypePage-ResponseModalContainer {
+    .UpdateEquipmentPage-ResponseModalContainer {
         width: calc(91.225vmin);
         height: calc(61.1875vmin);
     }
 
-    .UpdateTypePage-BackButton {
+    .UpdateEquipmentPage-BackButton {
         width: calc(0.834375vmin);
         padding: 0;
     }

@@ -23,10 +23,6 @@
     align-items: center;
 }
 
-.EquipmentDetailsPage-BackButton {
-
-}
-
 .EquipmentDetailsPage-ActionContainer {
     display: flex;
     flex-direction: row;
@@ -34,16 +30,98 @@
     align-items: center;
 }
 
-.EquipmentDetailsPage-ResponseModalIcon {
+.EquipmentDetailsPage-ReponseModalIcon {
     color: var(--Red1);
 }
 
-.EquipmentDetailsPage-EditButton {
-
+.EquipmentDetailsPage-Content {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
 }
 
-.EquipmentDetailsPage-DeleteButton {
+.EquipmentDetailsPage-MediaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
+.EquipmentDetailsPage-Media {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.EquipmentDetailsPage-Media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.EquipmentDetailsPage-DefaultPhotoIconContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--Gray2);
+    color: var(--Gray3);
+}
+
+.EquipmentDetailsPage-TypeModelContainer {
+    width: 100%;
+}
+
+.EquipmentDetailsPage-InformationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--Black1);
+} 
+
+.EquipmentDetailsPage-EquipmentInformationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--Black1);
+}
+
+.EquipmentDetailsPage-UsageHistoryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.EquipmentDetailsPage-UsageHistoryList {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: calc(0);
+}
+
+.EquipmentDetailsPage-UsageHistoryCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.EquipmentDetailsPage-UsageHistoryCard-Name {
+    flex: 1;
+}
+
+.EquipmentDetailsPage-EmptyUsageHistoryMessage {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    color: var(--Gray3);
 }
 
 /* For tablets and bigger devices */
@@ -51,6 +129,7 @@
     .EquipmentDetailsPage-ContentContainer {
         height: 100% - calc(9.45625vmin);
         padding: calc(2.225vmin);
+        gap: calc(2.225vmin);
     }
 
     .EquipmentDetailsPage-ContentHeaderContainer {
@@ -84,6 +163,11 @@
 
     .EquipmentDetailsPage-ConfirmationModalContainer {
         width: calc(69.53125vmin);
+        max-height: calc(41.71875vmin);
+    }
+
+    .EquipmentDetailsPage-ResponseModalContainer {
+        width: calc(69.53125vmin);
         height: calc(41.71875vmin);
     }
 
@@ -92,89 +176,47 @@
     }
 
     .EquipmentDetailsPage-Content {
-        flex: 1;
-        display: flex;
         flex-direction: row;
-        justify-content: flex-start;
         gap: calc(4.45vmin);
-        width: 100%;
     }
 
     .EquipmentDetailsPage-MediaContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         height: 100%;
         width: calc(35.04375vmin);
         gap: calc(2.225vmin);
     }
 
     .EquipmentDetailsPage-Media {
-        width: 100%;
         height: calc(35.04375vmin);
-        border: none;
-        background-color: transparent;
     }
 
     .EquipmentDetailsPage-DefaultPhotoIconContainer {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
         font-size: calc(8.34375vmin);
-        height: 100%;
-        width: 100%;
-        background-color: var(--Gray2);
         border-radius: calc(1.390625vmin);
-        color: var(--Gray3);
     }
 
     .EquipmentDetailsPage-TypeModelContainer {
         text-align: center;
-        width: 100%;
     }
 
     .EquipmentDetailsPage-EquipmentInformationContainer {
         flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         gap: calc(2.225vmin);
     }
 
     .EquipmentDetailsPage-InformationContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         gap: calc(1.1125vmin);
     }
 
     .EquipmentDetailsPage-UsageHistoryContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         flex: 1;
         height: 100%;
         gap: calc(calc(2.225vmin));
     }
 
-    .EquipmentDetailsPage-UsageHistoryList {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: calc(0);
-    }
-
     .EquipmentDetailsPage-UsageHistoryCard {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        box-sizing: border-box;
         padding: calc(2.225vmin);
         gap: calc(2.225vmin);
-        width: 100%;
         border-top: calc(0.278125vmin) solid var(--Gray1);
         border-left: calc(0.278125vmin) solid var(--Gray1);
         border-right: calc(0.278125vmin) solid var(--Gray1);
@@ -191,10 +233,6 @@
     .EquipmentDetailsPage-UsageHistoryCard-Time {
         width: calc(7.509375vmin);
     }
-
-    .EquipmentDetailsPage-UsageHistoryCard-Name {
-        flex: 1;
-    }
 }
 
 /* For phones and smaller devices */
@@ -202,6 +240,7 @@
     .EquipmentDetailsPage-ContentContainer {
         height: 100% - calc(17.8vmin);
         padding: calc(4.45vmin);
+        gap: calc(4.45vmin);
     }
 
     .EquipmentDetailsPage-ContentHeaderContainer {
@@ -228,11 +267,12 @@
     .EquipmentDetailsPage-MobileBottomActionContainer,
     .EquipmentDetailsPage-MobileEditButton {
         width: 100%;
+        height: calc(13.35vmin);
     }
 
     .EquipmentDetailsPage-ConfirmationModalContainer {
         width: calc(91.225vmin);
-        height: calc(103.4625vmin);
+        max-height: calc(103.4625vmin);
     }
 
     .EquipmentDetailsPage-ResponseModalContainer {
@@ -241,6 +281,65 @@
     }
 
     .EquipmentDetailsPage-BackButton {
-        width: calc(3.3375vmin);
+        width: calc(0.834375vmin);
+        padding: 0;
+    }
+
+    .EquipmentDetailsPage-Content {
+        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+        flex-direction: column;
+        gap: calc(8.9vmin);
+        width: 100%;
+        overflow-y: scroll;
+    }
+
+    .EquipmentDetailsPage-MediaContainer {
+        width: 100%;
+        gap: calc(4.45vmin);
+    }
+
+    .EquipmentDetailsPage-Media {
+        height: calc(91.225vmin);
+    }
+
+    .EquipmentDetailsPage-DefaultPhotoIconContainer {
+        font-size: calc(16.6875vmin);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .EquipmentDetailsPage-TypeModelContainer {
+        text-align: left;
+    }
+
+    .EquipmentDetailsPage-EquipmentInformationContainer {
+        gap: calc(4.45vmin);
+    }
+
+    .EquipmentDetailsPage-InformationContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .EquipmentDetailsPage-UsageHistoryContainer {
+        gap: calc(calc(4.45vmin));
+    }
+
+    .EquipmentDetailsPage-UsageHistoryCard {
+        padding: calc(4.45vmin);
+        gap: calc(4.45vmin);
+        border-top: calc(0.55625vmin) solid var(--Gray1);
+        border-left: calc(0.55625vmin) solid var(--Gray1);
+        border-right: calc(0.55625vmin) solid var(--Gray1);
+    }
+
+    .EquipmentDetailsPage-UsageHistoryCard:last-child {
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    }
+
+    .EquipmentDetailsPage-UsageHistoryCard-Date {
+        width: calc(29.759375vmin);
+    }
+
+    .EquipmentDetailsPage-UsageHistoryCard-Time {
+        width: calc(15.01875vmin);
     }
 }

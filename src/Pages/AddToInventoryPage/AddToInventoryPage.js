@@ -13,7 +13,7 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
-import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
+import EquipmentForm from '../../Components/Forms/EquipmentForm/EquipmentForm';
 import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
 import ModelForm from '../../Components/Forms/ModelForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
@@ -508,14 +508,15 @@ function AddToInventoryPage(props) {
               {currentSection === 'Equipment' && (
                 <>
                   {/* Equipment Form */}
-                  <EquipmentAdditionForm 
-                    equipmentAdditionInformation={equipmentAdditionInformation}
-                    setEquipmentAdditionInformation={setEquipmentAdditionInformation}
+                  <EquipmentForm 
+                    equipmentInformation={equipmentAdditionInformation}
+                    setEquipmentInformation={setEquipmentAdditionInformation}
                     isError={equipmentIsError}
                     errorMessage={equipmentErrorMessage}
                     equipmentModels={equipmentModels}
                     equipmentModelOptions={equipmentModelOptions}
-                    equipmentTypeOptions={equipmentTypeOptions}/>
+                    equipmentTypeOptions={equipmentTypeOptions}
+                    disableReservationStatus={true}/>
                   {/* Mobile Add Equipment Button */}
                   <StandardButton 
                     title='Add Equipment'

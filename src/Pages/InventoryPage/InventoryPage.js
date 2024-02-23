@@ -31,6 +31,7 @@ import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/Unautho
 import UpdateTypePage from '../UpdateTypePage/UpdateTypePage';
 import UpdateModelPage from '../UpdateModelPage/UpdateModelPage';
 import EquipmentDetailsPage from '../EquipmentDetailsPage/EquipmentDetailsPage';
+import UpdateEquipmentPage from '../UpdateEquipmentPage/UpdateEquipmentPage';
 //#endregion
 
 // Define InventoryPage Component
@@ -45,6 +46,7 @@ function InventoryPage(props) {
   const [currentSection, setCurrentSection] = useState('Equipment');
   const [editSection, setEditSection] = useState('');
   const [detailSection, setDetailSection] = useState('');
+  const [equipmentDetailSerialId, setEquipmentDetailSerialId] = useState('');
 
   const [selectedEquipment, setSelectedEquipment] = useState([]);
   const [equipmentInventory, setEquipmentInventory] = useState([]);
@@ -98,8 +100,9 @@ function InventoryPage(props) {
     console.log('Filter');
   };
 
-  const OnEquipmentCardClick = () => {
+  const OnEquipmentCardClick = (equipmentSerialId) => {
     setDetailSection('Equipment');
+    setEquipmentDetailSerialId(equipmentSerialId);
   }
 
   //#region Selections
@@ -179,7 +182,7 @@ function InventoryPage(props) {
     setConfirmationModal({
       title: 'Remove Equipment',
       content: 'Are you sure you want to remove the selected equipment?',
-      warning: 'This will also permanently delete all equipment and the action cannot be undone.',
+      warning: 'This will also permanently delete all selected equipment and the action cannot be undone.',
       onYes: () => {
         CloseConfirmationModal();
         setResponseModal({
@@ -764,7 +767,18 @@ function InventoryPage(props) {
               setIsUpdated={setIsUpdated}/>
           )}
           {detailSection === 'Equipment' && !editSection && (
-            <EquipmentDetailsPage />
+            <EquipmentDetailsPage 
+              setDetailSection={setDetailSection}
+              setEditSection={setEditSection}
+              equipmentSerialId={equipmentDetailSerialId}
+              setIsUpdated={setIsUpdated}/>
+          )}
+          {editSection === 'Equipment' && (
+            <UpdateEquipmentPage 
+              equipmentSerialId={equipmentDetailSerialId}
+              setEditSection={setEditSection}
+              setIsUpdated={setIsUpdated}
+              isUpdated={isUpdated}/>
           )}
         </div>
       </GeneralPage>

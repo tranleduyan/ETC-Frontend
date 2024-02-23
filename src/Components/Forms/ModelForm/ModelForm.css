@@ -125,13 +125,13 @@
     }
 
     .ModelForm-VisualContainer {
-        height: calc(68.975vmin);
+        height: calc(91.225vmin);
         width: 100%; 
     }
 
     .ModelForm-PromptContainer,
     .ModelForm-TypeModelPhoto img {
-        height: calc(68.975vmin);
+        height: calc(91.225vmin);
         border-radius: calc(2.78125vmin);
     }
 

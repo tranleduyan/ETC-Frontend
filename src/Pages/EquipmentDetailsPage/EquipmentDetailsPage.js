@@ -1,9 +1,13 @@
 //#region Import Neccessary Dependencies
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API } from '../../Constants';
+import { connect } from 'react-redux';
+import { resetUserData } from '../../storage';
 //#endregion
 
 //#region Import UI Components
-
+import Message from '../../Components/Message/Message';
 //#endregion
 
 // Import Stylings
@@ -15,20 +19,34 @@ import IconModal from '../../Components/Modals/IconModal/IconModal';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+//#endregion
 
 //#region Import Icons
 
 //#endregion
 
 // Define EquipmentDetailsPage Component
-function EquipmentDetailsPage() {
+function EquipmentDetailsPage(props) {
+
+  // Extract relevant information
+  const { setDetailSection, setEditSection, schoolId, equipmentSerialId, setIsUpdated } = props;
 
   // State to handle equipment model photo loading errors
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState('');
-
-  // Model form error state and error message
-  const [modelIsError, setModelIsError] = useState(false); 
-  const [modelErrorMessage, setModelErrorMessage] = useState('');
+  const [equipmentInformation, setEquipmentInformation] = useState({
+    typeName: '',
+    modelName: '',
+    serialId: '',
+    maintenanceStatus: '',
+    reservationStatus: '',
+    usageCondition: '',
+    purchaseCost: '',
+    purchaseDate: '',
+    rfidTag: '',
+    currentRoom: '',
+    homeRooms: [],
+    usageHistory: [],
+  });
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -51,15 +69,104 @@ function EquipmentDetailsPage() {
   });
 
   const OnBack = () => {
-    console.log('Back');
+    setDetailSection('');
+    setEditSection('');
+    setEquipmentModelPhoto('');
+    setEquipmentInformation({
+      typeName: '',
+      modelName: '',
+      serialId: '',
+      maintenanceStatus: '',
+      reservationStatus: '',
+      usageCondition: '',
+      purchaseCost: '',
+      purchaseDate: '',
+      rfidTag: '',
+      currentRoom: '',
+      homeRooms: [],
+      usageHistory: [],
+    });
+  };
+
+  // CloseConfirmationModal - Hide/Close the confirmation modal
+  const CloseConfirmationModal = () => {
+    setConfirmationModal({
+      title: '',
+      content: '',
+      warning: '',
+      onYes: () => {},
+      onNo: () => {},
+      isVisible: false,
+    });
   };
 
   const HandleEdit = () => {
-    console.log('Edit');
+    setEditSection('Equipment');
   };
 
   const DeleteEquipment = () => {
-    console.log('Delete');
+    setConfirmationModal({
+      title: `Remove Equipment`,
+      content: `Are you sure you want to remove ${equipmentInformation.serialId}?`,
+      warning: `This will also permanently delete ${equipmentInformation.serialId} and the action cannot be undone.`,
+      onYes: () => {
+        CloseConfirmationModal();
+        setResponseModal({
+          message: `Deleting ${equipmentInformation.serialId}...`,
+          isVisible: true,
+        });
+        setIsProcessing(true);
+
+        axios
+          .delete(`${API.domain}/api/inventory/equipment`, {
+            headers: {
+              'X-API-KEY': API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              serialId: [equipmentInformation.serialId],
+            },
+          })
+          .then(response => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: `${equipmentInformation.serialId} has been successfully removed from the inventory.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+              OnBack();
+            }, 1500);
+            setIsUpdated(true);
+          })
+          .catch(error => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: `Something went wrong while deleting ${equipmentInformation.serialId}.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+            setIsUpdated(false);
+          });
+      },
+      // Close the confirmation modal if choose not to proceed further
+      onNo: () => {
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    })
   };
 
   const ResponseIcon = () => {
@@ -69,7 +176,54 @@ function EquipmentDetailsPage() {
       return responseModal.error ? HiExclamationCircle : HiCheckCircle;
     }
   };
-    
+  
+  const FetchEquipmentInformation = () => {
+    axios
+      .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setEquipmentModelPhoto(response.data.responseObject.modelPhoto);
+        
+        setEquipmentInformation({
+          typeName: response.data.responseObject.typeName,
+          modelName: response.data.responseObject.modelName,
+          serialId: response.data.responseObject.serialId,
+          maintenanceStatus: response.data.responseObject.maintenanceStatus,
+          reservationStatus: response.data.responseObject.reservationStatus,
+          usageCondition: response.data.responseObject.usageCondition,
+          purchaseCost: response.data.responseObject.purchaseCost !== '$--.--' ? `$${response.data.responseObject.purchaseCost}`
+                                                                               : response.data.responseObject.purchaseCost,
+          purchaseDate: response.data.responseObject.purchaseDate,
+          rfidTag: response.data.responseObject.rfidTag,
+          currentRoom: response.data.responseObject.currentRoom,
+          homeRooms: response.data.responseObject.homeRooms,
+          usageHistory: [],
+        });
+      })
+      .catch(error => {
+        setResponseModal({
+          message: 'Something went wrong while retrieving the current equipment information.',
+          error: true,
+          isVisible: true,
+        });
+        setTimeout(() => {
+          setResponseModal({
+            message: '',
+            error: false,
+            isVisible: false,
+          });
+          OnBack();
+        }, 1500);
+      });
+  };
+
+  useEffect(() => {
+    FetchEquipmentInformation();
+  }, []);
+
   return (
     <>
       {/* Response Modal for displaying successful messages or errors */}
@@ -99,7 +253,7 @@ function EquipmentDetailsPage() {
               className='EquipmentDetailsPage-BackButton'
               onClick={OnBack}/>
             {/* Header */}
-            <p className='heading-5'>AM-92871</p>
+            <p className='heading-5'>{equipmentInformation.serialId}</p>
           </div>
           {/* Action Container */}
           <div className='EquipmentDetailsPage-ActionContainer'>
@@ -134,49 +288,75 @@ function EquipmentDetailsPage() {
               )}
             </div>
             <div className='EquipmentDetailsPage-TypeModelContainer'>
-              <p className='heading-5'>Ammeter</p>
-              <p className='paragraph-1'>Fluke 117</p>
+              <p className='heading-5'>{equipmentInformation.typeName}</p>
+              <p className='paragraph-1'>{equipmentInformation.modelName}</p>
             </div>
           </div>
           <div className='EquipmentDetailsPage-EquipmentInformationContainer'>
             <div className='EquipmentDetailsPage-InformationContainer'>
               <p className='heading-5'>Status</p>
               <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>Maintenance: Ready</p>
-                <p className='paragraph-1'>Reservation: Available</p>
+                <p className='paragraph-1'>Maintenance: {equipmentInformation.maintenanceStatus}</p>
+                <p className='paragraph-1'>Reservation: {equipmentInformation.reservationStatus}</p>
               </div>
             </div>
             <div className='EquipmentDetailsPage-InformationContainer'>
               <p className='heading-5'>Acquisition</p>
               <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>Condition: New</p>
-                <p className='paragraph-1'>Cost: $200.00</p>
-                <p className='paragraph-1'>Purchase Date: 11/20/2023</p>
+                <p className='paragraph-1'>Condition: {equipmentInformation.usageCondition}</p>
+                <p className='paragraph-1'>Cost: {equipmentInformation.purchaseCost}</p>
+                <p className='paragraph-1'>Purchase Date: {equipmentInformation.purchaseDate}</p>
               </div>
             </div>
             <div className='EquipmentDetailsPage-InformationContainer'>
               <p className='heading-5'>Location</p>
               <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>RFID Tag: 0A28EHUA76</p>
-                <p className='paragraph-1'>Current Room: 201</p>
-                <p className='paragraph-1'>Home Room: 202, 102, 241</p>
+                <p className='paragraph-1'>RFID Tag: {equipmentInformation.rfidTag}</p>
+                <p className='paragraph-1'>Current Room: {equipmentInformation.currentRoom}</p>
+                <p className='paragraph-1'>Home Room: {equipmentInformation.homeRooms?.length > 0 ? equipmentInformation.homeRooms : 'None'}</p>
               </div>
             </div>
           </div>
           <div className='EquipmentDetailsPage-UsageHistoryContainer'>
             <p className='heading-5'>Usage History</p>
-            <div className='EquipmentDetailsPage-UsageHistoryList'>
-              <div className='EquipmentDetailsPage-UsageHistoryCard'>
-                <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date'>11/23/2023</p>
-                <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time'>12:00</p>
-                <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name'>Aaron Walt</p>
-              </div>
-            </div>
+              {/** For future use.
+                <div className='EquipmentDetailsPage-UsageHistoryList'>
+                  <div className='EquipmentDetailsPage-UsageHistoryCard'>
+                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date'>11/23/2023</p>
+                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time'>12:00</p>
+                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name'>Aaron Walt</p>
+                  </div>
+                </div>
+              */}
+              {equipmentInformation.usageHistory?.length === 0 &&
+                <Message 
+                  message={'The equipment has not been used by anyone.'} 
+                  className='EquipmentDetailsPage-EmptyUsageHistoryMessage'/>
+              }
           </div>
+        </div>
+        <div className='EquipmentDetailsPage-MobileBottomActionContainer'>
+          <StandardButton
+                title='Edit'
+                onClick={HandleEdit}
+                className='EquipmentDetailsPage-MobileEditButton'
+                icon={HiPencilAlt}/>
         </div>
       </div>
     </>
   )
 };
 
-export default EquipmentDetailsPage;
+// Map from Redux state to component props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(EquipmentDetailsPage);
