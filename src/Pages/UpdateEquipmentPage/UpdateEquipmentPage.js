@@ -33,7 +33,8 @@ function UpdateEquipmentPage(props) {
 
   // Options for equipment models dropdowns
   const [equipmentModelOptions, setEquipmentModelOptions] = useState([]);
-  const [initialModel, setInitialModel] = useState('');
+  const [initial, setInitial] = useState(true);
+  const [initialModel, setInitialModel] = useState(null);
 
   // Options for equipment types dropdowns
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
@@ -57,8 +58,6 @@ function UpdateEquipmentPage(props) {
     purchaseCost: '',
     purchaseDate: null,
   });
-  
-  const [isInit, setIsInit] = useState(false);
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -128,50 +127,6 @@ function UpdateEquipmentPage(props) {
     }
   };
 
-  // FetchEquipmentInformation - Fetching all information of the current equipment.
-  const FetchEquipmentInformation = () => {
-    axios
-      .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
-        headers: {
-          'X-API-KEY': API.key,
-        }
-      })
-      .then(response => {
-        const responseObject = response.data.responseObject;
-        setEquipmentInformation({
-          serialNumber: responseObject.serialId,
-          type: equipmentTypeOptions.find((type) => type.label === responseObject.typeName),
-          model: null,
-          maintenanceStatus: OPTIONS.equipment.maintenanceStatus.find((status) => status.value === responseObject.maintenanceStatus),
-          reservationStatus: OPTIONS.equipment.reservationStatus.find((status) => status.value === responseObject.reservationStatus),
-          rfidTag: '',
-          homeLocation: null,
-          condition: OPTIONS.equipment.conditions.find((condition) => condition.value === responseObject.usageCondition),
-          purchaseCost: response.data.responseObject.purchaseCost === '$--.--' ? ''
-                                                                               : parseFloat(responseObject.purchaseCost.replace('$', '')),
-          purchaseDate: response.data.responseObject.purchaseDate === '--/--/----' ? '' 
-                                                                                   : new Date(responseObject.purchaseDate),
-        });
-        setIsInit(true);
-        setInitialModel(responseObject.modelName);
-      })
-      .catch(error => {
-        setResponseModal({
-          message: 'Something went wrong while retrieving the current equipment information.',
-          error: true,
-          isVisible: true,
-        });
-        setTimeout(() => {
-          setResponseModal({
-            message: '',
-            error: false,
-            isVisible: false,
-          });
-          OnBack();
-        }, 1500);
-      });
-  };
-
   // FetchAllTypeOptions - Fetching all the types available.
   const FetchAllTypeOptions = () => {
     axios
@@ -202,7 +157,46 @@ function UpdateEquipmentPage(props) {
   // Only fetch if there are equipmentTypeOptions and equipmentModelOptions 
   useEffect(() => {
     if(equipmentTypeOptions) {
-      FetchEquipmentInformation();
+      axios
+        .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
+          headers: {
+            'X-API-KEY': API.key,
+          }
+        })
+        .then(response => {
+          const responseObject = response.data.responseObject;
+          // Map value and label
+          const options = responseObject.modelOptions?.map(model => ({
+            value: model.modelId,
+            label: model.modelName,
+          }));
+          
+          // Set the equipmentModels to the response object - Array of all models of a type
+          setEquipmentModels(responseObject.modelOptions);
+          
+          // Set the equipmentModelOptions to options
+          setEquipmentModelOptions(options);
+          const equipmentInfo = {
+            serialNumber: responseObject.serialId,
+            type: equipmentTypeOptions.find((type) => type.label === responseObject.typeName),
+            model: null,
+            maintenanceStatus: OPTIONS.equipment.maintenanceStatus.find((status) => status.value === responseObject.maintenanceStatus),
+            reservationStatus: OPTIONS.equipment.reservationStatus.find((status) => status.value === responseObject.reservationStatus),
+            rfidTag: '',
+            homeLocation: null,
+            condition: OPTIONS.equipment.conditions.find((condition) => condition.value === responseObject.usageCondition),
+            purchaseCost: response.data.responseObject.purchaseCost === '$--.--' ? ''
+                                                                                 : parseFloat(responseObject.purchaseCost.replace('$', '')),
+            purchaseDate: response.data.responseObject.purchaseDate === '--/--/----' ? '' 
+                                                                                     : new Date(responseObject.purchaseDate),
+          };
+
+          setEquipmentInformation(equipmentInfo);
+          setInitialModel(responseObject.modelName);
+        })
+        .catch(error => {
+
+        });
     }
   }, [equipmentTypeOptions]);
 
@@ -237,23 +231,17 @@ function UpdateEquipmentPage(props) {
         }
       });
     }
-    
-    // Reset the model information and model photo whenever the type is changed/updated
-    if(!isInit) {
-      setEquipmentInformation({...equipmentInformation, 'model': null});
-    }
+
+    setEquipmentInformation({...equipmentInformation, 'model': null});
     // eslint-disable-next-line
   }, [equipmentInformation.type]);
 
   useEffect(() => {
-    if(isInit) {
-      setEquipmentInformation({...equipmentInformation,
-                               'model': equipmentModelOptions.find((model) => 
-                                model.label === initialModel
-                               )});
-      setIsInit(false);
+    if(initialModel && equipmentModelOptions) {
+      setEquipmentInformation({...equipmentInformation, 'model': equipmentModelOptions.find((model) => (model.label === initialModel))});
+      setInitialModel(null);
     }
-  }, [isInit])
+  }, [initialModel, equipmentModelOptions]);
 
   // IsEquipmentFormValid - Check for form validation
   const IsEquipmentFormValid = () => {

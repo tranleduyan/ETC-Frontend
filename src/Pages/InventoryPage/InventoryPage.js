@@ -163,6 +163,7 @@ function InventoryPage(props) {
   //#region Edit/Update
   const EditSelectedEquipment = () => {
     setEditSection('Equipment');
+    setEquipmentDetailSerialId(selectedEquipment?.[0]);
   };
 
   // EditSelectModel - TODO: Render the Edit Model Component
