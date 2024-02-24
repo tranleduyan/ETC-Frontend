@@ -27,7 +27,7 @@ import { HiBookmarkAlt, HiChevronLeft, HiTrash,
 function UpdateEquipmentPage(props) {
   
   // Extract relevant information
-  const { setEditSection, equipmentSerialId, schoolId, setIsUpdated } = props;
+  const { detailSection, setDetailSection, setEditSection, equipmentSerialId, schoolId, setIsUpdated } = props;
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
@@ -219,7 +219,26 @@ function UpdateEquipmentPage(props) {
                 error: false,
                 isVisible: false,
               });
-              OnBack();
+
+              setEditSection('');
+              setEquipmentInformation({
+                serialNumber: '',
+                type: null,
+                model: null,
+                maintenanceStatus: '',
+                reservationStatus: OPTIONS.equipment.reservationStatus.find(
+                  (status) => status.value === 'Available'
+                ),
+                rfidTag: '',
+                homeLocation: null,
+                condition: '',
+                purchaseCost: '',
+                purchaseDate: null,
+              });
+
+              if(detailSection) {
+                setDetailSection('');
+              }
             }, 1500);
             setIsUpdated(true);
           })
@@ -506,14 +525,16 @@ function UpdateEquipmentPage(props) {
 
 // Define PropTypes
 UpdateEquipmentPage.propTypes = {
+  detailSection: PropTypes.string.isRequired,
+  setDetailSection: PropTypes.func,
   setEditSection: PropTypes.func.isRequired,
   equipmentSerialId: PropTypes.string.isRequired,
   schoolId: PropTypes.string,
-  setIsUpdated: PropTypes.bool.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
 };
 
 // Define defaultProps
-UpdateEquipmentPage.propTypes = {
+UpdateEquipmentPage.defaultProps = {
   schoolId: '',
 };
 

@@ -828,6 +828,8 @@ function InventoryPage(props) {
           {/* If there is an editSection for equipment */}
           {editSection === 'Equipment' && (
             <UpdateEquipmentPage 
+              detailSection={detailSection}
+              setDetailSection={setDetailSection}
               equipmentSerialId={equipmentDetailSerialId}
               setEditSection={setEditSection}
               setIsUpdated={setIsUpdated}
