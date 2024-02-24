@@ -1,0 +1,34 @@
+/* General Stylings */
+.NotificationsPage-UnavailableFeature {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+.NotificationsPage-UnavailableFeatureIcon {
+    color: var(--Red1);
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .NotificationsPage-UnavailableFeature {
+        gap: calc(2.225vmin);
+    }
+    .NotificationsPage-UnavailableFeatureIcon {
+        font-size: calc(4.45vmin);
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 481px) {
+    .NotificationsPage-UnavailableFeature {
+        gap: calc(4.45vmin);
+    }
+    .NotificationsPage-UnavailableFeatureIcon {
+        font-size: calc(8.9vmin);
+    }
+}

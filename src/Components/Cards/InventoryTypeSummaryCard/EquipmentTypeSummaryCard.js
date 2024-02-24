@@ -13,6 +13,7 @@ import { HiArchive } from 'react-icons/hi';
 function EquipmentTypeSummaryCard(props) {
 
   // Destructure props to extract relevant information
+  // eslint-disable-next-line
   const { className, typeID, typeName, inventoryAmount, reservationAmount, isSelected, OnEquipmentTypeSummaryCardClick } = props;
 
   // Determine whether to use 'item' or 'items' based on the inventory amount
@@ -21,14 +22,20 @@ function EquipmentTypeSummaryCard(props) {
   // Function triggered when the card is clicked
   const OnCardClick = () => {
     if(OnEquipmentTypeSummaryCardClick) {
-      OnEquipmentTypeSummaryCardClick(typeID);
+      // For future use, TODO: implement reserved equipment and rfid
+      //OnEquipmentTypeSummaryCardClick(typeID);
+      return;
     }    
+    return;
   };
 
   return (
     <button 
-      className={`${className} EquipmentTypeSummaryCard-Container ${isSelected ?  'EquipmentTypeSummaryCard-Active' : ''}`}
-      onClick={OnCardClick}>
+      className={`${className} EquipmentTypeSummaryCard-Container ${isSelected ?  
+                                                                                /* For Future use, TODO: implementing reserved equipment turn this on */
+                                                                                /* 'EquipmentTypeSummaryCard-Active' */
+                                                                               '' : ''}`}
+      onClick={(OnCardClick)}>
         {/* Container for equipment type information */}
         <div className='EquipmentTypeSummaryCard-InformationContainer'>
             {/* Icon representing equipment type */}
