@@ -62,33 +62,33 @@ function UpdateModelPage(props) {
     isVisible: false,
   });
 
-    // IsModelFormValid - Check for form validation
-    const IsModelFormValid = () => {
-      if(!modelInformation.name) {
-        setModelIsError(true);
-        setModelErrorMessage('Please enter the model name.');
-        return false;
-      }
+  // IsModelFormValid - Check for form validation
+  const IsModelFormValid = () => {
+    if(!modelInformation.name) {
+      setModelIsError(true);
+      setModelErrorMessage('Please enter the model name.');
+      return false;
+    }
   
-      if(!modelInformation.type) {
-        setModelIsError(true);
-        setModelErrorMessage('Please select the model type.');
-        return false;
-      }
+    if(!modelInformation.type) {
+      setModelIsError(true);
+      setModelErrorMessage('Please select the model type.');
+      return false;
+    }
   
-      if(!modelInformation.photo) {
-        setModelIsError(true);
-        setModelErrorMessage('Please upload the model photo.');
-        return false;
-      }
+    if(!modelInformation.photo) {
+      setModelIsError(true);
+      setModelErrorMessage('Please upload the model photo.');
+      return false;
+    }
   
-      if(modelIsError) {
-        setModelIsError(false);
-        setModelErrorMessage('');
-      }
+    if(modelIsError) {
+      setModelIsError(false);
+      setModelErrorMessage('');
+    }
   
-      return true;
-    };
+    return true;
+  };
 
   // OnBack - Set editSection to empty to hide the component and show the previous page.
   const OnBack = () => {
@@ -103,6 +103,7 @@ function UpdateModelPage(props) {
   // SaveUpdate - Update the model information
   const SaveUpdate = () => {
     if(IsModelFormValid()) {
+      // Show processing message
       setIsProcessing(true);
       setResponseModal({
         message: 'Saving the updates...',
@@ -117,6 +118,7 @@ function UpdateModelPage(props) {
       formData.append('image', modelInformation.photo);
       formData.append('schoolId', schoolId);
 
+      // Perform API call for equipment model update
       axios
         .put(`${API.domain}/api/inventory/models/${modelId}`, formData, {
           headers: {
@@ -125,14 +127,17 @@ function UpdateModelPage(props) {
           }
         })
         .then(response => {
+          // Hide processing message
           setIsProcessing(false);
 
+          // Show success message
           setResponseModal({
             message: MESSAGE.successModelUpdate,
             error: false,
             isVisible: true,
           });
 
+          // Turn off the response modal after 1500ms.
           setTimeout(() => {
             setResponseModal({
               message: '',
@@ -143,7 +148,10 @@ function UpdateModelPage(props) {
           setIsUpdated(true);
         })
         .catch(error => {
+          // Hide processing message
           setIsProcessing(false);
+
+          // Show error message
           setResponseModal({
             message: 'Something went wrong while updating the current type.',
             error: true,
@@ -163,12 +171,16 @@ function UpdateModelPage(props) {
 
   // DeleteModel - Delete the model
   const DeleteModel = () => {
+    // Show confirmation modal for type deletion
     setConfirmationModal({
       title: 'Remove Model',
       content: 'Are you sure you want to remove the current equipment model?',
       warning: 'This will also permanently delete all equipment associated with the current model and the action cannot be undone.',
       onYes: () => {
+        // Close the confirmation modal
         CloseConfirmationModal();
+
+        // Set and Show the response modal
         setResponseModal({
           message: 'Deleting the current model...',
           isVisible: true,
@@ -209,7 +221,10 @@ function UpdateModelPage(props) {
             OnBack();
           })
           .catch(error => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show error message
             setResponseModal({
               message: 'Something went wrong while deleting the current model.',
               error: true,
@@ -254,6 +269,7 @@ function UpdateModelPage(props) {
     }
   };
 
+  // FetchModelInformation - fetch model information
   const FetchModelInformation = () => {
     axios
       .get(`${API.domain}/api/inventory/models/${modelId}`, {
@@ -267,6 +283,7 @@ function UpdateModelPage(props) {
         // Find the corresponding type option based on typeId
         const currentType = equipmentTypeOptions.find(option => option.value === typeId);
 
+        // Set model information
         setModelInformation({
           name: response.data.responseObject.modelName,
           photo: response.data.responseObject.modelPhoto,
@@ -274,23 +291,27 @@ function UpdateModelPage(props) {
         })
       })
       .catch(error => {
+        // Show Error Message
         setResponseModal({
           message:'Something went wrong while retrieving the current model information.',
           error: true,
           isVisible: true,
         });
+
+        // Turn off message after 1500ms, and go back.
         setTimeout(() => {
           setResponseModal({
             message: '',
             error: false,
             isVisible: false,
           });
+          OnBack();
         }, 1500);
         setIsUpdated(false);
-        OnBack();
       });
   };
 
+  // FetchAllTypeOptions - fetch all type options
   const FetchAllTypeOptions = () => {
     axios.get(`${API.domain}/api/inventory/types`, {
       headers: {
@@ -313,11 +334,13 @@ function UpdateModelPage(props) {
     });
   };
 
+  // Fetch all type options on component mount
   useEffect(() => {
     FetchAllTypeOptions();
     // eslint-disable-next-line
   }, [])
 
+  // Fetch model information when equipmentTypeOptions change
   useEffect(() => {
     if(equipmentTypeOptions) {
       FetchModelInformation();
@@ -406,4 +429,5 @@ const mapStateToProps = (state) => ({
   schoolId: state.user.userData?.schoolId,
 });
 
+// Exports the UpdateModelPage component as the default export for the UpdateModelPage module.
 export default connect(mapStateToProps)(UpdateModelPage);

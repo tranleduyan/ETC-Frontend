@@ -101,6 +101,7 @@ function UpdateEquipmentPage(props) {
   // SaveUpdate - Save the updates made to equipment
   const SaveUpdate = () => {
     if(IsEquipmentFormValid()) {
+      // Show processing message
       setIsProcessing(true);
       setResponseModal({
         message: 'Saving the updates...',
@@ -119,6 +120,7 @@ function UpdateEquipmentPage(props) {
         purchaseDate: equipmentInformation.purchaseDate ? new Date(equipmentInformation.purchaseDate).toISOString().split('T')[0] : null,
       };
 
+      // Perform API call for equipment type update
       axios
         .put(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, requestBody, {
           headers: {
@@ -126,13 +128,17 @@ function UpdateEquipmentPage(props) {
           },
         })
         .then(response => {
+          // Hide processing message
           setIsProcessing(false);
+
+          // Show success message
           setResponseModal({
             message: MESSAGE.successEquipmentUpdate,
             error: false,
             isVisible: true
           });
 
+          // Turn off the response modal after 1500ms.
           setTimeout(() => {
             setResponseModal({
               message: '',
@@ -144,7 +150,10 @@ function UpdateEquipmentPage(props) {
           setIsUpdated(true);
         })
         .catch(error => {
+          // Hide processing message
           setIsProcessing(false);
+
+          // Show error message
           setResponseModal({
             message: 'Something went wrong while updating the current equipment.',
             error: true,
@@ -240,6 +249,52 @@ function UpdateEquipmentPage(props) {
       },
       isVisible: true,
     })
+  };
+
+  // IsEquipmentFormValid - Check for form validation
+  const IsEquipmentFormValid = () => {
+    if(!equipmentInformation.serialNumber) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment serial number.');
+      return false;
+    }
+    
+    if(!equipmentInformation.type) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment type.');
+      return false;
+    }
+
+    if (!equipmentInformation.model) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please enter the equipment model.');
+      return false;
+    }
+
+    if (!equipmentInformation.maintenanceStatus) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the maintenance status.');
+      return false;
+    }
+
+    if (!equipmentInformation.reservationStatus) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the reservation status.');
+      return false;
+    }
+
+    if (!equipmentInformation.condition) {
+      setEquipmentIsError(true);
+      setEquipmentErrorMessage('Please select the equipment condition.');
+      return false;
+    }
+
+    if(equipmentIsError) {
+      setEquipmentIsError(false);
+      setEquipmentErrorMessage('');
+    }
+
+    return true;
   };
 
   // CloseConfirmationModal - Hide/Close the confirmation modal
@@ -382,52 +437,6 @@ function UpdateEquipmentPage(props) {
     }
     // eslint-disable-next-line
   }, [initialModel, equipmentModelOptions]);
-
-  // IsEquipmentFormValid - Check for form validation
-  const IsEquipmentFormValid = () => {
-    if(!equipmentInformation.serialNumber) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment serial number.');
-      return false;
-    }
-    
-    if(!equipmentInformation.type) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment type.');
-      return false;
-    }
-
-    if (!equipmentInformation.model) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment model.');
-      return false;
-    }
-
-    if (!equipmentInformation.maintenanceStatus) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the maintenance status.');
-      return false;
-    }
-
-    if (!equipmentInformation.reservationStatus) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the reservation status.');
-      return false;
-    }
-
-    if (!equipmentInformation.condition) {
-      setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the equipment condition.');
-      return false;
-    }
-
-    if(equipmentIsError) {
-      setEquipmentIsError(false);
-      setEquipmentErrorMessage('');
-    }
-
-    return true;
-  };
 
   return (
     <>

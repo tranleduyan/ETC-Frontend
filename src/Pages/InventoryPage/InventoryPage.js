@@ -37,7 +37,7 @@ import UpdateEquipmentPage from '../UpdateEquipmentPage/UpdateEquipmentPage';
 // Define InventoryPage Component
 function InventoryPage(props) {
 
-  // Extract necessary props - TODO: Implement userRole restriction access
+  // Extract necessary props
   const { userRole, schoolId } = props;
 
   const navigate = useNavigate();

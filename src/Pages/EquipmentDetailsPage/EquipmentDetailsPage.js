@@ -1,10 +1,10 @@
 //#region Import Neccessary Dependencies
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { API } from '../../Constants';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage';
-import PropTypes from 'prop-types';
 //#endregion
 
 //#region Import UI Components

@@ -84,6 +84,7 @@ function UpdateTypePage(props) {
   // SaveUpdate - Update the type information
   const SaveUpdate = () => {
     if(IsTypeFormValid()) {
+      // Show processing message
       setIsProcessing(true);
       setResponseModal({
         message: 'Saving the updates...',
@@ -95,7 +96,8 @@ function UpdateTypePage(props) {
         schoolId: schoolId,
         equipmentTypeName: typeInformation.name,
       };
-
+      
+      // Perform API call for equipment type update
       axios
         .put(`${API.domain}/api/inventory/types/${typeId}`, requestBody, {
           headers: {
@@ -103,14 +105,17 @@ function UpdateTypePage(props) {
           },
         })
         .then(response => {
+          // Hide processing message
           setIsProcessing(false);
 
+          // Show success message
           setResponseModal({
             message: MESSAGE.successTypeUpdate,
             error: false,
             isVisible: true
           });
 
+          // Turn off the response modal after 1500ms.
           setTimeout(() => {
             setResponseModal({
               message: '',
@@ -121,7 +126,10 @@ function UpdateTypePage(props) {
           setIsUpdated(true);
         })
         .catch(error => {
+          // Hide processing message
           setIsProcessing(false);
+
+          // Show error message
           setResponseModal({
             message: 'Something went wrong while updating the current type.',
             error: true,
@@ -141,6 +149,7 @@ function UpdateTypePage(props) {
 
   // DeleteType - Delete the type
   const DeleteType = () => {
+    // Show confirmation modal for type deletion
     setConfirmationModal({
       title: 'Remove Type',
       content: 'Are you sure you want to remove the current equipment type?',
@@ -190,7 +199,10 @@ function UpdateTypePage(props) {
             OnBack();
           }) 
           .catch(error => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show error message
             setResponseModal({
               message: 'Something went wrong while deleting the current type.',
               error: true,

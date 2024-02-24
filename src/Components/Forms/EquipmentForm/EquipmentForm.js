@@ -20,7 +20,7 @@ import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';
 //#endregion
 
-// Define EquipmentAdditionForm Component
+// Define EquipmentForm Component
 function EquipmentForm(props) {
 
   // Extract relevant information
@@ -30,7 +30,7 @@ function EquipmentForm(props) {
   // Photo of the equipment model
   const [equipmentTypeModelPhoto, setEquipmentTypeModelPhoto] = useState(null);
 
-  // HandleEquipmentAdditionInputChange - Update the information of equipmentAdditionInformation with the new value to the propertyName
+  // HandleEquipmentInputChange - Update the information of equipmentInformation with the new value to the propertyName
   const HandleEquipmentInputChange = (propertyName, value) => {
     setEquipmentInformation({...equipmentInformation, [propertyName]: value})
   };
@@ -187,7 +187,7 @@ function EquipmentForm(props) {
               type='number'
               value={equipmentInformation.purchaseCost}
               onChange={(name, value) => HandleEquipmentInputChange(name, value)}/>
-            {/* TODO: PurchaseDate Date Select */}
+            {/* PurchaseDate Date Select */}
             <DatePickerInputField className='EquipmentForm-Field EquipmentAdditionForm-MarginField'
                                   name='purchaseDate'
                                   placeholder='Select purchase date'
@@ -235,5 +235,5 @@ EquipmentForm.defaultProps = {
   disableSerialNumber: false,
 };
 
-// Exports the EquipmentAdditionForm component as the default export for the EquipmentAdditionForm module.
+// Exports the EquipmentForm component as the default export for the EquipmentForm module.
 export default EquipmentForm;
