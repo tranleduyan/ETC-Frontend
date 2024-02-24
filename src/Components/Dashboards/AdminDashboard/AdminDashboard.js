@@ -1,5 +1,6 @@
 //#region Import Necessary Dependencies 
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'
 import { resetUserData } from '../../../storage';
 import { connect } from 'react-redux';
@@ -333,6 +334,10 @@ function AdminDashboard(props) {
       </div>
     </GeneralPage>
   )
+};
+
+AdminDashboard.propTypes = {
+  resetUserData: PropTypes.func.isRequired,
 };
 
 // Define the actions to be mapped to props

@@ -38,7 +38,6 @@ function InventorySummaryList(props) {
     });
   }, []);
 
-  /* TODO: Not modelCount but should be equipmentCount */
   return (
     <div className={`${inventoryTypes?.length > 0 ? 'InventorySummaryList-Container' : 'InventorySummaryList-Message'} ${className}`}>
       {/* Render EquipmentTypeSummaryCard components for each inventory type summary */}
