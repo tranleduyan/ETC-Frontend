@@ -23,10 +23,6 @@
     align-items: center;
 }
 
-.UpdateEquipmentPage-BackButton {
-
-}
-
 .UpdateEquipmentPage-ActionContainer {
     display: flex;
     flex-direction: row;
@@ -34,28 +30,8 @@
     align-items: center;
 }
 
-.UpdateEquipmentPage-SaveButton {
-
-}
-
-.UpdateEquipmentPage-DeleteButton {
-
-}
-
-.UpdateEquipmentPage-MobileSaveButton {
-
-}
-
-.UpdateEquipmentPage-ConfirmationModalContainer {
-
-}
-
 .UpdateEquipmentPage-ResponseModalIcon {
     color: var(--Red1);
-}
-
-.UpdateEquipmentPage-ResponseModalContainer {
-
 }
 
 /* For tablets and larger devices */
@@ -92,7 +68,7 @@
 
     .UpdateEquipmentPage-ConfirmationModalContainer {
         width: calc(69.53125vmin);
-        height: calc(41.71875vmin);
+        max-height: calc(41.71875vmin);
     }
 
     .UpdateEquipmentPage-ResponseModalContainer {
@@ -139,7 +115,7 @@
 
     .UpdateEquipmentPage-ConfirmationModalContainer {
         width: calc(91.225vmin);
-        height: calc(103.4625vmin);
+        max-height: calc(103.4625vmin);
     }
 
     .UpdateEquipmentPage-ResponseModalContainer {

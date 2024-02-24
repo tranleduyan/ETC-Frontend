@@ -25,7 +25,7 @@ function EquipmentForm(props) {
 
   // Extract relevant information
   const { className, equipmentModels, equipmentModelOptions, equipmentTypeOptions, equipmentInformation, setEquipmentInformation, isError, errorMessage,
-          disableReservationStatus} = props;
+          disableSerialNumber, disableReservationStatus} = props;
 
   // Photo of the equipment model
   const [equipmentTypeModelPhoto, setEquipmentTypeModelPhoto] = useState(null);
@@ -99,7 +99,8 @@ function EquipmentForm(props) {
             placeholder='Enter equipment serial number'
             name='serialNumber'
             value={equipmentInformation.serialNumber}
-            onChange={(name, value) => HandleEquipmentInputChange(name, value)}/>
+            onChange={(name, value) => HandleEquipmentInputChange(name, value)}
+            disabled={disableSerialNumber}/>
           <div className='EquipmentForm-BinaryFieldGroup'>
             {/* Type DropDown */}
             <StandardDropDown
@@ -222,6 +223,7 @@ EquipmentForm.propTypes = {
   equipmentModelOptions: PropTypes.array.isRequired,
   equipmentTypeOptions: PropTypes.array.isRequired,
   disableReservationStatus: PropTypes.bool,
+  disableSerialNumber: PropTypes.bool,
 };
 
 // Define Default Props for the component
@@ -230,6 +232,7 @@ EquipmentForm.defaultProps = {
   isError: false,
   errorMessage: '',
   disableReservationStatus: false,
+  disableSerialNumber: false,
 };
 
 // Exports the EquipmentAdditionForm component as the default export for the EquipmentAdditionForm module.

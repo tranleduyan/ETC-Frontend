@@ -9,7 +9,7 @@ import './StandardTextInputField.css';
 // Render the standard text input field
 function StandardTextInputField(props) {
   
-  const { className, placeholder, name, type, value, onChange, visibility, onKeyDown } = props;
+  const { className, placeholder, name, type, value, onChange, visibility, onKeyDown, disabled } = props;
 
   // Class Name Styling for hidden visibility
   const hiddenClassName = `hide ${className}`;
@@ -31,7 +31,8 @@ function StandardTextInputField(props) {
            name={name}
            value={value}
            onChange={HandleInputChange}
-           onKeyDown={onKeyDown}/>
+           onKeyDown={onKeyDown}
+           disabled={disabled}/>
   )
 };
 
@@ -44,7 +45,8 @@ StandardTextInputField.propTypes = {
   value: PropTypes.any,
   onChange: PropTypes.func.isRequired,
   visibility: PropTypes.bool,
-  onKeyDown: PropTypes.func
+  onKeyDown: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -54,7 +56,8 @@ StandardTextInputField.defaultProps = {
   type: 'text',
   visibility: true,
   value: '',
-  onKeyDown: () => {}
+  onKeyDown: () => {},
+  disabled: false,
 };
 
 // Exports the StandardTextInputField component as the default export for the StandardTextInputField module.

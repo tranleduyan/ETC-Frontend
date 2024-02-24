@@ -1,9 +1,9 @@
 //#region Import Neccessary Dependencies
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import { API, MESSAGE, OPTIONS } from '../../Constants';
 import { connect } from 'react-redux';
+import { resetUserData } from '../../storage';
 //#endregion
 
 //#region Import UI Components
@@ -26,14 +26,13 @@ import { HiBookmarkAlt, HiChevronLeft, HiTrash,
 function UpdateEquipmentPage(props) {
   
   // Extract relevant information
-  const { detailSection, setEditSection, equipmentSerialId, schoolId, setIsUpdated } = props;
+  const { setEditSection, equipmentSerialId, schoolId, setIsUpdated } = props;
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
 
   // Options for equipment models dropdowns
   const [equipmentModelOptions, setEquipmentModelOptions] = useState([]);
-  const [initial, setInitial] = useState(true);
   const [initialModel, setInitialModel] = useState(null);
 
   // Options for equipment types dropdowns
@@ -99,12 +98,133 @@ function UpdateEquipmentPage(props) {
   };
 
   const SaveUpdate = () => {
-    console.log('save.');
+    if(IsEquipmentFormValid()) {
+      setIsProcessing(true);
+      setResponseModal({
+        message: 'Saving the updates...',
+        error: false,
+        isVisible: true,
+      });
+
+      const requestBody = {
+        schoolId: schoolId,
+        typeId: equipmentInformation.type.value,
+        modelId: equipmentInformation.model.value,
+        maintenanceStatus: equipmentInformation.maintenanceStatus.value,
+        reservationStatus: equipmentInformation.reservationStatus.value,
+        usageCondition: equipmentInformation.condition.value,
+        purchaseCost: parseFloat(equipmentInformation.purchaseCost),
+        purchaseDate: equipmentInformation.purchaseDate ? new Date(equipmentInformation.purchaseDate).toISOString().split('T')[0] : null,
+      };
+
+      axios
+        .put(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          },
+        })
+        .then(response => {
+          setIsProcessing(false);
+          setResponseModal({
+            message: MESSAGE.successEquipmentUpdate,
+            error: false,
+            isVisible: true
+          });
+
+          setTimeout(() => {
+            setResponseModal({
+              message: '',
+              error: false,
+              isVisible: false,
+            });
+          }, 1500);
+          
+          setIsUpdated(true);
+        })
+        .catch(error => {
+          setIsProcessing(false);
+          setResponseModal({
+            message: 'Something went wrong while updating the current equipment.',
+            error: true,
+            isVisible: true,
+          });
+          setTimeout(() => {
+            setResponseModal({
+              message: '',
+              error: false,
+              isVisible: false,
+            });
+          }, 1500);
+          setIsUpdated(false);
+        });
+    }
   };
 
   const DeleteEquipment = () => {
-    console.log('delete.');
-  }
+    setConfirmationModal({
+      title: 'Remove Equipment',
+      content: `Are you sure you want to remove ${equipmentSerialId}?`,
+      warning: `This will also permanently delete ${equipmentSerialId} and the action cannot be undone.`,
+      onYes: () => {
+        CloseConfirmationModal();
+
+        setResponseModal({
+          message: `Deleting ${equipmentSerialId}...`,
+          isVisible: true,
+        });
+
+        setIsProcessing(true);
+
+        axios
+          .delete(`${API.domain}/api/inventory/equipment`, {
+            headers: {
+              'X-API-KEY': API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              serialId: [equipmentSerialId],
+            },
+          })
+          .then(response => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: `${equipmentSerialId} has been successfully removed from the inventory.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+              OnBack();
+            }, 1500);
+            setIsUpdated(true);
+          })
+          .catch(error => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: 'Something went wrong while deleting the equipment.',
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: '',
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+            setIsUpdated(false);
+          });
+      },
+      onNo: () => {
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    })
+  };
 
   // CloseConfirmationModal - Hide/Close the confirmation modal
   const CloseConfirmationModal = () => {
@@ -165,17 +285,6 @@ function UpdateEquipmentPage(props) {
         })
         .then(response => {
           const responseObject = response.data.responseObject;
-          // Map value and label
-          const options = responseObject.modelOptions?.map(model => ({
-            value: model.modelId,
-            label: model.modelName,
-          }));
-          
-          // Set the equipmentModels to the response object - Array of all models of a type
-          setEquipmentModels(responseObject.modelOptions);
-          
-          // Set the equipmentModelOptions to options
-          setEquipmentModelOptions(options);
           const equipmentInfo = {
             serialNumber: responseObject.serialId,
             type: equipmentTypeOptions.find((type) => type.label === responseObject.typeName),
@@ -195,9 +304,22 @@ function UpdateEquipmentPage(props) {
           setInitialModel(responseObject.modelName);
         })
         .catch(error => {
-
+          setResponseModal({
+            message: 'Something went wrong while retrieving the current equipment information.',
+            error: true,
+            isVisible: true,
+          });
+          setTimeout(() => {
+            setResponseModal({
+              message: '',
+              error: false,
+              isVisible: false,
+            });
+            OnBack();
+          }, 1500);
         });
     }
+  // eslint-disable-next-line
   }, [equipmentTypeOptions]);
 
   // Fetch all the equipment models of a selected type.
@@ -237,10 +359,11 @@ function UpdateEquipmentPage(props) {
   }, [equipmentInformation.type]);
 
   useEffect(() => {
-    if(initialModel && equipmentModelOptions) {
+    if(initialModel && equipmentModelOptions.length > 0) {
       setEquipmentInformation({...equipmentInformation, 'model': equipmentModelOptions.find((model) => (model.label === initialModel))});
       setInitialModel(null);
     }
+    // eslint-disable-next-line
   }, [initialModel, equipmentModelOptions]);
 
   // IsEquipmentFormValid - Check for form validation
@@ -342,7 +465,8 @@ function UpdateEquipmentPage(props) {
           errorMessage={equipmentErrorMessage}
           equipmentModels={equipmentModels}
           equipmentModelOptions={equipmentModelOptions}
-          equipmentTypeOptions={equipmentTypeOptions}/>
+          equipmentTypeOptions={equipmentTypeOptions}
+          disableSerialNumber={true}/>
         {/* Mobile Save Update Button */}
         <StandardButton
           title='Save'
@@ -354,4 +478,15 @@ function UpdateEquipmentPage(props) {
   )
 };
 
-export default UpdateEquipmentPage;
+// Map from Redux state to component props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateEquipmentPage);

@@ -9,6 +9,13 @@
     color: var(--Gray3);
 }
 
+input[type="number"]:disabled,
+input[type="text"]:disabled {
+    background-color: var(--Gray2);
+    color: var(--Gray3);
+}
+
+
 /* For tablet and bigger devices */
 @media screen and (min-width: 481px) {
     .StandardTextInputField {

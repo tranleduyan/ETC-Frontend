@@ -158,6 +158,9 @@ function InventoryPage(props) {
     else if(currentSection === 'Model') {
       setSelectedModels([]);
     }
+    else if(currentSection === 'Equipment') {
+      setSelectedEquipment([]);
+    }
   };
 
   //#region Edit/Update
