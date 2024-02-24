@@ -4,6 +4,7 @@ import axios from 'axios';
 import { API, MESSAGE, OPTIONS } from '../../Constants';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage';
+import PropTypes from 'prop-types';
 //#endregion
 
 //#region Import UI Components
@@ -97,6 +98,7 @@ function UpdateEquipmentPage(props) {
     });
   };
 
+  // SaveUpdate - Save the updates made to equipment
   const SaveUpdate = () => {
     if(IsEquipmentFormValid()) {
       setIsProcessing(true);
@@ -160,14 +162,18 @@ function UpdateEquipmentPage(props) {
     }
   };
 
+  // DeleteEquipment - Delete the current equipment 
   const DeleteEquipment = () => {
+    // Show confirmation modal for type deletion
     setConfirmationModal({
       title: 'Remove Equipment',
       content: `Are you sure you want to remove ${equipmentSerialId}?`,
       warning: `This will also permanently delete ${equipmentSerialId} and the action cannot be undone.`,
       onYes: () => {
+        // Close confirmation modal
         CloseConfirmationModal();
 
+        // Show processing message
         setResponseModal({
           message: `Deleting ${equipmentSerialId}...`,
           isVisible: true,
@@ -175,6 +181,7 @@ function UpdateEquipmentPage(props) {
 
         setIsProcessing(true);
 
+        // Perform API call for equipment deletion
         axios
           .delete(`${API.domain}/api/inventory/equipment`, {
             headers: {
@@ -186,12 +193,17 @@ function UpdateEquipmentPage(props) {
             },
           })
           .then(response => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show success message
             setResponseModal({
               message: `${equipmentSerialId} has been successfully removed from the inventory.`,
               error: false,
               isVisible: true,
             });
+
+            // Turn off the response modal after 1500ms and navigate back.
             setTimeout(() => {
               setResponseModal({
                 message: '',
@@ -203,7 +215,10 @@ function UpdateEquipmentPage(props) {
             setIsUpdated(true);
           })
           .catch(error => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show error message
             setResponseModal({
               message: 'Something went wrong while deleting the equipment.',
               error: true,
@@ -219,6 +234,7 @@ function UpdateEquipmentPage(props) {
             setIsUpdated(false);
           });
       },
+      // Close the confirmation modal if choose not to proceed further
       onNo: () => {
         CloseConfirmationModal();
       },
@@ -358,6 +374,7 @@ function UpdateEquipmentPage(props) {
     // eslint-disable-next-line
   }, [equipmentInformation.type]);
 
+  // Set equipment model if available from initial model options
   useEffect(() => {
     if(initialModel && equipmentModelOptions.length > 0) {
       setEquipmentInformation({...equipmentInformation, 'model': equipmentModelOptions.find((model) => (model.label === initialModel))});
@@ -478,6 +495,19 @@ function UpdateEquipmentPage(props) {
   )
 };
 
+// Define PropTypes
+UpdateEquipmentPage.propTypes = {
+  setEditSection: PropTypes.func.isRequired,
+  equipmentSerialId: PropTypes.string.isRequired,
+  schoolId: PropTypes.string,
+  setIsUpdated: PropTypes.bool.isRequired,
+};
+
+// Define defaultProps
+UpdateEquipmentPage.propTypes = {
+  schoolId: '',
+};
+
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
@@ -488,5 +518,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   resetUserData,
 };
-
+// Connect the component to Redux, mapping state and actions to props
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateEquipmentPage);

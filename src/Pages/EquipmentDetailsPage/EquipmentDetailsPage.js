@@ -4,25 +4,25 @@ import axios from 'axios';
 import { API } from '../../Constants';
 import { connect } from 'react-redux';
 import { resetUserData } from '../../storage';
+import PropTypes from 'prop-types';
 //#endregion
 
 //#region Import UI Components
 import Message from '../../Components/Message/Message';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
+import IconButton from '../../Components/Buttons/IconButton/IconButton';
 //#endregion
 
 // Import Stylings
 import './EquipmentDetailsPage.css';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import { HiCheckCircle, HiChevronLeft, HiExclamationCircle, HiPencilAlt, HiSwitchHorizontal, HiTrash } from 'react-icons/hi';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 //#endregion
 
 //#region Import Icons
-
+import { HiCheckCircle, HiChevronLeft, HiExclamationCircle, HiPencilAlt, HiSwitchHorizontal, HiTrash } from 'react-icons/hi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 //#endregion
 
 // Define EquipmentDetailsPage Component
@@ -68,6 +68,7 @@ function EquipmentDetailsPage(props) {
     isVisible: false,
   });
 
+  // OnBack - Handle back action
   const OnBack = () => {
     setDetailSection('');
     setEditSection('');
@@ -100,10 +101,12 @@ function EquipmentDetailsPage(props) {
     });
   };
 
+  // HandleEdit - Handle Edit Action
   const HandleEdit = () => {
     setEditSection('Equipment');
   };
 
+  // DeleteEquipment - Delete the equipment upon yes selection, else close the confirmation modal if no.
   const DeleteEquipment = () => {
     setConfirmationModal({
       title: `Remove Equipment`,
@@ -169,6 +172,7 @@ function EquipmentDetailsPage(props) {
     })
   };
 
+  // ResponseIcon - Determine response icon based on processing state
   const ResponseIcon = () => {
     if(isProcessing) {
       return HiSwitchHorizontal;
@@ -177,6 +181,7 @@ function EquipmentDetailsPage(props) {
     }
   };
   
+  // FetchEquipmentInformation - Fetch equipment information
   const FetchEquipmentInformation = () => {
     axios
       .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
@@ -222,6 +227,7 @@ function EquipmentDetailsPage(props) {
 
   useEffect(() => {
     FetchEquipmentInformation();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -347,6 +353,20 @@ function EquipmentDetailsPage(props) {
   )
 };
 
+// Define PropTypes for the component
+EquipmentDetailsPage.propTypes = {
+  setDetailSection: PropTypes.func.isRequired,
+  setEditSection: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+  equipmentSerialId: PropTypes.string.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
+};
+
+// Define defaultProps
+EquipmentDetailsPage.defaultProps = {
+  schoolId: '',
+}; 
+
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
@@ -358,5 +378,5 @@ const mapDispatchToProps = {
   resetUserData,
 };
 
-
+// Connect the component to Redux, mapping state and actions to props
 export default connect(mapStateToProps, mapDispatchToProps)(EquipmentDetailsPage);

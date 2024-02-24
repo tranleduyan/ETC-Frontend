@@ -42,13 +42,24 @@ function InventoryPage(props) {
 
   const navigate = useNavigate();
 
-  // Section State of the page - Equipment, Type, Model tabs
+  //#region Section State of the page - Equipment, Type, Model tabs
+  // State for current section of the page
   const [currentSection, setCurrentSection] = useState('Equipment');
+  
+  // State for edit section (if any)
   const [editSection, setEditSection] = useState('');
-  const [detailSection, setDetailSection] = useState('');
-  const [equipmentDetailSerialId, setEquipmentDetailSerialId] = useState('');
 
+  // State for detail section (if any)
+  const [detailSection, setDetailSection] = useState('');
+
+  // State for equipment detail serial ID upon going to the detail section for fetching
+  const [equipmentDetailSerialId, setEquipmentDetailSerialId] = useState('');
+  //#endregion
+
+  // State for selected equipment
   const [selectedEquipment, setSelectedEquipment] = useState([]);
+
+  // State for equipment inventory
   const [equipmentInventory, setEquipmentInventory] = useState([]);
 
   // Types Inventory and Selection States
@@ -80,17 +91,17 @@ function InventoryPage(props) {
     isVisible: false,
   });
 
-  // AddEquipment
+  // AddEquipment - Navigate to add equipment page with equipment tab
   const AddEquipment = () => {
     navigate('/AddToInventory', {state: { section: 'Equipment'}});
   };
 
-  // AddType
+  // AddType - Navigate to add equipment page with type tab
   const AddType = () => {
     navigate('/AddToInventory', {state: { section: 'Type'}});
   };
 
-  // AddModel
+  // AddModel - Navigate to add equipment page with model tab
   const AddModel = () => {
     navigate('/AddToInventory', {state: { section: 'Model'}});
   }
@@ -100,6 +111,7 @@ function InventoryPage(props) {
     console.log('Filter');
   };
 
+  // OnEquipmentCardClick - Handle click on equipment card and navigate to detail page.
   const OnEquipmentCardClick = (equipmentSerialId) => {
     setDetailSection('Equipment');
     setEquipmentDetailSerialId(equipmentSerialId);
@@ -164,37 +176,42 @@ function InventoryPage(props) {
   };
 
   //#region Edit/Update
+  // EditSelectedEquipment - Render Edit Equipment Component
   const EditSelectedEquipment = () => {
     setEditSection('Equipment');
     setEquipmentDetailSerialId(selectedEquipment?.[0]);
   };
 
-  // EditSelectModel - TODO: Render the Edit Model Component
+  // EditSelectModel - Render the Edit Model Component
   const EditSelectedModel = () => {
     setEditSection('Model');
   };
 
-  // EditSelectedType - TODO: Render the Edit Type Component
+  // EditSelectedType - Render the Edit Type Component
   const EditSelectedType = () => {
     setEditSection('Type');
   };
   //#endregion
 
   //#region Deletion
-  // DeleteSelectedEquipment - TODO: Implement Mass Equipment Deletion API
+  // DeleteSelectedEquipment - Mass Equipment Deletion
   const DeleteSelectedEquipment = () => {
     setConfirmationModal({
       title: 'Remove Equipment',
       content: 'Are you sure you want to remove the selected equipment?',
       warning: 'This will also permanently delete all selected equipment and the action cannot be undone.',
       onYes: () => {
+        // Close confirmation modal
         CloseConfirmationModal();
+
+        // Show processing message
         setResponseModal({
           message: 'Deleting the selected equipment...',
           isVisible: true,
         });
         setIsProcessing(true);
 
+        // Perform API call for model deletion
         axios
           .delete(`${API.domain}/api/inventory/equipment`, {
             headers: {
@@ -206,7 +223,10 @@ function InventoryPage(props) {
             },
           })
           .then(response => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show success message
             setResponseModal({
               message: MESSAGE.successEquipmentMassRemoval,
               error: false,
@@ -219,6 +239,8 @@ function InventoryPage(props) {
                 isVisible: false,
               });
             }, 1500)
+
+            // Refresh inventory data and reset selections
             FetchEquipmentInventory();
             setSelectedEquipment([]);
             FetchTypeInventory();
@@ -227,7 +249,10 @@ function InventoryPage(props) {
             setSelectedModels([]);
           })
           .catch(error => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show error message
             setResponseModal({
               message: 'Something went wrong while deleting the selected equipment.',
               error: true,
@@ -243,6 +268,7 @@ function InventoryPage(props) {
           })
       },
       onNo: () => {
+        // Close confirmation modal if user chooses not to proceed
         CloseConfirmationModal();
       },
       isVisible: true,
@@ -251,18 +277,23 @@ function InventoryPage(props) {
 
   // DeleteSelectedModels - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
   const DeleteSelectedModels = () => {
+    // Show confirmation modal for model deletion
     setConfirmationModal({
       title: 'Remove Model',
       content: 'Are you sure you want to remove the selected equipment models?',
       warning: 'This will also permanently delete all equipment associated with the selected models and the action cannot be undone.',
       onYes: () => {
+        // Close confirmation modal
         CloseConfirmationModal();
+
+        // Show processing message
         setResponseModal({
           message: 'Deleting the selected models...',
           isVisible: true,
         });
         setIsProcessing(true);
 
+        // Perform API call for model deletion
         axios
           .delete(`${API.domain}/api/inventory/models`, {
             headers: {
@@ -274,7 +305,10 @@ function InventoryPage(props) {
             },
           })
           .then(reponse => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show success message
             setResponseModal({
               message: MESSAGE.successModelMassRemoval,
               error: false,
@@ -287,6 +321,8 @@ function InventoryPage(props) {
                 isVisible: false,
               });
             }, 1500);
+
+            // Refresh inventory data and reset selections
             FetchEquipmentInventory();
             setSelectedEquipment([]);
             FetchTypeInventory();
@@ -295,7 +331,10 @@ function InventoryPage(props) {
             setSelectedModels([]);
           })
           .catch(error => {
+            // Hide processing message
             setIsProcessing(false);
+  
+            // Show error message
             setResponseModal({
               message: 'Something went wrong while deleting the selected models.',
               error: true,
@@ -311,15 +350,16 @@ function InventoryPage(props) {
           })
       },
       onNo: () => {
+      // Close the confirmation modal if choose not to proceed further
         CloseConfirmationModal();
       },
       isVisible: true,
     });
   };
 
-
   // DeleteSelectedTypes - Show the confirmation modal with warnings, if yes, perform a delete, show the reponse modal, if no, close the confirmation modal
   const DeleteSelectedTypes = () => {
+    // Show confirmation modal for model deletion
     setConfirmationModal({
       title: 'Remove Type',
       content: 'Are you sure you want to remove the selected equipment types?',
@@ -392,6 +432,7 @@ function InventoryPage(props) {
       isVisible: true,
     });
   };
+  //#endregion
 
   //#region Helpers
   // FetchEquipmentInventory - Fetch all equipments in the inventory
@@ -471,6 +512,7 @@ function InventoryPage(props) {
     FetchModelInventory();
   }, []);
 
+  // useEffect to refresh data and reset selections after editing
   useEffect(() => {
     if(isUpdated && editSection === '') {
       FetchTypeInventory();
@@ -755,6 +797,8 @@ function InventoryPage(props) {
               </div>
             </>
           )}
+
+          {/* If there is a detailSection request for Type present */}
           {!detailSection && editSection === 'Type' && (
             <UpdateTypePage 
               setEditSection={setEditSection}
@@ -763,6 +807,8 @@ function InventoryPage(props) {
               setIsUpdated={setIsUpdated}/>
             )
           }
+
+          {/* If there is an editSection request for Model present */}
           {!detailSection && editSection === 'Model' && (
             <UpdateModelPage
               setEditSection={setEditSection}
@@ -770,6 +816,7 @@ function InventoryPage(props) {
               isUpdated={isUpdated}
               setIsUpdated={setIsUpdated}/>
           )}
+          {/* If there is a detailSection present and not have an editSection */}
           {detailSection === 'Equipment' && !editSection && (
             <EquipmentDetailsPage 
               setDetailSection={setDetailSection}
@@ -777,6 +824,8 @@ function InventoryPage(props) {
               equipmentSerialId={equipmentDetailSerialId}
               setIsUpdated={setIsUpdated}/>
           )}
+
+          {/* If there is an editSection for equipment */}
           {editSection === 'Equipment' && (
             <UpdateEquipmentPage 
               equipmentSerialId={equipmentDetailSerialId}
