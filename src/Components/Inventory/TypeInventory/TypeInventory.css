@@ -14,6 +14,10 @@
     height: 100%;
 }
 
+.TypeInventory-Container::-webkit-scrollbar {
+    display: none;
+}
+
 /* For Tablets and Larger Screen */
 @media screen and (min-width: 481px) {
     .TypeInventory-Container {
@@ -22,6 +26,7 @@
         grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
         gap: calc(3.02vmin);
         grid-template-rows: repeat(auto-fill, minmax(calc(13.90625vmin), calc(13.90625vmin)));
+        padding-bottom: calc(0.278125vmin);
     }
 }
 
@@ -33,5 +38,6 @@
         grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
         gap: calc(4.45vmin);
         grid-template-rows: repeat(auto-fill, calc(32.25vmin));
+        padding-bottom: calc(0.55625vmin);
     }
 }
