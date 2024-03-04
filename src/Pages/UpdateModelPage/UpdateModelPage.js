@@ -147,7 +147,7 @@ function UpdateModelPage(props) {
           }, 1500);
           setIsUpdated(true);
         })
-        .catch(() => {
+        .catch((error) => {
           // Hide processing message
           setIsProcessing(false);
 

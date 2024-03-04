@@ -16,7 +16,7 @@ function EquipmentTypeSummaryCard(props) {
   // eslint-disable-next-line
   const { className, typeID, typeName, inventoryAmount, reservationAmount, isSelected, OnEquipmentTypeSummaryCardClick } = props;
 
-  // Determine whether to use 'item' or 'items' based on the inventory amount
+  // Determine whether to use 'models' or 'model' based on the inventory amount
   const itemText = inventoryAmount > 1 ? 'models' : 'model';
 
   // Function triggered when the card is clicked
