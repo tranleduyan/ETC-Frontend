@@ -130,7 +130,7 @@ function EquipmentDetailsPage(props) {
               serialId: [equipmentInformation.serialId],
             },
           })
-          .then(response => {
+          .then(() => {
             setIsProcessing(false);
             setResponseModal({
               message: `${equipmentInformation.serialId} has been successfully removed from the inventory.`,
@@ -147,7 +147,7 @@ function EquipmentDetailsPage(props) {
             }, 1500);
             setIsUpdated(true);
           })
-          .catch(error => {
+          .catch(() => {
             setIsProcessing(false);
             setResponseModal({
               message: `Something went wrong while deleting ${equipmentInformation.serialId}.`,
@@ -208,7 +208,7 @@ function EquipmentDetailsPage(props) {
           usageHistory: [],
         });
       })
-      .catch(error => {
+      .catch(() => {
         setResponseModal({
           message: 'Something went wrong while retrieving the current equipment information.',
           error: true,
@@ -225,6 +225,7 @@ function EquipmentDetailsPage(props) {
       });
   };
 
+  // Fetch Equipment Information upon mounting
   useEffect(() => {
     FetchEquipmentInformation();
     // eslint-disable-next-line

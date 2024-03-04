@@ -104,7 +104,7 @@ function UpdateTypePage(props) {
             'X-API-KEY': API.key,
           },
         })
-        .then(response => {
+        .then(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -125,7 +125,7 @@ function UpdateTypePage(props) {
           }, 1500);
           setIsUpdated(true);
         })
-        .catch(error => {
+        .catch(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -178,7 +178,7 @@ function UpdateTypePage(props) {
               typeIds: [typeId],
             },
           })
-          .then(response => {
+          .then(() => {
             setIsProcessing(false);
             setResponseModal({
               message: MESSAGE.successTypeMassRemoval,
@@ -198,7 +198,7 @@ function UpdateTypePage(props) {
             // Return to the previous page
             OnBack();
           }) 
-          .catch(error => {
+          .catch(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -258,7 +258,7 @@ function UpdateTypePage(props) {
       .then(response => {
         setTypeInformation({...typeInformation, name: response.data.responseObject.typeName});
       })
-      .catch(error => {
+      .catch(() => {
         setResponseModal({
           message:'Something went wrong while retrieving the current type information.',
           error: true,

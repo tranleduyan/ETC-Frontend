@@ -121,7 +121,7 @@ function AddToInventoryPage(props) {
             'X-API-KEY': API.key,
           }
         })
-        .then(response => {
+        .then(() => {
           setIsLoading(false);
 
           setModalMessage(MESSAGE.successEquipmentAddition);
@@ -182,7 +182,7 @@ function AddToInventoryPage(props) {
             'X-API-KEY': API.key,
           }
         })
-        .then(response => {
+        .then(() => {
           setIsLoading(false);
           
           setModalMessage(MESSAGE.successTypeAddition);
@@ -234,7 +234,7 @@ function AddToInventoryPage(props) {
             'Content-Type': 'multipart/form-data',
           }
         })
-        .then(response => {
+        .then(() => {
           setIsLoading(false);
 
           setModalMessage(MESSAGE.successModelAddition);
@@ -372,7 +372,7 @@ function AddToInventoryPage(props) {
       // Set the options
       setEquipmentTypeOptions(options);
     })
-    .catch(error => {
+    .catch(() => {
       // Type not found, reset type options and models, model options as well as the model photo
       setEquipmentTypeOptions([]);
     });

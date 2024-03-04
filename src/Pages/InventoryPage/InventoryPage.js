@@ -222,7 +222,7 @@ function InventoryPage(props) {
               serialId: selectedEquipment,
             },
           })
-          .then(response => {
+          .then(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -248,7 +248,7 @@ function InventoryPage(props) {
             FetchModelInventory();
             setSelectedModels([]);
           })
-          .catch(error => {
+          .catch(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -304,7 +304,7 @@ function InventoryPage(props) {
               modelIds: selectedModels,
             },
           })
-          .then(reponse => {
+          .then(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -330,7 +330,7 @@ function InventoryPage(props) {
             FetchModelInventory();
             setSelectedModels([]);
           })
-          .catch(error => {
+          .catch(() => {
             // Hide processing message
             setIsProcessing(false);
   
@@ -388,7 +388,7 @@ function InventoryPage(props) {
               typeIds: selectedTypes,
             },
           })
-          .then(response => {
+          .then(() => {
             setIsProcessing(false);
             setResponseModal({
               message: MESSAGE.successTypeMassRemoval,
@@ -409,7 +409,7 @@ function InventoryPage(props) {
             FetchModelInventory();
             setSelectedModels([]);
           })
-          .catch(error => {
+          .catch(() => {
             setIsProcessing(false);
             setResponseModal({
               message: 'Something went wrong while deleting the selected types.',
@@ -446,7 +446,7 @@ function InventoryPage(props) {
       .then(response => {
         setEquipmentInventory(response.data.responseObject)
       })
-      .catch(error => {
+      .catch(() => {
         setEquipmentInventory([]);
       });
   };

@@ -127,7 +127,7 @@ function UpdateEquipmentPage(props) {
             'X-API-KEY': API.key,
           },
         })
-        .then(response => {
+        .then(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -149,7 +149,7 @@ function UpdateEquipmentPage(props) {
           
           setIsUpdated(true);
         })
-        .catch(error => {
+        .catch(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -201,7 +201,7 @@ function UpdateEquipmentPage(props) {
               serialId: [equipmentSerialId],
             },
           })
-          .then(response => {
+          .then(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -242,7 +242,7 @@ function UpdateEquipmentPage(props) {
             }, 1500);
             setIsUpdated(true);
           })
-          .catch(error => {
+          .catch(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -353,7 +353,7 @@ function UpdateEquipmentPage(props) {
 
         setEquipmentTypeOptions(options);
       })
-      .catch(error => {
+      .catch(() => {
         setEquipmentTypeOptions([]);
       });
   };
@@ -393,7 +393,7 @@ function UpdateEquipmentPage(props) {
           setEquipmentInformation(equipmentInfo);
           setInitialModel(responseObject.modelName);
         })
-        .catch(error => {
+        .catch(() => {
           setResponseModal({
             message: 'Something went wrong while retrieving the current equipment information.',
             error: true,

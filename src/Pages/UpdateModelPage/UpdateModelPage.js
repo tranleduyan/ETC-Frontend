@@ -126,7 +126,7 @@ function UpdateModelPage(props) {
             'Content-Type': 'multipart/form-data',
           }
         })
-        .then(response => {
+        .then(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -147,7 +147,7 @@ function UpdateModelPage(props) {
           }, 1500);
           setIsUpdated(true);
         })
-        .catch(error => {
+        .catch(() => {
           // Hide processing message
           setIsProcessing(false);
 
@@ -200,7 +200,7 @@ function UpdateModelPage(props) {
               modelIds: [modelId],
             },
           })
-          .then(response => {
+          .then(() => {
             setIsProcessing(false);
             setResponseModal({
               message: MESSAGE.successModelRemoval,
@@ -220,7 +220,7 @@ function UpdateModelPage(props) {
             // Return to the previous page
             OnBack();
           })
-          .catch(error => {
+          .catch(() => {
             // Hide processing message
             setIsProcessing(false);
 
@@ -290,7 +290,7 @@ function UpdateModelPage(props) {
           type: currentType,
         })
       })
-      .catch(error => {
+      .catch(() => {
         // Show Error Message
         setResponseModal({
           message:'Something went wrong while retrieving the current model information.',
@@ -328,7 +328,7 @@ function UpdateModelPage(props) {
       // Set the options
       setEquipmentTypeOptions(options);
     })
-    .catch(error => {
+    .catch(() => {
       // Type not found
       setEquipmentTypeOptions([]);
     });

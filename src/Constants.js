@@ -76,7 +76,9 @@ export const MESSAGE = {
     successModelUpdate: 'The model has been successfully updated in the inventory.',
 };
 
+// Constants for drop down options
 export const OPTIONS = {
+    // Options for equipments dropdowns - conditions, maintenance status, reservation status
     equipment: {
         conditions: [
             {

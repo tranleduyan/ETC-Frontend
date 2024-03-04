@@ -336,6 +336,7 @@ function AdminDashboard(props) {
   )
 };
 
+// Define the prop types of the component
 AdminDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
 };

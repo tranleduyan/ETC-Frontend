@@ -40,6 +40,7 @@ DatePickerInputField.propTypes = {
   onChange: PropTypes.func,
 };
 
+// Define default props of the component
 DatePickerInputField.defaultProps = {
   className: '',
   value: null,
