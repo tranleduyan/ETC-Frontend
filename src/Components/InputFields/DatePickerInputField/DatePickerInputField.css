@@ -1,0 +1,58 @@
+/* General Stylings */
+.react-datepicker-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.react-datepicker-wrapper input {
+    width: 100%;
+    font-family: 'Poppins Regular', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.react-datepicker-wrapper .react-datepicker__input-container {
+    display: flex;
+    align-items: center;
+}
+
+/* For tablet and bigger devices */
+@media screen and (min-width: 481px) {
+    .react-datepicker-wrapper input {
+        height: calc(6.675vmin);
+        padding: calc(1.66875vmin) !important;
+        border-radius: calc(1.390625vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        font-size: calc(2.225vmin);
+    }
+
+    .react-datepicker-wrapper input:focus {
+        border: calc(0.278125vmin) solid var(--Blue1);
+    }
+
+    .react-datepicker-wrapper .react-datepicker__input-container .react-datepicker__calendar-icon {
+        right: calc(1.689875vmin);
+        font-size: calc(2.78125vmin);
+    }
+}
+
+/* For phone and smaller devices */
+@media screen and (max-width: 480px) {
+    .react-datepicker-wrapper input {
+        height: calc(13.35vmin);
+        padding: calc(3.3375vmin) !important;
+        border-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        font-size: calc(4.45vmin);
+    }
+
+    .react-datepicker-wrapper input:focus {
+        border: calc(0.55625vmin) solid var(--Blue1);
+    }
+
+    .react-datepicker-wrapper .react-datepicker__input-container .react-datepicker__calendar-icon {
+        right: calc(3.3375vmin);
+        font-size: calc(5.5625vmin);
+    }
+}

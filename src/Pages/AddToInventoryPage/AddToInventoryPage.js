@@ -1,9 +1,10 @@
 //#region Import Necessary Dependencies
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { API, MESSAGE } from '../../Constants';
+import { API, MESSAGE, OPTIONS } from '../../Constants';
 import { resetUserData } from '../../storage';
 //#endregion
 
@@ -12,9 +13,9 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 import Logo from '../../Components/Logo/Logo';
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
-import EquipmentAdditionForm from '../../Components/Forms/EquipmentAdditionForm/EquipmentAdditionForm';
-import TypeAdditionForm from '../../Components/Forms/TypeAdditionForm/TypeAdditionForm';
-import ModelAdditionForm from '../../Components/Forms/ModelAdditionForm/ModelAdditionForm';
+import EquipmentForm from '../../Components/Forms/EquipmentForm/EquipmentForm';
+import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
+import ModelForm from '../../Components/Forms/ModelForm';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
 //#endregion
@@ -33,8 +34,11 @@ function AddToInventoryPage(props) {
   // Extract relevant information
   const { userRole, schoolId } = props;
 
+  const { state } = useLocation();
+  const { section } = state || {};
+
   // Section State of the page - Equipment, Type, Model tabs
-  const [currentSection, setCurrentSection] = useState('Equipment');
+  const [currentSection, setCurrentSection] = useState(!section ? 'Equipment' : section);
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
@@ -70,12 +74,14 @@ function AddToInventoryPage(props) {
     type: null,
     model: null,
     maintenanceStatus: '',
-    reservationStatus: '',
+    reservationStatus: OPTIONS.equipment.reservationStatus.find(
+      (status) => status.value === 'Available'
+    ),
     rfidTag: '',
     homeLocation: null,
     condition: '',
     purchaseCost: '',
-    purchaseDate: '',
+    purchaseDate: null,
   });
 
   // Information for adding type
@@ -91,10 +97,65 @@ function AddToInventoryPage(props) {
   });
   // #endregion
 
-  // TODO: Add Equipment - Add the equipment to the database.
+  // Add Equipment - Add the equipment to the database.
   const AddEquipment = () => {
     if(IsEquipmentFormValid()) {
-      console.log(equipmentAdditionInformation);
+      setModalMessage('Adding to inventory...');
+      setIsLoading(true);
+
+      const requestBody = {
+        schoolId: schoolId,
+        serialId: equipmentAdditionInformation.serialNumber,
+        typeId: equipmentAdditionInformation.type.value,
+        modelId: equipmentAdditionInformation.model.value,
+        maintenanceStatus: equipmentAdditionInformation.maintenanceStatus.value,
+        reservationStatus: equipmentAdditionInformation.reservationStatus.value,
+        usageCondition: equipmentAdditionInformation.condition.value,
+        purchaseCost: parseFloat(equipmentAdditionInformation.purchaseCost),
+        purchaseDate: equipmentAdditionInformation.purchaseDate ? new Date(equipmentAdditionInformation.purchaseDate).toISOString().split('T')[0] : null,
+      };
+
+      axios
+        .post(`${API.domain}/api/inventory/equipment`, requestBody, {
+          headers: {
+            'X-API-KEY': API.key,
+          }
+        })
+        .then(() => {
+          setIsLoading(false);
+
+          setModalMessage(MESSAGE.successEquipmentAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage('');
+          }, 1500);
+
+          // Reset the information
+          setEquipmentAdditionInformation({
+            serialNumber: '',
+            type: null,
+            model: null,
+            maintenanceStatus: '',
+            reservationStatus: OPTIONS.equipment.reservationStatus.find(
+              (status) => status.value === 'Available'
+            ),
+            rfidTag: '',
+            homeLocation: null,
+            condition: '',
+            purchaseCost: '',
+            purchaseDate: null,
+          });
+        })
+        .catch(error => {
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage('');
+          setEquipmentIsError(true);
+          setEquipmentErrorMessage(error.response.data.message);
+        });
     }
   };
 
@@ -121,7 +182,7 @@ function AddToInventoryPage(props) {
             'X-API-KEY': API.key,
           }
         })
-        .then(response => {
+        .then(() => {
           setIsLoading(false);
           
           setModalMessage(MESSAGE.successTypeAddition);
@@ -173,7 +234,7 @@ function AddToInventoryPage(props) {
             'Content-Type': 'multipart/form-data',
           }
         })
-        .then(response => {
+        .then(() => {
           setIsLoading(false);
 
           setModalMessage(MESSAGE.successModelAddition);
@@ -248,7 +309,7 @@ function AddToInventoryPage(props) {
     return true;
   };
 
-    // IsTypeFormValid - Check for form validation
+  // IsTypeFormValid - Check for form validation
   const IsTypeFormValid = () => {
     if(!typeAdditionInformation.name) {
       setTypeIsError(true);
@@ -311,7 +372,7 @@ function AddToInventoryPage(props) {
       // Set the options
       setEquipmentTypeOptions(options);
     })
-    .catch(error => {
+    .catch(() => {
       // Type not found, reset type options and models, model options as well as the model photo
       setEquipmentTypeOptions([]);
     });
@@ -447,14 +508,15 @@ function AddToInventoryPage(props) {
               {currentSection === 'Equipment' && (
                 <>
                   {/* Equipment Form */}
-                  <EquipmentAdditionForm 
-                    equipmentAdditionInformation={equipmentAdditionInformation}
-                    setEquipmentAdditionInformation={setEquipmentAdditionInformation}
+                  <EquipmentForm 
+                    equipmentInformation={equipmentAdditionInformation}
+                    setEquipmentInformation={setEquipmentAdditionInformation}
                     isError={equipmentIsError}
                     errorMessage={equipmentErrorMessage}
                     equipmentModels={equipmentModels}
                     equipmentModelOptions={equipmentModelOptions}
-                    equipmentTypeOptions={equipmentTypeOptions}/>
+                    equipmentTypeOptions={equipmentTypeOptions}
+                    disableReservationStatus={true}/>
                   {/* Mobile Add Equipment Button */}
                   <StandardButton 
                     title='Add Equipment'
@@ -467,9 +529,9 @@ function AddToInventoryPage(props) {
               {currentSection === 'Type' && (
                   <>
                     {/* Type Addition Form */}
-                    <TypeAdditionForm
-                      typeAdditionInformation={typeAdditionInformation}
-                      setTypeAdditionInformation={setTypeAdditionInformation}
+                    <TypeForm
+                      typeInformation={typeAdditionInformation}
+                      setTypeInformation={setTypeAdditionInformation}
                       isError={typeIsError}
                       errorMessage={typeErrorMessage}/>
                     {/* Mobile Add Type Button */}
@@ -484,9 +546,9 @@ function AddToInventoryPage(props) {
               {currentSection === 'Model' && (
                   <>
                     {/* Model Addition Form */}
-                    <ModelAdditionForm
-                      modelAdditionInformation={modelAdditionInformation}
-                      setModelAdditionInformation={setModelAdditionInformation}
+                    <ModelForm
+                      modelInformation={modelAdditionInformation}
+                      setModelInformation={setModelAdditionInformation}
                       isError={modelIsError}
                       errorMessage={modelErrorMessage}
                       equipmentTypeOptions={equipmentTypeOptions}/>

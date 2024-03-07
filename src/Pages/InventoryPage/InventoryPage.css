@@ -108,7 +108,7 @@
 
     .InventoryPage-ConfirmationModalContainer {
         width: calc(69.53125vmin);
-        height: calc(41.71875vmin);
+        max-height: calc(41.71875vmin);
     }
 
     .InventoryPage-ResponseModalContainer {
@@ -194,7 +194,7 @@
 
     .InventoryPage-ConfirmationModalContainer {
         width: calc(91.225vmin);
-        height: calc(103.4625vmin);
+        max-height: calc(103.4625vmin);
     }
 
     .InventoryPage-ResponseModalContainer {

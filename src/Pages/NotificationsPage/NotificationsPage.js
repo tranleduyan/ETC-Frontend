@@ -5,11 +5,17 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 // Import Stylings
 import './NotificationsPage.css';
 
+// Import Icons
+import { HiExclamation } from 'react-icons/hi';
+
 // Define NotificationPage Component
 function NotificationsPage() {
   return (
     <GeneralPage>
-      {/* Content Div */}
+      <div className='ReservationsPage-UnavailableFeature'>
+        <HiExclamation className='ReservationsPage-UnavailableFeatureIcon'/>
+        <p className='paragraph-1'>The feature is currently unavailable.</p>
+      </div>
     </GeneralPage>
   )
 };

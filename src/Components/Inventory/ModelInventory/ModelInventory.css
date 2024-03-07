@@ -14,6 +14,10 @@
     height: 100%;
 }
 
+.ModelInventory-Container::-webkit-scrollbar {
+    display: none;
+}
+
 /* For tablets and larger screen */
 @media screen and (min-width: 481px){
     .ModelInventory-Container {
@@ -22,6 +26,7 @@
         grid-template-rows: repeat(auto-fill, minmax(calc(13.90625vmin), calc(13.90625vmin)));
         margin-top: calc(2.225vmin);
         gap: calc(3.02vmin);
+        padding-bottom: calc(0.278125vmin);
     }
 }
 
@@ -33,5 +38,6 @@
         grid-template-rows: repeat(auto-fill, minmax(calc(32.25vmin), calc(32.25vmin)));
         margin: calc(4.45vmin) 0px;
         gap: calc(4.45vmin);
+        padding-bottom: calc(0.55625vmin);
     }
 }

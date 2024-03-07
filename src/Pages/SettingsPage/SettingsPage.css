@@ -1,0 +1,34 @@
+/* General Stylings */
+.SettingsPage-UnavailableFeature {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+.SettingsPage-UnavailableFeatureIcon {
+    color: var(--Red1);
+}
+
+/* For tablets and larger devices */
+@media screen and (min-width: 481px) {
+    .SettingsPage-UnavailableFeature {
+        gap: calc(2.225vmin);
+    }
+    .SettingsPage-UnavailableFeatureIcon {
+        font-size: calc(4.45vmin);
+    }
+}
+
+/* For mobile and smaller devices */
+@media screen and (max-width: 481px) {
+    .SettingsPage-UnavailableFeature {
+        gap: calc(4.45vmin);
+    }
+    .SettingsPage-UnavailableFeatureIcon {
+        font-size: calc(8.9vmin);
+    }
+}

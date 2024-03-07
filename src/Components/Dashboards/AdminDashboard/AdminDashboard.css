@@ -224,7 +224,7 @@
     }
 
     .AdminDashboard-ActionContainer {
-        width: calc(23.15vmin);
+        width: calc(23.15vmin + 13.35vmin);
         display: flex;
         flex-direction: row;
         justify-content: space-between;

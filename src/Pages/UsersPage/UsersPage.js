@@ -5,11 +5,17 @@ import GeneralPage from '../GeneralPage/GeneralPage';
 // Import Stylings
 import './UsersPage.css';
 
+// Import Icons
+import { HiExclamation } from 'react-icons/hi';
+
 // Define UsersPage Component
 function UsersPage() {
   return (
     <GeneralPage>
-      {/* Content Div */}
+      <div className='UsersPage-UnavailableFeature'>
+        <HiExclamation className='UsersPage-UnavailableFeatureIcon'/>
+        <p className='paragraph-1'>The feature is currently unavailable.</p>
+      </div>
     </GeneralPage>
   )
 };

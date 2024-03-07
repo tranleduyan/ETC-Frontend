@@ -1,6 +1,9 @@
 //#region Import Necessary Dependencies 
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'
+import { resetUserData } from '../../../storage';
+import { connect } from 'react-redux';
 import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
          InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
          ReservationDetailsAmandaLeeResponse, 
@@ -27,10 +30,12 @@ import IconButton from '../../Buttons/IconButton/IconButton';
 import './AdminDashboard.css';
 
 // Import Icons
-import { HiPlus, HiCheck, HiX, HiBell, HiCog } from 'react-icons/hi';
+import { HiPlus, HiLogout, HiCheck, HiX, HiBell, HiCog } from 'react-icons/hi';
 
 // Define the AdminDashboard Component
-function AdminDashboard() {
+function AdminDashboard(props) {
+  
+  const { resetUserData } = props;
   
   const navigate = useNavigate();
 
@@ -161,6 +166,13 @@ function AdminDashboard() {
   const NavigateSettings = () => {
     navigate('/Settings')
   };
+
+  // Sign Out - Reset the data.
+  const SignOut = () => {
+    //Dispatch the resetUserData action
+    resetUserData();
+    navigate('/');
+  };
   //#endregion
 
   //#region side effects
@@ -206,6 +218,11 @@ function AdminDashboard() {
               icon={HiCog} 
               className='AdminDashboard-ActionButton'
               onClick={NavigateSettings}/>
+            {/* Sign Out Button */}
+            <IconButton
+              icon={HiLogout}
+              className='FacultyDashboard-ActionButton'
+              onClick={SignOut}/>
           </div>
         </div>
         {/* Page Content */}
@@ -319,5 +336,15 @@ function AdminDashboard() {
   )
 };
 
+// Define the prop types of the component
+AdminDashboard.propTypes = {
+  resetUserData: PropTypes.func.isRequired,
+};
+
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
 // Exports the AdminDashboard component as the default export for the AdminDashboard module.
-export default AdminDashboard;
+export default connect(null, mapDispatchToProps)(AdminDashboard);
