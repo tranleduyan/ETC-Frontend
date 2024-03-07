@@ -13,35 +13,41 @@ import { HiArchive } from 'react-icons/hi';
 function EquipmentTypeSummaryCard(props) {
 
   // Destructure props to extract relevant information
+  // eslint-disable-next-line
   const { className, typeID, typeName, inventoryAmount, reservationAmount, isSelected, OnEquipmentTypeSummaryCardClick } = props;
 
-  // Determine whether to use 'item' or 'items' based on the inventory amount
-  const itemText = inventoryAmount > 1 ? 'items' : 'item';
+  // Determine whether to use 'models' or 'model' based on the inventory amount
+  const itemText = inventoryAmount > 1 ? 'models' : 'model';
 
   // Function triggered when the card is clicked
   const OnCardClick = () => {
     if(OnEquipmentTypeSummaryCardClick) {
-      OnEquipmentTypeSummaryCardClick(typeID);
+      // For future use, TODO: implement reserved equipment and rfid
+      //OnEquipmentTypeSummaryCardClick(typeID);
+      return;
     }    
   };
 
   return (
-    <button 
-      className={`${className} EquipmentTypeSummaryCard-Container ${isSelected ?  'EquipmentTypeSummaryCard-Active' : ''}`}
-      onClick={OnCardClick}>
-        {/* Container for equipment type information */}
-        <div className='EquipmentTypeSummaryCard-InformationContainer'>
-            {/* Icon representing equipment type */}
-            <HiArchive className='EquipmentTypeSummaryCard-Icon'/>
-            {/* Information about the equipment type */}
-            <div className='EquipmentTypeSummaryCard-Information'>
-                <p className='heading-5 EquipmentTypeSummaryCard-TypeName'>{typeName}</p>
-                <p className='paragraph-1'>{inventoryAmount} {itemText}</p>
-            </div>
-        </div>
-        {/* Display the number of reserved items */}
-        <p className='paragraph-1'>Reserved: {reservationAmount}</p>
-    </button>
+    <>
+      {/* TODO: ${isSelected ?  'EquipmentTypeSummaryCard-Active' : ''} when implement RFID equipment reserved*/}
+      <button 
+        className={`${className} EquipmentTypeSummaryCard-Container`}
+        onClick={(OnCardClick)}>
+          {/* Container for equipment type information */}
+          <div className='EquipmentTypeSummaryCard-InformationContainer'>
+              {/* Icon representing equipment type */}
+              <HiArchive className='EquipmentTypeSummaryCard-Icon'/>
+              {/* Information about the equipment type */}
+              <div className='EquipmentTypeSummaryCard-Information'>
+                  <p className='heading-5 EquipmentTypeSummaryCard-TypeName'>{typeName}</p>
+                  <p className='paragraph-1'>{inventoryAmount} {itemText}</p>
+              </div>
+          </div>
+          {/* Display the number of reserved items */}
+          <p className='paragraph-1'>Reserved: {reservationAmount}</p>
+      </button>
+    </>
   )
 };
 

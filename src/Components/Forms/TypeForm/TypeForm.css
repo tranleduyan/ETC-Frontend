@@ -1,35 +1,35 @@
 /* General Stylings */
-.TypeAdditionForm-FormContainer {
+.TypeForm-FormContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
 }
 
-.TypeAdditionForm-TypeInformationGroup {
+.TypeForm-TypeInformationGroup {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
 }
 
-.TypeAdditionForm-Field {
+.TypeForm-Field {
     width: 100%;
 }
 
-.TypeAdditionForm-Instructions {
+.TypeForm-Instructions {
     font-style: italic;
     color: var(--Gray3);
 }
 
-.TypeAdditionForm-ErrorMessageContainer {
+.TypeForm-ErrorMessageContainer {
     width: 100%;
     color: var(--Red2);
 }
 
 /* For tablets and larger screen */
 @media screen and (min-width: 481px) {
-    .TypeAdditionForm-Container {
+    .TypeForm-Container {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -40,19 +40,19 @@
         gap: calc(2.225vmin);
     }
 
-    .TypeAdditionForm-FormContainer {
+    .TypeForm-FormContainer {
         width: 100%;
         gap: calc(1.66875vmin);
     }
 
-    .TypeAdditionForm-TypeInformationGroup {
+    .TypeForm-TypeInformationGroup {
         gap: calc(2.225vmin);
     }
 }
 
 /* For mobile and smaller screen */
 @media screen and (max-width: 480px) {
-    .TypeAdditionForm-Container {
+    .TypeForm-Container {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -63,16 +63,16 @@
         overflow-y: auto;
     }
 
-    .TypeAdditionForm-FormContainer {
+    .TypeForm-FormContainer {
         width: 100%;
         gap: calc(3.3375vmin);
     }
 
-    .TypeAdditionForm-TypeInformationGroup {
+    .TypeForm-TypeInformationGroup {
         gap: calc(4.45vmin);
     }
 
-    .TypeAdditionForm-Instructions {
+    .TypeForm-Instructions {
         display: none;
     }
 }
