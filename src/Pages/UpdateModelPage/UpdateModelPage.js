@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 //#region Import UI Components
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import IconButton from '../../Components/Buttons/IconButton/IconButton';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import ModelForm from '../../Components/Forms/ModelForm/ModelForm';
 //#endregion
 
@@ -18,8 +18,7 @@ import ModelForm from '../../Components/Forms/ModelForm/ModelForm';
 import './UpdateModelPage.css';
 
 //#region Import Icons
-import { HiBookmarkAlt, HiChevronLeft, HiTrash,
-         HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle } from 'react-icons/hi';
+import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiBookmarkAlt, HiTrash } from 'react-icons/hi';
 //#endregion
 
 // Define UpdateModelPage Component

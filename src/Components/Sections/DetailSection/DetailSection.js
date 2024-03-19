@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
+// Import Stylings
+import './DetailSection.css';
+
 //#region Import UI Components
 import IconButton from '../../Buttons/IconButton/IconButton';
 import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
 //#endregion
-
-// Import Stylings
-import './DetailSection.css';
 
 // Define Details Section Component
 function DetailSection(props) {

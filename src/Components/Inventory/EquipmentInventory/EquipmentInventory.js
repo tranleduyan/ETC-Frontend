@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { MESSAGE } from '../../../Constants';
 //#endregion
 
-// Import UI Components
-import EquipmentInventoryCard from '../../Cards/EquipmentInventoryCard/EquipmentInventoryCard';
-
 // Import Stylings
 import './EquipmentInventory.css';
+
+// Import UI Components
+import EquipmentInventoryCard from '../../Cards/EquipmentInventoryCard/EquipmentInventoryCard';
 
 // Define Equipment Inventory Component
 function EquipmentInventory(props) {

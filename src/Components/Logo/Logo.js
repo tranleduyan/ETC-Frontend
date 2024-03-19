@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import ETC_Color_Logo from '../../Assets/Images/ETC-Logo-Color.png';
-
 // Import Stylings
 import './Logo.css';
+
+// Import UI Components
+import ETC_Color_Logo from '../../Assets/Images/ETC-Logo-Color.png';
 
 // Define Logo Component
 function Logo(props) {

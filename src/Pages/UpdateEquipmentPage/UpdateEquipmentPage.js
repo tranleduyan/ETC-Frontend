@@ -7,20 +7,19 @@ import { resetUserData } from '../../storage';
 import PropTypes from 'prop-types';
 //#endregion
 
-//#region Import UI Components
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import EquipmentForm from '../../Components/Forms/EquipmentForm';
-//#endregion
-
 // Import Stylings
 import './UpdateEquipmentPage.css';
 
+//#region Import UI Components
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
+import IconButton from '../../Components/Buttons/IconButton/IconButton';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
+import EquipmentForm from '../../Components/Forms/EquipmentForm';
+//#endregion
+
 //#region Import Icons
-import { HiBookmarkAlt, HiChevronLeft, HiTrash,
-         HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle} from 'react-icons/hi';
+import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiBookmarkAlt, HiTrash } from 'react-icons/hi';
 //#endregion
 
 // Define UpdateEquipmentPage Component

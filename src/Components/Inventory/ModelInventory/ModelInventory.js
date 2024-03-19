@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { MESSAGE } from '../../../Constants';
 //#endregion
 
-// Import UI Components
-import ModelInventoryCard from '../../Cards/ModelInventoryCard/ModelInventoryCard';
-
 // Import Stylings
 import './ModelInventory.css';
+
+// Import UI Components
+import ModelInventoryCard from '../../Cards/ModelInventoryCard/ModelInventoryCard';
 
 // Define ModelInventory Component
 function ModelInventory(props) {

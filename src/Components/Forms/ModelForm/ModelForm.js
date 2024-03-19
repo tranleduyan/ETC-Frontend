@@ -3,14 +3,14 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
+// Import Stylings
+import './ModelForm.css';
+
 //#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
 import Message from '../../Message/Message';
 //#endregion
-
-// Import Stylings
-import './ModelForm.css';
 
 // Import Icons 
 import { HiPhotograph, HiExclamationCircle } from 'react-icons/hi';

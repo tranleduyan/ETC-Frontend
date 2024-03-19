@@ -5,11 +5,11 @@ import axios from 'axios';
 import { API, MESSAGE } from '../../../Constants';
 //#endregion
 
-// Import UI Components
-import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
-
 // Import Stylings
 import './InventorySummaryList.css';
+
+// Import UI Components
+import EquipmentTypeSummaryCard from '../../Cards/InventoryTypeSummaryCard/EquipmentTypeSummaryCard';
 
 // Define Inventory Summary List component
 function InventorySummaryList(props) {

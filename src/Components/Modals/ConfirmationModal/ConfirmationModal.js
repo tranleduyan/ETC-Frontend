@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
+// Import Stylings
+import './ConfirmationModal.css';
+
 //#region Import UI Components
 import GeneralModal from '../GeneralModal/GeneralModal';
 import StandardButton from '../../Buttons/StandardButton/StandardButton';
 //#endregion
-
-// Import Stylings
-import './ConfirmationModal.css';
 
 // Define ConfirmationModal Component
 function ConfirmationModal(props) {

@@ -5,11 +5,11 @@ import { AllReservationsResponse } from '../../../ResponseBody';
 import { MESSAGE } from '../../../Constants';
 //#endregion
 
-// Import UI Components
-import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
-
 // Import Stylings
 import './ReservationList.css';
+
+// Import UI Components
+import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 
 // Define Reservation List Commponent
 function ReservationList(props) {

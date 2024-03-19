@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import IconButton from '../../Buttons/IconButton/IconButton';
-
 // Import Stylings
 import './EquipmentInventoryCard.css';
+
+// Import UI Components
+import IconButton from '../../Buttons/IconButton/IconButton';
 
 //#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

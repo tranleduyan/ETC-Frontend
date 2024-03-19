@@ -18,8 +18,7 @@ import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
 import './UpdateTypePage.css';
 
 //#region Import Icons
-import { HiBookmarkAlt, HiChevronLeft, HiTrash,
-         HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle } from 'react-icons/hi';
+import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiBookmarkAlt, HiTrash } from 'react-icons/hi';
 //#endregion
 
 // Define UpdateTypePage Component

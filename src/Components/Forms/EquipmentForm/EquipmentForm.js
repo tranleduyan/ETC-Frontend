@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { OPTIONS } from '../../../Constants';
 //#endregion
 
+// Import Stylings
+import './EquipmentForm.css';
+
 //#region Import UI Components
 import StandardTextInputField from '../../InputFields/StandardTextInputField/StandardTextInputField';
 import StandardDropDown from '../../DropDowns/StandardDropDown/StandardDropDown';
-import Message from '../../Message/Message';
 import DatePickerInputField from '../../InputFields/DatePickerInputField/DatePickerInputField';
+import Message from '../../Message/Message';
 //#endregion
-
-// Import Stylings
-import './EquipmentForm.css';
 
 //#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

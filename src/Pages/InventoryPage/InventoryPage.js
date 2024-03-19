@@ -8,30 +8,28 @@ import { resetUserData } from '../../storage';
 import { API, MESSAGE } from '../../Constants';
 //#endregion
 
-//#region Import UI Components
-import GeneralPage from '../GeneralPage/GeneralPage';
-import Logo from '../../Components/Logo/Logo';
-import EquipmentInventory from '../../Components/Inventory/EquipmentInventory/EquipmentInventory';
-import TypeInventory from '../../Components/Inventory/TypeInventory/TypeInventory';
-import ModelInventory from '../../Components/Inventory/ModelInventory/ModelInventory';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-//#endregion
-
 // Import Stylings
 import './InventoryPage.css';
 
-//#region Import Icons
-import { HiAdjustments, HiCheckCircle, HiExclamationCircle, 
-         HiMinusCircle, HiPencilAlt, HiPlus, HiSwitchHorizontal, 
-         HiTrash } from 'react-icons/hi';
-import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+//#region Import UI Components
+import GeneralPage from '../GeneralPage/GeneralPage';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
+import Logo from '../../Components/Logo/Logo';
+import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
+import EquipmentInventory from '../../Components/Inventory/EquipmentInventory/EquipmentInventory';
+import TypeInventory from '../../Components/Inventory/TypeInventory/TypeInventory';
+import ModelInventory from '../../Components/Inventory/ModelInventory/ModelInventory';
 import UpdateTypePage from '../UpdateTypePage/UpdateTypePage';
 import UpdateModelPage from '../UpdateModelPage/UpdateModelPage';
 import EquipmentDetailsPage from '../EquipmentDetailsPage/EquipmentDetailsPage';
 import UpdateEquipmentPage from '../UpdateEquipmentPage/UpdateEquipmentPage';
+import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+//#endregion
+
+//#region Import Icons
+import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiPencilAlt, HiMinusCircle, HiTrash, HiPlus, HiAdjustments } from 'react-icons/hi';
 //#endregion
 
 // Define InventoryPage Component

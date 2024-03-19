@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import NavigationBar from '../../Components/NavigationBar/NavigationBar.js';
-
 // Import Stylings
 import './GeneralPage.css';
+
+// Import UI Components
+import NavigationBar from '../../Components/NavigationBar/NavigationBar.js';
 
 // Define GeneralPage component
 function GeneralPage({ children }) {

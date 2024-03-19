@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import { resetUserData } from '../../storage.js';
 //#endregion
 
-//#region Import UI Components
-import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
-import Logo from '../../Components/Logo/Logo.js';
-//#endregion
-
 // Import Stylings
 import './NavigationBar.css';
+
+//#region Import UI Components
+import Logo from '../../Components/Logo/Logo.js';
+import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
+//#endregion
 
 //#region Import Icons
 import { HiViewGrid, HiCalendar, HiArchive, 

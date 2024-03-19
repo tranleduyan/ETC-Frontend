@@ -8,11 +8,11 @@ import { resetUserData } from '../../storage';
 //#endregion
 
 //#region Import UI Components
-import Message from '../../Components/Message/Message';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
 import IconButton from '../../Components/Buttons/IconButton/IconButton';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
+import Message from '../../Components/Message/Message';
 //#endregion
 
 // Import Stylings
@@ -20,7 +20,7 @@ import './EquipmentDetailsPage.css';
 //#endregion
 
 //#region Import Icons
-import { HiCheckCircle, HiChevronLeft, HiExclamationCircle, HiPencilAlt, HiSwitchHorizontal, HiTrash } from 'react-icons/hi';
+import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiPencilAlt, HiTrash } from 'react-icons/hi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 //#endregion

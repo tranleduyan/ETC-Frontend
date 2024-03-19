@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import FilterCard from '../../Cards/FilterCard/FilterCard';
-
 // Import Stylings
 import './EquipmentFilterCardList.css';
 
+// Import UI Components
+import FilterCard from '../../Cards/FilterCard/FilterCard';
+
 // Import Icons
-import { HiClipboardCopy, HiClipboardList } from 'react-icons/hi';
+import { HiClipboardList, HiClipboardCopy } from 'react-icons/hi';
 
 function EquipmentFilterCardList(props) {
 

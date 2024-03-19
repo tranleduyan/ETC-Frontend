@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import IconButton from '../../Buttons/IconButton/IconButton';
-
 // Import Stylings
 import './TypeInventoryCard.css';
+
+// Import UI Components
+import IconButton from '../../Buttons/IconButton/IconButton';
 
 //#region Import Icons
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';

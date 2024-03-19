@@ -8,24 +8,23 @@ import { API, MESSAGE, OPTIONS } from '../../Constants';
 import { resetUserData } from '../../storage';
 //#endregion
 
-//#region Import UI Components
-import GeneralPage from '../GeneralPage/GeneralPage';
-import Logo from '../../Components/Logo/Logo';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
-import EquipmentForm from '../../Components/Forms/EquipmentForm/EquipmentForm';
-import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
-import ModelForm from '../../Components/Forms/ModelForm';
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
-//#endregion
-
 // Import Stylings
 import './AddToInventoryPage.css';
 
+//#region Import UI Components
+import GeneralPage from '../GeneralPage/GeneralPage';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
+import Logo from '../../Components/Logo/Logo';
+import HeaderButton from '../../Components/Buttons/HeaderButton/HeaderButton';
+import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
+import EquipmentForm from '../../Components/Forms/EquipmentForm/EquipmentForm';
+import TypeForm from '../../Components/Forms/TypeForm/TypeForm';
+import ModelForm from '../../Components/Forms/ModelForm';
+import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+//#endregion
+
 //#region Import Icons
-import { HiCheckCircle, HiDocumentText, 
-         HiPlus, HiSwitchHorizontal } from 'react-icons/hi';
+import { HiSwitchHorizontal, HiCheckCircle, HiPlus, HiDocumentText } from 'react-icons/hi';
 //#endregion
 
 // Define AddEquipmentPage Component

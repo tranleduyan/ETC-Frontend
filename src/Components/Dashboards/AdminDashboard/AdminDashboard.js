@@ -14,23 +14,23 @@ import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer,
          UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../../ResponseBody';
 //#endregion
 
-//#region Import UI Components  
-import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
-import StandardButton from '../../Buttons/StandardButton';
-import InventorySummaryList from '../../Lists/InventorySummaryList/InventorySummaryList';
-import ReservationList from '../../Lists/ReservationList/ReservationList';
-import FilterButton from '../../Buttons/FilterButton/FilterButton';
-import SearchBarInputField from '../../InputFields/SearchBarInputField/SearchBarInputField';
-import DetailSection from '../../Sections/DetailSection/DetailSection';
-import Logo from '../../Logo/Logo';
-import IconButton from '../../Buttons/IconButton/IconButton';
-//#endregion
-
 // Import Stylings
 import './AdminDashboard.css';
 
+//#region Import UI Components  
+import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
+import Logo from '../../Logo/Logo';
+import IconButton from '../../Buttons/IconButton/IconButton';
+import SearchBarInputField from '../../InputFields/SearchBarInputField/SearchBarInputField';
+import InventorySummaryList from '../../Lists/InventorySummaryList/InventorySummaryList';
+import FilterButton from '../../Buttons/FilterButton/FilterButton';
+import ReservationList from '../../Lists/ReservationList/ReservationList';
+import StandardButton from '../../Buttons/StandardButton';
+import DetailSection from '../../Sections/DetailSection/DetailSection';
+//#endregion
+
 // Import Icons
-import { HiPlus, HiLogout, HiCheck, HiX, HiBell, HiCog } from 'react-icons/hi';
+import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck } from 'react-icons/hi';
 
 // Define the AdminDashboard Component
 function AdminDashboard(props) {

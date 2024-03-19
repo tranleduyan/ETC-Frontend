@@ -5,11 +5,11 @@ import { resetUserData } from '../../../storage';
 import { connect } from 'react-redux';
 //#endregion
 
-// Import UI Components
-import LinkButton from '../../Buttons/LinkButton/LinkButton';
-
 // Import stylings
 import './UnauthorizedPanel.css';
+
+// Import UI Components
+import LinkButton from '../../Buttons/LinkButton/LinkButton';
 
 // Define Unauthorized Panel component
 function UnauthorizedPanel( props ) {

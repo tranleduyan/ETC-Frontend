@@ -6,22 +6,22 @@ import { connect } from 'react-redux';
 import { resetUserData } from '../../../storage';
 //#endregion
 
+// Import Stylings
+import './FacultyDashboard.css';
+
 //#region Import UI Components
+import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import Logo from '../../Logo/Logo';
+import IconButton from '../../Buttons/IconButton/IconButton';
 import StandardButton from '../../Buttons/StandardButton';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
 import FilterButton from '../../Buttons/FilterButton/FilterButton';
 import ReservationList from '../../Lists/ReservationList/ReservationList';
-import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
-import IconButton from '../../Buttons/IconButton/IconButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 //#endregion
 
-// Import Stylings
-import './FacultyDashboard.css';
-
 // Import Icons
-import { HiCalendar, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
 
 // Define FacultyDashboard Component
 function FacultyDashboard(props) {

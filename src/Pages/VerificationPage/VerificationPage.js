@@ -5,16 +5,16 @@ import { API } from '../../Constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 //#endregion
 
-//#region Import UI Components
-import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
-import Message from '../../Components/Message/Message';
-import StandardButton from '../../Components/Buttons/StandardButton';
-import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
-import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
-//#endregion
-
 // Import Stylings
 import './VerificationPage.css';
+
+//#region Import UI Components
+import ETC_Transparent_Logo from '../../Assets/Images/ETC-Logo-Transparent.png';
+import Message from '../../Components/Message/Message';
+import StandardTextInputField from '../../Components/InputFields/StandardTextInputField/StandardTextInputField';
+import StandardButton from '../../Components/Buttons/StandardButton';
+import LinkButton from '../../Components/Buttons/LinkButton/LinkButton';
+//#endregion
 
 // Import Icons
 import { HiExclamationCircle } from 'react-icons/hi';

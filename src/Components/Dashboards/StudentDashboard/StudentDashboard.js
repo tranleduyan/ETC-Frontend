@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import { resetUserData } from '../../../storage';
 //#endregion
 
+// Import Stylings
+import './StudentDashboard.css';
+
 //#region Import UI Components
 import GeneralPage from '../../../Pages/GeneralPage/GeneralPage';
 import FilterButton from '../../Buttons/FilterButton/FilterButton';
@@ -17,11 +20,8 @@ import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
 //#endregion
 
-// Import Stylings
-import './StudentDashboard.css';
-
 // Import Icons
-import { HiCalendar, HiLogout, HiMinusCircle, HiPencilAlt, HiX } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
 
 // Define Student Dashboard Component;
 function StudentDashboard(props) {

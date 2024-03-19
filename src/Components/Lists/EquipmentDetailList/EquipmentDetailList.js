@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-// Import UI Components
-import EquipmentDetailCard from '../../Cards/EquipmentDetailCard/EquipmentDetailCard';
-
 // Import Stylings
 import './EquipmentDetailList.css';
+
+// Import UI Components
+import EquipmentDetailCard from '../../Cards/EquipmentDetailCard/EquipmentDetailCard';
 
 // Define EquipmentDetailList Component
 function EquipmentDetailList(props) {

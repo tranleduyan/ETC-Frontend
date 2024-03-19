@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //#endregion
 
-//#region Import UI Components
-import GeneralModal from '../GeneralModal/GeneralModal';
-
 // Import Stylings
 import './IconModal.css';
+
+//#region Import UI Components
+import GeneralModal from '../GeneralModal/GeneralModal';
 
 // Define Icon Modal Component
 function IconModal(props) {
