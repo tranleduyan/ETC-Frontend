@@ -103,7 +103,7 @@
     .NavigationBar-LogoContainer,
     .NavigationBar-LogoContainer img,
     .NavigationBarButton-SignOutButton {
-        display:none;
+        display:none !important;
     }
     
     .NavigationBar-Menu {
