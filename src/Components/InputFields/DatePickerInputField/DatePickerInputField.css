@@ -35,6 +35,14 @@
         right: calc(1.689875vmin);
         font-size: calc(2.78125vmin);
     }
+
+    .DatePickerInputField-Error input {
+        height: calc(6.675vmin);
+        padding: calc(1.66875vmin) !important;
+        border-radius: calc(1.390625vmin);
+        border: calc(0.278125vmin) solid var(--Red2);
+        font-size: calc(2.225vmin);
+    }
 }
 
 /* For phone and smaller devices */

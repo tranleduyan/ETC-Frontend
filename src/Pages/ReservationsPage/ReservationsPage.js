@@ -20,10 +20,11 @@ import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/Unautho
 import IconButton from '../../Components/Buttons/IconButton/IconButton';
 import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
 import ReservationConfirmationDetailsList from '../../Components/Lists/ReservationConfirmationDetailsList/ReservationConfirmationDetailsList';
+import IconModal from '../../Components/Modals/IconModal/IconModal';
 //#endregion
 
 //#region Import Icons
-import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
+import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPlus, HiRefresh } from 'react-icons/hi';
 //#endregion
 
 // Define ReservationsPage Component
@@ -43,6 +44,8 @@ function ReservationsPage(props) {
     endDate: new Date(),
   });
 
+  const [isDateError, setIsDateError] = useState(true);
+
   // Available Models State Variable - List of available models
   const [availableModels, setAvailableModels] = useState([]);
 
@@ -58,7 +61,8 @@ function ReservationsPage(props) {
   const [iconModal, setIconModal] = useState({
     message: '',
     visibility: false,
-    icon: null,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
   });
 
   // HandleSearchQueryChange - Function to handle changes in search query
@@ -119,6 +123,13 @@ function ReservationsPage(props) {
         quantity: model.quantity
       }))
     };
+    
+    setIconModal({
+      message: 'Processing your reservation requests...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
 
     axios
       .post(`${API.domain}/api/reservation/create`, requestBody, {
@@ -127,13 +138,31 @@ function ReservationsPage(props) {
         }
       })
       .then((response) => {
-        setReservationCreationState('Initial');
-        setIsMakingReservation(false);
-        setDateInformation({
-          startDate: new Date(),
-          endDate: new Date(),
+        
+        setIconModal({
+          message: response.data.message,
+          icon: HiCheck,
+          visibility: true,
+          isIconSpin: false,
         });
-        setSelectedModels([]);
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservationCreationState('Initial');
+          setIsMakingReservation(false);
+          setDateInformation({
+            startDate: new Date(),
+            endDate: new Date(),
+          });
+          setSelectedModels([]);
+        }, 1500);
+
       })
       .catch((error) => {
         console.log(error);
@@ -152,7 +181,12 @@ function ReservationsPage(props) {
 
     const startPeriod = dateInformation.startDate.toISOString().split('T')[0];
     const endPeriod = dateInformation.endDate.toISOString().split('T')[0];
-
+    setIconModal({
+      message: 'Looking for available items...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
     axios
       .get(`${API.domain}/api/inventory/available-models?startDate=${startPeriod}&endDate=${endPeriod}`, {
         headers: {
@@ -161,9 +195,24 @@ function ReservationsPage(props) {
       })
       .then(response => {
         setAvailableModels(response.data.responseObject);
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+        }, 500);
       })
       .catch(() => {
         setAvailableModels([]);
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });
       })
   }
 
@@ -208,12 +257,15 @@ function ReservationsPage(props) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if(dateInformation.startDate < today) {
+      setIsDateError(true);
       return false;
     }
     else if(dateInformation.startDate > dateInformation.endDate) {
+      setIsDateError(true);
       return false;
     }
 
+    setIsDateError(false);
     return true;
   };
 
@@ -229,6 +281,13 @@ function ReservationsPage(props) {
     <>
       {(userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty') ? (
         <GeneralPage>
+          <IconModal 
+            className='ReservationsPage-IconModalContainer'
+            icon={iconModal.icon}
+            iconClassName='ReservationsPage-IconModalIcon'
+            message={iconModal.message}
+            isVisible={iconModal.visibility}
+            isSpinning={iconModal.isIconSpin}/>
           <div className='ReservationsPage-PageContentContainer'>
             <div className='ReservationsPage-PageHeaderContainer'>
               <Logo className='ReservationsPage-LogoContainer'/>
@@ -248,17 +307,19 @@ function ReservationsPage(props) {
                       />
                     <div className='ReservationsPage-ReservationDateContainer'>
                       <DatePickerInputField
-                        className='ReservationsPage-ReservationDateField'
+                        className={`ReservationsPage-ReservationDateField`}
                         name='startDate'
                         placeholder='Select start date'
                         value={dateInformation.startDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}/>
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
                       <DatePickerInputField
-                        className='ReservationsPage-ReservationDateField'
+                        className={`ReservationsPage-ReservationDateField`}
                         name='endDate'
                         placeholder='Select end date'
                         value={dateInformation.endDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}/>
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
                     </div>
                   </>
                 )}

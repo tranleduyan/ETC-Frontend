@@ -59,6 +59,10 @@
     align-items: center;
 }
 
+.ReservationsPage-IconModalIcon {
+    color: var(--Red1);
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .ReservationsPage-PageContentContainer {
@@ -155,6 +159,11 @@
         flex: 1;
         overflow-y: hidden;
     }
+
+    .ReservationsPage-IconModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
+    }
 }
 
 /* For mobiles and smaller devices */
@@ -238,5 +247,10 @@
 
     .ReservationsPage-ReservationConfirmationDateContainer {
         gap: calc(4.45vmin);
+    }
+
+    .ReservationsPage-IconModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }   

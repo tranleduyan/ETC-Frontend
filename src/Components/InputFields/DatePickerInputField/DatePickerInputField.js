@@ -14,7 +14,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 // Define DatePickerInputField Component
 function DatePickerInputField(props) {
   
-  const { className, onChange, name, value, placeholder } = props;
+  const { className, onChange, name, value, placeholder, isError } = props;
 
   const HandleDateChange = (date) => {
     onChange(name, date);
@@ -23,7 +23,7 @@ function DatePickerInputField(props) {
   return (
     <DatePicker showIcon
                 placeholderText={placeholder}
-                wrapperClassName={className}
+                wrapperClassName={`${className} ${isError ? 'DatePickerInputField-Error' : ''}`}
                 name={name}
                 selected={value}
                 onChange={HandleDateChange}
@@ -38,6 +38,7 @@ DatePickerInputField.propTypes = {
   value: PropTypes.any,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  isError: PropTypes.bool
 };
 
 // Define default props of the component
@@ -46,6 +47,7 @@ DatePickerInputField.defaultProps = {
   value: null,
   placeholder: 'Please Select Date',
   onChange: () => {},
+  isError: false,
 };
 
 // Exports the DatePickerInputField component as the default export for the EquipmentAdditionForm module.
