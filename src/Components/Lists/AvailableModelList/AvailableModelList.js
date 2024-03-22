@@ -1,9 +1,15 @@
+//#region Import Neccessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
-import AvailableModelCard from '../../Cards/AvailableModelCard/AvailableModelCard';
 import { MESSAGE } from '../../../Constants';
+//#endregion
 
+// Import Stylings
 import './AvailableModelList.css';
+
+//#region Import UI Components
+import AvailableModelCard from '../../Cards/AvailableModelCard/AvailableModelCard';
+//#endregion
 
 function AvailableModelList(props) {
 
@@ -50,5 +56,5 @@ AvailableModelList.defaultProps = {
   selectedModel: [],
   onSelectModel: () => {},
 };
-
+// Exports the AvailableModelList component as the default export for the AvailableModelList module.
 export default AvailableModelList;
