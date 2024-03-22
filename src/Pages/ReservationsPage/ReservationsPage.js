@@ -20,9 +20,10 @@ import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/Unautho
 //#endregion
 
 //#region Import Icons
-import { HiArrowSmRight, HiChevronLeft, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
+import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
 import IconButton from '../../Components/Buttons/IconButton/IconButton';
 import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
+import ReservationConfirmationDetailsList from '../../Components/Lists/ReservationConfirmationDetailsList/ReservationConfirmationDetailsList';
 //#endregion
 
 // Define ReservationsPage Component
@@ -99,6 +100,10 @@ function ReservationsPage(props) {
   const OnCancelReservationCreationClick = () => {
     setIsMakingReservation(false);
     setSelectedModels([]);
+  }
+
+  const OnConfirmMakingReservationClick = () => {
+    console.log("confirm");
   }
   
   // TODO: Search APIs
@@ -188,7 +193,7 @@ function ReservationsPage(props) {
 
   return (
     <>
-      {userRole === 'Admin' ? (
+      {(userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty') ? (
         <GeneralPage>
           <div className='ReservationsPage-PageContentContainer'>
             <div className='ReservationsPage-PageHeaderContainer'>
@@ -258,6 +263,13 @@ function ReservationsPage(props) {
                         className='ReservationsPage-ContinueButton'
                         icon={HiArrowSmRight}/>
                     )}
+                    {reservationCreationState === 'Confirm Reservation' && (
+                      <StandardButton 
+                      title='Confirm'
+                      onClick={OnConfirmMakingReservationClick}
+                      className='ReservationsPage-ConfirmButton'
+                      icon={HiCheck}/>
+                    )}
                     </>
                     :
                     <>
@@ -288,6 +300,21 @@ function ReservationsPage(props) {
                   selectedModels={selectedModels}
                   onIncreaseQuantity={OnIncreaseQuantity}
                   onDecreaseQuantity={OnDecreaseQuantity}/>
+              )}
+              {reservationCreationState === 'Confirm Reservation' && (
+                <div className='ReservationsPage-ReservationConfirmationContainer'>
+                  <div className='ReservationsPage-ReservationConfirmationDateContainer'>
+                    <HiCalendar className='ReservationsPage-ReservationConfirmationDateIcon'/>
+                    <p className='paragraph-1'>
+                      {dateInformation.startDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')} - {dateInformation.endDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')}
+                    </p>
+                  </div>
+                  <div className='ReservationsPage-ReservationConfirmationDetailsContainer'>
+                    <p className='heading-5'>Details</p>
+                    <ReservationConfirmationDetailsList 
+                      selectedModels={selectedModels}/>
+                  </div>
+                </div>
               )}
             </div>
           </div>

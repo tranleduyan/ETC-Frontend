@@ -21,6 +21,7 @@
     flex-direction: column;
     overflow-y: auto;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
 
 .ReservationsPage-HeaderContainer {
@@ -40,8 +41,22 @@
     width: 100%;
 }
 
-.ReservationsPage-ReservationDateField:last-child {
-    margin-right: 0px;
+.ReservationsPage-ReservationDateField:first-child {
+    margin-left: 0px;
+}
+
+.ReservationsPage-ReservationConfirmationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ReservationsPage-ReservationConfirmationDateContainer {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    align-items: center;
 }
 
 /* For tablets and bigger devices */
@@ -96,7 +111,7 @@
     }
 
     .ReservationsPage-ReservationDateField {
-        margin-right: calc(2.225vmin);
+        margin-left: calc(2.225vmin);
     }
 
     .ReservationsPage-ActionButtonContainer {
@@ -109,6 +124,7 @@
         width: calc(54.625vmin);
     }
 
+    .ReservationsPage-ConfirmButton,
     .ReservationsPage-ContinueButton,
     .ReservationsPage-YourReservationsButton {
         width: calc(30vmin);
@@ -118,6 +134,26 @@
     .ReservationsPage-ReserveButton {
         width: calc(22.25vmin);
         padding: 0px calc(2.225vmin);
+    }
+
+    .ReservationsPage-ReservationConfirmationContainer {
+        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+        margin-top: calc(2.225vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .ReservationsPage-ReservationConfirmationDateContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .ReservationsPage-ReservationConfirmationDateIcon {
+        font-size: calc(4.45vmin);
+        padding: 0px;
+    }
+
+    .ReservationsPage-ReservationConfirmationDetailsContainer {
+        flex: 1;
+        overflow-y: hidden;
     }
 }
 
@@ -185,7 +221,7 @@
     }
 
     .ReservationsPage-ReservationDateField {
-        margin-right: calc(4.45vmin);
+        margin-left: calc(4.45vmin);
     }
 
     .ReservationsPage-ActionButtonContainer {
@@ -198,5 +234,9 @@
 
     .ReservationsPage-YourReservationsButton {
         width: 100%;
+    }
+
+    .ReservationsPage-ReservationConfirmationDateContainer {
+        gap: calc(4.45vmin);
     }
 }   

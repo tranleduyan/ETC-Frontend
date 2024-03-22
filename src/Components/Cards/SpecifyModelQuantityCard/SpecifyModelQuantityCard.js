@@ -4,13 +4,15 @@ import React, { useState } from 'react';
 
 // Import Stylings
 import './SpecifyModelQuantityCard.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+
+//#region Import UI Components
 import IconButton from '../../Buttons/IconButton/IconButton';
-import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
+//#endregion
 
 //#region Import Icons
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 //#endregion
 
 function SpecifyModelQuantityCard(props) {
@@ -30,8 +32,8 @@ function SpecifyModelQuantityCard(props) {
   }
 
   return (
-    <div className='SpecifyModelQuantityCard-GeneralContainer'>
-      <div className={`SpecifyModelQuantityCard-Container ${className}`}>
+    <div className={`SpecifyModelQuantityCard-GeneralContainer  ${className}`}>
+      <div className='SpecifyModelQuantityCard-Container'>
         <div className='SpecifyModelQuantityCard-ModelPhoto'>
           {equipmentModelPhoto && (
             <img src={modelPhoto}

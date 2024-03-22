@@ -10,9 +10,6 @@ import './SpecifyModelReservationQuantityList.css';
 import SpecifyModelQuantityCard from '../../Cards/SpecifyModelQuantityCard/SpecifyModelQuantityCard';
 //#endregion
 
-//#region Import Icons
-//#endregion
-
 // Define SpecifyModelReservationQuantityList Component
 function SpecifyModelReservationQuantityList(props) {
 

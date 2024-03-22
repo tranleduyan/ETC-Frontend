@@ -1,5 +1,5 @@
 /* General Stylings */
-.SpecifyModelQuantityCard-Container {
+.ReservationConfirmationDetailsCard-Container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -9,7 +9,7 @@
     color: var(--Black1);
 }
 
-.SpecifyModelQuantityCard-ModelPhoto {
+.ReservationConfirmationDetailsCard-ModelPhoto {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,13 +21,13 @@
     padding: 0;
 }
 
-.SpecifyModelQuantityCard-ModelPhoto img {
+.ReservationConfirmationDetailsCard-ModelPhoto img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.SpecifyModelQuantityCard-InformationContainer {
+.ReservationConfirmationDetailsCard-InformationContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,7 +40,7 @@
     color: var(--Black1);
 }
 
-.SpecifyModelQuantityCard-Information {
+.ReservationConfirmationDetailsCard-Information {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -48,46 +48,36 @@
     gap: 0px;
 }
 
-.SpecifyModelQuantityCard-SelectionContainer {
+.ReservationConfirmationDetailsCard-SelectionContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
 
-.SpecifyModelQuantityCard-SelectButtonActive,
-.SpecifyModelQuantityCard-SelectButton {
+.ReservationConfirmationDetailsCard-SelectButtonActive,
+.ReservationConfirmationDetailsCard-SelectButton {
     width: 100%;
 }
 
-.SpecifyModelQuantityCard-SelectButtonActive {
+.ReservationConfirmationDetailsCard-SelectButtonActive {
     color: var(--Red1);
 }
 
-.SpecifyModelQuanityCard-GeneralContainer {
+.ReservationConfirmationDetailsCard-GeneralContainer {
     display: flex;
     flex-direction: column;
 }
 
-.SpecifyModelQuantityCard-QuantityContainer {
+.ReservationConfirmationDetailsCard-QuantityContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
 }
 
-.SpecifyModelQuantityCard-ActionContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.SpecifyModelQuantityCard-QuantityUpdateButton {
-    color: white;
-}
-
-.SpecifyModelQuantityCard-SelectionContainer {
+.ReservationConfirmationDetailsCard-SelectionContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -96,68 +86,71 @@
 
 /* For tablets and larger screens */
 @media screen and (min-width: 481px) {
-    .SpecifyModelQuanityCard-GeneralContainer{
+    .ReservationConfirmationDetailsCard-GeneralContainer{
         height: calc(20.58125vmin);
     }
 
-    .SpecifyModelQuantityCard-Container {
+    .ReservationConfirmationDetailsCard-Container {
         height: calc(13.90625vmin);
         border-top-left-radius: calc(1.390625vmin);
         border-top-right-radius: calc(1.390625vmin);
-        border-left: calc(0.278125vmin) solid var(--Black1);
-        border-right: calc(0.278125vmin) solid var(--Black1);
-        border-top: calc(0.278125vmin) solid var(--Black1);
-        border-bottom: calc(0.278125vmin) solid var(--Black1);
+        border-left: calc(0.278125vmin) solid var(--Gray1);
+        border-right: calc(0.278125vmin) solid var(--Gray1);
+        border-top: calc(0.278125vmin) solid var(--Gray1);
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
         padding: calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin);
         gap: calc(2.225vmin);
     }
 
-    .SpecifyModelQuantityCard-ModelPhoto {
+    .ReservationConfirmationDetailsCard-ModelPhoto {
         height: calc(8.9vmin);
         width: calc(8.9vmin);
         border-radius: calc(1.390625vmin);
     }
 
-    .SpecifyModelQuantityCard-DefaultModelIcon {
+    .ReservationConfirmationDetailsCard-DefaultModelIcon {
         font-size: calc(4.45vmin);
     }
 
-    .SpecifyModelQuantityCard-InformationContainer {
+    .ReservationConfirmationDetailsCard-InformationContainer {
         height: calc(8.9vmin);
         gap: calc(0.55625vmin);
     }
 
-    .SpecifyModelQuantityCard-Information {
+    .ReservationConfirmationDetailsCard-Information {
         height: calc(5.00625vmin);
     }
 
-    .SpecifyModelQuantityCard-SelectionContainer {
+    .ReservationConfirmationDetailsCard-SelectionContainer {
         height: calc(8.9vmin);
         width: calc(3.3375vmin);
     }
 
-    .SpecifyModelQuantityCard-InformationContainer p.heading-5 {
+    .ReservationConfirmationDetailsCard-InformationContainer p.heading-5 {
         align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .SpecifyModelQuantityCard-QuantityContainer {
+    .ReservationConfirmationDetailsCard-QuantityContainer {
         padding: calc(1.66875vmin);
         height: calc(6.675vmin);
         border-bottom-left-radius: calc(1.390625vmin);
         border-bottom-right-radius: calc(1.390625vmin);
-        background-color: var(--Red1);
-        color: var(--White1);
+        border-left: calc(0.278125vmin) solid var(--Gray1);
+        border-right: calc(0.278125vmin) solid var(--Gray1);
+        border-top: 0px;
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        color: var(--Black1);
     }
 
-    .SpecifyModelQuantityCard-ActionContainer {
+    .ReservationConfirmationDetailsCard-ActionContainer {
         padding: 0px;
         gap: calc(1.1125vmin);
     }
 
-    .SpecifyModelQuantityCard-SelectionContainer {
+    .ReservationConfirmationDetailsCard-SelectionContainer {
         height: calc(8.9vmin);
         width: calc(3.3375vmin);
     }
@@ -165,11 +158,11 @@
 
 /* For mobiles and smaller screens */
 @media screen and (max-width: 480px) {
-    .SpecifyModelQuanityCard-GeneralContainer {
+    .ReservationConfirmationDetailsCard-GeneralContainer {
         height: auto;
     }
 
-    .SpecifyModelQuantityCard-Container {
+    .ReservationConfirmationDetailsCard-Container {
         height: auto;
         border: calc(0.55625vmin) solid var(--Gray1);
         border-radius: calc(2.78125vmin);
@@ -177,31 +170,31 @@
         gap: calc(4.45vmin);
     }
 
-    .SpecifyModelQuantityCard-ModelPhoto {
+    .ReservationConfirmationDetailsCard-ModelPhoto {
         width: calc(17.8vmin);
         height: calc(17.8vmin);
         border-radius: calc(2.78125vmin);
     }
 
-    .SpecifyModelQuantityCard-DefaultModelIcon {
+    .ReservationConfirmationDetailsCard-DefaultModelIcon {
         font-size: calc(8.9vmin);
     }
 
-    .SpecifyModelQuantityCard-InformationContainer {
+    .ReservationConfirmationDetailsCard-InformationContainer {
         gap: calc(0.55625vmin);
         flex: 1;
     }
 
-    .SpecifyModelQuantityCard-Information {
+    .ReservationConfirmationDetailsCard-Information {
         height: calc(10.0125vmin);
     }
 
-    .SpecifyModelQuantityCard-SelectionContainer {
+    .ReservationConfirmationDetailsCard-SelectionContainer {
         height: 100%;
         width: calc(6.675vmin);
     }
 
-    .SpecifyModelQuantityCard-InformationContainer p.heading-5 {
+    .ReservationConfirmationDetailsCard-InformationContainer p.heading-5 {
         white-space: normal;
         word-wrap: break-word;
         display: -webkit-box;
