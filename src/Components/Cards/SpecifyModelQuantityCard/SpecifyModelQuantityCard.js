@@ -81,7 +81,7 @@ SpecifyModelQuantityCard.propTypes = {
   className: PropTypes.string,
   modelId: PropTypes.number.isRequired,
   modelName: PropTypes.string.isRequired,
-  modelPhoto: PropTypes.any.isRequired,
+  modelPhoto: PropTypes.any,
   typeName: PropTypes.string.isRequired,
   availableCount: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
@@ -92,6 +92,7 @@ SpecifyModelQuantityCard.propTypes = {
 // Define defaultProps for SpecifyModelQuantityCard
 SpecifyModelQuantityCard.defaultProps = {
   className: '',
+  modelPhoto: null,
 };
 
 // Exports the SpecifyModelQuantityCard component as the default export for the SpecifyModelQuantityCard module.

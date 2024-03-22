@@ -25,6 +25,7 @@ function SpecifyModelReservationQuantityList(props) {
           modelName={item.modelName}
           modelPhoto={item.modelPhoto}
           typeName={item.typeName}
+          typeId={item.typeId}
           availableCount={item.availableCount}
           quantity={item.quantity}
           onIncreaseQuantity={onIncreaseQuantity}

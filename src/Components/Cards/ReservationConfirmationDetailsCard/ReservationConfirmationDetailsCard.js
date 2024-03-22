@@ -57,7 +57,7 @@ function ReservationConfirmationDetailsCard(props) {
 ReservationConfirmationDetailsCard.propTypes = {
   className: PropTypes.string,
   modelName: PropTypes.string.isRequired,
-  modelPhoto: PropTypes.any.isRequired,
+  modelPhoto: PropTypes.any,
   typeName: PropTypes.string.isRequired,
   availableCount: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
@@ -66,6 +66,7 @@ ReservationConfirmationDetailsCard.propTypes = {
 // Define defaultProps for ReservationConfirmationDetailsCard
 ReservationConfirmationDetailsCard.defaultProps = {
   className: '',
+  modelPhoto: null,
 };
 
 export default ReservationConfirmationDetailsCard;

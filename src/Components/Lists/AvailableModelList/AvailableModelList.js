@@ -27,6 +27,7 @@ function AvailableModelList(props) {
           modelName={item.modelName}
           modelPhoto={item.modelPhoto}
           typeName={item.typeName}
+          typeId={item.typeId}
           availableCount={item.availableCount}
           isSelected={selectedModels.some(selectedModel => selectedModel.modelId === item.modelId)}
           onSelect={onSelectModel}

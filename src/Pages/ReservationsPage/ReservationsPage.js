@@ -30,7 +30,7 @@ import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiM
 function ReservationsPage(props) {
 
   // Extract neccessary props
-  const { userRole, schooldId } = props;
+  const { userRole, schoolId } = props;
 
   // SearchQuery State variables
   const [searchQuery, setSearchQuery] = useState({
@@ -54,6 +54,12 @@ function ReservationsPage(props) {
 
   // State for handling reservation creation process
   const [reservationCreationState, setReservationCreationState] = useState('Initial');
+
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: null,
+  });
 
   // HandleSearchQueryChange - Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
@@ -103,7 +109,35 @@ function ReservationsPage(props) {
   }
 
   const OnConfirmMakingReservationClick = () => {
-    console.log("confirm");
+    const requestBody = {
+      startDate: dateInformation.startDate.toISOString().split('T')[0],
+      endDate: dateInformation.endDate.toISOString().split('T')[0],
+      schoolId: schoolId,
+      reservedEquipments: selectedModels.map(model => ({
+        modelId: model.modelId,
+        typeId: model.typeId,
+        quantity: model.quantity
+      }))
+    };
+
+    axios
+      .post(`${API.domain}/api/reservation/create`, requestBody, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then((response) => {
+        setReservationCreationState('Initial');
+        setIsMakingReservation(false);
+        setDateInformation({
+          startDate: new Date(),
+          endDate: new Date(),
+        });
+        setSelectedModels([]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   
   // TODO: Search APIs

@@ -1,5 +1,6 @@
 //#region Import Neccessary Dependencies
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 //#endregion
 
 // Import Stylings
@@ -18,7 +19,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 function AvailableModelCard(props) {
 
   // Destructure props
-  const { className, modelId, modelName, modelPhoto, typeName, availableCount, isSelected, onSelect, isMakingReservation } = props;
+  const { className, modelId, modelName, modelPhoto, typeName, typeId, availableCount, isSelected, onSelect, isMakingReservation } = props;
 
   // State variable to manage model photo
   const [equipmentModelPhoto, setequipmentModelPhoto] = useState(modelPhoto);
@@ -33,6 +34,7 @@ function AvailableModelCard(props) {
       modelName,
       modelPhoto,
       typeName,
+      typeId,
       availableCount,
       quantity: 1,
     });
@@ -74,6 +76,27 @@ function AvailableModelCard(props) {
       </div>
     </div>
   )
+};
+
+// Define propTypes for Component
+AvailableModelCard.propTypes = {
+  className: PropTypes.string,
+  modelId: PropTypes.number.isRequired,
+  modelName: PropTypes.string.isRequired,
+  modelPhoto: PropTypes.any,
+  typeName: PropTypes.string.isRequired,
+  typeId: PropTypes.number.isRequired,
+  availableCount: PropTypes.number.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func,
+  isMakingReservation: PropTypes.bool.isRequired,
+};
+
+// Define default props for component
+AvailableModelCard.defaultProps = {
+  className: '',
+  modelPhoto: null,
+  onSelect: () => {},
 };
 
 // Exports the AvailableModelCard component as the default export for the AvailableModelCard module.
