@@ -28,7 +28,14 @@ function AvailableModelCard(props) {
 
   // HandleOnSelect - Handle model selection
   const HandleOnSelect = () => {
-    onSelect(modelId);
+    onSelect({
+      modelId,
+      modelName,
+      modelPhoto,
+      typeName,
+      availableCount,
+      quantity: 1,
+    });
   };
 
   return (

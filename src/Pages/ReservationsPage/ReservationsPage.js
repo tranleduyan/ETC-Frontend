@@ -20,7 +20,9 @@ import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/Unautho
 //#endregion
 
 //#region Import Icons
-import { HiArrowSmRight, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
+import { HiArrowSmRight, HiChevronLeft, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
+import IconButton from '../../Components/Buttons/IconButton/IconButton';
+import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
 //#endregion
 
 // Define ReservationsPage Component
@@ -76,7 +78,21 @@ function ReservationsPage(props) {
 
   // OnContinueMakingReservationClick - Handle the state of making reservation process
   const OnContinueMakingReservationClick = () => {
-    console.log(selectedModels);
+    if(IsValidReservationPeriod() && selectedModels.length > 0 && reservationCreationState === 'Initial') {
+      setReservationCreationState('Specify Quantity');
+    }
+    else if(reservationCreationState === 'Specify Quantity') {
+      setReservationCreationState('Confirm Reservation');
+    }
+  };
+
+  const OnBack = () => {
+    if(reservationCreationState === 'Specify Quantity') {
+      setReservationCreationState('Initial');
+    }
+    else if(reservationCreationState === 'Confirm Reservation') {
+      setReservationCreationState('Specify Quantity');
+    }
   };
 
   // OnCancelReservationCreationClick - Handle when "Cancel" button is clicked
@@ -113,17 +129,38 @@ function ReservationsPage(props) {
   }
 
   // Select Model - Handle model selection/deselection upon making reservation
-  const SelectModel = (modelId) => {
+  const SelectModel = (model) => {
     let updatedSelectedModels = [...selectedModels];
 
-    if(updatedSelectedModels.includes(modelId)) {
-      updatedSelectedModels = updatedSelectedModels.filter(id => id !== modelId);
+    // Check if the model is already selected
+    const selectedIndex = updatedSelectedModels.findIndex(item => item.modelId === model.modelId);
+  
+    // If selected, remove it; otherwise, add it to the list
+    if (selectedIndex !== -1) {
+      updatedSelectedModels.splice(selectedIndex, 1);
+    } else {
+      updatedSelectedModels.push(model);
     }
-    else {
-      updatedSelectedModels.push(modelId);
-    }
-
+  
     setSelectedModels(updatedSelectedModels);
+  };
+
+  const OnIncreaseQuantity = (modelId) => {
+    const index = selectedModels.findIndex(model => model.modelId === modelId);
+    if (index !== -1 && selectedModels[index].quantity + 1 <= selectedModels[index].availableCount) {
+      const updatedSelectedModels = [...selectedModels];
+      updatedSelectedModels[index] = { ...updatedSelectedModels[index], quantity: updatedSelectedModels[index].quantity + 1 };
+      setSelectedModels(updatedSelectedModels);
+    }
+  };
+
+  const OnDecreaseQuantity = (modelId) => {
+    const index = selectedModels.findIndex(model => model.modelId === modelId);
+    if (index !== -1 && selectedModels[index].quantity > 1) {
+      const updatedSelectedModels = [...selectedModels];
+      updatedSelectedModels[index] = { ...updatedSelectedModels[index], quantity: updatedSelectedModels[index].quantity - 1 };
+      setSelectedModels(updatedSelectedModels);
+    }
   };
 
   // IsValidReservationPeriod - valid if selected date range for reservation is valid
@@ -160,41 +197,67 @@ function ReservationsPage(props) {
             </div>
             <div className='ReservationsPage-ContentContainer'>
               <div className='ReservationsPage-ContentHeaderContainer'>
-                <SearchBarInputField
-                  className='ReservationsPage-SearchBar'
-                  placeholder='Search equipment'
-                  name='equipmentSerialId'
-                  value={searchQuery.equipmentSerialId}
-                  onChange={HandleSearchQueryChange}
-                  onKeyDown={(e) => e.key === 'Enter' && Search()}
-                  />
-                <div className='ReservationsPage-ReservationDateContainer'>
-                  <DatePickerInputField
-                    className='ReservationsPage-ReservationDateField'
-                    name='startDate'
-                    placeholder='Select start date'
-                    value={dateInformation.startDate}
-                    onChange={(name, value) => HandleDateInputChange(name, value)}/>
-                  <DatePickerInputField
-                    className='ReservationsPage-ReservationDateField'
-                    name='endDate'
-                    placeholder='Select end date'
-                    value={dateInformation.endDate}
-                    onChange={(name, value) => HandleDateInputChange(name, value)}/>
-                </div>
+                {reservationCreationState === 'Initial' && (
+                  <>                  
+                    <SearchBarInputField
+                      className='ReservationsPage-SearchBar'
+                      placeholder='Search equipment'
+                      name='equipmentSerialId'
+                      value={searchQuery.equipmentSerialId}
+                      onChange={HandleSearchQueryChange}
+                      onKeyDown={(e) => e.key === 'Enter' && Search()}
+                      />
+                    <div className='ReservationsPage-ReservationDateContainer'>
+                      <DatePickerInputField
+                        className='ReservationsPage-ReservationDateField'
+                        name='startDate'
+                        placeholder='Select start date'
+                        value={dateInformation.startDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}/>
+                      <DatePickerInputField
+                        className='ReservationsPage-ReservationDateField'
+                        name='endDate'
+                        placeholder='Select end date'
+                        value={dateInformation.endDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}/>
+                    </div>
+                  </>
+                )}
+                {reservationCreationState === 'Specify Quantity' && (
+                  <div className='ReservationsPage-HeaderContainer'>
+                    <IconButton
+                      icon={HiChevronLeft}
+                      className='ReservationsPage-BackButton'
+                      onClick={OnBack}/>
+                    <p className='heading-5'>Specify Quantity</p>
+                  </div>
+                )}
+                {reservationCreationState === 'Confirm Reservation' && (
+                  <div className='ReservationsPage-HeaderContainer'>
+                    <IconButton
+                      icon={HiChevronLeft}
+                      className='ReservationsPage-BackButton'
+                      onClick={OnBack}/>
+                    <p className='heading-5'>Confirm Reservation</p>
+                  </div>
+                )}
                 <div className='ReservationsPage-ActionButtonContainer'>
                   {isMakingReservation ? 
                     <>
+                    {reservationCreationState === 'Initial' && (
                       <StandardButton
                         title='Cancel'
                         onClick={OnCancelReservationCreationClick}
                         className='ReservationsPage-CancelButton'
                         icon={HiMinusCircle}/>
+                    )}
+                    {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
                       <StandardButton 
                         title='Continue'
                         onClick={OnContinueMakingReservationClick}
                         className='ReservationsPage-ContinueButton'
                         icon={HiArrowSmRight}/>
+                    )}
                     </>
                     :
                     <>
@@ -212,12 +275,20 @@ function ReservationsPage(props) {
                   }
                 </div>
               </div>
-              <AvailableModelList 
-                availableModels={availableModels}
-                selectedModels={selectedModels}
-                onSelectModel={SelectModel}
-                isMakingReservation={isMakingReservation}
-              />
+              {reservationCreationState === 'Initial' && (
+                <AvailableModelList 
+                  availableModels={availableModels}
+                  selectedModels={selectedModels}
+                  onSelectModel={SelectModel}
+                  isMakingReservation={isMakingReservation}
+                />
+              )}
+              {reservationCreationState === 'Specify Quantity' && (
+                <SpecifyModelReservationQuantityList 
+                  selectedModels={selectedModels}
+                  onIncreaseQuantity={OnIncreaseQuantity}
+                  onDecreaseQuantity={OnDecreaseQuantity}/>
+              )}
             </div>
           </div>
         </GeneralPage>

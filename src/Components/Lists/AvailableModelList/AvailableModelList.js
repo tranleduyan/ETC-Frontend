@@ -28,7 +28,7 @@ function AvailableModelList(props) {
           modelPhoto={item.modelPhoto}
           typeName={item.typeName}
           availableCount={item.availableCount}
-          isSelected={selectedModels.includes(item.modelId)}
+          isSelected={selectedModels.some(selectedModel => selectedModel.modelId === item.modelId)}
           onSelect={onSelectModel}
           isMakingReservation={isMakingReservation}
           />

@@ -23,6 +23,13 @@
     box-sizing: border-box;
 }
 
+.ReservationsPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .ReservationsPage-ReservationDateContainer {
     display: flex;
     flex-direction: row;
@@ -67,6 +74,14 @@
         height: calc(6.675vmin);
     }
 
+    .ReservationsPage-HeaderContainer {
+        gap: calc(2.225vmin);
+    }
+
+    .ReservationsPage-BackButton {
+        width: calc(1.66875vmin);
+    }
+
     .ReservationsPage-SearchBar {
         width: calc(39.49375vmin);
     }
@@ -91,12 +106,12 @@
         align-items: center;
         height: 100%;
         gap: calc(2.225vmin);
-        width: calc(55.625vmin);
+        width: calc(54.625vmin);
     }
 
     .ReservationsPage-ContinueButton,
     .ReservationsPage-YourReservationsButton {
-        width: calc(32vmin);
+        width: calc(30vmin);
     }
 
     .ReservationsPage-CancelButton,
@@ -151,6 +166,15 @@
         gap: calc(4.45vmin);
     }
 
+    .ReservationsPage-HeaderContainer {
+        gap: calc(4.45vmin);
+    }
+
+    .ReservationsPage-BackButton {
+        width: calc(0.834375vmin);
+        padding: 0;
+    }
+    
     .ReservationsPage-SearchBar {
         width: calc(50.61875vmin);
     }
