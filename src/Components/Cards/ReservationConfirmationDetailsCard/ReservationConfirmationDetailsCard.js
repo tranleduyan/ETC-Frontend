@@ -1,5 +1,6 @@
 //#region Import Neccessary Dependencies
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 //#endregion
 
 // Import Stylings
@@ -8,15 +9,17 @@ import './ReservationConfirmationDetailsCard.css';
 //#region Import Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
-import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 //#endregion
 
 function ReservationConfirmationDetailsCard(props) {
 
+  // Destructuring props
   const { className, modelName, modelPhoto, typeName, availableCount, quantity } = props;
 
+  // State to handle model photo
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
 
+  // Singular or plural text based on available count
   const itemText = availableCount > 1 ? 'items' : 'item';
 
   return (
@@ -50,4 +53,19 @@ function ReservationConfirmationDetailsCard(props) {
   )
 }
 
-export default ReservationConfirmationDetailsCard
+// Define PropTypes for ReservationConfirmationDetailsCard component
+ReservationConfirmationDetailsCard.propTypes = {
+  className: PropTypes.string,
+  modelName: PropTypes.string.isRequired,
+  modelPhoto: PropTypes.any.isRequired,
+  typeName: PropTypes.string.isRequired,
+  availableCount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+};
+
+// Define defaultProps for ReservationConfirmationDetailsCard
+ReservationConfirmationDetailsCard.defaultProps = {
+  className: '',
+};
+
+export default ReservationConfirmationDetailsCard;

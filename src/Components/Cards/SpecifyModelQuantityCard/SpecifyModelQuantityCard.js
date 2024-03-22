@@ -1,5 +1,6 @@
 //#region Import Neccessary Dependencies
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 //#endregion
 
 // Import Stylings
@@ -17,16 +18,21 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 function SpecifyModelQuantityCard(props) {
 
+  // Destructure props
   const { className, modelId, modelName, modelPhoto, typeName, availableCount, quantity, onIncreaseQuantity, onDecreaseQuantity } = props;
 
+  // State to handle model photo
   const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
 
+  // Singular or plural text based on available count
   const itemText = availableCount > 1 ? 'items' : 'item';
 
+  // Event handler for increasing quantity
   const HandleIncreaseQuantity = () => {
     onIncreaseQuantity(modelId);
   }
 
+  // Event handler for decreasing quantity
   const HandleDecreaseQuantity = () => {
     onDecreaseQuantity(modelId);
   }
@@ -69,5 +75,24 @@ function SpecifyModelQuantityCard(props) {
     </div>
   )
 };
+ 
+// Define propTypes for SpecifyModelQuantityCard
+SpecifyModelQuantityCard.propTypes = {
+  className: PropTypes.string,
+  modelId: PropTypes.number.isRequired,
+  modelName: PropTypes.string.isRequired,
+  modelPhoto: PropTypes.any.isRequired,
+  typeName: PropTypes.string.isRequired,
+  availableCount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  onIncreaseQuantity: PropTypes.func.isRequired,
+  onDecreaseQuantity: PropTypes.func.isRequired
+};
 
+// Define defaultProps for SpecifyModelQuantityCard
+SpecifyModelQuantityCard.defaultProps = {
+  className: '',
+};
+
+// Exports the SpecifyModelQuantityCard component as the default export for the SpecifyModelQuantityCard module.
 export default SpecifyModelQuantityCard;

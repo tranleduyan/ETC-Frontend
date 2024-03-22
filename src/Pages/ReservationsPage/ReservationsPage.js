@@ -17,13 +17,13 @@ import DatePickerInputField from '../../Components/InputFields/DatePickerInputFi
 import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
 import AvailableModelList from '../../Components/Lists/AvailableModelList/AvailableModelList';
 import UnauthorizedPanel from '../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel';
+import IconButton from '../../Components/Buttons/IconButton/IconButton';
+import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
+import ReservationConfirmationDetailsList from '../../Components/Lists/ReservationConfirmationDetailsList/ReservationConfirmationDetailsList';
 //#endregion
 
 //#region Import Icons
 import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiMinusCircle, HiPlus } from 'react-icons/hi';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
-import ReservationConfirmationDetailsList from '../../Components/Lists/ReservationConfirmationDetailsList/ReservationConfirmationDetailsList';
 //#endregion
 
 // Define ReservationsPage Component

@@ -1,5 +1,6 @@
 //#region Import Neccessary Dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 //#endregion
 
 // Import Stylings
@@ -32,6 +33,16 @@ function ReservationConfirmationDetailsList(props) {
         
     </div>
   )
+};
+
+ReservationConfirmationDetailsList.propTypes = {
+  className: PropTypes.string,
+  selectedModels: PropTypes.array,
+};
+
+ReservationConfirmationDetailsList.defaultProps = {
+  className: '',
+  selectedModels: [],
 };
 
 // Exports the ReservationConfirmationDetailsList component as the default export for the ReservationConfirmationDetailsList module.
