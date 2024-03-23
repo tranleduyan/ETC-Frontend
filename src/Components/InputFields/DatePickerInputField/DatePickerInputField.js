@@ -27,7 +27,8 @@ function DatePickerInputField(props) {
                 name={name}
                 selected={value}
                 onChange={HandleDateChange}
-                dateFormat="MM/dd/yyyy"/>
+                dateFormat="MM/dd/yyyy"
+                />
   )
 };
 

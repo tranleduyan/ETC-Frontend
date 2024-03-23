@@ -94,10 +94,7 @@
         height: calc(13.90625vmin);
         border-top-left-radius: calc(1.390625vmin);
         border-top-right-radius: calc(1.390625vmin);
-        border-left: calc(0.278125vmin) solid var(--Gray1);
-        border-right: calc(0.278125vmin) solid var(--Gray1);
-        border-top: calc(0.278125vmin) solid var(--Gray1);
-        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        border: calc(0.278125vmin) solid var(--Gray1);
         padding: calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin);
         gap: calc(2.225vmin);
     }
@@ -164,8 +161,10 @@
 
     .ReservationConfirmationDetailsCard-Container {
         height: auto;
+        min-height: calc(27.8125vmin);
+        border-top-left-radius: calc(2.78125vmin);
+        border-top-right-radius: calc(2.78125vmin);
         border: calc(0.55625vmin) solid var(--Gray1);
-        border-radius: calc(2.78125vmin);
         padding: calc(3.3375vmin);
         gap: calc(4.45vmin);
     }
@@ -203,5 +202,27 @@
         -moz-box-orient: vertical;
         -moz-box-lines: 2;
         overflow: hidden;
+    }
+
+    .ReservationConfirmationDetailsCard-QuantityContainer {
+        padding: calc(3.3375vmin);
+        height: calc(13.35vmin);
+        border-bottom-left-radius: calc(2.78125vmin);
+        border-bottom-right-radius: calc(2.78125vmin);
+        border-left: calc(0.55625vmin) solid var(--Gray1);
+        border-right: calc(0.55625vmin) solid var(--Gray1);
+        border-top: 0px;
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+        color: var(--Black1);
+    }
+
+    .ReservationConfirmationDetailsCard-ActionContainer {
+        padding: 0px;
+        gap: calc(2.225vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-SelectionContainer {
+        height: calc(17.8vmin);
+        width: calc(6.675vmin);
     }
 }

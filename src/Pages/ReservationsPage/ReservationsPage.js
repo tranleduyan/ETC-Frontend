@@ -294,6 +294,69 @@ function ReservationsPage(props) {
               <p className='heading-2'>Reservations</p>
             </div>
             <div className='ReservationsPage-ContentContainer'>
+              <div className='ReservationsPage-MobileContentHeaderContainer'>
+                {reservationCreationState === 'Initial' && (
+                  <>
+                    <div className='ReservationsPage-MobileHeaderRow'>
+                      <SearchBarInputField
+                        className='ReservationsPage-SearchBar'
+                        placeholder='Search'
+                        name='equipmentSerialId'
+                        value={searchQuery.equipmentSerialId}
+                        onChange={HandleSearchQueryChange}
+                        onKeyDown={(e) => e.key === 'Enter' && Search()}/>
+                      {isMakingReservation 
+                        ? 
+                          <StandardButton
+                          title='Cancel'
+                          onClick={OnCancelReservationCreationClick}
+                          className='ReservationsPage-CancelButton'
+                          icon={HiMinusCircle}/>
+                        :
+                          <StandardButton 
+                          title='Reserve'
+                          onClick={OnReserveClick}
+                          className='ReservationsPage-ReserveButton'
+                          icon={HiPlus}/>
+                      }
+                    </div>
+                    <div className='ReservationsPage-ReservationDateContainer'>
+                      <DatePickerInputField
+                        className={`ReservationsPage-ReservationDateField`}
+                        name='startDate'
+                        placeholder='Select start date'
+                        value={dateInformation.startDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
+                      <DatePickerInputField
+                        className={`ReservationsPage-ReservationDateField`}
+                        name='endDate'
+                        placeholder='Select end date'
+                        value={dateInformation.endDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
+                    </div>
+                  </>
+                )}
+                {reservationCreationState === 'Specify Quantity' && (
+                  <div className='ReservationsPage-MobileHeaderRow'>
+                    <IconButton
+                      icon={HiChevronLeft}
+                      className='ReservationsPage-BackButton'
+                      onClick={OnBack}/>
+                    <p className='heading-5'>Specify Quantity</p>
+                  </div>
+                )}
+                {reservationCreationState === 'Confirm Reservation' && (
+                  <div className='ReservationsPage-MobileHeaderRow'>
+                    <IconButton
+                      icon={HiChevronLeft}
+                      className='ReservationsPage-BackButton'
+                      onClick={OnBack}/>
+                    <p className='heading-5'>Confirm Reservation</p>
+                  </div>
+                )}
+              </div>
               <div className='ReservationsPage-ContentHeaderContainer'>
                 {reservationCreationState === 'Initial' && (
                   <>                  
@@ -411,6 +474,33 @@ function ReservationsPage(props) {
                   </div>
                 </div>
               )}
+              <div className='ReservationsPage-MobileActionButtonContainer'>
+                {isMakingReservation 
+                  ?
+                  <>                
+                    {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
+                      <StandardButton 
+                        title='Continue'
+                        onClick={OnContinueMakingReservationClick}
+                        className='ReservationsPage-ContinueButton'
+                        icon={HiArrowSmRight}/>
+                    )}
+                    {reservationCreationState === 'Confirm Reservation' && (
+                      <StandardButton 
+                      title='Confirm'
+                      onClick={OnConfirmMakingReservationClick}
+                      className='ReservationsPage-ConfirmButton'
+                      icon={HiCheck}/>
+                    )}
+                  </>
+                  :
+                  <StandardButton 
+                    title='Your Reservations'
+                    onClick={OnYourReservationsClick}
+                    className='ReservationsPage-YourReservationsButton'
+                    icon={HiChevronRight}/>   
+                }
+              </div>
             </div>
           </div>
         </GeneralPage>

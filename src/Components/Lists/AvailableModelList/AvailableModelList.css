@@ -33,7 +33,7 @@
 /* For mobiles and smaller screen */
 @media screen and (max-width: 480px) {
     .AvailableModelList-Container {
-        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+        height: calc(100% - calc(53.4vmin));
         margin: calc(4.45vmin) 0px;
         grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
         gap: calc(4.45vmin);

@@ -63,6 +63,11 @@
     color: var(--Red1);
 }
 
+.ReservationsPage-MobileHeaderRow {
+    display: flex;
+    flex-direction: row;
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .ReservationsPage-PageContentContainer {
@@ -164,6 +169,10 @@
         width: calc(69.53125vmin);
         height: calc(41.71875vmin);
     }
+    
+    .ReservationsPage-MobileActionButtonContainer {
+        display: none;
+    }
 }
 
 /* For mobiles and smaller devices */
@@ -205,14 +214,13 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: calc(6.675vmin);
         gap: calc(4.45vmin);
     }
 
-    .ReservationsPage-HeaderContainer {
+    .ReservationsPage-MobileHeaderRow {
         gap: calc(4.45vmin);
+        height: calc(13.35vmin);
+        align-items: center;
     }
 
     .ReservationsPage-BackButton {
@@ -237,6 +245,7 @@
         display: none;
     }
 
+    .ReservationsPage-CancelButton,
     .ReservationsPage-ReserveButton {
         width: calc(36.15625vmin);
     }
@@ -245,12 +254,37 @@
         width: 100%;
     }
 
+    .ReservationsPage-ReservationConfirmationContainer {
+        height: calc(100% - calc(31vmin));
+        margin-top: calc(4.45vmin);
+        gap: calc(4.45vmin);
+    }
+
     .ReservationsPage-ReservationConfirmationDateContainer {
         gap: calc(4.45vmin);
     }
 
+    .ReservationsPage-ReservationConfirmationDateIcon {
+        font-size: calc(8.9vmin);
+        padding: 0px;
+    }
+
+
     .ReservationsPage-IconModalContainer {
         width: calc(91.225vmin);
         height: calc(61.1875vmin);
+    }
+
+    .ReservationsPage-ReservationConfirmationDetailsContainer {
+        height: calc(100% - calc(6.675vmin));
+        overflow-y: hidden;
+        margin-bottom: calc(4.45vmin);
+    }
+
+    .ReservationsPage-ConfirmButton,
+    .ReservationsPage-ContinueButton,
+    .ReservationsPage-YourReservationsButton {
+        width: 100%;
+        height: calc(13.35vmin);
     }
 }   

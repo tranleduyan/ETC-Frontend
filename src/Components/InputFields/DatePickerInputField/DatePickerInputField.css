@@ -63,4 +63,12 @@
         right: calc(3.3375vmin);
         font-size: calc(5.5625vmin);
     }
+
+    .DatePickerInputField-Error input {
+        height: calc(13.35vmin);
+        padding: calc(3.3375vmin) !important;
+        border-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Red2);
+        font-size: calc(4.45vmin);
+    }
 }

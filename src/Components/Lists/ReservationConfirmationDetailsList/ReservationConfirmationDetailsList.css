@@ -23,7 +23,7 @@
 /* For mobiles and smaller screen */
 @media screen and (max-width: 480px) {
     .ReservationConfirmationDetailsList-Container {
-        flex: 1;
+        height: calc(100% - calc(12vmin));
         margin: calc(4.45vmin) 0px;
         grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
         gap: calc(4.45vmin);
