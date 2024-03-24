@@ -40,7 +40,7 @@
 .NavigationBarButton-SignOutButton:hover,
 .NavigationBarButton-Container:hover,
 .NavigationBarButton-Active {
-    color: var(--Red1);
+    color: var(--Red1) !important;
 }
 
 /* For tablet and larger devices */

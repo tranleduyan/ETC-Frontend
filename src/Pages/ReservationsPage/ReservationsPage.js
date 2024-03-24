@@ -89,8 +89,26 @@ function ReservationsPage(props) {
 
   // OnContinueMakingReservationClick - Handle the state of making reservation process
   const OnContinueMakingReservationClick = () => {
-    if(IsValidReservationPeriod() && selectedModels.length > 0 && reservationCreationState === 'Initial') {
-      setReservationCreationState('Specify Quantity');
+    if(reservationCreationState === 'Initial') {
+      if(selectedModels.length === 0) {
+        setIconModal({
+          message: 'Please select an item to reserve!',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          })}, 1500);
+      }
+      else if(IsValidReservationPeriod() && selectedModels.length > 0) {
+        setReservationCreationState('Specify Quantity');
+      }
     }
     else if(reservationCreationState === 'Specify Quantity') {
       setReservationCreationState('Confirm Reservation');
