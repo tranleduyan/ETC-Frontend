@@ -416,7 +416,7 @@ function ReservationsPage(props) {
                     )}
                     {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
                       <StandardButton 
-                        title='Continue'
+                        title=''
                         onClick={OnContinueMakingReservationClick}
                         className='ReservationsPage-ContinueButton'
                         icon={HiArrowSmRight}/>
@@ -437,10 +437,10 @@ function ReservationsPage(props) {
                         className='ReservationsPage-ReserveButton'
                         icon={HiPlus}/>
                       <StandardButton 
-                        title='Your Reservations'
+                        title=''
                         onClick={OnYourReservationsClick}
                         className='ReservationsPage-YourReservationsButton'
-                        icon={HiChevronRight}/>                
+                        icon={HiCalendar}/>                
                     </>
                   }
                 </div>

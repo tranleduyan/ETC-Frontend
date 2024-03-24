@@ -158,6 +158,11 @@
         height: calc(8.9vmin);
         width: calc(3.3375vmin);
     }
+
+    .SpecifyModelQuantityCard-QuantityUpdateButton {
+        width: calc(3.3375vmin) !important;
+        padding: 0px;
+    }
 }
 
 /* For mobiles and smaller screens */

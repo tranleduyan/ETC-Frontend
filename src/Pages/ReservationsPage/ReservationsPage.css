@@ -104,10 +104,11 @@
 
     .ReservationsPage-BackButton {
         width: calc(1.66875vmin);
+        padding: 0px;
     }
 
     .ReservationsPage-SearchBar {
-        width: calc(39.49375vmin);
+        width: calc(38.49375vmin);
     }
 
     .ReservationsPage-MobileContentHeaderContainer {
@@ -115,7 +116,7 @@
     }
 
     .ReservationsPage-ReservationDateContainer {
-        width: calc(57.85vmin);
+        width: calc(50.85vmin);
         height: 100%;
     }
 
@@ -130,15 +131,15 @@
         align-items: center;
         height: 100%;
         gap: calc(2.225vmin);
-        width: calc(54.625vmin);
+
+    }
+
+    .ReservationsPage-ContinueButton,
+    .ReservationsPage-YourReservationsButton {
+        padding: 0px calc(2.225vmin);
     }
 
     .ReservationsPage-ConfirmButton,
-    .ReservationsPage-ContinueButton,
-    .ReservationsPage-YourReservationsButton {
-        width: calc(30vmin);
-    }
-
     .ReservationsPage-CancelButton,
     .ReservationsPage-ReserveButton {
         width: calc(22.25vmin);
