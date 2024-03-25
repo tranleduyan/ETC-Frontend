@@ -1,5 +1,5 @@
 // Import Components 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { API } from '../../Constants';
@@ -21,10 +21,14 @@ import IconButton from '../../Components/Buttons/IconButton/IconButton';
 import SpecifyModelReservationQuantityList from '../../Components/Lists/SpecifyModelReservationQuatityList/SpecifyModelReservationQuantityList';
 import ReservationConfirmationDetailsList from '../../Components/Lists/ReservationConfirmationDetailsList/ReservationConfirmationDetailsList';
 import IconModal from '../../Components/Modals/IconModal/IconModal';
+import FilterButton from '../../Components/Buttons/FilterButton/FilterButton';
+import ReservationList from '../../Components/Lists/ReservationList/ReservationList';
+import DetailSection from '../../Components/Sections/DetailSection/DetailSection';
 //#endregion
 
 //#region Import Icons
-import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPlus, HiRefresh } from 'react-icons/hi';
+import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPlus, HiRefresh, HiX } from 'react-icons/hi';
+import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 //#endregion
 
 // Define ReservationsPage Component
@@ -65,6 +69,35 @@ function ReservationsPage(props) {
     isIconSpin: false,
   });
 
+  const [pageState, setPageState] = useState('Reservation Creation');
+
+  const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
+
+  const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+  const [reservationDetails, setReservationDetails] = useState([]);
+
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+
+  // Close detail section when clicked on the "X" icon
+  const CloseDetailSection = () => {
+    setSelectedReservation(null);
+  };
+
+  // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
+  const UpdateMobileView = useCallback(() => {
+    setIsMobileView(window.innerWidth <= 480);
+  }, []);
+
+
+  const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
+
+  // Function triggered when reservation status filter button is clicked
+  const OnReservationStatusFilterButtonClick = (status) => {
+    setReservationsFilterStatus(status);
+    setSelectedReservation(null);
+};
+
   // HandleSearchQueryChange - Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {
     setSearchQuery({...searchQuery, [propertyName]: inputValue});
@@ -84,7 +117,7 @@ function ReservationsPage(props) {
 
   // OnYourReservationsClick - Handle when "Your Reservations" button is clicked
   const OnYourReservationsClick = () => {
-    console.log('Your Reservations');
+    setPageState('Your Reservations');
   };
 
   // OnContinueMakingReservationClick - Handle the state of making reservation process
@@ -116,7 +149,11 @@ function ReservationsPage(props) {
   };
 
   const OnBack = () => {
-    if(reservationCreationState === 'Specify Quantity') {
+    if(pageState === 'Your Reservations') {
+      setPageState('Reservation Creation');
+    }
+
+    else if(reservationCreationState === 'Specify Quantity') {
       setReservationCreationState('Initial');
     }
     else if(reservationCreationState === 'Confirm Reservation') {
@@ -129,6 +166,18 @@ function ReservationsPage(props) {
     setIsMakingReservation(false);
     setSelectedModels([]);
   }
+
+  const OnReservationCardClick = () => {
+    console.log("Card Click");
+  };
+
+  const OnRejectReservationClick = () => {
+    console.log("Reject Reservation");
+  };
+
+  const OnApproveReservationClick = () => {
+    console.log("Approve Reservation");
+  };
 
   const OnConfirmMakingReservationClick = () => {
     const requestBody = {
@@ -183,13 +232,34 @@ function ReservationsPage(props) {
 
       })
       .catch((error) => {
-        console.log(error);
+        const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+        setIconModal({
+          message: errorMessage,
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+        }, 1500);
+
       });
   }
   
   // TODO: Search APIs
   const Search = () => {
     console.log(searchQuery);
+  }
+
+  const OnOnlyYourReservationsClick = () => {
+    console.log('filter only your reservations');
   }
 
   // FetchAvailableModels - Fetch available models based on selected date range
@@ -271,14 +341,14 @@ function ReservationsPage(props) {
 
   // IsValidReservationPeriod - valid if selected date range for reservation is valid
   const IsValidReservationPeriod = () => {
-
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    if(dateInformation.startDate < today) {
-      setIsDateError(true);
-      return false;
+
+    if(pageState === 'Your Reservations' && (dateInformation.startDate === null || dateInformation.endDate === null)) {
+      setIsDateError(false);
+      return true;
     }
-    else if(dateInformation.startDate > dateInformation.endDate) {
+    else if(dateInformation.startDate < today || dateInformation.startDate > dateInformation.endDate) {
       setIsDateError(true);
       return false;
     }
@@ -289,11 +359,41 @@ function ReservationsPage(props) {
 
   // Fetch availble models whenever valid date range changes
   useEffect(() => {
-    if(IsValidReservationPeriod()) {
+    if(pageState === 'Reservation Creation' && IsValidReservationPeriod()) {
       FetchAvailableModels();
     }
     // eslint-disable-next-line
   }, [dateInformation.startDate, dateInformation.endDate]);
+
+  useEffect(() => {
+    // Add event listener for window resize to update mobile view
+    window.addEventListener('resize', UpdateMobileView);
+    return () => {
+      // Remove event listener when component unmounts
+      window.removeEventListener('resize', UpdateMobileView);
+    }
+  }, [UpdateMobileView]);
+
+  useEffect(() => {
+    // If in mobile view, hide right panel when no selection, show when there's a selection
+    if(isMobileView) {
+      if(!selectedReservation) {
+        setIsRightPanelVisible(false);
+      }
+      else if (selectedReservation) {
+        setIsRightPanelVisible(true);
+      }
+    }
+  }, [selectedReservation, isMobileView]);
+
+  useEffect(() => {
+    if(pageState === 'Your Reservations') {
+      setDateInformation({
+        startDate: null,
+        endDate: null,
+      });
+    }
+  }, [pageState]);
 
   return (
     <>
@@ -311,215 +411,313 @@ function ReservationsPage(props) {
               <Logo className='ReservationsPage-LogoContainer'/>
               <p className='heading-2'>Reservations</p>
             </div>
-            <div className='ReservationsPage-ContentContainer'>
-              <div className='ReservationsPage-MobileContentHeaderContainer'>
-                {reservationCreationState === 'Initial' && (
-                  <>
+            {(pageState === 'Reservation Creation') &&
+              <div className='ReservationsPage-ContentContainer'>
+                <div className='ReservationsPage-MobileContentHeaderContainer'>
+                  {reservationCreationState === 'Initial' && (
+                    <>
+                      <div className='ReservationsPage-MobileHeaderRow'>
+                        <SearchBarInputField
+                          className='ReservationsPage-SearchBar'
+                          placeholder='Search'
+                          name='equipmentSerialId'
+                          value={searchQuery.equipmentSerialId}
+                          onChange={HandleSearchQueryChange}
+                          onKeyDown={(e) => e.key === 'Enter' && Search()}/>
+                        {isMakingReservation 
+                          ? 
+                            <StandardButton
+                            title='Cancel'
+                            onClick={OnCancelReservationCreationClick}
+                            className='ReservationsPage-CancelButton'
+                            icon={HiMinusCircle}/>
+                          :
+                            <StandardButton 
+                            title='Reserve'
+                            onClick={OnReserveClick}
+                            className='ReservationsPage-ReserveButton'
+                            icon={HiPlus}/>
+                        }
+                      </div>
+                      <div className='ReservationsPage-ReservationDateContainer'>
+                        <DatePickerInputField
+                          className={`ReservationsPage-ReservationDateField`}
+                          name='startDate'
+                          placeholder='From'
+                          value={dateInformation.startDate}
+                          onChange={(name, value) => HandleDateInputChange(name, value)}
+                          isError={isDateError}/>
+                        <DatePickerInputField
+                          className={`ReservationsPage-ReservationDateField`}
+                          name='endDate'
+                          placeholder='Until'
+                          value={dateInformation.endDate}
+                          onChange={(name, value) => HandleDateInputChange(name, value)}
+                          isError={isDateError}/>
+                      </div>
+                    </>
+                  )}
+                  {reservationCreationState === 'Specify Quantity' && (
                     <div className='ReservationsPage-MobileHeaderRow'>
+                      <IconButton
+                        icon={HiChevronLeft}
+                        className='ReservationsPage-BackButton'
+                        onClick={OnBack}/>
+                      <p className='heading-5'>Specify Quantity</p>
+                    </div>
+                  )}
+                  {reservationCreationState === 'Confirm Reservation' && (
+                    <div className='ReservationsPage-MobileHeaderRow'>
+                      <IconButton
+                        icon={HiChevronLeft}
+                        className='ReservationsPage-BackButton'
+                        onClick={OnBack}/>
+                      <p className='heading-5'>Confirm Reservation</p>
+                    </div>
+                  )}
+                </div>
+                <div className='ReservationsPage-ContentHeaderContainer'>
+                  {reservationCreationState === 'Initial' && (
+                    <>                  
                       <SearchBarInputField
                         className='ReservationsPage-SearchBar'
-                        placeholder='Search'
+                        placeholder='Search equipment'
                         name='equipmentSerialId'
                         value={searchQuery.equipmentSerialId}
                         onChange={HandleSearchQueryChange}
-                        onKeyDown={(e) => e.key === 'Enter' && Search()}/>
-                      {isMakingReservation 
-                        ? 
-                          <StandardButton
+                        onKeyDown={(e) => e.key === 'Enter' && Search()}
+                        />
+                      <div className='ReservationsPage-ReservationDateContainer'>
+                        <DatePickerInputField
+                          className={`ReservationsPage-ReservationDateField`}
+                          name='startDate'
+                          placeholder='Select start date'
+                          value={dateInformation.startDate}
+                          onChange={(name, value) => HandleDateInputChange(name, value)}
+                          isError={isDateError}/>
+                        <DatePickerInputField
+                          className={`ReservationsPage-ReservationDateField`}
+                          name='endDate'
+                          placeholder='Select end date'
+                          value={dateInformation.endDate}
+                          onChange={(name, value) => HandleDateInputChange(name, value)}
+                          isError={isDateError}/>
+                      </div>
+                    </>
+                  )}
+                  {reservationCreationState === 'Specify Quantity' && (
+                    <div className='ReservationsPage-HeaderContainer'>
+                      <IconButton
+                        icon={HiChevronLeft}
+                        className='ReservationsPage-BackButton'
+                        onClick={OnBack}/>
+                      <p className='heading-5'>Specify Quantity</p>
+                    </div>
+                  )}
+                  {reservationCreationState === 'Confirm Reservation' && (
+                    <div className='ReservationsPage-HeaderContainer'>
+                      <IconButton
+                        icon={HiChevronLeft}
+                        className='ReservationsPage-BackButton'
+                        onClick={OnBack}/>
+                      <p className='heading-5'>Confirm Reservation</p>
+                    </div>
+                  )}
+                  <div className='ReservationsPage-ActionButtonContainer'>
+                    {isMakingReservation ? 
+                      <>
+                      {reservationCreationState === 'Initial' && (
+                        <StandardButton
                           title='Cancel'
                           onClick={OnCancelReservationCreationClick}
                           className='ReservationsPage-CancelButton'
                           icon={HiMinusCircle}/>
-                        :
-                          <StandardButton 
+                      )}
+                      {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
+                        <StandardButton 
+                          title=''
+                          onClick={OnContinueMakingReservationClick}
+                          className='ReservationsPage-ContinueButton'
+                          icon={HiArrowSmRight}/>
+                      )}
+                      {reservationCreationState === 'Confirm Reservation' && (
+                        <StandardButton 
+                        title='Confirm'
+                        onClick={OnConfirmMakingReservationClick}
+                        className='ReservationsPage-ConfirmButton'
+                        icon={HiCheck}/>
+                      )}
+                      </>
+                      :
+                      <>
+                        <StandardButton 
                           title='Reserve'
                           onClick={OnReserveClick}
                           className='ReservationsPage-ReserveButton'
                           icon={HiPlus}/>
-                      }
-                    </div>
-                    <div className='ReservationsPage-ReservationDateContainer'>
-                      <DatePickerInputField
-                        className={`ReservationsPage-ReservationDateField`}
-                        name='startDate'
-                        placeholder='Select start date'
-                        value={dateInformation.startDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}
-                        isError={isDateError}/>
-                      <DatePickerInputField
-                        className={`ReservationsPage-ReservationDateField`}
-                        name='endDate'
-                        placeholder='Select end date'
-                        value={dateInformation.endDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}
-                        isError={isDateError}/>
-                    </div>
-                  </>
-                )}
-                {reservationCreationState === 'Specify Quantity' && (
-                  <div className='ReservationsPage-MobileHeaderRow'>
-                    <IconButton
-                      icon={HiChevronLeft}
-                      className='ReservationsPage-BackButton'
-                      onClick={OnBack}/>
-                    <p className='heading-5'>Specify Quantity</p>
+                        <StandardButton 
+                          title=''
+                          onClick={OnYourReservationsClick}
+                          className='ReservationsPage-YourReservationsButton'
+                          icon={HiCalendar}/>                
+                      </>
+                    }
                   </div>
-                )}
-                {reservationCreationState === 'Confirm Reservation' && (
-                  <div className='ReservationsPage-MobileHeaderRow'>
-                    <IconButton
-                      icon={HiChevronLeft}
-                      className='ReservationsPage-BackButton'
-                      onClick={OnBack}/>
-                    <p className='heading-5'>Confirm Reservation</p>
-                  </div>
-                )}
-              </div>
-              <div className='ReservationsPage-ContentHeaderContainer'>
+                </div>
                 {reservationCreationState === 'Initial' && (
-                  <>                  
-                    <SearchBarInputField
-                      className='ReservationsPage-SearchBar'
-                      placeholder='Search equipment'
-                      name='equipmentSerialId'
-                      value={searchQuery.equipmentSerialId}
-                      onChange={HandleSearchQueryChange}
-                      onKeyDown={(e) => e.key === 'Enter' && Search()}
-                      />
-                    <div className='ReservationsPage-ReservationDateContainer'>
-                      <DatePickerInputField
-                        className={`ReservationsPage-ReservationDateField`}
-                        name='startDate'
-                        placeholder='Select start date'
-                        value={dateInformation.startDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}
-                        isError={isDateError}/>
-                      <DatePickerInputField
-                        className={`ReservationsPage-ReservationDateField`}
-                        name='endDate'
-                        placeholder='Select end date'
-                        value={dateInformation.endDate}
-                        onChange={(name, value) => HandleDateInputChange(name, value)}
-                        isError={isDateError}/>
-                    </div>
-                  </>
+                  <AvailableModelList 
+                    availableModels={availableModels}
+                    selectedModels={selectedModels}
+                    onSelectModel={SelectModel}
+                    isMakingReservation={isMakingReservation}
+                  />
                 )}
                 {reservationCreationState === 'Specify Quantity' && (
-                  <div className='ReservationsPage-HeaderContainer'>
-                    <IconButton
-                      icon={HiChevronLeft}
-                      className='ReservationsPage-BackButton'
-                      onClick={OnBack}/>
-                    <p className='heading-5'>Specify Quantity</p>
-                  </div>
+                  <SpecifyModelReservationQuantityList 
+                    selectedModels={selectedModels}
+                    onIncreaseQuantity={OnIncreaseQuantity}
+                    onDecreaseQuantity={OnDecreaseQuantity}/>
                 )}
                 {reservationCreationState === 'Confirm Reservation' && (
-                  <div className='ReservationsPage-HeaderContainer'>
-                    <IconButton
-                      icon={HiChevronLeft}
-                      className='ReservationsPage-BackButton'
-                      onClick={OnBack}/>
-                    <p className='heading-5'>Confirm Reservation</p>
+                  <div className='ReservationsPage-ReservationConfirmationContainer'>
+                    <div className='ReservationsPage-ReservationConfirmationDateContainer'>
+                      <HiCalendar className='ReservationsPage-ReservationConfirmationDateIcon'/>
+                      <p className='paragraph-1'>
+                        {dateInformation.startDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')} - {dateInformation.endDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')}
+                      </p>
+                    </div>
+                    <div className='ReservationsPage-ReservationConfirmationDetailsContainer'>
+                      <p className='heading-5'>Details</p>
+                      <ReservationConfirmationDetailsList 
+                        selectedModels={selectedModels}/>
+                    </div>
                   </div>
                 )}
-                <div className='ReservationsPage-ActionButtonContainer'>
-                  {isMakingReservation ? 
-                    <>
-                    {reservationCreationState === 'Initial' && (
-                      <StandardButton
-                        title='Cancel'
-                        onClick={OnCancelReservationCreationClick}
-                        className='ReservationsPage-CancelButton'
-                        icon={HiMinusCircle}/>
-                    )}
-                    {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
-                      <StandardButton 
-                        title=''
-                        onClick={OnContinueMakingReservationClick}
-                        className='ReservationsPage-ContinueButton'
-                        icon={HiArrowSmRight}/>
-                    )}
-                    {reservationCreationState === 'Confirm Reservation' && (
-                      <StandardButton 
-                      title='Confirm'
-                      onClick={OnConfirmMakingReservationClick}
-                      className='ReservationsPage-ConfirmButton'
-                      icon={HiCheck}/>
-                    )}
+                <div className='ReservationsPage-MobileActionButtonContainer'>
+                  {isMakingReservation 
+                    ?
+                    <>                
+                      {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
+                        <StandardButton 
+                          title='Continue'
+                          onClick={OnContinueMakingReservationClick}
+                          className='ReservationsPage-ContinueButton'
+                          icon={HiArrowSmRight}/>
+                      )}
+                      {reservationCreationState === 'Confirm Reservation' && (
+                        <StandardButton 
+                        title='Confirm'
+                        onClick={OnConfirmMakingReservationClick}
+                        className='ReservationsPage-ConfirmButton'
+                        icon={HiCheck}/>
+                      )}
                     </>
                     :
-                    <>
-                      <StandardButton 
-                        title='Reserve'
-                        onClick={OnReserveClick}
-                        className='ReservationsPage-ReserveButton'
-                        icon={HiPlus}/>
-                      <StandardButton 
-                        title=''
-                        onClick={OnYourReservationsClick}
-                        className='ReservationsPage-YourReservationsButton'
-                        icon={HiCalendar}/>                
-                    </>
+                    <StandardButton 
+                      title='Your Reservations'
+                      onClick={OnYourReservationsClick}
+                      className='ReservationsPage-YourReservationsButton'
+                      icon={HiChevronRight}/>   
                   }
                 </div>
               </div>
-              {reservationCreationState === 'Initial' && (
-                <AvailableModelList 
-                  availableModels={availableModels}
-                  selectedModels={selectedModels}
-                  onSelectModel={SelectModel}
-                  isMakingReservation={isMakingReservation}
-                />
-              )}
-              {reservationCreationState === 'Specify Quantity' && (
-                <SpecifyModelReservationQuantityList 
-                  selectedModels={selectedModels}
-                  onIncreaseQuantity={OnIncreaseQuantity}
-                  onDecreaseQuantity={OnDecreaseQuantity}/>
-              )}
-              {reservationCreationState === 'Confirm Reservation' && (
-                <div className='ReservationsPage-ReservationConfirmationContainer'>
-                  <div className='ReservationsPage-ReservationConfirmationDateContainer'>
-                    <HiCalendar className='ReservationsPage-ReservationConfirmationDateIcon'/>
-                    <p className='paragraph-1'>
-                      {dateInformation.startDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')} - {dateInformation.endDate.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/')}
-                    </p>
+            }
+            {(pageState === 'Your Reservations') &&
+              <div className='ReservationsPage-YourReservationsContainer'>
+                <div className={`ReservationsPage-ReservationsPanel ${isMobileView && isRightPanelVisible ? 'ReservationsPage-Hide' : ''}`}>
+                  <div className='ReservationsPage-ReservationsHeaderContainer'>
+                    <div className='ReservationsPage-ReservationsHeader'>
+                      <IconButton
+                        onClick={OnBack}
+                        className='ReservationsPage-MobileReservationBackButton'
+                        icon={HiChevronLeft}/>
+                      <IconButton
+                        onClick={OnBack}
+                        className='ReservationsPage-ReservationBackButton'
+                        icon={HiChevronLeft}/>
+                      <p className='heading-5'>Back</p>
+                    </div>
+                    <div className='ReservationsPage-ReservationFilterContainer'>
+                      <FilterButton 
+                        title='Approved' 
+                        isActive={reservationsFilterStatus === 'Approved'} 
+                        onClick={() => OnReservationStatusFilterButtonClick('Approved')}/>
+                      <FilterButton 
+                        title='Requested' 
+                        isActive={reservationsFilterStatus === 'Requested'} 
+                        onClick={() => OnReservationStatusFilterButtonClick('Requested')}/>
+                    </div>
                   </div>
-                  <div className='ReservationsPage-ReservationConfirmationDetailsContainer'>
-                    <p className='heading-5'>Details</p>
-                    <ReservationConfirmationDetailsList 
-                      selectedModels={selectedModels}/>
+                  <div className='ReservationsPage-ReservationsHeaderContainer'>
+                    <div className='ReservationsPage-ReservationDateContainer'>
+                      <DatePickerInputField
+                        className={`ReservationsPage-ReservationDateField`}
+                        name='startDate'
+                        placeholder='From'
+                        value={dateInformation.startDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
+                      <DatePickerInputField
+                        className={`ReservationsPage-ReservationDateField`}
+                        name='endDate'
+                        placeholder='Until'
+                        value={dateInformation.endDate}
+                        onChange={(name, value) => HandleDateInputChange(name, value)}
+                        isError={isDateError}/>
+                    </div>
+                    <div className='ReservationsPage-OnlyYourReservationsContainer'>
+                      <IconButton
+                          icon={MdCheckBoxOutlineBlank}
+                          className='ReservationsPage-OnlyYourReservationsButton'
+                          onClick={OnOnlyYourReservationsClick}/>
+                      <p className='paragraph-1'>Only My Reservations</p>
+                    </div>
                   </div>
+                  <ReservationList className='ReservationsPage-ReservationList'
+                    filterMode='upcoming'
+                    filterStatus={reservationsFilterStatus}
+                    selectedReservation={selectedReservation}
+                    OnReservationCardClick={OnReservationCardClick}/>
                 </div>
-              )}
-              <div className='ReservationsPage-MobileActionButtonContainer'>
-                {isMakingReservation 
-                  ?
-                  <>                
-                    {(reservationCreationState === 'Initial' || reservationCreationState === 'Specify Quantity') && (
-                      <StandardButton 
-                        title='Continue'
-                        onClick={OnContinueMakingReservationClick}
-                        className='ReservationsPage-ContinueButton'
-                        icon={HiArrowSmRight}/>
+                <div className={`ReservationsPage-ReservationDetailsContainer${isMobileView && isRightPanelVisible ? 'Active' : ''}`}>
+                  <div className='ReservationsPage-ReservationDetails'>
+                    {!isMobileView && selectedReservation === null && (
+                      <StandardButton
+                      title='Make Reservation'
+                      onClick={OnBack}
+                      className='ReservationsPage-MakeReservationButton'
+                      icon={HiCalendar}/>
                     )}
-                    {reservationCreationState === 'Confirm Reservation' && (
-                      <StandardButton 
-                      title='Confirm'
-                      onClick={OnConfirmMakingReservationClick}
-                      className='ReservationsPage-ConfirmButton'
-                      icon={HiCheck}/>
+                    {selectedReservation && (
+                      <>
+                        <DetailSection
+                          className='ReservationsPage-ReservationDetailSection'
+                          title='Reservation Details'
+                          additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
+                          equipmentDetails={reservationDetails}
+                          actionIcon={(isMobileView) ? HiX : null}
+                          action={CloseDetailSection}
+                          detailsType='reservation'/>
+                        {reservationsFilterStatus === 'Requested' && (
+                          <div className='ReservationsPage-ReservationActionContainer'>
+                            <StandardButton
+                              title={"Approve"}
+                              onClick={OnApproveReservationClick}
+                              className='ReservationsPage-ReservationActionButton'
+                              icon={HiCheck}/>
+                            <StandardButton
+                              title={"Reject"}
+                              onClick={OnRejectReservationClick}
+                              className='ReservationsPage-ReservationActionButton'
+                              icon={HiX}/>
+                          </div>
+                        )}
+                      </>
                     )}
-                  </>
-                  :
-                  <StandardButton 
-                    title='Your Reservations'
-                    onClick={OnYourReservationsClick}
-                    className='ReservationsPage-YourReservationsButton'
-                    icon={HiChevronRight}/>   
-                }
+                  </div>
+                </div>  
               </div>
-            </div>
+            }
           </div>
         </GeneralPage>
       ) :
