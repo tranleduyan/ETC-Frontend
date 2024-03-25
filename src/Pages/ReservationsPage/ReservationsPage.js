@@ -151,6 +151,10 @@ function ReservationsPage(props) {
   const OnBack = () => {
     if(pageState === 'Your Reservations') {
       setPageState('Reservation Creation');
+      setDateInformation({
+        startDate: new Date(),
+        endDate: new Date(),
+      });
     }
 
     else if(reservationCreationState === 'Specify Quantity') {
@@ -491,14 +495,14 @@ function ReservationsPage(props) {
                         <DatePickerInputField
                           className={`ReservationsPage-ReservationDateField`}
                           name='startDate'
-                          placeholder='Select start date'
+                          placeholder='From'
                           value={dateInformation.startDate}
                           onChange={(name, value) => HandleDateInputChange(name, value)}
                           isError={isDateError}/>
                         <DatePickerInputField
                           className={`ReservationsPage-ReservationDateField`}
                           name='endDate'
-                          placeholder='Select end date'
+                          placeholder='Until'
                           value={dateInformation.endDate}
                           onChange={(name, value) => HandleDateInputChange(name, value)}
                           isError={isDateError}/>
