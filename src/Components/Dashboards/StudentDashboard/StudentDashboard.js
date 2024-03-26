@@ -1,5 +1,7 @@
 //#region Import Necessary Dependencies
 import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,7 +28,7 @@ import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-ico
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
 
-  const { resetUserData } = props;
+  const { resetUserData, userRole, schoolId } = props;
 
   const navigate = useNavigate();
 
@@ -35,11 +37,14 @@ function StudentDashboard(props) {
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // State for reservations filter status and equipment filter 
+  const [reservations, setReservations] = useState([]);
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
   const [selectedEquipmentFilter, setSelectedEquipmentFilter] = useState(null);
 
   // State for selected reservation
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -68,9 +73,11 @@ function StudentDashboard(props) {
     setSelectedEquipmentFilter(null);
     
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
-    setSelectedReservation((prevSelectedReservation) => 
-      prevSelectedReservation === selectedReservation ? null : selectedReservation
-    );
+    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
+    ));
+
+    setSelectedReservationDetails(selectedReservation);
   };
 
   // OnEditReservationClick - TODO: Navigate to update reservation.
@@ -101,6 +108,38 @@ function StudentDashboard(props) {
     setSelectedReservation(null);
   };
 
+  const FetchApprovedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
+
+  const FetchRequestedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
+
   //#region side effects
   useEffect(() => {
     // Add event listener for window resize to update mobile view
@@ -122,6 +161,15 @@ function StudentDashboard(props) {
       }
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
+
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      FetchApprovedReservations();
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      FetchRequestedReservations();
+    }
+  }, [reservationsFilterStatus]);
   //#endregion
 
   return (
@@ -187,6 +235,7 @@ function StudentDashboard(props) {
                 className='StudentDashboard-ReservationList'
                 filterMode='upcoming'
                 filterStatus={reservationsFilterStatus}
+                reservations={reservations}
                 selectedReservation={selectedReservation}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
@@ -230,8 +279,8 @@ function StudentDashboard(props) {
                   <DetailSection
                     className='StudentDashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation={`MM/DD/YYYY - MM/DD/YYYY`}
-                    equipmentDetails={[]}
+                    additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                    equipmentDetails={selectedReservationDetails?.details}
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
@@ -262,10 +311,15 @@ StudentDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
   resetUserData,
 };
 
 // Connect the component to Redux, mapping state and actions to props
-export default connect(null, mapDispatchToProps)(StudentDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard);

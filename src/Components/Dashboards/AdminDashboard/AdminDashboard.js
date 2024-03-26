@@ -6,12 +6,8 @@ import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom'
 import { resetUserData } from '../../../storage';
 import { connect } from 'react-redux';
-import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
+import { InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
          InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
-         ReservationDetailsAmandaLeeResponse, 
-         ReservationDetailsEmilyWilsonResponse, 
-         ReservationDetailsRobertWhiteResponse, 
-         ReservationDetailsSophiaJohnsonResponse, 
          UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
          UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../../ResponseBody';
 //#endregion

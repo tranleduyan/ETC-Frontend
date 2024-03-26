@@ -42,6 +42,7 @@
     .EquipmentDetailCard-ModelPhoto {
         width: calc(8.9vmin);
         height: calc(8.9vmin);
+        border-radius: calc(1.390625vmin);
     }
 
     .EquipmentDetailCard-DefaultEquipmentIcon {
@@ -64,6 +65,7 @@
     .EquipmentDetailCard-ModelPhoto {
         width: calc(17.8vmin);
         height: calc(17.8vmin);
+        border-radius: calc(2.78125vmin);
     }
 
     .EquipmentDetailCard-DefaultEquipmentIcon {

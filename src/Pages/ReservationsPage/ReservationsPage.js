@@ -718,13 +718,15 @@ function ReservationsPage(props) {
                         onChange={(name, value) => HandleDateInputChange(name, value)}
                         isError={isDateError}/>
                     </div>
-                    <div className='ReservationsPage-OnlyYourReservationsContainer'>
-                      <IconButton
-                          icon={MdCheckBoxOutlineBlank}
-                          className='ReservationsPage-OnlyYourReservationsButton'
-                          onClick={OnOnlyYourReservationsClick}/>
-                      <p className='paragraph-1'>Only My Reservations</p>
-                    </div>
+                    {(userRole === 'Admin' || userRole === 'Faculty') && (
+                      <div className='ReservationsPage-OnlyYourReservationsContainer'>
+                        <IconButton
+                            icon={MdCheckBoxOutlineBlank}
+                            className='ReservationsPage-OnlyYourReservationsButton'
+                            onClick={OnOnlyYourReservationsClick}/>
+                        <p className='paragraph-1'>Only My Reservations</p>
+                      </div>
+                    )}
                   </div>
                   <ReservationList className='ReservationsPage-ReservationList'
                     filterStatus={reservationsFilterStatus}

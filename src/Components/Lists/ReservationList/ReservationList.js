@@ -1,7 +1,6 @@
 //#region Import Necessary Dependencies
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AllReservationsResponse } from '../../../ResponseBody';
 import { MESSAGE } from '../../../Constants';
 //#endregion
 
@@ -58,10 +57,10 @@ function ReservationList(props) {
   };
 
   // useEffect to update sortedReservations when filterMode or filterStatus changes
-  useEffect(() => {
-    setSortedReservations(sortReservations(reservations));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reservations, filterMode, filterStatus]);
+  // useEffect(() => {
+  //   setSortedReservations(sortReservations(reservations));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [reservations, filterMode, filterStatus]);
 
   return (
     <div className={`${reservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
