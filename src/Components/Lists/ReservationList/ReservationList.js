@@ -9,12 +9,13 @@ import './ReservationList.css';
 
 // Import UI Components
 import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
+import { connect } from 'react-redux';
 
 // Define Reservation List Commponent
 function ReservationList(props) {
 
   // Destructure props to extract relevant information
-  const { className, reservations, filterMode, filterStatus, OnReservationCardClick, selectedReservation, startDate, endDate } = props;
+  const { className, reservations, filterMode, filterStatus, OnReservationCardClick, selectedReservation, startDate, endDate, isMyReservationsOnly, schoolId, userRole } = props;
 
   // State to hold the sorted reservations
   const [sortedReservations, setSortedReservations] = useState([]);
@@ -92,10 +93,17 @@ function ReservationList(props) {
       setFilter(filterMode);
     }
     if(reservations) {
-      setSortedReservations(sortReservations(reservations));
+      if(isMyReservationsOnly && (userRole === 'Admin' || userRole === 'Faculty')) {
+        // Filter reservations to show only those belonging to the current user's school
+        const filteredReservations = reservations.filter(reservation => reservation.renterSchoolId === schoolId);
+        setSortedReservations(sortReservations(filteredReservations));
+      }
+      else {
+        setSortedReservations(sortReservations(reservations));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reservations, filter, filterMode, filterStatus, startDate, endDate]);
+  }, [reservations, filter, filterMode, filterStatus, startDate, endDate, isMyReservationsOnly]);
 
   return (
     <div className={`${sortedReservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
@@ -131,6 +139,8 @@ ReservationList.propTypes = {
   selectedReservation: PropTypes.number,
   OnReservationCardClick: PropTypes.func,
   reservations: PropTypes.array,
+  userRole: PropTypes.string,
+  schoolId: PropTypes.string,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -141,7 +151,15 @@ ReservationList.defaultProps = {
   selectedReservation: null,
   OnReservationCardClick: null,
   reservation: [],
+  userRole: '',
+  schoolId: '',
 };
 
+// Get State from storage
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
 // Exports the ReservationList component as the default export for the ReservationList module.
-export default ReservationList;
+export default connect(mapStateToProps)(ReservationList);

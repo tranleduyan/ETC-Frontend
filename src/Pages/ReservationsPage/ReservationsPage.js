@@ -28,7 +28,7 @@ import DetailSection from '../../Components/Sections/DetailSection/DetailSection
 
 //#region Import Icons
 import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPencilAlt, HiPlus, HiRefresh, HiX } from 'react-icons/hi';
-import { MdCheckBoxOutlineBlank } from 'react-icons/md';
+import { MdCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md';
 //#endregion
 
 // Define ReservationsPage Component
@@ -95,7 +95,7 @@ function ReservationsPage(props) {
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   const OnMyReservationsClick = () => {
-    setIsMyReservationMode(true);
+    setIsMyReservationMode(!isMyReservationMode);
   };
 
   // Close detail section when clicked on the "X" icon
@@ -234,7 +234,6 @@ function ReservationsPage(props) {
         }
       })
       .then((response) => {
-        
         setIconModal({
           message: response.data.message,
           icon: HiCheck,
@@ -287,11 +286,14 @@ function ReservationsPage(props) {
     console.log(searchQuery);
   }
 
-  const OnOnlyYourReservationsClick = () => {
-    console.log('filter only your reservations');
-  }
-
   const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
         headers: {
@@ -299,15 +301,43 @@ function ReservationsPage(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
   const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
         headers: {
@@ -315,11 +345,32 @@ function ReservationsPage(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
@@ -344,7 +395,6 @@ function ReservationsPage(props) {
       })
       .then(response => {
         setAvailableModels(response.data.responseObject);
-        // Automatically hide the modal after 3 seconds
         setTimeout(() => {
           setIconModal({
             message: '',
@@ -355,13 +405,21 @@ function ReservationsPage(props) {
         }, 500);
       })
       .catch(() => {
-        setAvailableModels([]);
         setIconModal({
           message: 'There is an error occurred. Please try again.',
           icon: HiExclamationCircle,
           visibility: true,
           isIconSpin: false,
         });
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setAvailableModels([]);
+        }, 1500);
       })
   }
 
@@ -483,6 +541,7 @@ function ReservationsPage(props) {
     else {
       setIsMyReservation(false);
     }
+    // eslint-disable-next-line
   }, [selectedReservationDetails]);
   
   return (
@@ -758,9 +817,10 @@ function ReservationsPage(props) {
                     {(userRole === 'Admin' || userRole === 'Faculty') && (
                       <div className='ReservationsPage-OnlyYourReservationsContainer'>
                         <IconButton
-                            icon={MdCheckBoxOutlineBlank}
+                            icon={!isMyReservationMode ? MdCheckBoxOutlineBlank : MdCheckBox}
                             className='ReservationsPage-OnlyYourReservationsButton'
-                            onClick={OnOnlyYourReservationsClick}/>
+                            iconClassName={`${isMyReservationMode ? 'ReservationsPage-OnlyYourReservationsButtonActive' : ''}`}
+                            onClick={OnMyReservationsClick}/>
                         <p className='paragraph-1'>Only My Reservations</p>
                       </div>
                     )}
@@ -771,7 +831,8 @@ function ReservationsPage(props) {
                     selectedReservation={selectedReservation}
                     OnReservationCardClick={OnReservationCardClick}
                     startDate={dateInformation.startDate}
-                    endDate={dateInformation.endDate}/>
+                    endDate={dateInformation.endDate}
+                    isMyReservationsOnly={isMyReservationMode}/>
                 </div>
                 <div className={`ReservationsPage-ReservationDetailsContainer${isMobileView && isRightPanelVisible ? 'Active' : ''}`}>
                   <div className='ReservationsPage-ReservationDetails'>

@@ -157,6 +157,10 @@
     margin-left: 0px;
 }
 
+.ReservationsPage-OnlyYourReservationsButtonActive {
+    color: var(--Red1);
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .ReservationsPage-PageContentContainer {
