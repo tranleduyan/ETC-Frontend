@@ -99,7 +99,11 @@
 }
 
 .StudentDashboard-Hide {
-    display: none;
+    display: none !important;
+}
+
+.StudentDashboard-IconModalIcon {
+    color: var(--Red1);
 }
 
 /* For tablets and any larger devices */
@@ -119,7 +123,7 @@
     }
 
     .StudentDashboard-ActionContainer {
-        display: none;
+        display: none !important;
     }
 
     .StudentDashboard-ContentContainer {
@@ -151,7 +155,7 @@
     }
 
     .StudentDashboard-MobileMakeReservationButton {
-        display: none;
+        display: none !important;
     }
 
     .StudentDashboard-ReservationList {
@@ -180,6 +184,11 @@
 
     .StudentDashboard-ReservationActionButton {
         margin-left: calc(2.225vmin);
+    }
+
+    .StudentDashboard-IconModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
     }
 }
 
@@ -260,7 +269,7 @@
     }
 
     .StudentDashboard-RightContentPanel {
-        display: none;
+        display: none !important;
     }
 
     .StudentDashboard-RightContentPanelActive {
@@ -279,5 +288,10 @@
 
     .StudentDashboard-ReservationActionButton {
         margin-left: calc(4.45vmin);
+    }
+
+    .StudentDashboard-IconModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }

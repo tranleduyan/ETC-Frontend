@@ -20,10 +20,11 @@ import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
+import IconModal from '../../Modals/IconModal/IconModal';
 //#endregion
 
 // Import Icons
-import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle, HiExclamationCircle, HiRefresh } from 'react-icons/hi';
 
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
@@ -45,6 +46,13 @@ function StudentDashboard(props) {
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
+  // State variable for icon modal
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
+  });
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -109,6 +117,13 @@ function StudentDashboard(props) {
   };
 
   const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
         headers: {
@@ -116,15 +131,43 @@ function StudentDashboard(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
   const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
         headers: {
@@ -132,11 +175,32 @@ function StudentDashboard(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
@@ -175,6 +239,13 @@ function StudentDashboard(props) {
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='StudentDashboard-IconModalContainer'
+        icon={iconModal.icon}
+        iconClassName='StudentDashboard-IconModalIcon'
+        message={iconModal.message}
+        isVisible={iconModal.visibility}
+        isSpinning={iconModal.isIconSpin}/>
       <div className='StudentDashboard-PageContentContainer'>
         {/* Page Header - Student Dashboard */}
         <div className='StudentDashboard-PageHeaderContainer'>
@@ -195,7 +266,7 @@ function StudentDashboard(props) {
           {/* Left Content Panel */}
           <div className={`StudentDashboard-LeftContentPanel ${isMobileView && isRightPanelVisible ? 'StudentDashboard-Hide' : ''}`}>
             {/* Equipment Filter Section */}
-            <div className='StudentDashboard-EquipmentFilterSection'>
+            <div className='StudentDashboard-EquipmentFilterSection StudentDashboard-Hide'>
               {/* Section Header */}
               <div className='StudentDashboard-SectionHeader'>
                 {/* Title */}

@@ -99,7 +99,11 @@
 }
 
 .FacultyDashboard-Hide {
-    display: none;
+    display: none !important;
+}
+
+.FacultyDashboard-IconModalIcon {
+    color: var(--Red1);
 }
 
 /* For tablets and any larger devices */
@@ -119,7 +123,7 @@
     }
 
     .FacultyDashboard-ActionContainer {
-        display: none;
+        display: none !important;
     }
 
     .FacultyDashboard-ContentContainer {
@@ -151,7 +155,7 @@
     }
 
     .FacultyDashboard-MobileMakeReservationButton {
-        display: none;
+        display: none !important;
     }
 
     .FacultyDashboard-ReservationList {
@@ -180,6 +184,11 @@
 
     .FacultyDashboard-ReservationActionButton {
         margin-left: calc(2.225vmin);
+    }
+
+    .FacultyDashboard-IconModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
     }
 }
 
@@ -260,7 +269,7 @@
     }
 
     .FacultyDashboard-RightContentPanel {
-        display: none;
+        display: none !important;
     }
 
     .FacultyDashboard-RightContentPanelActive {
@@ -279,5 +288,10 @@
 
     .FacultyDashboard-ReservationActionButton {
         margin-left: calc(4.45vmin);
+    }
+
+    .FacultyDashboard-IconModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }

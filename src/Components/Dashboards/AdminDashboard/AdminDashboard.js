@@ -25,10 +25,11 @@ import FilterButton from '../../Buttons/FilterButton/FilterButton';
 import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
+import IconModal from '../../Modals/IconModal/IconModal';
 //#endregion
 
 // Import Icons
-import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck, HiMinusCircle } from 'react-icons/hi';
+import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck, HiMinusCircle, HiExclamationCircle, HiRefresh } from 'react-icons/hi';
 
 // Define the AdminDashboard Component
 function AdminDashboard(props) {
@@ -75,6 +76,14 @@ function AdminDashboard(props) {
 
   const [isMyReservation, setIsMyReservation] = useState(false);
 
+  // State variable for icon modal
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
+  });
+
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
     setIsMobileView(window.innerWidth <= 480);
@@ -102,6 +111,13 @@ function AdminDashboard(props) {
   };
 
   const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
         headers: {
@@ -109,15 +125,43 @@ function AdminDashboard(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
   const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
     axios
       .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
         headers: {
@@ -125,11 +169,32 @@ function AdminDashboard(props) {
         }
       })
       .then(response => {
-        setReservations(response.data.responseObject);
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 500);
       })
-      .catch(error => {
-        console.log(error);
-        setReservations([]);
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
       });
   };
 
@@ -247,6 +312,13 @@ function AdminDashboard(props) {
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='AdminDashboard-IconModalContainer'
+        icon={iconModal.icon}
+        iconClassName='AdminDashboard-IconModalIcon'
+        message={iconModal.message}
+        isVisible={iconModal.visibility}
+        isSpinning={iconModal.isIconSpin}/>
       <div className='AdminDashboard-PageContentContainer'>
         {/* Page Header - Dashboard */}
         <div className='AdminDashboard-PageHeaderContainer'>
