@@ -309,7 +309,7 @@ function ReservationsPage(props) {
             isIconSpin: false,
           });
           setReservations(response.data.responseObject);
-        }, 500);
+        }, 1500);
       })
       .catch(() => {
         setIconModal({
@@ -353,7 +353,7 @@ function ReservationsPage(props) {
             isIconSpin: false,
           });
           setReservations(response.data.responseObject);
-        }, 500);
+        }, 1500);
       })
       .catch(() => {
         setIconModal({

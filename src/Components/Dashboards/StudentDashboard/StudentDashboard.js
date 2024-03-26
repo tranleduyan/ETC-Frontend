@@ -139,7 +139,7 @@ function StudentDashboard(props) {
             isIconSpin: false,
           });
           setReservations(response.data.responseObject);
-        }, 500);
+        }, 1500);
       })
       .catch(() => {
         setIconModal({
@@ -183,7 +183,7 @@ function StudentDashboard(props) {
             isIconSpin: false,
           });
           setReservations(response.data.responseObject);
-        }, 500);
+        }, 1500);
       })
       .catch(() => {
         setIconModal({
