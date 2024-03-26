@@ -28,7 +28,7 @@ import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-ico
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
 
-  const { resetUserData, userRole, schoolId } = props;
+  const { resetUserData, schoolId } = props;
 
   const navigate = useNavigate();
 
@@ -309,6 +309,12 @@ function StudentDashboard(props) {
 // Define PropTypes for the NavigationBar component
 StudentDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define defaultProps for the component
+StudentDashboard.defaultProps = {
+  schoolId: '',
 };
 
 const mapStateToProps = (state) => ({

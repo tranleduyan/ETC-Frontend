@@ -33,7 +33,7 @@ import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck } from 'react-icons/hi';
 // Define the AdminDashboard Component
 function AdminDashboard(props) {
   
-  const { resetUserData, userRole, schoolId } = props;
+  const { resetUserData, schoolId } = props;
   
   const navigate = useNavigate();
 
@@ -359,6 +359,12 @@ function AdminDashboard(props) {
 // Define the prop types of the component
 AdminDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define defaultProps for the component
+AdminDashboard.defaultProps = {
+  schoolId: '',
 };
 
 const mapStateToProps = (state) => ({

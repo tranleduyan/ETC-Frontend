@@ -77,6 +77,8 @@ ReservationCard.propTypes = {
   reserveAmount: PropTypes.number,
   isSelected: PropTypes.bool,
   OnReservationCardClick: PropTypes.func,
+  details: PropTypes.array,
+  status: PropTypes.string.isRequired,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -88,6 +90,7 @@ ReservationCard.defaultProps = {
   reserveAmount: 0,
   isSelected: true,
   OnReservationCardClick: null,
+  details: [],
 };
 
 // Exports the ReservationCard component as the default export for the ReservationCard module.

@@ -1,5 +1,5 @@
 //#region Import Necessary Dependencies
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MESSAGE } from '../../../Constants';
 //#endregion
@@ -14,21 +14,23 @@ import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 function ReservationList(props) {
 
   // Destructure props to extract relevant information
-  const { className, reservations, filterMode, filterStatus, OnReservationCardClick, selectedReservation } = props;
+  const { className, reservations, filterMode, filterStatus, OnReservationCardClick, selectedReservation, startDate, endDate } = props;
 
   // State to hold the sorted reservations
   const [sortedReservations, setSortedReservations] = useState([]);
+  const [filter, setFilter] = useState(filterMode);
 
   // Function to sort and filter reservations based on filterMode and filterStatus
   const sortReservations = (reservations) => {
     if (reservations?.length === 0) {
       return;
     }
+    console.log(filter);
     const today = new Date();
     let filteredReservations = reservations;
 
     // Filter reservations based on filterMode
-    switch(filterMode) {
+    switch(filter) {
       case 'upcoming':
         filteredReservations = filteredReservations.filter(
           (reservation) => new Date(reservation.startDate) >= today
@@ -39,6 +41,31 @@ function ReservationList(props) {
           (reservation) => new Date(reservation.startDate) < today
         );
         break;
+      case 'in-range':
+        // Filter reservations based on start date and end date conditions
+        filteredReservations = filteredReservations.filter((reservation) => {
+          const reservationStartDate = new Date(reservation.startDate);
+          const reservationEndDate = new Date(reservation.endDate);
+
+          if (startDate && !endDate) {
+            // Show reservations starting from the provided start date
+            return reservationStartDate >= startDate;
+          } 
+          else if (!startDate && endDate) {
+            // Show reservations ending until the provided end date
+            console.log('i')
+            return reservationEndDate <= endDate;
+          } 
+          else if (startDate && endDate) {
+            // Show reservations within the provided date range
+            return reservationStartDate >= startDate && reservationEndDate <= endDate;
+          } 
+          else {
+            return true;
+          }
+        });
+        break;
+
       default:
         break;
     }
@@ -57,17 +84,25 @@ function ReservationList(props) {
   };
 
   // useEffect to update sortedReservations when filterMode or filterStatus changes
-  // useEffect(() => {
-  //   setSortedReservations(sortReservations(reservations));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [reservations, filterMode, filterStatus]);
+  useEffect(() => {
+    if(startDate || endDate) {
+       setFilter('in-range');
+       console.log('start', startDate);
+       console.log('end', endDate);
+    }
+    else {
+      setFilter(filterMode);
+    }
+    setSortedReservations(sortReservations(reservations));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reservations, filter, filterMode, filterStatus, startDate, endDate]);
 
   return (
-    <div className={`${reservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
+    <div className={`${sortedReservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
       {/* Render ReservationCard components for each reservation */}
-      {reservations?.length > 0 
+      {sortedReservations?.length > 0 
         ? 
-        reservations.map((reservation) => (
+        sortedReservations.map((reservation) => (
           <ReservationCard 
             key={reservation.reservationId}
             reservationID={reservation.reservationId}
@@ -90,7 +125,7 @@ function ReservationList(props) {
 // Define PropTypes for type-checking and documentation
 ReservationList.propTypes = {
   className: PropTypes.string,
-  filterMode: PropTypes.oneOf(['all', 'past', 'upcoming']),
+  filterMode: PropTypes.oneOf(['all', 'past', 'upcoming', 'in-range']),
   filterStatus: PropTypes.oneOf(['Approved', 'Requested']),
   selectedReservation: PropTypes.number,
   OnReservationCardClick: PropTypes.func,

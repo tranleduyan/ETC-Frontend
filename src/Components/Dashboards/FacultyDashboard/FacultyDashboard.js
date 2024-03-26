@@ -28,7 +28,7 @@ import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-ico
 // Define FacultyDashboard Component
 function FacultyDashboard(props) {
 
-  const { resetUserData, userRole, schoolId } = props;
+  const { resetUserData, schoolId } = props;
   
   const navigate = useNavigate();
 
@@ -314,6 +314,12 @@ function FacultyDashboard(props) {
 // Define PropTypes for type-checking and documentation
 FacultyDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define defaultProps for the component
+FacultyDashboard.defaultProps = {
+  schoolId: '',
 };
 
 const mapStateToProps = (state) => ({

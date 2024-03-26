@@ -667,7 +667,7 @@ function ReservationsPage(props) {
                     </>
                     :
                     <StandardButton 
-                      title='Your Reservations'
+                      title={(userRole === 'Faculty' || userRole === 'Admin') ? 'All Reservations' : 'Your Reservations'}
                       onClick={OnYourReservationsClick}
                       className='ReservationsPage-YourReservationsButton'
                       icon={HiChevronRight}/>   
@@ -732,7 +732,9 @@ function ReservationsPage(props) {
                     filterStatus={reservationsFilterStatus}
                     reservations={reservations}
                     selectedReservation={selectedReservation}
-                    OnReservationCardClick={OnReservationCardClick}/>
+                    OnReservationCardClick={OnReservationCardClick}
+                    startDate={dateInformation.startDate}
+                    endDate={dateInformation.endDate}/>
                 </div>
                 <div className={`ReservationsPage-ReservationDetailsContainer${isMobileView && isRightPanelVisible ? 'Active' : ''}`}>
                   <div className='ReservationsPage-ReservationDetails'>
