@@ -15,7 +15,7 @@ import ReservationCard from '../../Cards/ReservationCard/ReservationCard';
 function ReservationList(props) {
 
   // Destructure props to extract relevant information
-  const { className, filterMode, filterStatus, OnReservationCardClick, selectedReservation } = props;
+  const { className, reservations, filterMode, filterStatus, OnReservationCardClick, selectedReservation } = props;
 
   // State to hold the sorted reservations
   const [sortedReservations, setSortedReservations] = useState([]);
@@ -59,25 +59,26 @@ function ReservationList(props) {
 
   // useEffect to update sortedReservations when filterMode or filterStatus changes
   useEffect(() => {
-    setSortedReservations(sortReservations(AllReservationsResponse));
+    setSortedReservations(sortReservations(reservations));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterMode, filterStatus]);
+  }, [reservations, filterMode, filterStatus]);
 
   return (
-    <div className={`${sortedReservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
+    <div className={`${reservations?.length > 0 ? 'ReservationList-Container' : 'ReservationList-Message'} ${className}`}>
       {/* Render ReservationCard components for each reservation */}
-      {sortedReservations?.length > 0 
+      {reservations?.length > 0 
         ? 
-        sortedReservations.map((reservation) => (
+        reservations.map((reservation) => (
           <ReservationCard 
-            key={reservation.reservationID}
-            reservationID={reservation.reservationID}
+            key={reservation.reservationId}
+            reservationID={reservation.reservationId}
             renterName={reservation.renterName}
             startDate={reservation.startDate}
             endDate={reservation.endDate}
             status={reservation.status}
-            reserveAmount={reservation.reserveAmount}
-            isSelected={selectedReservation === reservation.reservationID}
+            reserveAmount={reservation.totalItems}
+            details={reservation.items}
+            isSelected={selectedReservation === reservation.reservationId}
             OnReservationCardClick={OnReservationCardClick}/>
       ))
        :

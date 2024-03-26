@@ -1,6 +1,8 @@
 //#region Import Necessary Dependencies 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom'
 import { resetUserData } from '../../../storage';
 import { connect } from 'react-redux';
@@ -35,7 +37,7 @@ import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck } from 'react-icons/hi';
 // Define the AdminDashboard Component
 function AdminDashboard(props) {
   
-  const { resetUserData } = props;
+  const { resetUserData, userRole, schoolId } = props;
   
   const navigate = useNavigate();
 
@@ -61,6 +63,7 @@ function AdminDashboard(props) {
   const [selectedReservation, setSelectedReservation] = useState(null);
 
   // State for reservations filter status
+  const [reservations, setReservations] = useState([]);
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
 
   // State for equipment details
@@ -68,7 +71,6 @@ function AdminDashboard(props) {
   const [underRepairEquipmentDetails, setUnderRepairEquipmentDetails] = useState([]);
 
   // State for reservation details
-  const [reservationDetails, setReservationDetails] = useState([]);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
   // State for handle mobile view
@@ -101,6 +103,38 @@ function AdminDashboard(props) {
     setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
   };
 
+  const FetchApprovedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
+
+  const FetchRequestedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
+
   // Function triggered when reservation card is clicked
   // TODO: These will be changed when there are APIs for this.
   const OnReservationCardClick = async(selectedReservation) => {
@@ -108,30 +142,10 @@ function AdminDashboard(props) {
     setSelectedInventoryType(null);
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
     await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
-      prevSelectedReservation === selectedReservation ? null : selectedReservation
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
     ));
 
-    // Find reservation details based on the selected reservation
-    const details = AllReservationsResponse.find(reservation => reservation.reservationID === selectedReservation);
-
-    // Set reservation details based on the selected reservation ID
-    setSelectedReservationDetails(details);
-
-    if(selectedReservation === 7) {
-      setReservationDetails(ReservationDetailsEmilyWilsonResponse);
-    }
-    else if(selectedReservation === 9) {
-      setReservationDetails(ReservationDetailsAmandaLeeResponse);
-    }
-    else if(selectedReservation === 11) {
-      setReservationDetails(ReservationDetailsSophiaJohnsonResponse);
-    }
-    else if(selectedReservation === 12) {
-      setReservationDetails(ReservationDetailsRobertWhiteResponse);
-    }
-    else {
-      setReservationDetails([]);
-    }
+    setSelectedReservationDetails(selectedReservation);
   };
 
   // Function triggered when reservation status filter button is clicked
@@ -196,6 +210,15 @@ function AdminDashboard(props) {
       }
     }
   }, [selectedInventoryType, selectedReservation, isMobileView]);
+
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      FetchApprovedReservations();
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      FetchRequestedReservations();
+    }
+  }, [reservationsFilterStatus]);
   //#endregion
 
   return (
@@ -274,6 +297,7 @@ function AdminDashboard(props) {
                 filterMode='upcoming'
                 filterStatus={reservationsFilterStatus}
                 selectedReservation={selectedReservation}
+                reservations={reservations}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
           </div>
@@ -307,8 +331,8 @@ function AdminDashboard(props) {
                   <DetailSection
                     className='AdminDashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
-                    equipmentDetails={reservationDetails}
+                    additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                    equipmentDetails={selectedReservationDetails?.details}
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
@@ -341,10 +365,15 @@ AdminDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
   resetUserData,
 };
 
 // Exports the AdminDashboard component as the default export for the AdminDashboard module.
-export default connect(null, mapDispatchToProps)(AdminDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);

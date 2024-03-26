@@ -12,7 +12,7 @@ import { HiClock } from 'react-icons/hi';
 function ReservationCard(props) {
 
   // Destructure props to extract relevant information
-  const { className, reservationID, startDate, endDate, renterName, reserveAmount, isSelected, OnReservationCardClick } = props;
+  const { className, reservationID, startDate, endDate, renterName, reserveAmount, isSelected, OnReservationCardClick, details, status } = props;
 
   // Determine whether to use 'item' or 'items' based on the reservation amount
   const itemText = reserveAmount > 1 ? 'items' : 'item';
@@ -21,8 +21,26 @@ function ReservationCard(props) {
   const OnCardClick = () => {
     // Check if the click handler is provided before invoking it
     if(OnReservationCardClick) {
-      OnReservationCardClick(reservationID);
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
+      OnReservationCardClick({
+        reservationID,
+        formattedStartDate,
+        formattedEndDate,
+        renterName,
+        reserveAmount,
+        details,
+      });
     }
+  };
+
+  // Define a utility function to format date to mm/dd/yyyy
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1; // Months are zero-indexed, so we add 1
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
   };
 
   return (
@@ -34,7 +52,7 @@ function ReservationCard(props) {
       {/* Container for reservation information */}
       <div className='ReservationCard-InformationContainer'>
         {/* Display reservation date range */}
-        <p className='heading-5 ReservationCard-ReserveDate'>{startDate} - {endDate}</p>
+        <p className='heading-5 ReservationCard-ReserveDate'>{formatDate(startDate)} - {formatDate(endDate)}</p>
         {/* Container for renter name and reservation amount */}
         <div className='ReservationCard-Information'>
           {/* Renter's name */}

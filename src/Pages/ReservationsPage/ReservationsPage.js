@@ -75,9 +75,10 @@ function ReservationsPage(props) {
 
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
-  const [reservationDetails, setReservationDetails] = useState([]);
 
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+
+  const [reservations, setReservations] = useState([]);
 
   // Close detail section when clicked on the "X" icon
   const CloseDetailSection = () => {
@@ -171,8 +172,13 @@ function ReservationsPage(props) {
     setSelectedModels([]);
   }
 
-  const OnReservationCardClick = () => {
-    console.log("Card Click");
+  const OnReservationCardClick = async(selectedReservation) => {
+    // Toggle the selected reservations, await until finish setSelectedReservation then continue.
+    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
+    ));
+
+    setSelectedReservationDetails(selectedReservation);
   };
 
   const OnRejectReservationClick = () => {
@@ -265,6 +271,38 @@ function ReservationsPage(props) {
   const OnOnlyYourReservationsClick = () => {
     console.log('filter only your reservations');
   }
+
+  const FetchApprovedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
+
+  const FetchRequestedReservations = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setReservations(response.data.responseObject);
+      })
+      .catch(error => {
+        console.log(error);
+        setReservations([]);
+      });
+  };
 
   // FetchAvailableModels - Fetch available models based on selected date range
   const FetchAvailableModels = () => {
@@ -399,6 +437,17 @@ function ReservationsPage(props) {
     }
   }, [pageState]);
 
+  useEffect(() => {
+    if(pageState === 'Your Reservations') {
+      if(reservationsFilterStatus === 'Approved') {
+        FetchApprovedReservations();
+      }
+      else if(reservationsFilterStatus === 'Requested') {
+        FetchRequestedReservations();
+      }
+    }
+  }, [pageState, reservationsFilterStatus]);
+  
   return (
     <>
       {(userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty') ? (
@@ -678,8 +727,8 @@ function ReservationsPage(props) {
                     </div>
                   </div>
                   <ReservationList className='ReservationsPage-ReservationList'
-                    filterMode='upcoming'
                     filterStatus={reservationsFilterStatus}
+                    reservations={reservations}
                     selectedReservation={selectedReservation}
                     OnReservationCardClick={OnReservationCardClick}/>
                 </div>
@@ -697,8 +746,8 @@ function ReservationsPage(props) {
                         <DetailSection
                           className='ReservationsPage-ReservationDetailSection'
                           title='Reservation Details'
-                          additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
-                          equipmentDetails={reservationDetails}
+                          additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                          equipmentDetails={selectedReservationDetails?.details}
                           actionIcon={(isMobileView) ? HiX : null}
                           action={CloseDetailSection}
                           detailsType='reservation'/>
@@ -754,3 +803,4 @@ const mapDispatchToProps = {
 
 // Exports the ReservationsPage component as the default export for the ReservationsPage module.
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsPage);
+

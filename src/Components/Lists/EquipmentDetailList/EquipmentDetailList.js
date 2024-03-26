@@ -33,10 +33,10 @@ function EquipmentDetailList(props) {
         equipmentDetails.map((item) => (
           <EquipmentDetailCard
             className={`EquipmentDetailList-EquipmentDetailCard ${isMargin ? 'EquipmentDetailList-Margin' : ''}`}
-            key={item.reservedEquipmentID}
+            key={item.modelId}
             title={item.modelName}
-            information={[item.typeName, `Quantity: ${item.reservedQuantity}`]}
-            modelPhotoPath={item.modelPhotoPath}/>
+            information={[item.typeName, `Quantity: ${item.itemQuantity}`]}
+            modelPhotoPath={item.modelPhoto}/>
         )
       ))}
     </div>
