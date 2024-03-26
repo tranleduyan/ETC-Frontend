@@ -28,7 +28,7 @@ import DetailSection from '../../Sections/DetailSection/DetailSection';
 //#endregion
 
 // Import Icons
-import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck } from 'react-icons/hi';
+import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck, HiMinusCircle } from 'react-icons/hi';
 
 // Define the AdminDashboard Component
 function AdminDashboard(props) {
@@ -72,6 +72,8 @@ function AdminDashboard(props) {
   // State for handle mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
+
+  const [isMyReservation, setIsMyReservation] = useState(false);
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -155,6 +157,21 @@ function AdminDashboard(props) {
     navigate('/AddToInventory');
   };
 
+  // Handle when "Reject" button is clicked for a reservation
+  const OnRejectReservationClick = () => {
+    console.log("Reject Reservation");
+  };
+
+  // Handle when "Approve" button is clicked for a reservation
+  const OnApproveReservationClick = () => {
+    console.log("Approve Reservation");
+  };
+
+  // OnCancelReservationClick - TODO: Implement Cancel Reservation API
+  const OnCancelReservationClick = () => {
+    console.log('Cancel Reservation');
+  };
+
   // TODO: Search APIs
   const Search = () => {
     console.log(searchQuery);
@@ -216,6 +233,16 @@ function AdminDashboard(props) {
     }
     // eslint-disable-next-line
   }, [reservationsFilterStatus]);
+
+  useEffect(() => {
+    if(selectedReservationDetails?.renterSchoolId === schoolId) {
+      setIsMyReservation(true);
+    }
+    else {
+      setIsMyReservation(false);
+    }
+    // eslint-disable-next-line
+  }, [selectedReservationDetails]);
   //#endregion
 
   return (
@@ -337,14 +364,23 @@ function AdminDashboard(props) {
                     <div className='AdminDashboard-ReservationActionContainer'>
                       <StandardButton
                         title={"Approve"}
-                        onClick={OnAddEquipmentClick}
+                        onClick={OnApproveReservationClick}
                         className='AdminDashboard-ReservationActionButton'
                         icon={HiCheck}/>
                       <StandardButton
                         title={"Reject"}
-                        onClick={OnAddEquipmentClick}
+                        onClick={OnRejectReservationClick}
                         className='AdminDashboard-ReservationActionButton'
                         icon={HiX}/>
+                    </div>
+                  )}
+                  {reservationsFilterStatus === 'Approved' && (isMyReservation) && (
+                    <div className='AdminDashboard-ReservationActionContainer'>
+                        <StandardButton
+                          title={"Cancel"}
+                          onClick={OnCancelReservationClick}
+                          className='FacultyDashboard-ReservationActionButton'
+                          icon={HiMinusCircle}/>
                     </div>
                   )}
                 </>

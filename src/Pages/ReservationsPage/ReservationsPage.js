@@ -27,7 +27,7 @@ import DetailSection from '../../Components/Sections/DetailSection/DetailSection
 //#endregion
 
 //#region Import Icons
-import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPlus, HiRefresh, HiX } from 'react-icons/hi';
+import { HiArrowSmRight, HiCalendar, HiCheck, HiChevronLeft, HiChevronRight, HiExclamationCircle, HiMinusCircle, HiPencilAlt, HiPlus, HiRefresh, HiX } from 'react-icons/hi';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 //#endregion
 
@@ -61,6 +61,10 @@ function ReservationsPage(props) {
 
   // State for handling reservation creation process
   const [reservationCreationState, setReservationCreationState] = useState('Initial');
+  
+  const [isMyReservationMode, setIsMyReservationMode] = useState(false);
+
+  const [isMyReservation, setIsMyReservation] = useState(false);
 
   // State variable for icon modal
   const [iconModal, setIconModal] = useState({
@@ -89,6 +93,10 @@ function ReservationsPage(props) {
   const [reservations, setReservations] = useState([]);
 
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
+
+  const OnMyReservationsClick = () => {
+    setIsMyReservationMode(true);
+  };
 
   // Close detail section when clicked on the "X" icon
   const CloseDetailSection = () => {
@@ -410,6 +418,14 @@ function ReservationsPage(props) {
     return true;
   };
 
+  const OnEditReservationClick = () => {
+    console.log('edit reservation click');
+  };
+
+  const OnCancelReservationClick = () => {
+    console.log('cancel reservation Click');
+  };
+
   // Fetch availble models whenever valid date range changes
   useEffect(() => {
     if(pageState === 'Reservation Creation' && IsValidReservationPeriod()) {
@@ -459,6 +475,15 @@ function ReservationsPage(props) {
     }
     // eslint-disable-next-line
   }, [pageState, reservationsFilterStatus]);
+
+  useEffect(() => {
+    if(selectedReservationDetails?.renterSchoolId === schoolId) {
+      setIsMyReservation(true);
+    }
+    else {
+      setIsMyReservation(false);
+    }
+  }, [selectedReservationDetails]);
   
   return (
     <>
@@ -767,7 +792,7 @@ function ReservationsPage(props) {
                           actionIcon={(isMobileView) ? HiX : null}
                           action={CloseDetailSection}
                           detailsType='reservation'/>
-                        {reservationsFilterStatus === 'Requested' && (
+                        {reservationsFilterStatus === 'Requested' && (userRole === 'Admin' || userRole === 'Faculty') && (
                           <div className='ReservationsPage-ReservationActionContainer'>
                             <StandardButton
                               title={"Approve"}
@@ -779,6 +804,29 @@ function ReservationsPage(props) {
                               onClick={OnRejectReservationClick}
                               className='ReservationsPage-ReservationActionButton'
                               icon={HiX}/>
+                          </div>
+                        )}
+                        {reservationsFilterStatus === 'Requested' && (userRole === 'Student') && (
+                          <div className='ReservationsPage-ReservationActionContainer'>
+                            <StandardButton
+                              title={"Edit"}
+                              onClick={OnEditReservationClick}
+                              className='ReservationsPage-ReservationActionButton'
+                              icon={HiPencilAlt}/>
+                            <StandardButton
+                              title={"Cancel"}
+                              onClick={OnCancelReservationClick}
+                              className='ReservationsPage-ReservationActionButton'
+                              icon={HiMinusCircle}/>
+                          </div>
+                        )}
+                        {reservationsFilterStatus === 'Approved' && (isMyReservation) && (
+                          <div className='ReservationsPage-ReservationActionContainer'>
+                            <StandardButton
+                              title={"Cancel"}
+                              onClick={OnCancelReservationClick}
+                              className='ReservationsPage-ReservationActionButton'
+                              icon={HiMinusCircle}/>
                           </div>
                         )}
                       </>

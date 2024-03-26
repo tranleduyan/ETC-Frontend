@@ -23,7 +23,7 @@ import DetailSection from '../../Sections/DetailSection/DetailSection';
 //#endregion
 
 // Import Icons
-import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiMinusCircle, HiCheck } from 'react-icons/hi';
 
 // Define FacultyDashboard Component
 function FacultyDashboard(props) {
@@ -44,6 +44,8 @@ function FacultyDashboard(props) {
   const [reservations, setReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
+  const [isMyReservation, setIsMyReservation] = useState(false);
 
   // UpdateMobileView
   // Set the isMobileView if window.innerWidth is smaller than 480 or not
@@ -81,6 +83,16 @@ function FacultyDashboard(props) {
     setSelectedReservationDetails(selectedReservation);
   };
 
+  // Handle when "Reject" button is clicked for a reservation
+  const OnRejectReservationClick = () => {
+    console.log("Reject Reservation");
+  };
+
+  // Handle when "Approve" button is clicked for a reservation
+  const OnApproveReservationClick = () => {
+    console.log("Approve Reservation");
+  };
+
   const FetchApprovedReservations = () => {
     axios
       .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
@@ -112,12 +124,7 @@ function FacultyDashboard(props) {
         setReservations([]);
       });
   };
-
-  // OnEditReservationClick - TODO: Navigate to update reservation.
-  const OnEditReservationClick = () => {
-    console.log('Edit Reservation');
-  };
-
+  
   // OnCancelReservationClick - TODO: Implement Cancel Reservation API
   const OnCancelReservationClick = () => {
     console.log('Cancel Reservation');
@@ -172,6 +179,16 @@ function FacultyDashboard(props) {
     }
     // eslint-disable-next-line
   }, [reservationsFilterStatus]);
+
+  useEffect(() => {
+    if(selectedReservationDetails?.renterSchoolId === schoolId) {
+      setIsMyReservation(true);
+    }
+    else {
+      setIsMyReservation(false);
+    }
+    // eslint-disable-next-line
+  }, [selectedReservationDetails]);
   //#endregion
 
   return (
@@ -287,19 +304,29 @@ function FacultyDashboard(props) {
                       actionIcon={(isMobileView) ? HiX : null}
                       action={CloseDetailSection}
                       detailsType='reservation'/>
-                    <div className='FacultyDashboard-ReservationActionContainer'>
-                      <StandardButton
-                        title='Edit'
-                        onClick={OnEditReservationClick}
-                        className='FacultyDashboard-ReservationActionButton'
-                        icon={HiPencilAlt}/>
-                      <StandardButton
-                        title='Cancel'
-                        onClick={OnCancelReservationClick}
-                        className='FacultyDashboard-ReservationActionButton'
-                        icon={HiMinusCircle}/>
-                      {/* TODO: Accept and Reject buttons will be implemented when there are apis. */}
-                    </div>
+                    {reservationsFilterStatus === 'Requested' && (
+                      <div className='FacultyDashboard-ReservationActionContainer'>
+                          <StandardButton
+                            title={"Approve"}
+                            onClick={OnApproveReservationClick}
+                            className='FacultyDashboard-ReservationActionButton'
+                            icon={HiCheck}/>
+                          <StandardButton
+                            title={"Reject"}
+                            onClick={OnRejectReservationClick}
+                            className='FacultyDashboard-ReservationActionButton'
+                            icon={HiX}/>
+                      </div>
+                    )}
+                    {reservationsFilterStatus === 'Approved' && (isMyReservation) && (
+                      <div className='FacultyDashboard-ReservationActionContainer'>
+                        <StandardButton
+                          title={"Cancel"}
+                          onClick={OnCancelReservationClick}
+                          className='FacultyDashboard-ReservationActionButton'
+                          icon={HiMinusCircle}/>
+                      </div>
+                    )}
                   </>
                 )
               }
@@ -324,7 +351,6 @@ FacultyDashboard.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
 });
 

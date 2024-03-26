@@ -25,8 +25,9 @@ function ReservationList(props) {
     if (reservations?.length === 0) {
       return;
     }
-    console.log(filter);
     const today = new Date();
+    today.setHours(0,0,0,0);
+
     let filteredReservations = reservations;
 
     // Filter reservations based on filterMode
@@ -44,8 +45,8 @@ function ReservationList(props) {
       case 'in-range':
         // Filter reservations based on start date and end date conditions
         filteredReservations = filteredReservations.filter((reservation) => {
-          const reservationStartDate = new Date(reservation.startDate);
-          const reservationEndDate = new Date(reservation.endDate);
+          const reservationStartDate = new Date(reservation.startDate).setHours(0,0,0,0);
+          const reservationEndDate = new Date(reservation.endDate).setHours(0,0,0,0);
 
           if (startDate && !endDate) {
             // Show reservations starting from the provided start date
@@ -53,7 +54,6 @@ function ReservationList(props) {
           } 
           else if (!startDate && endDate) {
             // Show reservations ending until the provided end date
-            console.log('i')
             return reservationEndDate <= endDate;
           } 
           else if (startDate && endDate) {
@@ -87,13 +87,13 @@ function ReservationList(props) {
   useEffect(() => {
     if(startDate || endDate) {
        setFilter('in-range');
-       console.log('start', startDate);
-       console.log('end', endDate);
     }
     else {
       setFilter(filterMode);
     }
-    setSortedReservations(sortReservations(reservations));
+    if(reservations) {
+      setSortedReservations(sortReservations(reservations));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reservations, filter, filterMode, filterStatus, startDate, endDate]);
 
@@ -112,6 +112,7 @@ function ReservationList(props) {
             status={reservation.status}
             reserveAmount={reservation.totalItems}
             details={reservation.items}
+            renterSchoolId={reservation.renterSchoolId}
             isSelected={selectedReservation === reservation.reservationId}
             OnReservationCardClick={OnReservationCardClick}/>
       ))

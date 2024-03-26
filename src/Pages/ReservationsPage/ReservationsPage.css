@@ -137,6 +137,26 @@
     align-items: center;
 }
 
+.ReservationsPage-ReservationDetailSection {
+    width: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.ReservationsPage-ReservationActionContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ReservationsPage-ReservationActionButton {
+    width: 100%;
+}
+
+.ReservationsPage-ReservationActionButton:first-child {
+    margin-left: 0px;
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
     .ReservationsPage-PageContentContainer {
@@ -277,6 +297,14 @@
 
     .ReservationsPage-OnlyYourReservationsContainer {
         gap: calc(1.1125vmin);
+    }
+
+    .ReservationsPage-ReservationActionContainer {
+        margin-top: calc(2.225vmin);
+    }
+
+    .ReservationsPage-ReservationActionButton {
+        margin-left: calc(2.225vmin);
     }
 }
 
@@ -444,5 +472,13 @@
 
     .ReservationsPage-OnlyYourReservationsContainer {
         gap: calc(4.45vmin);
+    }
+
+    .ReservationsPage-ReservationActionContainer {
+        margin-bottom: calc(4.45vmin);
+    }
+
+    .ReservationsPage-ReservationActionButton {
+        margin-left: calc(4.45vmin);
     }
 }   

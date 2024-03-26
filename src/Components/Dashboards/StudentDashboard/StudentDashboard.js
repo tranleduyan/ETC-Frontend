@@ -285,18 +285,29 @@ function StudentDashboard(props) {
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
-                  <div className='StudentDashboard-ReservationActionContainer'>
-                    <StandardButton
-                      title='Edit'
-                      onClick={OnEditReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiPencilAlt}/>
-                    <StandardButton
-                      title='Cancel'
-                      onClick={OnCancelReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiMinusCircle}/>
-                  </div>   
+                  {reservationsFilterStatus === 'Requested' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Edit'
+                        onClick={OnEditReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiPencilAlt}/>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
+                  {reservationsFilterStatus === 'Approved' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
                 </>   
               )}
             </div>
