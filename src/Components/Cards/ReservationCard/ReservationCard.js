@@ -30,6 +30,7 @@ function ReservationCard(props) {
         renterName,
         reserveAmount,
         details,
+        status,
       });
     }
   };

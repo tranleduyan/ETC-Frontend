@@ -62,6 +62,7 @@ function ReservationsPage(props) {
   // State for handling reservation creation process
   const [reservationCreationState, setReservationCreationState] = useState('Initial');
 
+  // State variable for icon modal
   const [iconModal, setIconModal] = useState({
     message: '',
     visibility: false,
@@ -69,16 +70,25 @@ function ReservationsPage(props) {
     isIconSpin: false,
   });
 
+  // State variable for page state
   const [pageState, setPageState] = useState('Reservation Creation');
 
+  // State variable for reservations filter status
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
 
+  // State variable for selected reservation
   const [selectedReservation, setSelectedReservation] = useState(null);
+
+  // State variable for details of selected reservation
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
+  // State variable for detecting mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
 
+  // State variable for indicating visibility of right panel
   const [reservations, setReservations] = useState([]);
+
+  const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // Close detail section when clicked on the "X" icon
   const CloseDetailSection = () => {
@@ -89,9 +99,6 @@ function ReservationsPage(props) {
   const UpdateMobileView = useCallback(() => {
     setIsMobileView(window.innerWidth <= 480);
   }, []);
-
-
-  const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // Function triggered when reservation status filter button is clicked
   const OnReservationStatusFilterButtonClick = (status) => {
@@ -148,7 +155,8 @@ function ReservationsPage(props) {
       setReservationCreationState('Confirm Reservation');
     }
   };
-
+  
+  // Handle "Back" button click
   const OnBack = () => {
     if(pageState === 'Your Reservations') {
       setPageState('Reservation Creation');
@@ -181,14 +189,17 @@ function ReservationsPage(props) {
     setSelectedReservationDetails(selectedReservation);
   };
 
+  // Handle when "Reject" button is clicked for a reservation
   const OnRejectReservationClick = () => {
     console.log("Reject Reservation");
   };
 
+  // Handle when "Approve" button is clicked for a reservation
   const OnApproveReservationClick = () => {
     console.log("Approve Reservation");
   };
 
+  // Handle when "Confirm" button is clicked during reservation creation
   const OnConfirmMakingReservationClick = () => {
     const requestBody = {
       startDate: dateInformation.startDate.toISOString().split('T')[0],
@@ -446,6 +457,7 @@ function ReservationsPage(props) {
         FetchRequestedReservations();
       }
     }
+    // eslint-disable-next-line
   }, [pageState, reservationsFilterStatus]);
   
   return (
@@ -791,20 +803,22 @@ ReservationsPage.propTypes = {
   schooldId: PropTypes.string,
 };
 
+// Define ReservationsPage defaultProps value
 ReservationsPage.defaultProps = {
   userRole: '',
   schoolId: '',
 };
 
+// Get State from storage
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
 });
 
+// Dispatch from storage
 const mapDispatchToProps = {
   resetUserData,
 };
 
 // Exports the ReservationsPage component as the default export for the ReservationsPage module.
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsPage);
-

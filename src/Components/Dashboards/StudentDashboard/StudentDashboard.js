@@ -169,6 +169,7 @@ function StudentDashboard(props) {
     else if(reservationsFilterStatus === 'Requested') {
       FetchRequestedReservations();
     }
+    // eslint-disable-next-line
   }, [reservationsFilterStatus]);
   //#endregion
 

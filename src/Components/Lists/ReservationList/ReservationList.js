@@ -129,6 +129,7 @@ ReservationList.propTypes = {
   filterStatus: PropTypes.oneOf(['Approved', 'Requested']),
   selectedReservation: PropTypes.number,
   OnReservationCardClick: PropTypes.func,
+  reservations: PropTypes.array,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -138,6 +139,7 @@ ReservationList.defaultProps = {
   filterStatus: 'Approved',
   selectedReservation: null,
   OnReservationCardClick: null,
+  reservation: [],
 };
 
 // Exports the ReservationList component as the default export for the ReservationList module.
