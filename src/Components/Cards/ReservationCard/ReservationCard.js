@@ -1,7 +1,8 @@
-// Import Components
+//#region Import Neccessary Dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+//#endregion
 
 // Import Stylings
 import './ReservationCard.css'
@@ -65,9 +66,7 @@ function ReservationCard(props) {
             </>    
           )}
           {(userRole === 'Student') && (        
-            <>
-              <p className='paragraph-3'>Quantity:&nbsp;</p>
-            </>    
+            <p className='paragraph-3'>Quantity:&nbsp;</p>
           )}
           {/* Display the reservation amount and item text */}
           <p className='paragraph-3 ReservationCard-ReserveAmount'>{reserveAmount} {itemText}</p>
@@ -89,6 +88,8 @@ ReservationCard.propTypes = {
   OnReservationCardClick: PropTypes.func,
   details: PropTypes.array,
   status: PropTypes.string.isRequired,
+  renterSchoolId: PropTypes.string,
+  userRole: PropTypes.string,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -101,8 +102,11 @@ ReservationCard.defaultProps = {
   isSelected: true,
   OnReservationCardClick: null,
   details: [],
+  renterSchoolId: '',
+  userRole: '',
 };
 
+// Map the userRole from Redux store to props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
 });

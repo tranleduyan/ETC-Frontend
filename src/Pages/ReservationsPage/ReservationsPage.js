@@ -48,6 +48,7 @@ function ReservationsPage(props) {
     endDate: new Date(),
   });
 
+  // State for handling date error
   const [isDateError, setIsDateError] = useState(true);
 
   // Available Models State Variable - List of available models
@@ -62,8 +63,8 @@ function ReservationsPage(props) {
   // State for handling reservation creation process
   const [reservationCreationState, setReservationCreationState] = useState('Initial');
   
+  // States for handling my reservation mode
   const [isMyReservationMode, setIsMyReservationMode] = useState(false);
-
   const [isMyReservation, setIsMyReservation] = useState(false);
 
   // State variable for icon modal
@@ -92,8 +93,10 @@ function ReservationsPage(props) {
   // State variable for indicating visibility of right panel
   const [reservations, setReservations] = useState([]);
 
+  // State to detect whether the rightPanel should be visible
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
+  // OnMyReservationClick - toggle the state isMyReservationMode for filtering upon clicking
   const OnMyReservationsClick = () => {
     setIsMyReservationMode(!isMyReservationMode);
   };
@@ -286,6 +289,7 @@ function ReservationsPage(props) {
     console.log(searchQuery);
   }
 
+  // FetchApprovedReservations - Get all approved reservations for the users.
   const FetchApprovedReservations = () => {
     setIconModal({
       message: 'Looking for approved reservations...',
@@ -330,6 +334,7 @@ function ReservationsPage(props) {
       });
   };
 
+  // FetchRequestedReservations - Get all requested reservations for the users.
   const FetchRequestedReservations = () => {
     setIconModal({
       message: 'Looking for requested reservations...',
@@ -440,6 +445,7 @@ function ReservationsPage(props) {
     setSelectedModels(updatedSelectedModels);
   };
 
+  // OnIncreaseQuantity - Update the quantity of the selected model for reservations
   const OnIncreaseQuantity = (modelId) => {
     const index = selectedModels.findIndex(model => model.modelId === modelId);
     if (index !== -1 && selectedModels[index].quantity + 1 <= selectedModels[index].availableCount) {
@@ -449,6 +455,7 @@ function ReservationsPage(props) {
     }
   };
 
+  // OnDecreaseQuantity - Update the quantity of the selected model for reservations
   const OnDecreaseQuantity = (modelId) => {
     const index = selectedModels.findIndex(model => model.modelId === modelId);
     if (index !== -1 && selectedModels[index].quantity > 1) {
@@ -476,12 +483,19 @@ function ReservationsPage(props) {
     return true;
   };
 
+  // TODO: Navigate to update reservation page
   const OnEditReservationClick = () => {
     console.log('edit reservation click');
   };
 
+  // TODO: Implement cancel reservation APIs
   const OnCancelReservationClick = () => {
     console.log('cancel reservation Click');
+  };
+
+  // IsUserRoleValid - Validation for userRole
+  const IsUserRoleValid = () => {
+    return (userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty');
   };
 
   // Fetch availble models whenever valid date range changes
@@ -513,6 +527,7 @@ function ReservationsPage(props) {
     }
   }, [selectedReservation, isMobileView]);
 
+  // When ever the page state change, if it is Your Reservation, set dates to null
   useEffect(() => {
     if(pageState === 'Your Reservations') {
       setDateInformation({
@@ -522,6 +537,7 @@ function ReservationsPage(props) {
     }
   }, [pageState]);
 
+  // Fetch the reservations based on the filter and page
   useEffect(() => {
     if(pageState === 'Your Reservations') {
       if(reservationsFilterStatus === 'Approved') {
@@ -534,6 +550,7 @@ function ReservationsPage(props) {
     // eslint-disable-next-line
   }, [pageState, reservationsFilterStatus]);
 
+  // Detecting if the selected reservation is the user's reservation
   useEffect(() => {
     if(selectedReservationDetails?.renterSchoolId === schoolId) {
       setIsMyReservation(true);
@@ -546,7 +563,7 @@ function ReservationsPage(props) {
   
   return (
     <>
-      {(userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty') ? (
+      {(IsUserRoleValid()) ? (
         <GeneralPage>
           <IconModal 
             className='ReservationsPage-IconModalContainer'
@@ -909,7 +926,7 @@ function ReservationsPage(props) {
 // Define propTypes for ReservationPage
 ReservationsPage.propTypes = {
   userRole: PropTypes.string,
-  schooldId: PropTypes.string,
+  schoolId: PropTypes.string,
 };
 
 // Define ReservationsPage defaultProps value

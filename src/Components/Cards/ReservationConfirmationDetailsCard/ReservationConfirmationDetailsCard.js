@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 //#endregion
 
+// Define ReservationConfirmationDetailsCard Component
 function ReservationConfirmationDetailsCard(props) {
 
   // Destructuring props
@@ -69,4 +70,5 @@ ReservationConfirmationDetailsCard.defaultProps = {
   modelPhoto: null,
 };
 
+// Exports the ReservationConfirmationDetailsCard component as the default export for the ReservationConfirmationDetailsCard module.
 export default ReservationConfirmationDetailsCard;

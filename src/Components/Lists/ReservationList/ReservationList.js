@@ -141,6 +141,9 @@ ReservationList.propTypes = {
   reservations: PropTypes.array,
   userRole: PropTypes.string,
   schoolId: PropTypes.string,
+  startDate: PropTypes.any,
+  endDate: PropTypes.any,
+  isMyReservationsOnly: PropTypes.bool,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -150,9 +153,12 @@ ReservationList.defaultProps = {
   filterStatus: 'Approved',
   selectedReservation: null,
   OnReservationCardClick: null,
-  reservation: [],
+  reservations: [],
   userRole: '',
   schoolId: '',
+  startDate: null,
+  endDate: null,
+  isMyReservationsOnly: false,
 };
 
 // Get State from storage

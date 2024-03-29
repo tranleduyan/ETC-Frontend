@@ -92,16 +92,17 @@ function FacultyDashboard(props) {
     setSelectedReservationDetails(selectedReservation);
   };
 
-  // Handle when "Reject" button is clicked for a reservation
+  // Handle when "Reject" button is clicked for a reservation - TODO: Implement Reject Reservation API
   const OnRejectReservationClick = () => {
     console.log("Reject Reservation");
   };
 
-  // Handle when "Approve" button is clicked for a reservation
+  // Handle when "Approve" button is clicked for a reservation - TODO: Implement Approve Reservation API
   const OnApproveReservationClick = () => {
     console.log("Approve Reservation");
   };
 
+  // FetchApproveReservation - get all the approve reservations
   const FetchApprovedReservations = () => {
     setIconModal({
       message: 'Looking for approved reservations...',
@@ -146,6 +147,7 @@ function FacultyDashboard(props) {
       });
   };
 
+  // FetchRequestedReservations - get all the requested reservations
   const FetchRequestedReservations = () => {
     setIconModal({
       message: 'Looking for requested reservations...',
@@ -235,6 +237,7 @@ function FacultyDashboard(props) {
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
 
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
   useEffect(() => {
     if(reservationsFilterStatus === 'Approved') {
       FetchApprovedReservations();
@@ -245,6 +248,7 @@ function FacultyDashboard(props) {
     // eslint-disable-next-line
   }, [reservationsFilterStatus]);
 
+  // Checking if the selected reservation details is the user's
   useEffect(() => {
     if(selectedReservationDetails?.renterSchoolId === schoolId) {
       setIsMyReservation(true);
@@ -407,7 +411,6 @@ function FacultyDashboard(props) {
         </div>
       </div>
     </GeneralPage>
-    
   )
 };
 
@@ -422,6 +425,7 @@ FacultyDashboard.defaultProps = {
   schoolId: '',
 };
 
+// Map the userRole and schoolId from Redux store to props
 const mapStateToProps = (state) => ({
   schoolId: state.user.userData?.schoolId,
 });

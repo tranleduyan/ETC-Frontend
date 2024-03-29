@@ -74,6 +74,7 @@ function AdminDashboard(props) {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
+  // State to handle if is the user reservation selected (for user roles that have ability to view all reservations for approve and reject)
   const [isMyReservation, setIsMyReservation] = useState(false);
 
   // State variable for icon modal
@@ -110,6 +111,7 @@ function AdminDashboard(props) {
     setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
   };
 
+  // FetchApproveReservation - get all the approve reservations
   const FetchApprovedReservations = () => {
     setIconModal({
       message: 'Looking for approved reservations...',
@@ -154,6 +156,7 @@ function AdminDashboard(props) {
       });
   };
 
+  // FetchRequestedReservations - get all the requested reservations
   const FetchRequestedReservations = () => {
     setIconModal({
       message: 'Looking for requested reservations...',
@@ -222,12 +225,12 @@ function AdminDashboard(props) {
     navigate('/AddToInventory');
   };
 
-  // Handle when "Reject" button is clicked for a reservation
+  // Handle when "Reject" button is clicked for a reservation - TODO: Implement Reject Reservation API
   const OnRejectReservationClick = () => {
     console.log("Reject Reservation");
   };
 
-  // Handle when "Approve" button is clicked for a reservation
+  // Handle when "Approve" button is clicked for a reservation - TODO: Implement Approve Reservation API
   const OnApproveReservationClick = () => {
     console.log("Approve Reservation");
   };
@@ -289,6 +292,7 @@ function AdminDashboard(props) {
     }
   }, [selectedInventoryType, selectedReservation, isMobileView]);
 
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
   useEffect(() => {
     if(reservationsFilterStatus === 'Approved') {
       FetchApprovedReservations();
@@ -299,6 +303,7 @@ function AdminDashboard(props) {
     // eslint-disable-next-line
   }, [reservationsFilterStatus]);
 
+  // Checking if the selected reservation details is the user's
   useEffect(() => {
     if(selectedReservationDetails?.renterSchoolId === schoolId) {
       setIsMyReservation(true);
@@ -476,6 +481,7 @@ AdminDashboard.defaultProps = {
   schoolId: '',
 };
 
+// Map the userRole and schoolId from Redux store to props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,

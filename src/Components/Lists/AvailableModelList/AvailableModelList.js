@@ -46,16 +46,18 @@ function AvailableModelList(props) {
 AvailableModelList.propTypes = {
   className: PropTypes.string,
   availableModels: PropTypes.array,
-  selectedModel: PropTypes.array,
+  selectedModels: PropTypes.array,
   onSelectModel: PropTypes.func,
+  isMakingReservation: PropTypes.bool,
 };
 
 // Define default props value for AvailableModelList
 AvailableModelList.defaultProps = {
   className: '',
   availableModels: [],
-  selectedModel: [],
+  selectedModels: [],
   onSelectModel: () => {},
+  isMakingReservation: false,
 };
 // Exports the AvailableModelList component as the default export for the AvailableModelList module.
 export default AvailableModelList;

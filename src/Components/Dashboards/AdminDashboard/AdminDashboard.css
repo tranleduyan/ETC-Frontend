@@ -124,10 +124,7 @@
         padding: calc(2.225vmin) calc(2.225vmin);
     }
 
-    .AdminDashboard-LogoContainer {
-        display: none !important;
-    }
-
+    .AdminDashboard-LogoContainer,
     .AdminDashboard-ActionContainer {
         display: none !important;
     }
@@ -277,7 +274,7 @@
     }
 
     .AdminDashboard-RightContentPanel {
-        display: none;
+        display: none !important;
     }
 
     .AdminDashboard-RightContentPanelActive {

@@ -10,10 +10,7 @@ import './ReservationConfirmationDetailsList.css';
 import ReservationConfirmationDetailsCard from '../../Cards/ReservationConfirmationDetailsCard';
 //#endregion
 
-//#region Import Icons
-
-//#endregion
-
+// Define ReservationConfirmationDetailsList component
 function ReservationConfirmationDetailsList(props) {
 
   // Extract neccessary props
@@ -35,11 +32,13 @@ function ReservationConfirmationDetailsList(props) {
   )
 };
 
+// Define propTypes validation for ReservationConfirmationDetailsList
 ReservationConfirmationDetailsList.propTypes = {
   className: PropTypes.string,
   selectedModels: PropTypes.array,
 };
 
+// Define defaultProps value for ReservationConfirmationDetailsList
 ReservationConfirmationDetailsList.defaultProps = {
   className: '',
   selectedModels: [],

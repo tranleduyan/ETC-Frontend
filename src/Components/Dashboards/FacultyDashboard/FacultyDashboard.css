@@ -150,10 +150,7 @@
         margin-top: calc(2.225vmin);
     }
 
-    .FacultyDashboard-EquipmentFilterCardList::-webkit-scrollbar {
-        display: none;
-    }
-
+    .FacultyDashboard-EquipmentFilterCardList::-webkit-scrollbar,
     .FacultyDashboard-MobileMakeReservationButton {
         display: none !important;
     }

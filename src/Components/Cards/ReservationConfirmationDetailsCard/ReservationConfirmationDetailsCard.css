@@ -77,13 +77,6 @@
     box-sizing: border-box;
 }
 
-.ReservationConfirmationDetailsCard-SelectionContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
 /* For tablets and larger screens */
 @media screen and (min-width: 481px) {
     .ReservationConfirmationDetailsCard-GeneralContainer{
@@ -119,7 +112,7 @@
     }
 
     .ReservationConfirmationDetailsCard-SelectionContainer {
-        height: calc(8.9vmin);
+        height: 100%;
         width: calc(3.3375vmin);
     }
 
@@ -145,11 +138,6 @@
     .ReservationConfirmationDetailsCard-ActionContainer {
         padding: 0px;
         gap: calc(1.1125vmin);
-    }
-
-    .ReservationConfirmationDetailsCard-SelectionContainer {
-        height: calc(8.9vmin);
-        width: calc(3.3375vmin);
     }
 }
 
@@ -219,10 +207,5 @@
     .ReservationConfirmationDetailsCard-ActionContainer {
         padding: 0px;
         gap: calc(2.225vmin);
-    }
-
-    .ReservationConfirmationDetailsCard-SelectionContainer {
-        height: calc(17.8vmin);
-        width: calc(6.675vmin);
     }
 }

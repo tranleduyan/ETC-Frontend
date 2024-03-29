@@ -118,11 +118,10 @@
         padding: calc(2.225vmin);
     }
 
-    .StudentDashboard-LogoContainer {
-        display: none !important;
-    }
-
-    .StudentDashboard-ActionContainer {
+    .StudentDashboard-LogoContainer,
+    .StudentDashboard-ActionContainer,
+    .StudentDashboard-EquipmentFilterCardList::-webkit-scrollbar,
+    .StudentDashboard-MobileMakeReservationButton {
         display: none !important;
     }
 
@@ -148,14 +147,6 @@
     .StudentDashboard-EquipmentFilterCardList {
         height: calc(13.90625vmin);
         margin-top: calc(2.225vmin);
-    }
-
-    .StudentDashboard-EquipmentFilterCardList::-webkit-scrollbar {
-        display: none;
-    }
-
-    .StudentDashboard-MobileMakeReservationButton {
-        display: none !important;
     }
 
     .StudentDashboard-ReservationList {

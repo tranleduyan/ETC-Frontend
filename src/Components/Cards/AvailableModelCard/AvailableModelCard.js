@@ -14,15 +14,16 @@ import IconButton from '../../Buttons/IconButton/IconButton';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
+//#endregion
 
-
+// Define AvailableModelCard Component
 function AvailableModelCard(props) {
 
   // Destructure props
   const { className, modelId, modelName, modelPhoto, typeName, typeId, availableCount, isSelected, onSelect, isMakingReservation } = props;
 
   // State variable to manage model photo
-  const [equipmentModelPhoto, setequipmentModelPhoto] = useState(modelPhoto);
+  const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhoto);
 
   // Text for item count
   const itemText = availableCount > 1 ? 'items' : 'item';
@@ -48,7 +49,7 @@ function AvailableModelCard(props) {
           {equipmentModelPhoto && (
             <img src={modelPhoto}
                 alt='Equipment Model'
-                onError={() => setequipmentModelPhoto(null)}/>
+                onError={() => setEquipmentModelPhoto(null)}/>
           )}
           {!equipmentModelPhoto && (
             <FontAwesomeIcon
@@ -78,7 +79,7 @@ function AvailableModelCard(props) {
   )
 };
 
-// Define propTypes for Component
+// Define propTypes for the component
 AvailableModelCard.propTypes = {
   className: PropTypes.string,
   modelId: PropTypes.number.isRequired,

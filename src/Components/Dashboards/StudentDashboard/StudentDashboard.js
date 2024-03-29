@@ -116,6 +116,7 @@ function StudentDashboard(props) {
     setSelectedReservation(null);
   };
 
+  // FetchApproveReservation - get all the approve reservations
   const FetchApprovedReservations = () => {
     setIconModal({
       message: 'Looking for approved reservations...',
@@ -160,6 +161,7 @@ function StudentDashboard(props) {
       });
   };
 
+  // FetchRequestedReservations - get all the requested reservations
   const FetchRequestedReservations = () => {
     setIconModal({
       message: 'Looking for requested reservations...',
@@ -226,6 +228,7 @@ function StudentDashboard(props) {
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
 
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
   useEffect(() => {
     if(reservationsFilterStatus === 'Approved') {
       FetchApprovedReservations();
@@ -400,6 +403,7 @@ StudentDashboard.defaultProps = {
   schoolId: '',
 };
 
+// Map the userRole and schoolId from Redux store to props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,

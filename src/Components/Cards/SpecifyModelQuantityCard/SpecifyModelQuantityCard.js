@@ -16,6 +16,7 @@ import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 //#endregion
 
+// Define SpecifyModelQuantityCard component
 function SpecifyModelQuantityCard(props) {
 
   // Destructure props

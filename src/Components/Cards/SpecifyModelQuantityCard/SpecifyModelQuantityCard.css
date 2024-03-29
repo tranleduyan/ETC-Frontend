@@ -87,13 +87,6 @@
     color: white;
 }
 
-.SpecifyModelQuantityCard-SelectionContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
 /* For tablets and larger screens */
 @media screen and (min-width: 481px) {
     .SpecifyModelQuanityCard-GeneralContainer{
@@ -126,11 +119,6 @@
 
     .SpecifyModelQuantityCard-Information {
         height: calc(5.00625vmin);
-    }
-
-    .SpecifyModelQuantityCard-SelectionContainer {
-        height: calc(8.9vmin);
-        width: calc(3.3375vmin);
     }
 
     .SpecifyModelQuantityCard-InformationContainer p.heading-5 {
@@ -228,11 +216,6 @@
     .SpecifyModelQuantityCard-ActionContainer {
         padding: 0px;
         gap: calc(4.45vmin);
-    }
-
-    .SpecifyModelQuantityCard-SelectionContainer {
-        height: calc(17.8vmin);
-        width: calc(6.675vmin);
     }
 
     .SpecifyModelQuantityCard-QuantityUpdateButton {

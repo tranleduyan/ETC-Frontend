@@ -39,12 +39,16 @@ function SpecifyModelReservationQuantityList(props) {
 SpecifyModelReservationQuantityList.propTypes = {
   className: PropTypes.string,
   selectedModels: PropTypes.array,
+  onIncreaseQuantity: PropTypes.func,
+  onDecreaseQuantity: PropTypes.func,
 };
 
 // Define defaultProps for SpecifyModelReservationQuantityList
 SpecifyModelReservationQuantityList.defaultProps = {
   className: '',
   selectedModels: [],
+  onIncreaseQuantity: () => {},
+  onDecreaseQuantity: () => {},
 };
 
 // Exports the SpecifyModelReservationQuantityList component as the default export for the SpecifyModelReservationQuantityList module.
