@@ -11,6 +11,7 @@ import './AvailableModelList.css';
 import AvailableModelCard from '../../Cards/AvailableModelCard/AvailableModelCard';
 //#endregion
 
+// Define AvailableModelList component
 function AvailableModelList(props) {
 
   // Extract necessary props
@@ -60,4 +61,5 @@ AvailableModelList.defaultProps = {
   isMakingReservation: false,
 };
 // Exports the AvailableModelList component as the default export for the AvailableModelList module.
+
 export default AvailableModelList;

@@ -115,7 +115,7 @@ function ReservationsPage(props) {
   const OnReservationStatusFilterButtonClick = (status) => {
     setReservationsFilterStatus(status);
     setSelectedReservation(null);
-};
+  };
 
   // HandleSearchQueryChange - Function to handle changes in search query
   const HandleSearchQueryChange = (propertyName, inputValue) => {

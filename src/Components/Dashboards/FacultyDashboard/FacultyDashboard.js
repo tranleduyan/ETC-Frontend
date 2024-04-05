@@ -46,6 +46,7 @@ function FacultyDashboard(props) {
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
+  // State for verifying if the selected reservation is the user's reservation
   const [isMyReservation, setIsMyReservation] = useState(false);
 
   // State variable for icon modal
