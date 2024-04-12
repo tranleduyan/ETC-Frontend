@@ -1,5 +1,7 @@
 //#region Import Necessary Dependencies
 import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -18,15 +20,16 @@ import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
+import IconModal from '../../Modals/IconModal/IconModal';
 //#endregion
 
 // Import Icons
-import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle, HiExclamationCircle, HiRefresh } from 'react-icons/hi';
 
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
 
-  const { resetUserData } = props;
+  const { resetUserData, schoolId } = props;
 
   const navigate = useNavigate();
 
@@ -35,11 +38,21 @@ function StudentDashboard(props) {
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // State for reservations filter status and equipment filter 
+  const [reservations, setReservations] = useState([]);
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
   const [selectedEquipmentFilter, setSelectedEquipmentFilter] = useState(null);
 
   // State for selected reservation
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
+  // State variable for icon modal
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
+  });
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -68,9 +81,11 @@ function StudentDashboard(props) {
     setSelectedEquipmentFilter(null);
     
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
-    setSelectedReservation((prevSelectedReservation) => 
-      prevSelectedReservation === selectedReservation ? null : selectedReservation
-    );
+    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
+    ));
+
+    setSelectedReservationDetails(selectedReservation);
   };
 
   // OnEditReservationClick - TODO: Navigate to update reservation.
@@ -101,6 +116,96 @@ function StudentDashboard(props) {
     setSelectedReservation(null);
   };
 
+  // FetchApproveReservation - get all the approve reservations
+  const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
+      });
+  };
+
+  // FetchRequestedReservations - get all the requested reservations
+  const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setReservations([]);
+        }, 1500);
+      });
+  };
+
   //#region side effects
   useEffect(() => {
     // Add event listener for window resize to update mobile view
@@ -122,10 +227,28 @@ function StudentDashboard(props) {
       }
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
+
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      FetchApprovedReservations();
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      FetchRequestedReservations();
+    }
+    // eslint-disable-next-line
+  }, [reservationsFilterStatus]);
   //#endregion
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='StudentDashboard-IconModalContainer'
+        icon={iconModal.icon}
+        iconClassName='StudentDashboard-IconModalIcon'
+        message={iconModal.message}
+        isVisible={iconModal.visibility}
+        isSpinning={iconModal.isIconSpin}/>
       <div className='StudentDashboard-PageContentContainer'>
         {/* Page Header - Student Dashboard */}
         <div className='StudentDashboard-PageHeaderContainer'>
@@ -146,7 +269,7 @@ function StudentDashboard(props) {
           {/* Left Content Panel */}
           <div className={`StudentDashboard-LeftContentPanel ${isMobileView && isRightPanelVisible ? 'StudentDashboard-Hide' : ''}`}>
             {/* Equipment Filter Section */}
-            <div className='StudentDashboard-EquipmentFilterSection'>
+            <div className='StudentDashboard-EquipmentFilterSection StudentDashboard-Hide'>
               {/* Section Header */}
               <div className='StudentDashboard-SectionHeader'>
                 {/* Title */}
@@ -187,6 +310,7 @@ function StudentDashboard(props) {
                 className='StudentDashboard-ReservationList'
                 filterMode='upcoming'
                 filterStatus={reservationsFilterStatus}
+                reservations={reservations}
                 selectedReservation={selectedReservation}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
@@ -230,23 +354,34 @@ function StudentDashboard(props) {
                   <DetailSection
                     className='StudentDashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation={`MM/DD/YYYY - MM/DD/YYYY`}
-                    equipmentDetails={[]}
+                    additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                    equipmentDetails={selectedReservationDetails?.details}
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
-                  <div className='StudentDashboard-ReservationActionContainer'>
-                    <StandardButton
-                      title='Edit'
-                      onClick={OnEditReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiPencilAlt}/>
-                    <StandardButton
-                      title='Cancel'
-                      onClick={OnCancelReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiMinusCircle}/>
-                  </div>   
+                  {reservationsFilterStatus === 'Requested' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Edit'
+                        onClick={OnEditReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiPencilAlt}/>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
+                  {reservationsFilterStatus === 'Approved' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
                 </>   
               )}
             </div>
@@ -260,7 +395,19 @@ function StudentDashboard(props) {
 // Define PropTypes for the NavigationBar component
 StudentDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
 };
+
+// Define defaultProps for the component
+StudentDashboard.defaultProps = {
+  schoolId: '',
+};
+
+// Map the userRole and schoolId from Redux store to props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
@@ -268,4 +415,4 @@ const mapDispatchToProps = {
 };
 
 // Connect the component to Redux, mapping state and actions to props
-export default connect(null, mapDispatchToProps)(StudentDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard);

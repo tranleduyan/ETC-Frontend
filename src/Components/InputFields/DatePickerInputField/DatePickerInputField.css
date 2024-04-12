@@ -35,6 +35,14 @@
         right: calc(1.689875vmin);
         font-size: calc(2.78125vmin);
     }
+
+    .DatePickerInputField-Error input {
+        height: calc(6.675vmin);
+        padding: calc(1.66875vmin) !important;
+        border-radius: calc(1.390625vmin);
+        border: calc(0.278125vmin) solid var(--Red2);
+        font-size: calc(2.225vmin);
+    }
 }
 
 /* For phone and smaller devices */
@@ -54,5 +62,13 @@
     .react-datepicker-wrapper .react-datepicker__input-container .react-datepicker__calendar-icon {
         right: calc(3.3375vmin);
         font-size: calc(5.5625vmin);
+    }
+
+    .DatePickerInputField-Error input {
+        height: calc(13.35vmin);
+        padding: calc(3.3375vmin) !important;
+        border-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Red2);
+        font-size: calc(4.45vmin);
     }
 }

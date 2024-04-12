@@ -18,7 +18,7 @@ function DetailSection(props) {
   const { className, title, additionalInformation, equipmentDetails, detailsType, actionIcon: ActionIcon, action, isMargin } = props;
 
   // Calculate the number of items in equipmentDetails array.
-  const itemCount = equipmentDetails.length;
+  const itemCount = equipmentDetails.reduce((total, equipment) => total + equipment.itemQuantity, 0);
 
   // Choose the appropriate text based on the number of items.
   const itemText = itemCount <= 1 ? 'item' : 'items';
