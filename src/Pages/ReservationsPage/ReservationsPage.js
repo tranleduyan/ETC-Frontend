@@ -75,6 +75,11 @@ function ReservationsPage(props) {
     isIconSpin: false,
   });
 
+  const [isRefreshed, setIsRefreshed] = useState({
+    approvedReservation: false,
+    requestedReservation: false,
+  });
+
   // State variable for page state
   const [pageState, setPageState] = useState('Reservation Creation');
 
@@ -90,8 +95,9 @@ function ReservationsPage(props) {
   // State variable for detecting mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
 
-  // State variable for indicating visibility of right panel
   const [reservations, setReservations] = useState([]);
+  const [approvedReservations, setApprovedReservations] = useState([]);
+  const [requestedReservations, setRequestedReservations] = useState([]);
 
   // State to detect whether the rightPanel should be visible
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
@@ -200,14 +206,166 @@ function ReservationsPage(props) {
     setSelectedReservationDetails(selectedReservation);
   };
 
+  // Handle when "Cancel" button is clicked for a reservation
+  const OnCancelReservationClick = () => {
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation cancellation...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
+  };
+
   // Handle when "Reject" button is clicked for a reservation
   const OnRejectReservationClick = () => {
-    console.log("Reject Reservation");
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation rejection...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=reject&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
   };
 
   // Handle when "Approve" button is clicked for a reservation
   const OnApproveReservationClick = () => {
-    console.log("Approve Reservation");
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation approval...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=approve&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
   };
 
   // Handle when "Confirm" button is clicked during reservation creation
@@ -312,7 +470,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setReservations(response.data.responseObject);
+          setApprovedReservations(response.data.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -329,7 +487,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setReservations([]);
+          setApprovedReservations([]);
         }, 1500);
       });
   };
@@ -357,7 +515,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setReservations(response.data.responseObject);
+          setRequestedReservations(response.data.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -374,7 +532,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setReservations([]);
+          setRequestedReservations([]);
         }, 1500);
       });
   };
@@ -488,11 +646,6 @@ function ReservationsPage(props) {
     console.log('edit reservation click');
   };
 
-  // TODO: Implement cancel reservation APIs
-  const OnCancelReservationClick = () => {
-    console.log('cancel reservation Click');
-  };
-
   // IsUserRoleValid - Validation for userRole
   const IsUserRoleValid = () => {
     return (userRole === 'Admin' || userRole === 'Student' || userRole === 'Faculty');
@@ -537,18 +690,49 @@ function ReservationsPage(props) {
     }
   }, [pageState]);
 
+  // Effect to set isRefreshed to false every 2 minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshed({
+        approvedReservation: false,
+        requestedReservation: false,
+      })
+    }, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   // Fetch the reservations based on the filter and page
   useEffect(() => {
     if(pageState === 'Your Reservations') {
       if(reservationsFilterStatus === 'Approved') {
-        FetchApprovedReservations();
+        if(isRefreshed.approvedReservation === false) {
+          FetchApprovedReservations();
+          setIsRefreshed({...isRefreshed, 'approvedReservation': true});
+        }
       }
       else if(reservationsFilterStatus === 'Requested') {
-        FetchRequestedReservations();
+        if(isRefreshed.requestedReservation === false) {
+          FetchRequestedReservations();
+          setIsRefreshed({...isRefreshed, 'requestedReservation': true});
+        }
       }
     }
     // eslint-disable-next-line
   }, [pageState, reservationsFilterStatus]);
+
+  // Updating reservation list upon fetching
+  useEffect(() => {
+    if(pageState === 'Your Reservations') {
+      if(reservationsFilterStatus === 'Approved') {
+        setReservations(approvedReservations);
+      }
+      else if(reservationsFilterStatus === 'Requested') {
+        setReservations(requestedReservations);
+      }
+    }
+  }, [pageState, approvedReservations, requestedReservations, reservationsFilterStatus]);
 
   // Detecting if the selected reservation is the user's reservation
   useEffect(() => {
