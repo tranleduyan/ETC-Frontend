@@ -12,8 +12,8 @@ import { HiExclamation } from 'react-icons/hi';
 function NotificationsPage() {
   return (
     <GeneralPage>
-      <div className='ReservationsPage-UnavailableFeature'>
-        <HiExclamation className='ReservationsPage-UnavailableFeatureIcon'/>
+      <div className='NotificationsPage-UnavailableFeature'>
+        <HiExclamation className='NotificationsPage-UnavailableFeatureIcon'/>
         <p className='paragraph-1'>The feature is currently unavailable.</p>
       </div>
     </GeneralPage>

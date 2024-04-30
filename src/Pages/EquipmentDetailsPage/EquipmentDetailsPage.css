@@ -173,6 +173,7 @@
 
     .EquipmentDetailsPage-BackButton {
         width: calc(1.66875vmin);
+        padding: 0px;
     }
 
     .EquipmentDetailsPage-Content {

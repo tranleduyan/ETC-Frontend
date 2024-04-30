@@ -1,0 +1,211 @@
+/* General Stylings */
+.ReservationConfirmationDetailsCard-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: var(--Black1);
+}
+
+.ReservationConfirmationDetailsCard-ModelPhoto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--Black1);
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+}
+
+.ReservationConfirmationDetailsCard-ModelPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ReservationConfirmationDetailsCard-InformationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    overflow: hidden;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    color: var(--Black1);
+}
+
+.ReservationConfirmationDetailsCard-Information {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0px;
+}
+
+.ReservationConfirmationDetailsCard-SelectionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ReservationConfirmationDetailsCard-SelectButtonActive,
+.ReservationConfirmationDetailsCard-SelectButton {
+    width: 100%;
+}
+
+.ReservationConfirmationDetailsCard-SelectButtonActive {
+    color: var(--Red1);
+}
+
+.ReservationConfirmationDetailsCard-GeneralContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.ReservationConfirmationDetailsCard-QuantityContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* For tablets and larger screens */
+@media screen and (min-width: 481px) {
+    .ReservationConfirmationDetailsCard-GeneralContainer{
+        height: calc(20.58125vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-Container {
+        height: calc(13.90625vmin);
+        border-top-left-radius: calc(1.390625vmin);
+        border-top-right-radius: calc(1.390625vmin);
+        border: calc(0.278125vmin) solid var(--Gray1);
+        padding: calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin) calc(1.66875vmin);
+        gap: calc(2.225vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-ModelPhoto {
+        height: calc(8.9vmin);
+        width: calc(8.9vmin);
+        border-radius: calc(1.390625vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-DefaultModelIcon {
+        font-size: calc(4.45vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-InformationContainer {
+        height: calc(8.9vmin);
+        gap: calc(0.55625vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-Information {
+        height: calc(5.00625vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-SelectionContainer {
+        height: 100%;
+        width: calc(3.3375vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-InformationContainer p.heading-5 {
+        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ReservationConfirmationDetailsCard-QuantityContainer {
+        padding: calc(1.66875vmin);
+        height: calc(6.675vmin);
+        border-bottom-left-radius: calc(1.390625vmin);
+        border-bottom-right-radius: calc(1.390625vmin);
+        border-left: calc(0.278125vmin) solid var(--Gray1);
+        border-right: calc(0.278125vmin) solid var(--Gray1);
+        border-top: 0px;
+        border-bottom: calc(0.278125vmin) solid var(--Gray1);
+        color: var(--Black1);
+    }
+
+    .ReservationConfirmationDetailsCard-ActionContainer {
+        padding: 0px;
+        gap: calc(1.1125vmin);
+    }
+}
+
+/* For mobiles and smaller screens */
+@media screen and (max-width: 480px) {
+    .ReservationConfirmationDetailsCard-GeneralContainer {
+        height: auto;
+    }
+
+    .ReservationConfirmationDetailsCard-Container {
+        height: auto;
+        min-height: calc(27.8125vmin);
+        border-top-left-radius: calc(2.78125vmin);
+        border-top-right-radius: calc(2.78125vmin);
+        border: calc(0.55625vmin) solid var(--Gray1);
+        padding: calc(3.3375vmin);
+        gap: calc(4.45vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-ModelPhoto {
+        width: calc(17.8vmin);
+        height: calc(17.8vmin);
+        border-radius: calc(2.78125vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-DefaultModelIcon {
+        font-size: calc(8.9vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-InformationContainer {
+        gap: calc(0.55625vmin);
+        flex: 1;
+    }
+
+    .ReservationConfirmationDetailsCard-Information {
+        height: calc(10.0125vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-SelectionContainer {
+        height: 100%;
+        width: calc(6.675vmin);
+    }
+
+    .ReservationConfirmationDetailsCard-InformationContainer p.heading-5 {
+        white-space: normal;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -moz-box-lines: 2;
+        overflow: hidden;
+    }
+
+    .ReservationConfirmationDetailsCard-QuantityContainer {
+        padding: calc(3.3375vmin);
+        height: calc(13.35vmin);
+        border-bottom-left-radius: calc(2.78125vmin);
+        border-bottom-right-radius: calc(2.78125vmin);
+        border-left: calc(0.55625vmin) solid var(--Gray1);
+        border-right: calc(0.55625vmin) solid var(--Gray1);
+        border-top: 0px;
+        border-bottom: calc(0.55625vmin) solid var(--Gray1);
+        color: var(--Black1);
+    }
+
+    .ReservationConfirmationDetailsCard-ActionContainer {
+        padding: 0px;
+        gap: calc(2.225vmin);
+    }
+}

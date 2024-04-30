@@ -147,6 +147,9 @@ function AddToInventoryPage(props) {
             purchaseCost: '',
             purchaseDate: null,
           });
+
+          // Reset the model options
+          setEquipmentModelOptions([]);
         })
         .catch(error => {
           setIsLoading(false);

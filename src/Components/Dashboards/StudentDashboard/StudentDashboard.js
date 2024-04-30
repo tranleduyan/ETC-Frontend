@@ -1,5 +1,7 @@
 //#region Import Necessary Dependencies
 import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -18,15 +20,16 @@ import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
 import EquipmentFilterCardList from '../../Lists/EquipmentFilterCardList/EquipmentFilterCardList';
+import IconModal from '../../Modals/IconModal/IconModal';
 //#endregion
 
 // Import Icons
-import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle } from 'react-icons/hi';
+import { HiLogout, HiCalendar, HiX, HiPencilAlt, HiMinusCircle, HiExclamationCircle, HiRefresh, HiCheck } from 'react-icons/hi';
 
 // Define Student Dashboard Component;
 function StudentDashboard(props) {
 
-  const { resetUserData } = props;
+  const { resetUserData, schoolId } = props;
 
   const navigate = useNavigate();
 
@@ -35,11 +38,29 @@ function StudentDashboard(props) {
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // State for reservations filter status and equipment filter 
+  const [reservations, setReservations] = useState([]);
+  const [approvedReservations, setApprovedReservations] = useState([]);
+  const [requestedReservations, setRequestedReservations] = useState([]);
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
   const [selectedEquipmentFilter, setSelectedEquipmentFilter] = useState(null);
 
+  // State variable for reservation list refresh
+  const [isRefreshed, setIsRefreshed] = useState({
+    approvedReservation: false,
+    requestedReservation: false,
+  });
+
   // State for selected reservation
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
+
+  // State variable for icon modal
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
+  });
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -68,9 +89,11 @@ function StudentDashboard(props) {
     setSelectedEquipmentFilter(null);
     
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
-    setSelectedReservation((prevSelectedReservation) => 
-      prevSelectedReservation === selectedReservation ? null : selectedReservation
-    );
+    await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
+    ));
+
+    setSelectedReservationDetails(selectedReservation);
   };
 
   // OnEditReservationClick - TODO: Navigate to update reservation.
@@ -78,9 +101,67 @@ function StudentDashboard(props) {
     console.log('Edit Reservation');
   };
 
-  // OnCancelReservationClick - TODO: Implement Cancel Reservation API
+  // Handle when "Cancel" button is clicked for a reservation
   const OnCancelReservationClick = () => {
-    console.log('Cancel Reservation');
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation cancellation...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
   };
 
   // Navigate to Make Reservation Page.
@@ -99,6 +180,96 @@ function StudentDashboard(props) {
   const CloseDetailSection = () => {
     setSelectedEquipmentFilter(null);
     setSelectedReservation(null);
+  };
+
+  // FetchApproveReservation - get all the approve reservations
+  const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setApprovedReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setApprovedReservations([]);
+        }, 1500);
+      });
+  };
+
+  // FetchRequestedReservations - get all the requested reservations
+  const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setRequestedReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setRequestedReservations([]);
+        }, 1500);
+      });
   };
 
   //#region side effects
@@ -122,10 +293,57 @@ function StudentDashboard(props) {
       }
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
+
+  // Effect to set isRefreshed to false every 2 minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshed({
+        approvedReservation: false,
+        requestedReservation: false,
+      })
+    }, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      if(isRefreshed.approvedReservation === false) {
+        FetchApprovedReservations();
+        setIsRefreshed({...isRefreshed, 'approvedReservation': true});
+      }
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      if(isRefreshed.requestedReservation === false) {
+        FetchRequestedReservations();
+        setIsRefreshed({...isRefreshed, 'requestedReservation': true});
+      }
+    }
+    // eslint-disable-next-line
+  }, [reservationsFilterStatus]);
+
+    // Updating reservation list upon fetching
+    useEffect(() => {
+      if(reservationsFilterStatus === 'Approved') {
+        setReservations(approvedReservations);
+      }
+      else if(reservationsFilterStatus === 'Requested') {
+        setReservations(requestedReservations);
+      }
+    }, [approvedReservations, requestedReservations, reservationsFilterStatus]);
   //#endregion
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='StudentDashboard-IconModalContainer'
+        icon={iconModal.icon}
+        iconClassName='StudentDashboard-IconModalIcon'
+        message={iconModal.message}
+        isVisible={iconModal.visibility}
+        isSpinning={iconModal.isIconSpin}/>
       <div className='StudentDashboard-PageContentContainer'>
         {/* Page Header - Student Dashboard */}
         <div className='StudentDashboard-PageHeaderContainer'>
@@ -146,7 +364,7 @@ function StudentDashboard(props) {
           {/* Left Content Panel */}
           <div className={`StudentDashboard-LeftContentPanel ${isMobileView && isRightPanelVisible ? 'StudentDashboard-Hide' : ''}`}>
             {/* Equipment Filter Section */}
-            <div className='StudentDashboard-EquipmentFilterSection'>
+            <div className='StudentDashboard-EquipmentFilterSection StudentDashboard-Hide'>
               {/* Section Header */}
               <div className='StudentDashboard-SectionHeader'>
                 {/* Title */}
@@ -187,6 +405,7 @@ function StudentDashboard(props) {
                 className='StudentDashboard-ReservationList'
                 filterMode='upcoming'
                 filterStatus={reservationsFilterStatus}
+                reservations={reservations}
                 selectedReservation={selectedReservation}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
@@ -230,23 +449,34 @@ function StudentDashboard(props) {
                   <DetailSection
                     className='StudentDashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation={`MM/DD/YYYY - MM/DD/YYYY`}
-                    equipmentDetails={[]}
+                    additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                    equipmentDetails={selectedReservationDetails?.details}
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
-                  <div className='StudentDashboard-ReservationActionContainer'>
-                    <StandardButton
-                      title='Edit'
-                      onClick={OnEditReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiPencilAlt}/>
-                    <StandardButton
-                      title='Cancel'
-                      onClick={OnCancelReservationClick}
-                      className='StudentDashboard-ReservationActionButton'
-                      icon={HiMinusCircle}/>
-                  </div>   
+                  {reservationsFilterStatus === 'Requested' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Edit'
+                        onClick={OnEditReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiPencilAlt}/>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
+                  {reservationsFilterStatus === 'Approved' && (
+                    <div className='StudentDashboard-ReservationActionContainer'>
+                      <StandardButton
+                        title='Cancel'
+                        onClick={OnCancelReservationClick}
+                        className='StudentDashboard-ReservationActionButton'
+                        icon={HiMinusCircle}/>
+                    </div>   
+                  )}
                 </>   
               )}
             </div>
@@ -260,7 +490,19 @@ function StudentDashboard(props) {
 // Define PropTypes for the NavigationBar component
 StudentDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
 };
+
+// Define defaultProps for the component
+StudentDashboard.defaultProps = {
+  schoolId: '',
+};
+
+// Map the userRole and schoolId from Redux store to props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
@@ -268,4 +510,4 @@ const mapDispatchToProps = {
 };
 
 // Connect the component to Redux, mapping state and actions to props
-export default connect(null, mapDispatchToProps)(StudentDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard);

@@ -1,15 +1,13 @@
 //#region Import Necessary Dependencies 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { API } from '../../../Constants';
 import { useNavigate } from 'react-router-dom'
 import { resetUserData } from '../../../storage';
 import { connect } from 'react-redux';
-import { AllReservationsResponse, InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
+import { InUseAmmeter, InUseBarometer, InUseHydrometer, InUseLuxmeter, InUseManometer, 
          InUseMultimeter, InUseOscilloscope, InUseSpectrophotometer, InUseThermometer, InUseVoltmeter, 
-         ReservationDetailsAmandaLeeResponse, 
-         ReservationDetailsEmilyWilsonResponse, 
-         ReservationDetailsRobertWhiteResponse, 
-         ReservationDetailsSophiaJohnsonResponse, 
          UnderRepairAmmeter, UnderRepairBarometer, UnderRepairHydrometer, UnderRepairLuxmeter, UnderRepairManometer,
          UnderRepairMultimeter, UnderRepairOscilloscope, UnderRepairSpectrophotometer, UnderRepairThermometer, UnderRepairVoltmeter } from '../../../ResponseBody';
 //#endregion
@@ -27,15 +25,16 @@ import FilterButton from '../../Buttons/FilterButton/FilterButton';
 import ReservationList from '../../Lists/ReservationList/ReservationList';
 import StandardButton from '../../Buttons/StandardButton';
 import DetailSection from '../../Sections/DetailSection/DetailSection';
+import IconModal from '../../Modals/IconModal/IconModal';
 //#endregion
 
 // Import Icons
-import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck } from 'react-icons/hi';
+import { HiBell, HiCog, HiLogout, HiPlus, HiX, HiCheck, HiMinusCircle, HiExclamationCircle, HiRefresh } from 'react-icons/hi';
 
 // Define the AdminDashboard Component
 function AdminDashboard(props) {
   
-  const { resetUserData } = props;
+  const { resetUserData, schoolId } = props;
   
   const navigate = useNavigate();
 
@@ -61,6 +60,9 @@ function AdminDashboard(props) {
   const [selectedReservation, setSelectedReservation] = useState(null);
 
   // State for reservations filter status
+  const [reservations, setReservations] = useState([]);
+  const [approvedReservations, setApprovedReservations] = useState([]);
+  const [requestedReservations, setRequestedReservations] = useState([]);
   const [reservationsFilterStatus, setReservationsFilterStatus] = useState('Approved');
 
   // State for equipment details
@@ -68,12 +70,28 @@ function AdminDashboard(props) {
   const [underRepairEquipmentDetails, setUnderRepairEquipmentDetails] = useState([]);
 
   // State for reservation details
-  const [reservationDetails, setReservationDetails] = useState([]);
   const [selectedReservationDetails, setSelectedReservationDetails] = useState([]);
 
   // State for handle mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
+
+  // State to handle if is the user reservation selected (for user roles that have ability to view all reservations for approve and reject)
+  const [isMyReservation, setIsMyReservation] = useState(false);
+
+  // State variable for reservation list refresh
+  const [isRefreshed, setIsRefreshed] = useState({
+    approvedReservation: false,
+    requestedReservation: false,
+  });
+
+  // State variable for icon modal
+  const [iconModal, setIconModal] = useState({
+    message: '',
+    visibility: false,
+    icon: HiExclamationCircle,
+    isIconSpin: false,
+  });
 
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
@@ -101,6 +119,96 @@ function AdminDashboard(props) {
     setUnderRepairEquipmentDetails(underRepairEquipmentDetailsResponse[selectedEquipmentType - 1]);
   };
 
+  // FetchApproveReservation - get all the approve reservations
+  const FetchApprovedReservations = () => {
+    setIconModal({
+      message: 'Looking for approved reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/approved-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setApprovedReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setApprovedReservations([]);
+        }, 1500);
+      });
+  };
+
+  // FetchRequestedReservations - get all the requested reservations
+  const FetchRequestedReservations = () => {
+    setIconModal({
+      message: 'Looking for requested reservations...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/requested-reservation`, {
+        headers: {
+          'X-API-KEY': API.key,
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setRequestedReservations(response.data.responseObject);
+        }, 1500);
+      })
+      .catch(() => {
+        setIconModal({
+          message: 'There is an error occurred. Please try again.',
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });       
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setRequestedReservations([]);
+        }, 1500);
+      });
+  };
+
   // Function triggered when reservation card is clicked
   // TODO: These will be changed when there are APIs for this.
   const OnReservationCardClick = async(selectedReservation) => {
@@ -108,30 +216,10 @@ function AdminDashboard(props) {
     setSelectedInventoryType(null);
     // Toggle the selected reservations, await until finish setSelectedReservation then continue.
     await Promise.resolve(setSelectedReservation((prevSelectedReservation) => 
-      prevSelectedReservation === selectedReservation ? null : selectedReservation
+      prevSelectedReservation === selectedReservation.reservationID ? null : selectedReservation.reservationID
     ));
 
-    // Find reservation details based on the selected reservation
-    const details = AllReservationsResponse.find(reservation => reservation.reservationID === selectedReservation);
-
-    // Set reservation details based on the selected reservation ID
-    setSelectedReservationDetails(details);
-
-    if(selectedReservation === 7) {
-      setReservationDetails(ReservationDetailsEmilyWilsonResponse);
-    }
-    else if(selectedReservation === 9) {
-      setReservationDetails(ReservationDetailsAmandaLeeResponse);
-    }
-    else if(selectedReservation === 11) {
-      setReservationDetails(ReservationDetailsSophiaJohnsonResponse);
-    }
-    else if(selectedReservation === 12) {
-      setReservationDetails(ReservationDetailsRobertWhiteResponse);
-    }
-    else {
-      setReservationDetails([]);
-    }
+    setSelectedReservationDetails(selectedReservation);
   };
 
   // Function triggered when reservation status filter button is clicked
@@ -143,6 +231,194 @@ function AdminDashboard(props) {
   // Function triggered when "Add Equipment" button is clicked - Go to Add Equipment Page
   const OnAddEquipmentClick = () => {
     navigate('/AddToInventory');
+  };
+
+  // Handle when "Reject" button is clicked for a reservation
+  const OnRejectReservationClick = () => {
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation rejection...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=reject&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
+  };
+
+  // Handle when "Approve" button is clicked for a reservation
+  const OnApproveReservationClick = () => {
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation approval...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=approve&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
+  };
+
+  // Handle when "Cancel" button is clicked for a reservation
+  const OnCancelReservationClick = () => {
+    // Show processing message
+    setIconModal({
+      message: 'Processing your reservation cancellation...',
+      icon: HiRefresh,
+      visibility: true,
+      isIconSpin: true,
+    });
+
+    axios
+      .put(`${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`)
+        .then((response) => {
+          // Show success message
+          setIconModal({
+            message: response.data.message,
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+        // Automatically hide the modal after 3 seconds
+        setTimeout(() => {
+          setIconModal({
+            message: '',
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
+          setSelectedReservation(null);
+          setSelectedReservationDetails([]);
+        }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+  
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: '',
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
   };
 
   // TODO: Search APIs
@@ -196,10 +472,68 @@ function AdminDashboard(props) {
       }
     }
   }, [selectedInventoryType, selectedReservation, isMobileView]);
+
+  // Effect to set isRefreshed to false every 2 minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshed({
+        approvedReservation: false,
+        requestedReservation: false,
+      })
+    }, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  // Upon changing the reservationsFilterStatus, get different filter status reservations.
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      if(isRefreshed.approvedReservation === false) {
+        FetchApprovedReservations();
+        setIsRefreshed({...isRefreshed, 'approvedReservation': true});
+      }
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      if(isRefreshed.requestedReservation === false) {
+        FetchRequestedReservations();
+        setIsRefreshed({...isRefreshed, 'requestedReservation': true});
+      }
+    }
+    // eslint-disable-next-line
+  }, [reservationsFilterStatus]);
+
+  // Updating reservation list upon fetching
+  useEffect(() => {
+    if(reservationsFilterStatus === 'Approved') {
+      setReservations(approvedReservations);
+    }
+    else if(reservationsFilterStatus === 'Requested') {
+      setReservations(requestedReservations);
+    }
+  }, [approvedReservations, requestedReservations, reservationsFilterStatus]);
+
+  // Checking if the selected reservation details is the user's
+  useEffect(() => {
+    if(selectedReservationDetails?.renterSchoolId === schoolId) {
+      setIsMyReservation(true);
+    }
+    else {
+      setIsMyReservation(false);
+    }
+    // eslint-disable-next-line
+  }, [selectedReservationDetails]);
   //#endregion
 
   return (
     <GeneralPage>
+      <IconModal 
+        className='AdminDashboard-IconModalContainer'
+        icon={iconModal.icon}
+        iconClassName='AdminDashboard-IconModalIcon'
+        message={iconModal.message}
+        isVisible={iconModal.visibility}
+        isSpinning={iconModal.isIconSpin}/>
       <div className='AdminDashboard-PageContentContainer'>
         {/* Page Header - Dashboard */}
         <div className='AdminDashboard-PageHeaderContainer'>
@@ -274,6 +608,7 @@ function AdminDashboard(props) {
                 filterMode='upcoming'
                 filterStatus={reservationsFilterStatus}
                 selectedReservation={selectedReservation}
+                reservations={reservations}
                 OnReservationCardClick={OnReservationCardClick}/>
             </div>
           </div>
@@ -307,8 +642,8 @@ function AdminDashboard(props) {
                   <DetailSection
                     className='AdminDashboard-ReservationDetailSection'
                     title='Reservation Details'
-                    additionalInformation={`${selectedReservationDetails?.startDate} - ${selectedReservationDetails?.endDate}`}
-                    equipmentDetails={reservationDetails}
+                    additionalInformation={`${selectedReservationDetails?.formattedStartDate} - ${selectedReservationDetails?.formattedEndDate}`}
+                    equipmentDetails={selectedReservationDetails?.details}
                     actionIcon={(isMobileView) ? HiX : null}
                     action={CloseDetailSection}
                     detailsType='reservation'/>
@@ -316,14 +651,23 @@ function AdminDashboard(props) {
                     <div className='AdminDashboard-ReservationActionContainer'>
                       <StandardButton
                         title={"Approve"}
-                        onClick={OnAddEquipmentClick}
+                        onClick={OnApproveReservationClick}
                         className='AdminDashboard-ReservationActionButton'
                         icon={HiCheck}/>
                       <StandardButton
                         title={"Reject"}
-                        onClick={OnAddEquipmentClick}
+                        onClick={OnRejectReservationClick}
                         className='AdminDashboard-ReservationActionButton'
                         icon={HiX}/>
+                    </div>
+                  )}
+                  {reservationsFilterStatus === 'Approved' && (isMyReservation) && (
+                    <div className='AdminDashboard-ReservationActionContainer'>
+                        <StandardButton
+                          title={"Cancel"}
+                          onClick={OnCancelReservationClick}
+                          className='FacultyDashboard-ReservationActionButton'
+                          icon={HiMinusCircle}/>
                     </div>
                   )}
                 </>
@@ -339,7 +683,19 @@ function AdminDashboard(props) {
 // Define the prop types of the component
 AdminDashboard.propTypes = {
   resetUserData: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
 };
+
+// Define defaultProps for the component
+AdminDashboard.defaultProps = {
+  schoolId: '',
+};
+
+// Map the userRole and schoolId from Redux store to props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
 
 // Define the actions to be mapped to props
 const mapDispatchToProps = {
@@ -347,4 +703,4 @@ const mapDispatchToProps = {
 };
 
 // Exports the AdminDashboard component as the default export for the AdminDashboard module.
-export default connect(null, mapDispatchToProps)(AdminDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);

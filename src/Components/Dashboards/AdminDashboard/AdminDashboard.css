@@ -105,7 +105,11 @@
 }
 
 .AdminDashboard-Hide {
-    display: none;
+    display: none !important;
+}
+
+.AdminDashboard-IconModalIcon {
+    color: var(--Red1);
 }
 
 /* For tablets and any larger devices */
@@ -120,12 +124,9 @@
         padding: calc(2.225vmin) calc(2.225vmin);
     }
 
-    .AdminDashboard-LogoContainer {
-        display: none !important;
-    }
-
+    .AdminDashboard-LogoContainer,
     .AdminDashboard-ActionContainer {
-        display: none;
+        display: none !important;
     }
 
     .AdminDashboard-ContentContainer {
@@ -188,6 +189,11 @@
 
     .AdminDashboard-ReservationActionButton {
         margin-left: calc(2.225vmin);
+    }
+
+    .AdminDashboard-IconModalContainer {
+        width: calc(69.53125vmin);
+        height: calc(41.71875vmin);
     }
 }
 
@@ -268,7 +274,7 @@
     }
 
     .AdminDashboard-RightContentPanel {
-        display: none;
+        display: none !important;
     }
 
     .AdminDashboard-RightContentPanelActive {
@@ -293,5 +299,10 @@
 
     .AdminDashboard-ReservationActionButton {
         margin-left: calc(4.45vmin);
+    }
+
+    .AdminDashboard-IconModalContainer {
+        width: calc(91.225vmin);
+        height: calc(61.1875vmin);
     }
 }

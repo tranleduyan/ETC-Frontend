@@ -30,6 +30,9 @@ export const MESSAGE = {
     // Message for indicating empty reservations
     emptyReservation: 'There are no reservations.',
 
+    // Message for indicating empty upcoming reservations
+    emptyUpcomingReservation: 'There are no upcoming reservations.',
+
     // Message for indicating empty types
     emptyType: 'There are no types in the inventory.',
 
@@ -37,7 +40,10 @@ export const MESSAGE = {
     emptyModel: 'There are no models in the inventory.',
 
     // Message for indicating empty equipments
-    emptyEquipment: 'There are no equipments in the inventory.',
+    emptyEquipment: 'There is no equipment in the inventory.',
+
+    // Message for indicating empty available items
+    emptyAvailableModels: 'There is no equipment available in this time period.',
 
     // Message for successfully added an equipment type
     successTypeAddition: 'The type has been successfully added to the inventory.',

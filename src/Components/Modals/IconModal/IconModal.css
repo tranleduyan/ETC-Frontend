@@ -6,6 +6,15 @@
     text-align: center;
 }
 
+.IconModal-SpinIcon {
+    animation: spin 2s linear infinite;
+  }
+  
+@keyframes spin {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
     .IconModal-Container {

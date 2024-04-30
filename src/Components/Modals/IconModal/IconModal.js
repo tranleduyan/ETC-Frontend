@@ -13,13 +13,13 @@ import GeneralModal from '../GeneralModal/GeneralModal';
 function IconModal(props) {
 
   // Extract necessary props
-  const { icon: Icon, className, iconClassName, message, isVisible } = props;
+  const { icon: Icon, className, iconClassName, message, isVisible, isSpinning } = props;
   
   return (
     <GeneralModal 
       className={`IconModal-Container ${className}`}
       isVisible={isVisible}>
-        <Icon className={`IconModal-Icon ${iconClassName}`}/>
+        <Icon className={`IconModal-Icon ${iconClassName} ${isSpinning ? 'IconModal-SpinIcon' : ''}`}/>
         <p className='paragraph-1'>{message}</p>
     </GeneralModal>
   )
@@ -32,6 +32,7 @@ IconModal.propTypes = {
   iconClassName: PropTypes.string,
   message: PropTypes.string,
   isVisible: PropTypes.bool,
+  isSpinning: PropTypes.bool,
 };
 
 // Define the default props value for the component
@@ -40,6 +41,7 @@ IconModal.defaultProps = {
   iconClassName: '',
   message: '',
   isVisible: false,
+  isSpinning: false,
 };
 
 // Exports the IconModal component as the default export for the IconModal module.
