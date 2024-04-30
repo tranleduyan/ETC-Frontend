@@ -99,12 +99,20 @@ function ReservationsPage(props) {
   const [approvedReservations, setApprovedReservations] = useState([]);
   const [requestedReservations, setRequestedReservations] = useState([]);
 
+  // State for cancellation and edit visibility.
+  const [isReservationCancellable, setIsReservationCancellable] = useState(false);
+  const [isReservationEditable, setIsReservationEditable] = useState(false);
+
   // State to detect whether the rightPanel should be visible
   const [isRightPanelVisible, setIsRightPanelVisible] = useState(window.innerWidth >= 480);
 
   // OnMyReservationClick - toggle the state isMyReservationMode for filtering upon clicking
   const OnMyReservationsClick = () => {
     setIsMyReservationMode(!isMyReservationMode);
+    if(!isMyReservation) {
+      setSelectedReservation(null);
+      setSelectedReservationDetails([]);
+    }
   };
 
   // Close detail section when clicked on the "X" icon
@@ -235,6 +243,15 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
+
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
           setSelectedReservation(null);
           setSelectedReservationDetails([]);
         }, 1500);
@@ -289,6 +306,14 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
           setSelectedReservation(null);
           setSelectedReservationDetails([]);
         }, 1500);
@@ -343,6 +368,15 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
+
+          // Filter reservations by status
+          const approved = response.data.responseObject.filter(reservation => reservation.status === "Approved");
+          const requested = response.data.responseObject.filter(reservation => reservation.status === "Requested");
+
+          // Set filtered reservations to state variables
+          setApprovedReservations(approved);
+          setRequestedReservations(requested);
+
           setSelectedReservation(null);
           setSelectedReservationDetails([]);
         }, 1500);
@@ -417,6 +451,10 @@ function ReservationsPage(props) {
             endDate: new Date(),
           });
           setSelectedModels([]);
+          setIsRefreshed({
+            approvedReservation: false,
+            requestedReservation: false,
+          });
         }, 1500);
 
       })
@@ -436,6 +474,10 @@ function ReservationsPage(props) {
             icon: HiExclamationCircle,
             visibility: false,
             isIconSpin: false,
+          });
+          setIsRefreshed({
+            approvedReservation: false,
+            requestedReservation: false,
           });
         }, 1500);
 
@@ -738,9 +780,25 @@ function ReservationsPage(props) {
   useEffect(() => {
     if(selectedReservationDetails?.renterSchoolId === schoolId) {
       setIsMyReservation(true);
+
+      const endDate = new Date(selectedReservationDetails.formattedEndDate);
+      const today = new Date();
+
+      today.setHours(0, 0, 0, 0);
+
+      if (endDate >= today) {
+        setIsReservationEditable(true);
+        setIsReservationCancellable(true);
+      } 
+      else {
+        setIsReservationEditable(false);
+        setIsReservationCancellable(false);
+      }
     }
     else {
       setIsMyReservation(false);
+      setIsReservationEditable(false);
+      setIsReservationCancellable(false);
     }
     // eslint-disable-next-line
   }, [selectedReservationDetails]);
@@ -1070,25 +1128,34 @@ function ReservationsPage(props) {
                         )}
                         {reservationsFilterStatus === 'Requested' && (userRole === 'Student') && (
                           <div className='ReservationsPage-ReservationActionContainer'>
-                            <StandardButton
-                              title={"Edit"}
-                              onClick={OnEditReservationClick}
-                              className='ReservationsPage-ReservationActionButton'
-                              icon={HiPencilAlt}/>
-                            <StandardButton
-                              title={"Cancel"}
-                              onClick={OnCancelReservationClick}
-                              className='ReservationsPage-ReservationActionButton'
-                              icon={HiMinusCircle}/>
+                            {isReservationEditable && (
+                              <StandardButton
+                                title={"Edit"}
+                                onClick={OnEditReservationClick}
+                                className='ReservationsPage-ReservationActionButton'
+                                icon={HiPencilAlt}
+                              />
+                            )}
+                            {isReservationCancellable && (
+                              <StandardButton
+                                title={"Cancel"}
+                                onClick={OnCancelReservationClick}
+                                className='ReservationsPage-ReservationActionButton'
+                                icon={HiMinusCircle}
+                              />
+                            )}
                           </div>
                         )}
                         {reservationsFilterStatus === 'Approved' && (isMyReservation) && (
                           <div className='ReservationsPage-ReservationActionContainer'>
-                            <StandardButton
-                              title={"Cancel"}
-                              onClick={OnCancelReservationClick}
-                              className='ReservationsPage-ReservationActionButton'
-                              icon={HiMinusCircle}/>
+                            {isReservationCancellable && (
+                              <StandardButton
+                                title={"Cancel"}
+                                onClick={OnCancelReservationClick}
+                                className='ReservationsPage-ReservationActionButton'
+                                icon={HiMinusCircle}
+                              />
+                            )}
                           </div>
                         )}
                       </>
