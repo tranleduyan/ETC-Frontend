@@ -75,6 +75,7 @@ function ReservationsPage(props) {
     isIconSpin: false,
   });
 
+  // State variable for reservation list refresh
   const [isRefreshed, setIsRefreshed] = useState({
     approvedReservation: false,
     requestedReservation: false,
@@ -95,6 +96,7 @@ function ReservationsPage(props) {
   // State variable for detecting mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
 
+  // State variable for reservations
   const [reservations, setReservations] = useState([]);
   const [approvedReservations, setApprovedReservations] = useState([]);
   const [requestedReservations, setRequestedReservations] = useState([]);
@@ -787,7 +789,12 @@ function ReservationsPage(props) {
       today.setHours(0, 0, 0, 0);
 
       if (endDate >= today) {
-        setIsReservationEditable(true);
+        if(selectedReservationDetails.status === "Requested") {
+          setIsReservationEditable(true);
+        }
+        else {
+          setIsReservationEditable(false);
+        }
         setIsReservationCancellable(true);
       } 
       else {

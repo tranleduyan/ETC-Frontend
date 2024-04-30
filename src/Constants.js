@@ -30,6 +30,9 @@ export const MESSAGE = {
     // Message for indicating empty reservations
     emptyReservation: 'There are no reservations.',
 
+    // Message for indicating empty upcoming reservations
+    emptyUpcomingReservation: 'There are no upcoming reservations.',
+
     // Message for indicating empty types
     emptyType: 'There are no types in the inventory.',
 

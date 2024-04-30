@@ -66,7 +66,10 @@ function ReservationList(props) {
           }
         });
         break;
-
+      case 'descending':
+        // Sort reservations in descending order by end date
+        filteredReservations = filteredReservations.sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
+        break;
       default:
         break;
     }
@@ -124,8 +127,12 @@ function ReservationList(props) {
             isSelected={selectedReservation === reservation.reservationId}
             OnReservationCardClick={OnReservationCardClick}/>
       ))
-       :
-         <p className='paragraph-1'>{MESSAGE.emptyReservation}</p>
+       : 
+       filterMode === 'upcoming'
+        ?
+        <p className='paragraph-1'>{MESSAGE.emptyUpcomingReservation}</p>
+        :
+        <p className='paragraph-1'>{MESSAGE.emptyReservation}</p>
       }
     </div>
   )
