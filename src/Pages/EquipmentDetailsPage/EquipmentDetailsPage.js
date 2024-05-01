@@ -43,7 +43,7 @@ function EquipmentDetailsPage(props) {
     purchaseCost: '',
     purchaseDate: '',
     rfidTag: '',
-    currentRoom: '',
+    lastSeen: '',
     homeRooms: [],
     usageHistory: [],
   });
@@ -191,7 +191,11 @@ function EquipmentDetailsPage(props) {
       })
       .then(response => {
         setEquipmentModelPhoto(response.data.responseObject.modelPhoto);
-        
+        const adjustedUsageHistory = response.data.responseObject.usageHistory.map(entry => ({
+          ...entry,
+          scanTime: new Date(new Date(entry.scanTime).getTime() - (7 * 60 * 60 * 1000))
+        }));
+
         setEquipmentInformation({
           typeName: response.data.responseObject.typeName,
           modelName: response.data.responseObject.modelName,
@@ -203,9 +207,9 @@ function EquipmentDetailsPage(props) {
                                                                                : response.data.responseObject.purchaseCost,
           purchaseDate: response.data.responseObject.purchaseDate,
           rfidTag: response.data.responseObject.rfidTag,
-          currentRoom: response.data.responseObject.currentRoom,
+          lastSeen: response.data.responseObject.lastSeen,
           homeRooms: response.data.responseObject.homeRooms,
-          usageHistory: [],
+          usageHistory: adjustedUsageHistory,
         });
       })
       .catch(() => {
@@ -230,7 +234,7 @@ function EquipmentDetailsPage(props) {
     FetchEquipmentInformation();
     // eslint-disable-next-line
   }, []);
-
+  
   return (
     <>
       {/* Response Modal for displaying successful messages or errors */}
@@ -319,22 +323,25 @@ function EquipmentDetailsPage(props) {
               <p className='heading-5'>Location</p>
               <div className='EquipmentDetailsPage-Information'>
                 <p className='paragraph-1'>RFID Tag: {equipmentInformation.rfidTag}</p>
-                <p className='paragraph-1'>Current Room: {equipmentInformation.currentRoom}</p>
+                <p className='paragraph-1'>Last Seen: {equipmentInformation.lastSeen}</p>
                 <p className='paragraph-1'>Home Room: {equipmentInformation.homeRooms?.length > 0 ? equipmentInformation.homeRooms : 'None'}</p>
               </div>
             </div>
           </div>
           <div className='EquipmentDetailsPage-UsageHistoryContainer'>
             <p className='heading-5'>Usage History</p>
-              {/** For future use.
+              {equipmentInformation.usageHistory?.length > 0 && (
                 <div className='EquipmentDetailsPage-UsageHistoryList'>
-                  <div className='EquipmentDetailsPage-UsageHistoryCard'>
-                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date'>11/23/2023</p>
-                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time'>12:00</p>
-                    <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name'>Aaron Walt</p>
-                  </div>
+                  {equipmentInformation.usageHistory.map((historyEntry) => (
+                    <div className='EquipmentDetailsPage-UsageHistoryCard' key={historyEntry.scanHistoryId}>
+                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date'>{new Date(historyEntry.scanTime).toLocaleDateString()}</p>
+                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time'>{new Date(historyEntry.scanTime).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+}</p>
+                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name'>{historyEntry.FullName}</p>
+                    </div>
+                  ))}
                 </div>
-              */}
+              )}
               {equipmentInformation.usageHistory?.length === 0 &&
                 <Message 
                   message={'The equipment has not been used by anyone.'} 
