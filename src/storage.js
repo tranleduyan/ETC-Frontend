@@ -1,28 +1,28 @@
 // Import Components/Requirements
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { combineReducers } from 'redux';
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
 
 //#region User
 
 // Define the initial state for the 'user' slice
 const userInitialState = {
-    userData: null,
+  userData: null,
 };
 
 // Define a slice for managing user-related state
 const userSlice = createSlice({
-    name: 'user',
-    initialState: userInitialState,
-    reducers: {
-        setUserData: (state, action) => {
-            state.userData = action.payload;
-        },
-        resetUserData: (state) => {
-            state.userData = null;
-        },
+  name: "user",
+  initialState: userInitialState,
+  reducers: {
+    setUserData: (state, action) => {
+      state.userData = action.payload;
     },
+    resetUserData: (state) => {
+      state.userData = null;
+    },
+  },
 });
 //#endregion
 
@@ -30,19 +30,19 @@ const userSlice = createSlice({
 
 // Combine all reducers into the root reducer
 const rootReducer = combineReducers({
-    user: userSlice.reducer,
+  user: userSlice.reducer,
 });
 
 // Configuration for persisting the Redux state
 const persistConfig = {
-    // Key for the root of the persisted state
-    key: 'root',
+  // Key for the root of the persisted state
+  key: "root",
 
-    //Storage engine
-    storage,
+  //Storage engine
+  storage,
 
-    // List of slices to persist
-    whitelist: ['user'],
+  // List of slices to persist
+  whitelist: ["user"],
 };
 
 // Define the persisted reducer with the specified configuration
@@ -51,12 +51,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Define Redux storage with the persisted reducer and default middleware, disable serializableCheck
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware({
-            serializableCheck: false,
-        }),
-    devTools: false,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  devTools: false,
 });
 
 // Define a persistor for managing state persistence

@@ -1,27 +1,31 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
-import { MESSAGE } from '../../../Constants';
+import React from "react";
+import PropTypes from "prop-types";
+import { MESSAGE } from "../../../Constants";
 //#endregion
 
 // Import Stylings
-import './TypeInventory.css';
+import "./TypeInventory.css";
 
 // Import UI Components
-import TypeInventoryCard from '../../Cards/TypeInventoryCard/TypeInventoryCard';
+import TypeInventoryCard from "../../Cards/TypeInventoryCard/TypeInventoryCard";
 
 // Define TypeInventory Component
 function TypeInventory(props) {
-
   // Extract necessary props
   const { className, selectedTypes, onSelectType, typeInventory } = props;
 
   return (
-    <div className={`${typeInventory?.length > 0 ? 'TypeInventory-Container' : 'TypeInventory-Message' } ${className}`}>
-      {typeInventory?.length > 0
-        ?
+    <div
+      className={`${
+        typeInventory?.length > 0
+          ? "TypeInventory-Container"
+          : "TypeInventory-Message"
+      } ${className}`}
+    >
+      {typeInventory?.length > 0 ? (
         typeInventory.map((item) => (
-          <TypeInventoryCard 
+          <TypeInventoryCard
             key={item.typeId}
             typeId={item.typeId}
             typeName={item.typeName}
@@ -29,14 +33,14 @@ function TypeInventory(props) {
             equipmentAmount={item.equipmentCount}
             isSelected={selectedTypes.includes(item.typeId)}
             onSelect={onSelectType}
-            />
-      ))
-       :
-        <p className='paragraph-1'>{MESSAGE.emptyType}</p>
-      }
+          />
+        ))
+      ) : (
+        <p className="paragraph-1">{MESSAGE.emptyType}</p>
+      )}
     </div>
-  )
-};
+  );
+}
 
 // Define Proptypes for the component
 TypeInventory.propTypes = {
@@ -48,7 +52,7 @@ TypeInventory.propTypes = {
 
 // Define DefaultProps for the component
 TypeInventory.defaultProps = {
-  className: '',
+  className: "",
 };
 
 // Exports the TypeInventory component as the default export for the TypeInventory module.

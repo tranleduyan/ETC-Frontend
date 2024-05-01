@@ -1,128 +1,128 @@
 /* General Stylings */
 .NavigationBar-Container,
 .NavigationBar-Menu {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .NavigationBar-Student .NavigationBarButton-InventoryButton,
 .NavigationBar-Student .NavigationBarButton-AddEquipmentButton,
 .NavigationBar-Student .NavigationBarButton-UsersButton {
-    display: none;
+  display: none;
 }
 
 .NavigationBar-Faculty .NavigationBarButton-InventoryButton,
 .NavigationBar-Faculty .NavigationBarButton-AddEquipmentButton,
 .NavigationBar-Faculty .NavigationBarButton-UsersButton {
-    display: none;
+  display: none;
 }
 
 .NavigationBarButton-DashboardButton {
-    order: 0;
+  order: 0;
 }
 
 .NavigationBarButton-ReservationButton {
-    order : 1;
+  order: 1;
 }
 
 .NavigationBarButton-UsersButton {
-    order: 4;
+  order: 4;
 }
 
 .NavigationBarButton-NotificationsButton {
-    order: 5;
+  order: 5;
 }
 
 .NavigationBarButton-SettingsButton {
-    order: 6;
+  order: 6;
 }
 
 .NavigationBarButton-SignOutButton:hover,
 .NavigationBarButton-Container:hover,
 .NavigationBarButton-Active {
-    color: var(--Red1) !important;
+  color: var(--Red1) !important;
 }
 
 /* For tablet and larger devices */
 @media screen and (min-width: 481px) {
-    .NavigationBar-Container {
-        width: calc(8.9vmin); 
-        height: 100%;
-        flex-direction: column;
-        justify-content: space-between;
-        border-right: calc(0.278125vmin) solid var(--Gray1);
-    }
-    
-    .NavigationBar-LogoContainer {
-        margin: calc(2.225vmin) 0px; 
-        width: calc(4.45vmin); 
-    }
-    
-    .NavigationBar-LogoContainer img {
-        width:100%;
-        height:100%;
-    }
-    
-    .NavigationBar-Menu {
-        margin: calc(2.78125vmin) 0px;
-        flex-direction: column;
-        justify-content: center;
-    }
-    
-    .NavigationBarButton-Container {
-        margin-top: calc(2.225vmin);
-    }
-    
-    .NavigationBarButton-Container:first-child {
-        margin-top: 0px;
-    }
+  .NavigationBar-Container {
+    width: calc(8.9vmin);
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: calc(0.278125vmin) solid var(--Gray1);
+  }
 
-    .NavigationBarButton-InventoryButton {
-        order: 2;
-    }
-    
-    .NavigationBarButton-AddEquipmentButton {
-        order: 3;
-    }
+  .NavigationBar-LogoContainer {
+    margin: calc(2.225vmin) 0px;
+    width: calc(4.45vmin);
+  }
 
-    .NavigationBarButton-SignOutButton {
-        margin-bottom: calc(2.225vmin);
-    }
+  .NavigationBar-LogoContainer img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .NavigationBar-Menu {
+    margin: calc(2.78125vmin) 0px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .NavigationBarButton-Container {
+    margin-top: calc(2.225vmin);
+  }
+
+  .NavigationBarButton-Container:first-child {
+    margin-top: 0px;
+  }
+
+  .NavigationBarButton-InventoryButton {
+    order: 2;
+  }
+
+  .NavigationBarButton-AddEquipmentButton {
+    order: 3;
+  }
+
+  .NavigationBarButton-SignOutButton {
+    margin-bottom: calc(2.225vmin);
+  }
 }
 
 /* For phone and smaller devices */
 @media screen and (max-width: 480px) {
-    .NavigationBar-Container {
-        width: 100%; 
-        height: calc(15.575vmin);
-        flex-direction: row;
-        justify-content: center;
-        border-top: calc(0.55625vmin) solid var(--Gray1);
-    }
-    
-    .NavigationBar-LogoContainer,
-    .NavigationBar-LogoContainer img,
-    .NavigationBarButton-SignOutButton {
-        display:none !important;
-    }
-    
-    .NavigationBar-Menu {
-        width:100%;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: calc(4.45vmin);
-    }    
+  .NavigationBar-Container {
+    width: 100%;
+    height: calc(15.575vmin);
+    flex-direction: row;
+    justify-content: center;
+    border-top: calc(0.55625vmin) solid var(--Gray1);
+  }
 
-    .NavigationBarButton-InventoryButton {
-        order: 3;
-    }
-    
-    .NavigationBarButton-AddEquipmentButton {
-        order: 2;
-    }
+  .NavigationBar-LogoContainer,
+  .NavigationBar-LogoContainer img,
+  .NavigationBarButton-SignOutButton {
+    display: none !important;
+  }
 
-    .NavigationBar-Admin .NavigationBarButton-SettingsButton,
-    .NavigationBar-Admin .NavigationBarButton-NotificationsButton {
+  .NavigationBar-Menu {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: calc(4.45vmin);
+  }
+
+  .NavigationBarButton-InventoryButton {
+    order: 3;
+  }
+
+  .NavigationBarButton-AddEquipmentButton {
+    order: 2;
+  }
+
+  .NavigationBar-Admin .NavigationBarButton-SettingsButton,
+  .NavigationBar-Admin .NavigationBarButton-NotificationsButton {
     display: none;
-    }
+  }
 }

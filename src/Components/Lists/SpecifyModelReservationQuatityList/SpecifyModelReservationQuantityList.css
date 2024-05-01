@@ -1,34 +1,40 @@
 /* General Stylings */
 .SpecifyModelReservationQuantityList-Container {
-    display: grid;
-    overflow-y: auto;
-    height: 100%;
+  display: grid;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .SpecifyModelReservationQuantityList-Container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* For tablets and larger screen */
 @media screen and (min-width: 481px) {
-    .SpecifyModelReservationQuantityList-Container {
-        height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
-        margin-top: calc(2.225vmin);
-        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
-        gap: calc(3.02vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(20.58125vmin), calc(20.58125vmin)));
-        padding-bottom: calc(0.278125vmin);
-    }
+  .SpecifyModelReservationQuantityList-Container {
+    height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+    margin-top: calc(2.225vmin);
+    grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+    gap: calc(3.02vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(20.58125vmin), calc(20.58125vmin))
+    );
+    padding-bottom: calc(0.278125vmin);
+  }
 }
 
 /* For mobiles and smaller screen */
 @media screen and (max-width: 480px) {
-    .SpecifyModelReservationQuantityList-Container {
-        height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
-        margin: calc(4.45vmin) 0px;
-        grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
-        gap: calc(4.45vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(41.1625vmin), calc(41.1625vmin)));
-        padding-bottom: calc(0.55625vmin);
-    }
+  .SpecifyModelReservationQuantityList-Container {
+    height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+    margin: calc(4.45vmin) 0px;
+    grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
+    gap: calc(4.45vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(41.1625vmin), calc(41.1625vmin))
+    );
+    padding-bottom: calc(0.55625vmin);
+  }
 }

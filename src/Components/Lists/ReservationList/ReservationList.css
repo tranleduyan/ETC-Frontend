@@ -1,35 +1,41 @@
 /* General Stylings */
 .ReservationList-Container {
-    display: grid;
-    overflow-y: auto;
+  display: grid;
+  overflow-y: auto;
 }
 
 .ReservationList-Message {
-    color: var(--Gray3);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  color: var(--Gray3);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 /* For tablets and larger devices */
 @media screen and (min-width: 481px) {
-    .ReservationList-Container {
-        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
-        gap: calc(3.02vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(12.79375vmin), calc(12.79375vmin)));
-    }
+  .ReservationList-Container {
+    grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+    gap: calc(3.02vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(12.79375vmin), calc(12.79375vmin))
+    );
+  }
 
-    .ReservationList-Container::-webkit-scrollbar {
-        display: none;
-    }
+  .ReservationList-Container::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* For mobile and smaller devices */
 @media screen and (max-width: 480px) {
-    .ReservationList-Container {
-        grid-template-columns: 1fr;
-        gap: calc(4.45vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(25.5875vmin), calc(25.5875vmin)));
-    }
+  .ReservationList-Container {
+    grid-template-columns: 1fr;
+    gap: calc(4.45vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(25.5875vmin), calc(25.5875vmin))
+    );
+  }
 }

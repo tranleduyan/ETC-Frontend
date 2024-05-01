@@ -1,55 +1,67 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './EquipmentTypeSummaryCard.css'
+import "./EquipmentTypeSummaryCard.css";
 
 // Import Icons
-import { HiArchive } from 'react-icons/hi';
+import { HiArchive } from "react-icons/hi";
 
 // Define Equipment Type Summary Card component
 function EquipmentTypeSummaryCard(props) {
-
   // Destructure props to extract relevant information
   // eslint-disable-next-line
-  const { className, typeID, typeName, inventoryAmount, reservationAmount, isSelected, OnEquipmentTypeSummaryCardClick } = props;
+  const {
+    className,
+    typeID,
+    typeName,
+    inventoryAmount,
+    reservationAmount,
+    isSelected,
+    OnEquipmentTypeSummaryCardClick,
+  } = props;
 
   // Determine whether to use 'models' or 'model' based on the inventory amount
-  const itemText = inventoryAmount > 1 ? 'models' : 'model';
+  const itemText = inventoryAmount > 1 ? "models" : "model";
 
   // Function triggered when the card is clicked
   const OnCardClick = () => {
-    if(OnEquipmentTypeSummaryCardClick) {
+    if (OnEquipmentTypeSummaryCardClick) {
       // For future use, TODO: implement reserved equipment and rfid
       //OnEquipmentTypeSummaryCardClick(typeID);
       return;
-    }    
+    }
   };
 
   return (
     <>
       {/* TODO: ${isSelected ?  'EquipmentTypeSummaryCard-Active' : ''} when implement RFID equipment reserved*/}
-      <button 
+      <button
         className={`${className} EquipmentTypeSummaryCard-Container`}
-        onClick={(OnCardClick)}>
-          {/* Container for equipment type information */}
-          <div className='EquipmentTypeSummaryCard-InformationContainer'>
-              {/* Icon representing equipment type */}
-              <HiArchive className='EquipmentTypeSummaryCard-Icon'/>
-              {/* Information about the equipment type */}
-              <div className='EquipmentTypeSummaryCard-Information'>
-                  <p className='heading-5 EquipmentTypeSummaryCard-TypeName'>{typeName}</p>
-                  <p className='paragraph-1'>{inventoryAmount} {itemText}</p>
-              </div>
+        onClick={OnCardClick}
+      >
+        {/* Container for equipment type information */}
+        <div className="EquipmentTypeSummaryCard-InformationContainer">
+          {/* Icon representing equipment type */}
+          <HiArchive className="EquipmentTypeSummaryCard-Icon" />
+          {/* Information about the equipment type */}
+          <div className="EquipmentTypeSummaryCard-Information">
+            <p className="heading-5 EquipmentTypeSummaryCard-TypeName">
+              {typeName}
+            </p>
+            <p className="paragraph-1">
+              {inventoryAmount} {itemText}
+            </p>
           </div>
-          {/* Display the number of reserved items */}
-          <p className='paragraph-1'>Reserved: {reservationAmount}</p>
+        </div>
+        {/* Display the number of reserved items */}
+        <p className="paragraph-1">Reserved: {reservationAmount}</p>
       </button>
     </>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 EquipmentTypeSummaryCard.propTypes = {
@@ -64,8 +76,8 @@ EquipmentTypeSummaryCard.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 EquipmentTypeSummaryCard.defaultProps = {
-  className: '',
-  typeName: 'Unknown',
+  className: "",
+  typeName: "Unknown",
   inventoryAmount: 0,
   reservationAmount: 0,
   isSelected: false,

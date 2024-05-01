@@ -1,58 +1,74 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './DetailSection.css';
+import "./DetailSection.css";
 
 //#region Import UI Components
-import IconButton from '../../Buttons/IconButton/IconButton';
-import EquipmentDetailList from '../../Lists/EquipmentDetailList/EquipmentDetailList';
+import IconButton from "../../Buttons/IconButton/IconButton";
+import EquipmentDetailList from "../../Lists/EquipmentDetailList/EquipmentDetailList";
 //#endregion
 
 // Define Details Section Component
 function DetailSection(props) {
-
   // Destructure props to extract relevant values.
-  const { className, title, additionalInformation, equipmentDetails, detailsType, actionIcon: ActionIcon, action, isMargin } = props;
+  const {
+    className,
+    title,
+    additionalInformation,
+    equipmentDetails,
+    detailsType,
+    actionIcon: ActionIcon,
+    action,
+    isMargin,
+  } = props;
 
   // Calculate the number of items in equipmentDetails array.
-  const itemCount = equipmentDetails.reduce((total, equipment) => total + equipment.itemQuantity, 0);
+  const itemCount = equipmentDetails.reduce(
+    (total, equipment) => total + equipment.itemQuantity,
+    0
+  );
 
   // Choose the appropriate text based on the number of items.
-  const itemText = itemCount <= 1 ? 'item' : 'items';
+  const itemText = itemCount <= 1 ? "item" : "items";
 
   return (
     <div className={`${className} DetailSection-Container`}>
-      <div className='DetailSection-SectionHeader'>
-        <div className='DetailSection-Title'>
+      <div className="DetailSection-SectionHeader">
+        <div className="DetailSection-Title">
           {/* Render the title and additional information */}
-          <p className='heading-5'>{title}</p>
-          <p className='paragraph-3 additionalInformation'>{additionalInformation}</p>
+          <p className="heading-5">{title}</p>
+          <p className="paragraph-3 additionalInformation">
+            {additionalInformation}
+          </p>
         </div>
         {/* Render either the action icon or item count */}
-        {(ActionIcon) 
-          ? 
-          <div className='DetailSection-ActionContainer'>
-            <IconButton 
-              icon={ActionIcon} 
-              className='DetailSection-ActionIcon' 
-              onClick={action}/>
+        {ActionIcon ? (
+          <div className="DetailSection-ActionContainer">
+            <IconButton
+              icon={ActionIcon}
+              className="DetailSection-ActionIcon"
+              onClick={action}
+            />
           </div>
-          :
-          <p className='paragraph-1'>{itemCount} {itemText}</p>
-        }
+        ) : (
+          <p className="paragraph-1">
+            {itemCount} {itemText}
+          </p>
+        )}
       </div>
       {/* Render the EquipmentDetailList component */}
-      <EquipmentDetailList 
-        className='DetailSection-EquipmentDetailList'
+      <EquipmentDetailList
+        className="DetailSection-EquipmentDetailList"
         equipmentDetails={equipmentDetails}
         detailsType={detailsType}
-        isMargin={isMargin}/>
+        isMargin={isMargin}
+      />
     </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 DetailSection.propTypes = {
@@ -60,7 +76,7 @@ DetailSection.propTypes = {
   title: PropTypes.string,
   additionalInformation: PropTypes.string,
   equipmentDetails: PropTypes.array,
-  detailsType: PropTypes.oneOf(['inventory', 'reservation']),
+  detailsType: PropTypes.oneOf(["inventory", "reservation"]),
   actionIcon: PropTypes.elementType,
   action: PropTypes.func,
   isMargin: PropTypes.bool,
@@ -68,11 +84,11 @@ DetailSection.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 DetailSection.defaultProps = {
-  className: '',
-  title: '',
-  additionalInformation: '',
+  className: "",
+  title: "",
+  additionalInformation: "",
   equipmentDetails: [],
-  detailsType: 'inventory',
+  detailsType: "inventory",
   actionIcon: null,
   action: () => {},
   isMargin: false,

@@ -1,23 +1,23 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './GeneralPage.css';
+import "./GeneralPage.css";
 
 // Import UI Components
-import NavigationBar from '../../Components/NavigationBar/NavigationBar.js';
+import NavigationBar from "../../Components/NavigationBar/NavigationBar.js";
 
 // Define GeneralPage component
 function GeneralPage({ children }) {
   return (
-    <div className='wrapper GeneralPage-Wrapper'>
-      <NavigationBar/>
-      { children }
+    <div className="wrapper GeneralPage-Wrapper">
+      <NavigationBar />
+      {children}
     </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 GeneralPage.propTypes = {

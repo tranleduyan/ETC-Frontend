@@ -1,58 +1,70 @@
 //#region Import Neccessary Dependencies
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { API } from '../../Constants';
-import { connect } from 'react-redux';
-import { resetUserData } from '../../storage';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { API } from "../../Constants";
+import { connect } from "react-redux";
+import { resetUserData } from "../../storage";
 //#endregion
 
 //#region Import UI Components
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import Message from '../../Components/Message/Message';
+import IconModal from "../../Components/Modals/IconModal/IconModal";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
+import IconButton from "../../Components/Buttons/IconButton/IconButton";
+import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
+import Message from "../../Components/Message/Message";
 //#endregion
 
 // Import Stylings
-import './EquipmentDetailsPage.css';
+import "./EquipmentDetailsPage.css";
 //#endregion
 
 //#region Import Icons
-import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiPencilAlt, HiTrash } from 'react-icons/hi';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import {
+  HiSwitchHorizontal,
+  HiExclamationCircle,
+  HiCheckCircle,
+  HiChevronLeft,
+  HiPencilAlt,
+  HiTrash,
+} from "react-icons/hi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 //#endregion
 
 // Define EquipmentDetailsPage Component
 function EquipmentDetailsPage(props) {
-
   // Extract relevant information
-  const { setDetailSection, setEditSection, schoolId, equipmentSerialId, setIsUpdated } = props;
+  const {
+    setDetailSection,
+    setEditSection,
+    schoolId,
+    equipmentSerialId,
+    setIsUpdated,
+  } = props;
 
   // State to handle equipment model photo loading errors
-  const [equipmentModelPhoto, setEquipmentModelPhoto] = useState('');
+  const [equipmentModelPhoto, setEquipmentModelPhoto] = useState("");
   const [equipmentInformation, setEquipmentInformation] = useState({
-    typeName: '',
-    modelName: '',
-    serialId: '',
-    maintenanceStatus: '',
-    reservationStatus: '',
-    usageCondition: '',
-    purchaseCost: '',
-    purchaseDate: '',
-    rfidTag: '',
-    lastSeen: '',
+    typeName: "",
+    modelName: "",
+    serialId: "",
+    maintenanceStatus: "",
+    reservationStatus: "",
+    usageCondition: "",
+    purchaseCost: "",
+    purchaseDate: "",
+    rfidTag: "",
+    lastSeen: "",
     homeRooms: [],
     usageHistory: [],
   });
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
-    title: '',
-    content: '',
-    warning: '',
+    title: "",
+    content: "",
+    warning: "",
     onYes: () => {},
     onNo: () => {},
     isVisible: false,
@@ -63,27 +75,27 @@ function EquipmentDetailsPage(props) {
 
   // Response Modal State Object - Control visibility and content of the response
   const [responseModal, setResponseModal] = useState({
-    message: '',
+    message: "",
     error: false,
     isVisible: false,
   });
 
   // OnBack - Handle back action
   const OnBack = () => {
-    setDetailSection('');
-    setEditSection('');
-    setEquipmentModelPhoto('');
+    setDetailSection("");
+    setEditSection("");
+    setEquipmentModelPhoto("");
     setEquipmentInformation({
-      typeName: '',
-      modelName: '',
-      serialId: '',
-      maintenanceStatus: '',
-      reservationStatus: '',
-      usageCondition: '',
-      purchaseCost: '',
-      purchaseDate: '',
-      rfidTag: '',
-      currentRoom: '',
+      typeName: "",
+      modelName: "",
+      serialId: "",
+      maintenanceStatus: "",
+      reservationStatus: "",
+      usageCondition: "",
+      purchaseCost: "",
+      purchaseDate: "",
+      rfidTag: "",
+      currentRoom: "",
       homeRooms: [],
       usageHistory: [],
     });
@@ -92,9 +104,9 @@ function EquipmentDetailsPage(props) {
   // CloseConfirmationModal - Hide/Close the confirmation modal
   const CloseConfirmationModal = () => {
     setConfirmationModal({
-      title: '',
-      content: '',
-      warning: '',
+      title: "",
+      content: "",
+      warning: "",
       onYes: () => {},
       onNo: () => {},
       isVisible: false,
@@ -103,7 +115,7 @@ function EquipmentDetailsPage(props) {
 
   // HandleEdit - Handle Edit Action
   const HandleEdit = () => {
-    setEditSection('Equipment');
+    setEditSection("Equipment");
   };
 
   // DeleteEquipment - Delete the equipment upon yes selection, else close the confirmation modal if no.
@@ -123,7 +135,7 @@ function EquipmentDetailsPage(props) {
         axios
           .delete(`${API.domain}/api/inventory/equipment`, {
             headers: {
-              'X-API-KEY': API.key,
+              "X-API-KEY": API.key,
             },
             data: {
               schoolId: schoolId,
@@ -139,7 +151,7 @@ function EquipmentDetailsPage(props) {
             });
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
@@ -156,7 +168,7 @@ function EquipmentDetailsPage(props) {
             });
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
@@ -169,32 +181,35 @@ function EquipmentDetailsPage(props) {
         CloseConfirmationModal();
       },
       isVisible: true,
-    })
+    });
   };
 
   // ResponseIcon - Determine response icon based on processing state
   const ResponseIcon = () => {
-    if(isProcessing) {
+    if (isProcessing) {
       return HiSwitchHorizontal;
     } else {
       return responseModal.error ? HiExclamationCircle : HiCheckCircle;
     }
   };
-  
+
   // FetchEquipmentInformation - Fetch equipment information
   const FetchEquipmentInformation = () => {
     axios
       .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
         headers: {
-          'X-API-KEY': API.key,
-        }
+          "X-API-KEY": API.key,
+        },
       })
-      .then(response => {
+      .then((response) => {
         setEquipmentModelPhoto(response.data.responseObject.modelPhoto);
-        const adjustedUsageHistory = response.data.responseObject.usageHistory.map(entry => ({
-          ...entry,
-          scanTime: new Date(new Date(entry.scanTime).getTime() - (7 * 60 * 60 * 1000))
-        }));
+        const adjustedUsageHistory =
+          response.data.responseObject.usageHistory.map((entry) => ({
+            ...entry,
+            scanTime: new Date(
+              new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
+            ),
+          }));
 
         setEquipmentInformation({
           typeName: response.data.responseObject.typeName,
@@ -203,8 +218,10 @@ function EquipmentDetailsPage(props) {
           maintenanceStatus: response.data.responseObject.maintenanceStatus,
           reservationStatus: response.data.responseObject.reservationStatus,
           usageCondition: response.data.responseObject.usageCondition,
-          purchaseCost: response.data.responseObject.purchaseCost !== '$--.--' ? `$${response.data.responseObject.purchaseCost}`
-                                                                               : response.data.responseObject.purchaseCost,
+          purchaseCost:
+            response.data.responseObject.purchaseCost !== "$--.--"
+              ? `$${response.data.responseObject.purchaseCost}`
+              : response.data.responseObject.purchaseCost,
           purchaseDate: response.data.responseObject.purchaseDate,
           rfidTag: response.data.responseObject.rfidTag,
           lastSeen: response.data.responseObject.lastSeen,
@@ -214,13 +231,14 @@ function EquipmentDetailsPage(props) {
       })
       .catch(() => {
         setResponseModal({
-          message: 'Something went wrong while retrieving the current equipment information.',
+          message:
+            "Something went wrong while retrieving the current equipment information.",
           error: true,
           isVisible: true,
         });
         setTimeout(() => {
           setResponseModal({
-            message: '',
+            message: "",
             error: false,
             isVisible: false,
           });
@@ -234,132 +252,172 @@ function EquipmentDetailsPage(props) {
     FetchEquipmentInformation();
     // eslint-disable-next-line
   }, []);
-  
+
   return (
     <>
       {/* Response Modal for displaying successful messages or errors */}
       <IconModal
-        className='EquipmentDetailsPage-ResponseModalContainer'
+        className="EquipmentDetailsPage-ResponseModalContainer"
         icon={ResponseIcon()}
-        iconClassName='EquipmentDetailsPage-ReponseModalIcon'
+        iconClassName="EquipmentDetailsPage-ReponseModalIcon"
         message={responseModal.message}
-        isVisible={responseModal.isVisible || isProcessing}/>
+        isVisible={responseModal.isVisible || isProcessing}
+      />
       {/* Confirmation Modal for warnings and Confirmation actions */}
       <ConfirmationModal
-        className='EquipmentDetailsPage-ConfirmationModalContainer'
+        className="EquipmentDetailsPage-ConfirmationModalContainer"
         title={confirmationModal.title}
         content={confirmationModal.content}
         warning={confirmationModal.warning}
         onYes={confirmationModal.onYes}
         onNo={confirmationModal.onNo}
-        isVisible={confirmationModal.isVisible}/>
-      <div className='EquipmentDetailsPage-ContentContainer'>
+        isVisible={confirmationModal.isVisible}
+      />
+      <div className="EquipmentDetailsPage-ContentContainer">
         {/* Content Header Container */}
-        <div className='EquipmentDetailsPage-ContentHeaderContainer'>
+        <div className="EquipmentDetailsPage-ContentHeaderContainer">
           {/* Header Container */}
-          <div className='EquipmentDetailsPage-HeaderContainer'>
+          <div className="EquipmentDetailsPage-HeaderContainer">
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className='EquipmentDetailsPage-BackButton'
-              onClick={OnBack}/>
+              className="EquipmentDetailsPage-BackButton"
+              onClick={OnBack}
+            />
             {/* Header */}
-            <p className='heading-5'>{equipmentInformation.serialId}</p>
+            <p className="heading-5">{equipmentInformation.serialId}</p>
           </div>
           {/* Action Container */}
-          <div className='EquipmentDetailsPage-ActionContainer'>
+          <div className="EquipmentDetailsPage-ActionContainer">
             <StandardButton
-              title='Edit'
+              title="Edit"
               onClick={HandleEdit}
-              className='EquipmentDetailsPage-EditButton'
-              icon={HiPencilAlt}/>
+              className="EquipmentDetailsPage-EditButton"
+              icon={HiPencilAlt}
+            />
             <StandardButton
-              title=''
+              title=""
               onClick={DeleteEquipment}
-              className='EquipmentDetailsPage-DeleteButton'
-              icon={HiTrash}/>
+              className="EquipmentDetailsPage-DeleteButton"
+              icon={HiTrash}
+            />
           </div>
         </div>
-        <div className='EquipmentDetailsPage-Content'>
-          <div className='EquipmentDetailsPage-MediaContainer'>
-            <div className='EquipmentDetailsPage-Media'>
+        <div className="EquipmentDetailsPage-Content">
+          <div className="EquipmentDetailsPage-MediaContainer">
+            <div className="EquipmentDetailsPage-Media">
               {/* Display Model Photo */}
               {equipmentModelPhoto && (
-                <img src={equipmentModelPhoto}
-                    alt='Equipment Model'
-                    onError={() => setEquipmentModelPhoto(null)}/>
+                <img
+                  src={equipmentModelPhoto}
+                  alt="Equipment Model"
+                  onError={() => setEquipmentModelPhoto(null)}
+                />
               )}
               {/* Display Default Model Icon */}
               {!equipmentModelPhoto && (
-                <div className='EquipmentDetailsPage-DefaultPhotoIconContainer'>
+                <div className="EquipmentDetailsPage-DefaultPhotoIconContainer">
                   <FontAwesomeIcon
                     icon={faScrewdriverWrench}
-                    className='EquipmentDetailsPage-DefaultPhotoIcon'/>
+                    className="EquipmentDetailsPage-DefaultPhotoIcon"
+                  />
                 </div>
               )}
             </div>
-            <div className='EquipmentDetailsPage-TypeModelContainer'>
-              <p className='heading-5'>{equipmentInformation.typeName}</p>
-              <p className='paragraph-1'>{equipmentInformation.modelName}</p>
+            <div className="EquipmentDetailsPage-TypeModelContainer">
+              <p className="heading-5">{equipmentInformation.typeName}</p>
+              <p className="paragraph-1">{equipmentInformation.modelName}</p>
             </div>
           </div>
-          <div className='EquipmentDetailsPage-EquipmentInformationContainer'>
-            <div className='EquipmentDetailsPage-InformationContainer'>
-              <p className='heading-5'>Status</p>
-              <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>Maintenance: {equipmentInformation.maintenanceStatus}</p>
-                <p className='paragraph-1'>Reservation: {equipmentInformation.reservationStatus}</p>
+          <div className="EquipmentDetailsPage-EquipmentInformationContainer">
+            <div className="EquipmentDetailsPage-InformationContainer">
+              <p className="heading-5">Status</p>
+              <div className="EquipmentDetailsPage-Information">
+                <p className="paragraph-1">
+                  Maintenance: {equipmentInformation.maintenanceStatus}
+                </p>
+                <p className="paragraph-1">
+                  Reservation: {equipmentInformation.reservationStatus}
+                </p>
               </div>
             </div>
-            <div className='EquipmentDetailsPage-InformationContainer'>
-              <p className='heading-5'>Acquisition</p>
-              <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>Condition: {equipmentInformation.usageCondition}</p>
-                <p className='paragraph-1'>Cost: {equipmentInformation.purchaseCost}</p>
-                <p className='paragraph-1'>Purchase Date: {equipmentInformation.purchaseDate}</p>
+            <div className="EquipmentDetailsPage-InformationContainer">
+              <p className="heading-5">Acquisition</p>
+              <div className="EquipmentDetailsPage-Information">
+                <p className="paragraph-1">
+                  Condition: {equipmentInformation.usageCondition}
+                </p>
+                <p className="paragraph-1">
+                  Cost: {equipmentInformation.purchaseCost}
+                </p>
+                <p className="paragraph-1">
+                  Purchase Date: {equipmentInformation.purchaseDate}
+                </p>
               </div>
             </div>
-            <div className='EquipmentDetailsPage-InformationContainer'>
-              <p className='heading-5'>Location</p>
-              <div className='EquipmentDetailsPage-Information'>
-                <p className='paragraph-1'>RFID Tag: {equipmentInformation.rfidTag}</p>
-                <p className='paragraph-1'>Last Seen: {equipmentInformation.lastSeen}</p>
-                <p className='paragraph-1'>Home Room: {equipmentInformation.homeRooms?.length > 0 ? equipmentInformation.homeRooms : 'None'}</p>
+            <div className="EquipmentDetailsPage-InformationContainer">
+              <p className="heading-5">Location</p>
+              <div className="EquipmentDetailsPage-Information">
+                <p className="paragraph-1">
+                  RFID Tag: {equipmentInformation.rfidTag}
+                </p>
+                <p className="paragraph-1">
+                  Last Seen: {equipmentInformation.lastSeen}
+                </p>
+                <p className="paragraph-1">
+                  Home Room:{" "}
+                  {equipmentInformation.homeRooms?.length > 0
+                    ? equipmentInformation.homeRooms
+                    : "None"}
+                </p>
               </div>
             </div>
           </div>
-          <div className='EquipmentDetailsPage-UsageHistoryContainer'>
-            <p className='heading-5'>Usage History</p>
-              {equipmentInformation.usageHistory?.length > 0 && (
-                <div className='EquipmentDetailsPage-UsageHistoryList'>
-                  {equipmentInformation.usageHistory.map((historyEntry) => (
-                    <div className='EquipmentDetailsPage-UsageHistoryCard' key={historyEntry.scanHistoryId}>
-                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date'>{new Date(historyEntry.scanTime).toLocaleDateString()}</p>
-                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time'>{new Date(historyEntry.scanTime).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
-}</p>
-                      <p className='paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name'>{historyEntry.FullName}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {equipmentInformation.usageHistory?.length === 0 &&
-                <Message 
-                  message={'The equipment has not been used by anyone.'} 
-                  className='EquipmentDetailsPage-EmptyUsageHistoryMessage'/>
-              }
+          <div className="EquipmentDetailsPage-UsageHistoryContainer">
+            <p className="heading-5">Usage History</p>
+            {equipmentInformation.usageHistory?.length > 0 && (
+              <div className="EquipmentDetailsPage-UsageHistoryList">
+                {equipmentInformation.usageHistory.map((historyEntry) => (
+                  <div
+                    className="EquipmentDetailsPage-UsageHistoryCard"
+                    key={historyEntry.scanHistoryId}
+                  >
+                    <p className="paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Date">
+                      {new Date(historyEntry.scanTime).toLocaleDateString()}
+                    </p>
+                    <p className="paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Time">
+                      {new Date(historyEntry.scanTime).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    <p className="paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name">
+                      {historyEntry.FullName}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {equipmentInformation.usageHistory?.length === 0 && (
+              <Message
+                message={"The equipment has not been used by anyone."}
+                className="EquipmentDetailsPage-EmptyUsageHistoryMessage"
+              />
+            )}
           </div>
         </div>
-        <div className='EquipmentDetailsPage-MobileBottomActionContainer'>
+        <div className="EquipmentDetailsPage-MobileBottomActionContainer">
           <StandardButton
-                title='Edit'
-                onClick={HandleEdit}
-                className='EquipmentDetailsPage-MobileEditButton'
-                icon={HiPencilAlt}/>
+            title="Edit"
+            onClick={HandleEdit}
+            className="EquipmentDetailsPage-MobileEditButton"
+            icon={HiPencilAlt}
+          />
         </div>
       </div>
     </>
-  )
-};
+  );
+}
 
 // Define PropTypes for the component
 EquipmentDetailsPage.propTypes = {
@@ -372,8 +430,8 @@ EquipmentDetailsPage.propTypes = {
 
 // Define defaultProps
 EquipmentDetailsPage.defaultProps = {
-  schoolId: '',
-}; 
+  schoolId: "",
+};
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
@@ -387,4 +445,7 @@ const mapDispatchToProps = {
 };
 
 // Connect the component to Redux, mapping state and actions to props
-export default connect(mapStateToProps, mapDispatchToProps)(EquipmentDetailsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EquipmentDetailsPage);

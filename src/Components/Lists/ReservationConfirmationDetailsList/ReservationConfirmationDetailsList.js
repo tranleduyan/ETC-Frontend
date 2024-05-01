@@ -1,36 +1,37 @@
 //#region Import Neccessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './ReservationConfirmationDetailsList.css';
+import "./ReservationConfirmationDetailsList.css";
 
 //#region Import UI Components
-import ReservationConfirmationDetailsCard from '../../Cards/ReservationConfirmationDetailsCard';
+import ReservationConfirmationDetailsCard from "../../Cards/ReservationConfirmationDetailsCard";
 //#endregion
 
 // Define ReservationConfirmationDetailsList component
 function ReservationConfirmationDetailsList(props) {
-
   // Extract neccessary props
-  const { className, selectedModels} = props;
+  const { className, selectedModels } = props;
 
   return (
-    <div className={`ReservationConfirmationDetailsList-Container ${className}`}>
+    <div
+      className={`ReservationConfirmationDetailsList-Container ${className}`}
+    >
       {selectedModels.map((item) => (
-        <ReservationConfirmationDetailsCard 
+        <ReservationConfirmationDetailsCard
           key={item.modelId}
           modelName={item.modelName}
           modelPhoto={item.modelPhoto}
           typeName={item.typeName}
           availableCount={item.availableCount}
-          quantity={item.quantity}/>
+          quantity={item.quantity}
+        />
       ))}
-        
     </div>
-  )
-};
+  );
+}
 
 // Define propTypes validation for ReservationConfirmationDetailsList
 ReservationConfirmationDetailsList.propTypes = {
@@ -40,7 +41,7 @@ ReservationConfirmationDetailsList.propTypes = {
 
 // Define defaultProps value for ReservationConfirmationDetailsList
 ReservationConfirmationDetailsList.defaultProps = {
-  className: '',
+  className: "",
   selectedModels: [],
 };
 

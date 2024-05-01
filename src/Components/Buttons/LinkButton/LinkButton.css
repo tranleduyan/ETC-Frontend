@@ -1,11 +1,11 @@
 /* General Stylings */
 .LinkButton-Container {
-    color: var(--Blue1);
-    border: none;
-    background-color: transparent;
-    padding: 0;
+  color: var(--Blue1);
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 
 .LinkButton-Container:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

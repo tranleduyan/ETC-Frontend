@@ -2,4 +2,4 @@
 from the './EquipmentDetailList' module (EquipmentDetailList.js file).
 The 'default' keyword is used because it's the default export
 from the './EquipmentDetailList' module. */
-export { default } from './EquipmentDetailList';
+export { default } from "./EquipmentDetailList";

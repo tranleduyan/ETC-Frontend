@@ -1,32 +1,45 @@
 //#region Import Neccessary Dependencies
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API, MESSAGE, OPTIONS } from '../../Constants';
-import { connect } from 'react-redux';
-import { resetUserData } from '../../storage';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { API, MESSAGE, OPTIONS } from "../../Constants";
+import { connect } from "react-redux";
+import { resetUserData } from "../../storage";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './UpdateEquipmentPage.css';
+import "./UpdateEquipmentPage.css";
 
 //#region Import UI Components
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import EquipmentForm from '../../Components/Forms/EquipmentForm';
+import IconModal from "../../Components/Modals/IconModal/IconModal";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
+import IconButton from "../../Components/Buttons/IconButton/IconButton";
+import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
+import EquipmentForm from "../../Components/Forms/EquipmentForm";
 //#endregion
 
 //#region Import Icons
-import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiBookmarkAlt, HiTrash } from 'react-icons/hi';
+import {
+  HiSwitchHorizontal,
+  HiExclamationCircle,
+  HiCheckCircle,
+  HiChevronLeft,
+  HiBookmarkAlt,
+  HiTrash,
+} from "react-icons/hi";
 //#endregion
 
 // Define UpdateEquipmentPage Component
 function UpdateEquipmentPage(props) {
-  
   // Extract relevant information
-  const { detailSection, setDetailSection, setEditSection, equipmentSerialId, schoolId, setIsUpdated } = props;
+  const {
+    detailSection,
+    setDetailSection,
+    setEditSection,
+    equipmentSerialId,
+    schoolId,
+    setIsUpdated,
+  } = props;
 
   // Contains all the equipment models information
   const [equipmentModels, setEquipmentModels] = useState([]);
@@ -40,29 +53,29 @@ function UpdateEquipmentPage(props) {
 
   // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
-  const [equipmentErrorMessage, setEquipmentErrorMessage] = useState('');
+  const [equipmentErrorMessage, setEquipmentErrorMessage] = useState("");
 
   // Information of the equipment
   const [equipmentInformation, setEquipmentInformation] = useState({
-    serialNumber: '',
+    serialNumber: "",
     type: null,
     model: null,
-    maintenanceStatus: '',
+    maintenanceStatus: "",
     reservationStatus: OPTIONS.equipment.reservationStatus.find(
-      (status) => status.value === 'Available'
+      (status) => status.value === "Available"
     ),
-    rfidTag: '',
+    rfidTag: "",
     homeLocation: null,
-    condition: '',
-    purchaseCost: '',
+    condition: "",
+    purchaseCost: "",
     purchaseDate: null,
   });
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
-    title: '',
-    content: '',
-    warning: '',
+    title: "",
+    content: "",
+    warning: "",
     onYes: () => {},
     onNo: () => {},
     isVisible: false,
@@ -73,37 +86,37 @@ function UpdateEquipmentPage(props) {
 
   // Response Modal State Object - Control visibility and content of the response
   const [responseModal, setResponseModal] = useState({
-    message: '',
+    message: "",
     error: false,
     isVisible: false,
   });
 
   // OnBack - Set editSection to empty to hide the component and show the previous page.
   const OnBack = () => {
-    setEditSection('');
+    setEditSection("");
     setEquipmentInformation({
-      serialNumber: '',
+      serialNumber: "",
       type: null,
       model: null,
-      maintenanceStatus: '',
+      maintenanceStatus: "",
       reservationStatus: OPTIONS.equipment.reservationStatus.find(
-        (status) => status.value === 'Available'
+        (status) => status.value === "Available"
       ),
-      rfidTag: '',
+      rfidTag: "",
       homeLocation: null,
-      condition: '',
-      purchaseCost: '',
+      condition: "",
+      purchaseCost: "",
       purchaseDate: null,
     });
   };
 
   // SaveUpdate - Save the updates made to equipment
   const SaveUpdate = () => {
-    if(IsEquipmentFormValid()) {
+    if (IsEquipmentFormValid()) {
       // Show processing message
       setIsProcessing(true);
       setResponseModal({
-        message: 'Saving the updates...',
+        message: "Saving the updates...",
         error: false,
         isVisible: true,
       });
@@ -116,16 +129,24 @@ function UpdateEquipmentPage(props) {
         reservationStatus: equipmentInformation.reservationStatus.value,
         usageCondition: equipmentInformation.condition.value,
         purchaseCost: parseFloat(equipmentInformation.purchaseCost),
-        purchaseDate: equipmentInformation.purchaseDate ? new Date(equipmentInformation.purchaseDate).toISOString().split('T')[0] : null,
+        purchaseDate: equipmentInformation.purchaseDate
+          ? new Date(equipmentInformation.purchaseDate)
+              .toISOString()
+              .split("T")[0]
+          : null,
       };
 
       // Perform API call for equipment type update
       axios
-        .put(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, requestBody, {
-          headers: {
-            'X-API-KEY': API.key,
-          },
-        })
+        .put(
+          `${API.domain}/api/inventory/equipment/${equipmentSerialId}`,
+          requestBody,
+          {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+          }
+        )
         .then(() => {
           // Hide processing message
           setIsProcessing(false);
@@ -134,18 +155,18 @@ function UpdateEquipmentPage(props) {
           setResponseModal({
             message: MESSAGE.successEquipmentUpdate,
             error: false,
-            isVisible: true
+            isVisible: true,
           });
 
           // Turn off the response modal after 1500ms.
           setTimeout(() => {
             setResponseModal({
-              message: '',
+              message: "",
               error: false,
               isVisible: false,
             });
           }, 1500);
-          
+
           setIsUpdated(true);
         })
         .catch(() => {
@@ -154,13 +175,14 @@ function UpdateEquipmentPage(props) {
 
           // Show error message
           setResponseModal({
-            message: 'Something went wrong while updating the current equipment.',
+            message:
+              "Something went wrong while updating the current equipment.",
             error: true,
             isVisible: true,
           });
           setTimeout(() => {
             setResponseModal({
-              message: '',
+              message: "",
               error: false,
               isVisible: false,
             });
@@ -170,11 +192,11 @@ function UpdateEquipmentPage(props) {
     }
   };
 
-  // DeleteEquipment - Delete the current equipment 
+  // DeleteEquipment - Delete the current equipment
   const DeleteEquipment = () => {
     // Show confirmation modal for type deletion
     setConfirmationModal({
-      title: 'Remove Equipment',
+      title: "Remove Equipment",
       content: `Are you sure you want to remove ${equipmentSerialId}?`,
       warning: `This will also permanently delete ${equipmentSerialId} and the action cannot be undone.`,
       onYes: () => {
@@ -193,7 +215,7 @@ function UpdateEquipmentPage(props) {
         axios
           .delete(`${API.domain}/api/inventory/equipment`, {
             headers: {
-              'X-API-KEY': API.key,
+              "X-API-KEY": API.key,
             },
             data: {
               schoolId: schoolId,
@@ -214,29 +236,29 @@ function UpdateEquipmentPage(props) {
             // Turn off the response modal after 1500ms and navigate back.
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
 
-              setEditSection('');
+              setEditSection("");
               setEquipmentInformation({
-                serialNumber: '',
+                serialNumber: "",
                 type: null,
                 model: null,
-                maintenanceStatus: '',
+                maintenanceStatus: "",
                 reservationStatus: OPTIONS.equipment.reservationStatus.find(
-                  (status) => status.value === 'Available'
+                  (status) => status.value === "Available"
                 ),
-                rfidTag: '',
+                rfidTag: "",
                 homeLocation: null,
-                condition: '',
-                purchaseCost: '',
+                condition: "",
+                purchaseCost: "",
                 purchaseDate: null,
               });
 
-              if(detailSection) {
-                setDetailSection('');
+              if (detailSection) {
+                setDetailSection("");
               }
             }, 1500);
             setIsUpdated(true);
@@ -247,13 +269,13 @@ function UpdateEquipmentPage(props) {
 
             // Show error message
             setResponseModal({
-              message: 'Something went wrong while deleting the equipment.',
+              message: "Something went wrong while deleting the equipment.",
               error: true,
               isVisible: true,
             });
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
@@ -266,50 +288,50 @@ function UpdateEquipmentPage(props) {
         CloseConfirmationModal();
       },
       isVisible: true,
-    })
+    });
   };
 
   // IsEquipmentFormValid - Check for form validation
   const IsEquipmentFormValid = () => {
-    if(!equipmentInformation.serialNumber) {
+    if (!equipmentInformation.serialNumber) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment serial number.');
+      setEquipmentErrorMessage("Please enter the equipment serial number.");
       return false;
     }
-    
-    if(!equipmentInformation.type) {
+
+    if (!equipmentInformation.type) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment type.');
+      setEquipmentErrorMessage("Please enter the equipment type.");
       return false;
     }
 
     if (!equipmentInformation.model) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please enter the equipment model.');
+      setEquipmentErrorMessage("Please enter the equipment model.");
       return false;
     }
 
     if (!equipmentInformation.maintenanceStatus) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the maintenance status.');
+      setEquipmentErrorMessage("Please select the maintenance status.");
       return false;
     }
 
     if (!equipmentInformation.reservationStatus) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the reservation status.');
+      setEquipmentErrorMessage("Please select the reservation status.");
       return false;
     }
 
     if (!equipmentInformation.condition) {
       setEquipmentIsError(true);
-      setEquipmentErrorMessage('Please select the equipment condition.');
+      setEquipmentErrorMessage("Please select the equipment condition.");
       return false;
     }
 
-    if(equipmentIsError) {
+    if (equipmentIsError) {
       setEquipmentIsError(false);
-      setEquipmentErrorMessage('');
+      setEquipmentErrorMessage("");
     }
 
     return true;
@@ -318,9 +340,9 @@ function UpdateEquipmentPage(props) {
   // CloseConfirmationModal - Hide/Close the confirmation modal
   const CloseConfirmationModal = () => {
     setConfirmationModal({
-      title: '',
-      content: '',
-      warning: '',
+      title: "",
+      content: "",
+      warning: "",
       onYes: () => {},
       onNo: () => {},
       isVisible: false,
@@ -341,11 +363,11 @@ function UpdateEquipmentPage(props) {
     axios
       .get(`${API.domain}/api/inventory/types`, {
         headers: {
-          'X-API-KEY': API.key,
-        }
+          "X-API-KEY": API.key,
+        },
       })
-      .then(response => {
-        const options = response.data.responseObject.map(type => ({
+      .then((response) => {
+        const options = response.data.responseObject.map((type) => ({
           value: type.typeId,
           label: type.typeName,
         }));
@@ -361,32 +383,44 @@ function UpdateEquipmentPage(props) {
   useEffect(() => {
     FetchAllTypeOptions();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
-  // Only fetch if there are equipmentTypeOptions and equipmentModelOptions 
+  // Only fetch if there are equipmentTypeOptions and equipmentModelOptions
   useEffect(() => {
-    if(equipmentTypeOptions) {
+    if (equipmentTypeOptions) {
       axios
         .get(`${API.domain}/api/inventory/equipment/${equipmentSerialId}`, {
           headers: {
-            'X-API-KEY': API.key,
-          }
+            "X-API-KEY": API.key,
+          },
         })
-        .then(response => {
+        .then((response) => {
           const responseObject = response.data.responseObject;
           const equipmentInfo = {
             serialNumber: responseObject.serialId,
-            type: equipmentTypeOptions.find((type) => type.label === responseObject.typeName),
+            type: equipmentTypeOptions.find(
+              (type) => type.label === responseObject.typeName
+            ),
             model: null,
-            maintenanceStatus: OPTIONS.equipment.maintenanceStatus.find((status) => status.value === responseObject.maintenanceStatus),
-            reservationStatus: OPTIONS.equipment.reservationStatus.find((status) => status.value === responseObject.reservationStatus),
-            rfidTag: '',
+            maintenanceStatus: OPTIONS.equipment.maintenanceStatus.find(
+              (status) => status.value === responseObject.maintenanceStatus
+            ),
+            reservationStatus: OPTIONS.equipment.reservationStatus.find(
+              (status) => status.value === responseObject.reservationStatus
+            ),
+            rfidTag: "",
             homeLocation: null,
-            condition: OPTIONS.equipment.conditions.find((condition) => condition.value === responseObject.usageCondition),
-            purchaseCost: response.data.responseObject.purchaseCost === '$--.--' ? ''
-                                                                                 : parseFloat(responseObject.purchaseCost.replace('$', '')),
-            purchaseDate: response.data.responseObject.purchaseDate === '--/--/----' ? '' 
-                                                                                     : new Date(responseObject.purchaseDate),
+            condition: OPTIONS.equipment.conditions.find(
+              (condition) => condition.value === responseObject.usageCondition
+            ),
+            purchaseCost:
+              response.data.responseObject.purchaseCost === "$--.--"
+                ? ""
+                : parseFloat(responseObject.purchaseCost.replace("$", "")),
+            purchaseDate:
+              response.data.responseObject.purchaseDate === "--/--/----"
+                ? ""
+                : new Date(responseObject.purchaseDate),
           };
 
           setEquipmentInformation(equipmentInfo);
@@ -394,13 +428,14 @@ function UpdateEquipmentPage(props) {
         })
         .catch(() => {
           setResponseModal({
-            message: 'Something went wrong while retrieving the current equipment information.',
+            message:
+              "Something went wrong while retrieving the current equipment information.",
             error: true,
             isVisible: true,
           });
           setTimeout(() => {
             setResponseModal({
-              message: '',
+              message: "",
               error: false,
               isVisible: false,
             });
@@ -408,49 +443,58 @@ function UpdateEquipmentPage(props) {
           }, 1500);
         });
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [equipmentTypeOptions]);
 
   // Fetch all the equipment models of a selected type.
   useEffect(() => {
     // If the equipment type is selected, fetch all the equipment models of a selected type
-    if(equipmentInformation.type != null) {
+    if (equipmentInformation.type != null) {
       // HTTP get request to fetch all the models of a selected type.
-      axios.get(`${API.domain}/api/inventory/types/${equipmentInformation.type.value}/models`, {
-        headers: {
-          'X-API-KEY': API.key,
-        }
-      })
-      .then(response => {
-        // Map value and label
-        const options = response.data.responseObject?.map(model => ({
-          value: model.modelId,
-          label: model.modelName,
-        }));
-        
-        // Set the equipmentModels to the response object - Array of all models of a type
-        setEquipmentModels(response.data.responseObject);
-        
-        // Set the equipmentModelOptions to options
-        setEquipmentModelOptions(options);
-      })
-      .catch(error => {
-        // If not found, reset to empty equipment models and options
-        if(error.response.status === 404) {
-          setEquipmentModels([]);
-          setEquipmentModelOptions([]);
-        }
-      });
+      axios
+        .get(
+          `${API.domain}/api/inventory/types/${equipmentInformation.type.value}/models`,
+          {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+          }
+        )
+        .then((response) => {
+          // Map value and label
+          const options = response.data.responseObject?.map((model) => ({
+            value: model.modelId,
+            label: model.modelName,
+          }));
+
+          // Set the equipmentModels to the response object - Array of all models of a type
+          setEquipmentModels(response.data.responseObject);
+
+          // Set the equipmentModelOptions to options
+          setEquipmentModelOptions(options);
+        })
+        .catch((error) => {
+          // If not found, reset to empty equipment models and options
+          if (error.response.status === 404) {
+            setEquipmentModels([]);
+            setEquipmentModelOptions([]);
+          }
+        });
     }
 
-    setEquipmentInformation({...equipmentInformation, 'model': null});
+    setEquipmentInformation({ ...equipmentInformation, model: null });
     // eslint-disable-next-line
   }, [equipmentInformation.type]);
 
   // Set equipment model if available from initial model options
   useEffect(() => {
-    if(initialModel && equipmentModelOptions.length > 0) {
-      setEquipmentInformation({...equipmentInformation, 'model': equipmentModelOptions.find((model) => (model.label === initialModel))});
+    if (initialModel && equipmentModelOptions.length > 0) {
+      setEquipmentInformation({
+        ...equipmentInformation,
+        model: equipmentModelOptions.find(
+          (model) => model.label === initialModel
+        ),
+      });
       setInitialModel(null);
     }
     // eslint-disable-next-line
@@ -460,45 +504,50 @@ function UpdateEquipmentPage(props) {
     <>
       {/* Response Modal for displaying successful messages or errors */}
       <IconModal
-        className='UpdateEquipmentPage-ResponseModalContainer'
+        className="UpdateEquipmentPage-ResponseModalContainer"
         icon={ResponseIcon()}
-        iconClassName='UpdateEquipmentPage-ResponseModalIcon'
+        iconClassName="UpdateEquipmentPage-ResponseModalIcon"
         message={responseModal.message}
-        isVisible={responseModal.isVisible || isProcessing} />
+        isVisible={responseModal.isVisible || isProcessing}
+      />
       {/* Confirmation Modal for warnings and confirmation actions */}
       <ConfirmationModal
-        className='UpdateEquipmentPage-ConfirmationModalContainer'
+        className="UpdateEquipmentPage-ConfirmationModalContainer"
         title={confirmationModal.title}
         content={confirmationModal.content}
         warning={confirmationModal.warning}
         onYes={confirmationModal.onYes}
         onNo={confirmationModal.onNo}
-        isVisible={confirmationModal.isVisible} />
-      <div className='UpdateEquipmentPage-ContentContainer'>
+        isVisible={confirmationModal.isVisible}
+      />
+      <div className="UpdateEquipmentPage-ContentContainer">
         {/* Content Header Container */}
-        <div className='UpdateEquipmentPage-ContentHeaderContainer'>
+        <div className="UpdateEquipmentPage-ContentHeaderContainer">
           {/* Header Container */}
-          <div className='UpdateEquipmentPage-HeaderContainer'>
+          <div className="UpdateEquipmentPage-HeaderContainer">
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className='UpdateEquipmentPage-BackButton'
-              onClick={OnBack} />
+              className="UpdateEquipmentPage-BackButton"
+              onClick={OnBack}
+            />
             {/* Header */}
-            <p className='heading-5'>Update Equipment</p>
+            <p className="heading-5">Update Equipment</p>
           </div>
           {/* Action Container*/}
-          <div className='UpdateEquipmentPage-ActionContainer'>
+          <div className="UpdateEquipmentPage-ActionContainer">
             <StandardButton
-              title='Save'
+              title="Save"
               onClick={SaveUpdate}
-              className='UpdateEquipmentPage-SaveButton'
-              icon={HiBookmarkAlt}/>
+              className="UpdateEquipmentPage-SaveButton"
+              icon={HiBookmarkAlt}
+            />
             <StandardButton
-              title=''
+              title=""
               onClick={DeleteEquipment}
-              className='UpdateEquipmentPage-DeleteButton'
-              icon={HiTrash}/>
+              className="UpdateEquipmentPage-DeleteButton"
+              icon={HiTrash}
+            />
           </div>
         </div>
         {/* Equipment Form */}
@@ -510,17 +559,19 @@ function UpdateEquipmentPage(props) {
           equipmentModels={equipmentModels}
           equipmentModelOptions={equipmentModelOptions}
           equipmentTypeOptions={equipmentTypeOptions}
-          disableSerialNumber={true}/>
+          disableSerialNumber={true}
+        />
         {/* Mobile Save Update Button */}
         <StandardButton
-          title='Save'
+          title="Save"
           onClick={SaveUpdate}
-          className='UpdateEquipmentPage-MobileSaveButton'
-          icon={HiBookmarkAlt}/>
+          className="UpdateEquipmentPage-MobileSaveButton"
+          icon={HiBookmarkAlt}
+        />
       </div>
     </>
-  )
-};
+  );
+}
 
 // Define PropTypes
 UpdateEquipmentPage.propTypes = {
@@ -534,7 +585,7 @@ UpdateEquipmentPage.propTypes = {
 
 // Define defaultProps
 UpdateEquipmentPage.defaultProps = {
-  schoolId: '',
+  schoolId: "",
 };
 
 // Map from Redux state to component props
@@ -548,4 +599,7 @@ const mapDispatchToProps = {
   resetUserData,
 };
 // Connect the component to Redux, mapping state and actions to props
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateEquipmentPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UpdateEquipmentPage);

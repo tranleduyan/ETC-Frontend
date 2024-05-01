@@ -2,4 +2,4 @@
 from the './UpdateModelPage' module (UpdateModelPage.js file).
 The 'default' keyword is used because it's the default export
 from the './UpdateModelPage' module. */
-export { default } from './UpdateModelPage';
+export { default } from "./UpdateModelPage";

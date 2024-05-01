@@ -1,39 +1,41 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './EquipmentFilterCardList.css';
+import "./EquipmentFilterCardList.css";
 
 // Import UI Components
-import FilterCard from '../../Cards/FilterCard/FilterCard';
+import FilterCard from "../../Cards/FilterCard/FilterCard";
 
 // Import Icons
-import { HiClipboardList, HiClipboardCopy } from 'react-icons/hi';
+import { HiClipboardList, HiClipboardCopy } from "react-icons/hi";
 
 function EquipmentFilterCardList(props) {
-
   // Destructure props to extract relevant information
-  const { className, selectedEquipmentFilter, OnEquipmentFilterCardClick } = props;
+  const { className, selectedEquipmentFilter, OnEquipmentFilterCardClick } =
+    props;
 
   return (
     <div className={`EquipmentFilterCardList-Container ${className} `}>
-      <FilterCard 
-          icon={HiClipboardList}
-          title='Currently Using'
-          isSelected={selectedEquipmentFilter === 'Currently Using'}
-          quantity={1}
-          onClick={OnEquipmentFilterCardClick}/>
-      <FilterCard 
-          icon={HiClipboardCopy}
-          title='Recently Used'
-          isSelected={selectedEquipmentFilter === 'Recently Used'}
-          quantity={1}
-          onClick={OnEquipmentFilterCardClick}/>
+      <FilterCard
+        icon={HiClipboardList}
+        title="Currently Using"
+        isSelected={selectedEquipmentFilter === "Currently Using"}
+        quantity={1}
+        onClick={OnEquipmentFilterCardClick}
+      />
+      <FilterCard
+        icon={HiClipboardCopy}
+        title="Recently Used"
+        isSelected={selectedEquipmentFilter === "Recently Used"}
+        quantity={1}
+        onClick={OnEquipmentFilterCardClick}
+      />
     </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 EquipmentFilterCardList.propTypes = {
@@ -44,7 +46,7 @@ EquipmentFilterCardList.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 EquipmentFilterCardList.defaultProps = {
-  className: '',
+  className: "",
   selectedEquipmentFilter: null,
   OnEquipmentFilterCardClick: null,
 };

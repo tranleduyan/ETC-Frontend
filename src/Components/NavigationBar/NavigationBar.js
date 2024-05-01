@@ -1,28 +1,34 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { resetUserData } from '../../storage.js';
+import React from "react";
+import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { resetUserData } from "../../storage.js";
 //#endregion
 
 // Import Stylings
-import './NavigationBar.css';
+import "./NavigationBar.css";
 
 //#region Import UI Components
-import Logo from '../../Components/Logo/Logo.js';
-import IconButton from '../../Components/Buttons/IconButton/IconButton.js';
+import Logo from "../../Components/Logo/Logo.js";
+import IconButton from "../../Components/Buttons/IconButton/IconButton.js";
 //#endregion
 
 //#region Import Icons
-import { HiViewGrid, HiCalendar, HiArchive, 
-         HiPlusCircle, HiUserGroup, HiBell, 
-         HiCog, HiLogout } from 'react-icons/hi';
+import {
+  HiViewGrid,
+  HiCalendar,
+  HiArchive,
+  HiPlusCircle,
+  HiUserGroup,
+  HiBell,
+  HiCog,
+  HiLogout,
+} from "react-icons/hi";
 //#endregion
 
 // Render the navigation bar
 function NavigationBar(props) {
-
   const { resetUserData, userRole } = props;
 
   const location = useLocation();
@@ -30,46 +36,45 @@ function NavigationBar(props) {
 
   // If the button title is equal to the Location Path Name starts with '/PageTitle', return className as 'active' with the page
   const ActivateButton = (title) => {
-    
     // Get the current location path name
     const currentLocation = location.pathname;
 
     // If the current location matches with the title, return the active class name
-    if(currentLocation.startsWith(`/${title}`)){
-      return 'NavigationBarButton-Active';
+    if (currentLocation.startsWith(`/${title}`)) {
+      return "NavigationBarButton-Active";
     }
 
     // Else return empty class name
-    return '';
+    return "";
   };
 
   //#region Navigation Pages (For Scaling Purpose)
   const NavigateDashboard = () => {
-    navigate('/Dashboard')
+    navigate("/Dashboard");
   };
 
   const NavigateReservations = () => {
-    navigate('/Reservations')
+    navigate("/Reservations");
   };
 
   const NavigateInventory = () => {
-    navigate('/Inventory')
+    navigate("/Inventory");
   };
 
   const NavigateAddToInventory = () => {
-    navigate('/AddToInventory')
+    navigate("/AddToInventory");
   };
 
   const NavigateUsers = () => {
-    navigate('/Users')
+    navigate("/Users");
   };
 
   const NavigateNotifications = () => {
-    navigate('/Notifications')
+    navigate("/Notifications");
   };
 
   const NavigateSettings = () => {
-    navigate('/Settings')
+    navigate("/Settings");
   };
   //#endregion
 
@@ -77,61 +82,83 @@ function NavigationBar(props) {
   const SignOut = () => {
     // Dispatch the resetUserData action
     resetUserData();
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <div className='NavigationBar-Container'>
-    <Logo className='NavigationBar-LogoContainer'/>
-    {/* Main Menu */}
-    <div className={`NavigationBar-Menu NavigationBar-${userRole}`}>
-      {/* Dashboard Button */}
-      <IconButton 
-        icon={HiViewGrid} 
-        className={`${ActivateButton('Dashboard')} NavigationBarButton-Container NavigationBarButton-DashboardButton`} 
-        onClick={NavigateDashboard}/>
-      {/* Reservations Button */}
-      <IconButton 
-        icon={HiCalendar} 
-        className={`${ActivateButton('Reservations')} NavigationBarButton-Container NavigationBarButton-ReservationsButton`} 
-        onClick={NavigateReservations}/>
-      {/* Inventory Button */}
-      <IconButton 
-        icon={HiArchive} 
-        className={`${ActivateButton('Inventory')} NavigationBarButton-Container NavigationBarButton-InventoryButton`} 
-        onClick={NavigateInventory}/>
-          
-      {/* Add To Inventory Button */}
-      <IconButton 
-        icon={HiPlusCircle} 
-        className={`${ActivateButton('AddToInventory')} NavigationBarButton-Container NavigationBarButton-AddEquipmentButton`} 
-        onClick={NavigateAddToInventory}/>
-          
-      {/* Users Button */}
-      <IconButton 
-        icon={HiUserGroup} 
-        className={`${ActivateButton('Users')} NavigationBarButton-Container NavigationBarButton-UsersButton`} 
-        onClick={NavigateUsers}/>
-      
-      {/* Notifications Button */}
-      <IconButton 
-        icon={HiBell} 
-        className={`${ActivateButton('Notifications')} NavigationBarButton-Container NavigationBarButton-NotificationsButton`} 
-        onClick={NavigateNotifications}/>
-      {/* Settings Button */}
-      <IconButton 
-        icon={HiCog} 
-        className={`${ActivateButton('Settings')} NavigationBarButton-Container NavigationBarButton-SettingsButton`} 
-        onClick={NavigateSettings}/>
+    <div className="NavigationBar-Container">
+      <Logo className="NavigationBar-LogoContainer" />
+      {/* Main Menu */}
+      <div className={`NavigationBar-Menu NavigationBar-${userRole}`}>
+        {/* Dashboard Button */}
+        <IconButton
+          icon={HiViewGrid}
+          className={`${ActivateButton(
+            "Dashboard"
+          )} NavigationBarButton-Container NavigationBarButton-DashboardButton`}
+          onClick={NavigateDashboard}
+        />
+        {/* Reservations Button */}
+        <IconButton
+          icon={HiCalendar}
+          className={`${ActivateButton(
+            "Reservations"
+          )} NavigationBarButton-Container NavigationBarButton-ReservationsButton`}
+          onClick={NavigateReservations}
+        />
+        {/* Inventory Button */}
+        <IconButton
+          icon={HiArchive}
+          className={`${ActivateButton(
+            "Inventory"
+          )} NavigationBarButton-Container NavigationBarButton-InventoryButton`}
+          onClick={NavigateInventory}
+        />
+
+        {/* Add To Inventory Button */}
+        <IconButton
+          icon={HiPlusCircle}
+          className={`${ActivateButton(
+            "AddToInventory"
+          )} NavigationBarButton-Container NavigationBarButton-AddEquipmentButton`}
+          onClick={NavigateAddToInventory}
+        />
+
+        {/* Users Button */}
+        <IconButton
+          icon={HiUserGroup}
+          className={`${ActivateButton(
+            "Users"
+          )} NavigationBarButton-Container NavigationBarButton-UsersButton`}
+          onClick={NavigateUsers}
+        />
+
+        {/* Notifications Button */}
+        <IconButton
+          icon={HiBell}
+          className={`${ActivateButton(
+            "Notifications"
+          )} NavigationBarButton-Container NavigationBarButton-NotificationsButton`}
+          onClick={NavigateNotifications}
+        />
+        {/* Settings Button */}
+        <IconButton
+          icon={HiCog}
+          className={`${ActivateButton(
+            "Settings"
+          )} NavigationBarButton-Container NavigationBarButton-SettingsButton`}
+          onClick={NavigateSettings}
+        />
+      </div>
+      {/* Log Out Button */}
+      <IconButton
+        icon={HiLogout}
+        className="NavigationBarButton-SignOutButton"
+        onClick={SignOut}
+      />
     </div>
-    {/* Log Out Button */}
-    <IconButton 
-      icon={HiLogout} 
-      className='NavigationBarButton-SignOutButton' 
-      onClick={SignOut}/>
-    </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for the NavigationBar component
 NavigationBar.propTypes = {
@@ -140,7 +167,7 @@ NavigationBar.propTypes = {
 };
 
 NavigationBar.defaultProps = {
-  userRole: 'Student',
+  userRole: "Student",
 };
 
 // Map the userRole from Redux store to props

@@ -1,42 +1,41 @@
 .StandardButton-Container {
-    background-color: var(--Red1);
-    color: var(--White1);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border: none;
+  background-color: var(--Red1);
+  color: var(--White1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .StandardButton-Container:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* For tablet and bigger devices */
 @media screen and (min-width: 481px) {
-    .StandardButton-Container {
-        border-radius: calc(1.390625vmin);
-        height: 6.675vmin;
-        gap: calc(1.1125vmin);
-    }
+  .StandardButton-Container {
+    border-radius: calc(1.390625vmin);
+    height: 6.675vmin;
+    gap: calc(1.1125vmin);
+  }
 
-    .StandardButton-Icon {
-        font-size: calc(3.3375vmin);
-        min-width: calc(4.45vmin);
-    }
+  .StandardButton-Icon {
+    font-size: calc(3.3375vmin);
+    min-width: calc(4.45vmin);
+  }
 }
 
 /* For phone and smaller devices */
 @media screen and (max-width: 480px) {
-    .StandardButton-Container {
-        border-radius: calc(2.78125vmin);
-        height: calc(13.35vmin);
-        gap: calc(2.225vmin);
-    }
+  .StandardButton-Container {
+    border-radius: calc(2.78125vmin);
+    height: calc(13.35vmin);
+    gap: calc(2.225vmin);
+  }
 
-    .StandardButton-Icon {
-        font-size: calc(6.675vmin);
-        min-width: calc(8.9vmin);
-    }
+  .StandardButton-Icon {
+    font-size: calc(6.675vmin);
+    min-width: calc(8.9vmin);
+  }
 }
-

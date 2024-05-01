@@ -1,28 +1,40 @@
 //#region Import Neccessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 //#endregion
 
 // Import Stylings
-import './ReservationCard.css'
+import "./ReservationCard.css";
 
 // Import Icon
-import { HiClock } from 'react-icons/hi';
+import { HiClock } from "react-icons/hi";
 
 // Define the reservation card Component
 function ReservationCard(props) {
-
   // Destructure props to extract relevant information
-  const { className, reservationID, startDate, endDate, renterName, reserveAmount, isSelected, OnReservationCardClick, details, status, renterSchoolId, userRole } = props;
+  const {
+    className,
+    reservationID,
+    startDate,
+    endDate,
+    renterName,
+    reserveAmount,
+    isSelected,
+    OnReservationCardClick,
+    details,
+    status,
+    renterSchoolId,
+    userRole,
+  } = props;
 
   // Determine whether to use 'item' or 'items' based on the reservation amount
-  const itemText = reserveAmount > 1 ? 'items' : 'item';
+  const itemText = reserveAmount > 1 ? "items" : "item";
 
   // Function triggered when the card is clicked
   const OnCardClick = () => {
     // Check if the click handler is provided before invoking it
-    if(OnReservationCardClick) {
+    if (OnReservationCardClick) {
       const formattedStartDate = formatDate(startDate);
       const formattedEndDate = formatDate(endDate);
       OnReservationCardClick({
@@ -48,33 +60,42 @@ function ReservationCard(props) {
   };
 
   return (
-    <button 
-      className={`${className} ReservationCard-Container ${isSelected ? 'ReservationCard-Active' : ''}`}
-      onClick={OnCardClick}>
+    <button
+      className={`${className} ReservationCard-Container ${
+        isSelected ? "ReservationCard-Active" : ""
+      }`}
+      onClick={OnCardClick}
+    >
       {/* Clock icon representing a reservation */}
-      <HiClock className='ReservationCard-Icon'/>
+      <HiClock className="ReservationCard-Icon" />
       {/* Container for reservation information */}
-      <div className='ReservationCard-InformationContainer'>
+      <div className="ReservationCard-InformationContainer">
         {/* Display reservation date range */}
-        <p className='heading-5 ReservationCard-ReserveDate'>{formatDate(startDate)} - {formatDate(endDate)}</p>
+        <p className="heading-5 ReservationCard-ReserveDate">
+          {formatDate(startDate)} - {formatDate(endDate)}
+        </p>
         {/* Container for renter name and reservation amount */}
-        <div className='ReservationCard-Information'>
-          {(userRole === 'Admin' || userRole === 'Faculty') && (        
+        <div className="ReservationCard-Information">
+          {(userRole === "Admin" || userRole === "Faculty") && (
             <>
-              <p className='paragraph-3 ReservationCard-RenterName'>{renterName}</p>
-              <p className='paragraph-3'>:&nbsp;</p>
-            </>    
+              <p className="paragraph-3 ReservationCard-RenterName">
+                {renterName}
+              </p>
+              <p className="paragraph-3">:&nbsp;</p>
+            </>
           )}
-          {(userRole === 'Student') && (        
-            <p className='paragraph-3'>Quantity:&nbsp;</p>
+          {userRole === "Student" && (
+            <p className="paragraph-3">Quantity:&nbsp;</p>
           )}
           {/* Display the reservation amount and item text */}
-          <p className='paragraph-3 ReservationCard-ReserveAmount'>{reserveAmount} {itemText}</p>
+          <p className="paragraph-3 ReservationCard-ReserveAmount">
+            {reserveAmount} {itemText}
+          </p>
         </div>
       </div>
     </button>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 ReservationCard.propTypes = {
@@ -94,16 +115,16 @@ ReservationCard.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 ReservationCard.defaultProps = {
-  className: '',
-  renterName: 'Unknown User',
-  startDate: '01/01/2000',
-  endDate: '01/01/2000',
+  className: "",
+  renterName: "Unknown User",
+  startDate: "01/01/2000",
+  endDate: "01/01/2000",
   reserveAmount: 0,
   isSelected: true,
   OnReservationCardClick: null,
   details: [],
-  renterSchoolId: '',
-  userRole: '',
+  renterSchoolId: "",
+  userRole: "",
 };
 
 // Map the userRole from Redux store to props

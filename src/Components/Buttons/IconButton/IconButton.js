@@ -1,37 +1,36 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './IconButton.css';
+import "./IconButton.css";
 
 // Define IconButton Component
 function IconButton(props) {
-
   // Destructure props to extract relevant information
   const { icon: Icon, className, iconClassName, onClick } = props;
-  
+
   return (
     <button className={`IconButton-Container ${className}`} onClick={onClick}>
       {/* Render the specified Icon component with the provided iconClassName */}
-        <Icon className={`${iconClassName}`} />
+      <Icon className={`${iconClassName}`} />
     </button>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 IconButton.propTypes = {
   icon: PropTypes.elementType.isRequired,
-  className: PropTypes.string,             
+  className: PropTypes.string,
   iconClassName: PropTypes.string,
-  onClick: PropTypes.func,   
+  onClick: PropTypes.func,
 };
 
 // Set default values for props to avoid potential issues if not provided
 IconButton.defaultProps = {
-  className: '',
-  iconClassName: '',
+  className: "",
+  iconClassName: "",
   onClick: () => {},
 };
 

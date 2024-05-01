@@ -1,33 +1,39 @@
 /* General Stylings */
 .ReservationConfirmationDetailsList-Container {
-    display: grid;
-    overflow-y: auto;
+  display: grid;
+  overflow-y: auto;
 }
 
 .ReservationConfirmationDetailsList-Container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* For tablets and larger screen */
 @media screen and (min-width: 481px) {
-    .ReservationConfirmationDetailsList-Container {
-        height: calc(100% - calc(5.8vmin));
-        margin-top: calc(2.225vmin);
-        grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
-        gap: calc(3.02vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(20.58125vmin), calc(20.58125vmin)));
-        padding-bottom: calc(0.278125vmin);
-    }
+  .ReservationConfirmationDetailsList-Container {
+    height: calc(100% - calc(5.8vmin));
+    margin-top: calc(2.225vmin);
+    grid-template-columns: repeat(auto-fill, minmax(calc(36.8vmin), 1fr));
+    gap: calc(3.02vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(20.58125vmin), calc(20.58125vmin))
+    );
+    padding-bottom: calc(0.278125vmin);
+  }
 }
 
 /* For mobiles and smaller screen */
 @media screen and (max-width: 480px) {
-    .ReservationConfirmationDetailsList-Container {
-        height: calc(100% - calc(12vmin));
-        margin: calc(4.45vmin) 0px;
-        grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
-        gap: calc(4.45vmin);
-        grid-template-rows: repeat(auto-fill, minmax(calc(41.1625vmin), calc(41.1625vmin)));
-        padding-bottom: calc(0.55625vmin);
-    }
+  .ReservationConfirmationDetailsList-Container {
+    height: calc(100% - calc(12vmin));
+    margin: calc(4.45vmin) 0px;
+    grid-template-columns: repeat(auto-fill, minmax(44vmin, 1fr));
+    gap: calc(4.45vmin);
+    grid-template-rows: repeat(
+      auto-fill,
+      minmax(calc(41.1625vmin), calc(41.1625vmin))
+    );
+    padding-bottom: calc(0.55625vmin);
+  }
 }

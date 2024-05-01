@@ -1,78 +1,78 @@
 /* General Stylings */
 .EquipmentDetailCard-Container {
-    min-height: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    box-sizing: border-box;
+  min-height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
 .EquipmentDetailCard-ModelPhoto {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .EquipmentDetailCard-ModelPhoto img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .EquipmentDetailCard-DefaultEquipmentIcon {
-    color: var(--Black1);
+  color: var(--Black1);
 }
 
 .EquipmentDetailCard-Details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* For tablets or larger devices */
 @media screen and (min-width: 481px) {
-    .EquipmentDetailCard-Container {
-        padding: calc(1.66875vmin);
-        border: calc(0.278125vmin) solid var(--Gray1);
-        border-radius: calc(1.390625vmin);
-    }
+  .EquipmentDetailCard-Container {
+    padding: calc(1.66875vmin);
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+  }
 
-    .EquipmentDetailCard-ModelPhoto {
-        width: calc(8.9vmin);
-        height: calc(8.9vmin);
-        border-radius: calc(1.390625vmin);
-    }
+  .EquipmentDetailCard-ModelPhoto {
+    width: calc(8.9vmin);
+    height: calc(8.9vmin);
+    border-radius: calc(1.390625vmin);
+  }
 
-    .EquipmentDetailCard-DefaultEquipmentIcon {
-        font-size: calc(4.45vmin);
-    }
+  .EquipmentDetailCard-DefaultEquipmentIcon {
+    font-size: calc(4.45vmin);
+  }
 
-    .EquipmentDetailCard-Details {
-        margin-left: calc(2.225vmin);
-    }
+  .EquipmentDetailCard-Details {
+    margin-left: calc(2.225vmin);
+  }
 }
 
 /* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
-    .EquipmentDetailCard-Container {
-        padding: calc(3.3375vmin);
-        border: calc(0.55625vmin) solid var(--Gray1);
-        border-radius: calc(2.78125vmin);
-    }
+  .EquipmentDetailCard-Container {
+    padding: calc(3.3375vmin);
+    border: calc(0.55625vmin) solid var(--Gray1);
+    border-radius: calc(2.78125vmin);
+  }
 
-    .EquipmentDetailCard-ModelPhoto {
-        width: calc(17.8vmin);
-        height: calc(17.8vmin);
-        border-radius: calc(2.78125vmin);
-    }
+  .EquipmentDetailCard-ModelPhoto {
+    width: calc(17.8vmin);
+    height: calc(17.8vmin);
+    border-radius: calc(2.78125vmin);
+  }
 
-    .EquipmentDetailCard-DefaultEquipmentIcon {
-        font-size: calc(8.9vmin);
-    }
+  .EquipmentDetailCard-DefaultEquipmentIcon {
+    font-size: calc(8.9vmin);
+  }
 
-    .EquipmentDetailCard-Details {
-        margin-left: calc(4.45vmin);
-    }
+  .EquipmentDetailCard-Details {
+    margin-left: calc(4.45vmin);
+  }
 }

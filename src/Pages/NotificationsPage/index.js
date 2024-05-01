@@ -2,4 +2,4 @@
 from the './NotificationsPage' module (NotificationsPage.js file).
 The 'default' keyword is used because it's the default export
 from the './NotificationsPage' module. */
-export { default } from './NotificationsPage';
+export { default } from "./NotificationsPage";

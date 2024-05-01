@@ -2,44 +2,55 @@
 
 /* Global Styling Variables */
 :root {
-  --Black1: #0C0E16;
+  --Black1: #0c0e16;
   --White1: #fff;
   --Red1: #872937;
-  --Red2: #BB0000;
-  --Gray1: #D6D6D6;
-  --Gray2: #EEEEEE;
-  --Gray3: #8D8D8D;
-  --Blue1: #0052CC;
+  --Red2: #bb0000;
+  --Gray1: #d6d6d6;
+  --Gray2: #eeeeee;
+  --Gray3: #8d8d8d;
+  --Blue1: #0052cc;
 }
 
 /* Global Stylings */
 body {
   min-height: 100dvh;
-  margin:0px;
+  margin: 0px;
   color: var(--Black1);
-  font-family: 'Poppins Regular', sans-serif;
+  font-family: "Poppins Regular", sans-serif;
 }
 
-.heading-1, .heading-2, .heading-3,
-.heading-4, .heading-5, .heading-6,
-.paragraph-1, .paragraph-2, .paragraph-3 {
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.heading-6,
+.paragraph-1,
+.paragraph-2,
+.paragraph-3 {
   margin: 0px;
 }
 
-.heading-1, .heading-2, .heading-3, .heading-4 {
-  font-family: 'Poppins Semi Bold', sans-serif;
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4 {
+  font-family: "Poppins Semi Bold", sans-serif;
 }
 
-.heading-5, .heading-6 {
-  font-family: 'Poppins Medium', sans-serif;
+.heading-5,
+.heading-6 {
+  font-family: "Poppins Medium", sans-serif;
 }
 
-.paragraph-1, .paragraph-3 {
-  font-family: 'Poppins Regular', sans-serif;
+.paragraph-1,
+.paragraph-3 {
+  font-family: "Poppins Regular", sans-serif;
 }
 
 .paragraph-2 {
-  font-family: 'Poppins Medium', sans-serif;
+  font-family: "Poppins Medium", sans-serif;
 }
 
 .wrapper {
@@ -58,24 +69,26 @@ body {
   .heading-1 {
     font-size: calc(4.45vmin);
   }
-  
+
   .heading-2 {
     font-size: calc(3.3375vmin);
   }
-  
+
   .heading-3 {
     font-size: calc(2.78125vmin);
   }
-  
-  .heading-4, .heading-5 {
+
+  .heading-4,
+  .heading-5 {
     font-size: calc(2.225vmin);
   }
-  
+
   .heading-6 {
     font-size: calc(1.66875vmin);
   }
 
-  .paragraph-1, .paragraph-2 {
+  .paragraph-1,
+  .paragraph-2 {
     font-size: calc(2.225vmin);
   }
 
@@ -89,27 +102,29 @@ body {
   .heading-1 {
     font-size: calc(8.9vmin);
   }
-  
+
   .heading-2 {
     font-size: calc(6.675vmin);
   }
-  
+
   .heading-3 {
     font-size: calc(5.5625vmin);
   }
-  
-  .heading-4, .heading-5 {
+
+  .heading-4,
+  .heading-5 {
     font-size: calc(4.45vmin);
   }
-  
+
   .heading-6 {
     font-size: calc(3.3375vmin);
   }
 
-  .paragraph-1, .paragraph-2 {
+  .paragraph-1,
+  .paragraph-2 {
     font-size: calc(4.45vmin);
   }
-  
+
   .paragraph-3 {
     font-size: calc(3.3375vmin);
   }

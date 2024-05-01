@@ -1,29 +1,40 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './IconModal.css';
+import "./IconModal.css";
 
 //#region Import UI Components
-import GeneralModal from '../GeneralModal/GeneralModal';
+import GeneralModal from "../GeneralModal/GeneralModal";
 
 // Define Icon Modal Component
 function IconModal(props) {
-
   // Extract necessary props
-  const { icon: Icon, className, iconClassName, message, isVisible, isSpinning } = props;
-  
+  const {
+    icon: Icon,
+    className,
+    iconClassName,
+    message,
+    isVisible,
+    isSpinning,
+  } = props;
+
   return (
-    <GeneralModal 
+    <GeneralModal
       className={`IconModal-Container ${className}`}
-      isVisible={isVisible}>
-        <Icon className={`IconModal-Icon ${iconClassName} ${isSpinning ? 'IconModal-SpinIcon' : ''}`}/>
-        <p className='paragraph-1'>{message}</p>
+      isVisible={isVisible}
+    >
+      <Icon
+        className={`IconModal-Icon ${iconClassName} ${
+          isSpinning ? "IconModal-SpinIcon" : ""
+        }`}
+      />
+      <p className="paragraph-1">{message}</p>
     </GeneralModal>
-  )
-};
+  );
+}
 
 // Define the propTypes for the component
 IconModal.propTypes = {
@@ -37,9 +48,9 @@ IconModal.propTypes = {
 
 // Define the default props value for the component
 IconModal.defaultProps = {
-  className: '',
-  iconClassName: '',
-  message: '',
+  className: "",
+  iconClassName: "",
+  message: "",
   isVisible: false,
   isSpinning: false,
 };

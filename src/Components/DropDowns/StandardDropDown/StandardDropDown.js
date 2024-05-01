@@ -1,17 +1,17 @@
 //#region Import Necessary Dependencies
-import React, { useCallback, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Select, { components} from 'react-select';
+import React, { useCallback, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Select, { components } from "react-select";
 //#endregion
 
 // Import Icons
-import { HiChevronDown } from 'react-icons/hi';
+import { HiChevronDown } from "react-icons/hi";
 
 // This component serves as a substitute for the default dropdown indicator in the 'Select' component. It allows for overriding the default icon and dynamically adjusts styling based on the window width.
 const DropdownIndicator = (props) => {
   // State to track mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
-  
+
   // UpdateMobileView - To set the isMobileVIew if window.innerWidth is smaller than 480px.
   const UpdateMobileView = useCallback(() => {
     setIsMobileView(window.innerWidth <= 480);
@@ -19,29 +19,41 @@ const DropdownIndicator = (props) => {
 
   useEffect(() => {
     // Add event listener for window resize to update mobile view
-    window.addEventListener('resize', UpdateMobileView);
+    window.addEventListener("resize", UpdateMobileView);
     return () => {
       // Remove event listener when component unmounts
-      window.removeEventListener('resize', UpdateMobileView);
-    }
+      window.removeEventListener("resize", UpdateMobileView);
+    };
   }, [UpdateMobileView]);
 
   return (
     <components.DropdownIndicator {...props}>
-      <HiChevronDown 
-        style={{fontSize: !isMobileView ? 'calc(3.3375vmin)' : 'calc(6.675vmin)'}} />
+      <HiChevronDown
+        style={{
+          fontSize: !isMobileView ? "calc(3.3375vmin)" : "calc(6.675vmin)",
+        }}
+      />
     </components.DropdownIndicator>
   );
 };
 
 // Define StandardDropDown Component
 function StandardDropDown(props) {
-
   // Extract relevant information
-  const { className, placeholder, name, value, isSearchable, isDisabled, onChange, options, visibility } = props;
+  const {
+    className,
+    placeholder,
+    name,
+    value,
+    isSearchable,
+    isDisabled,
+    onChange,
+    options,
+    visibility,
+  } = props;
 
   // CSS class for hiding the component
-  const hiddenClassName= `hide ${className}`;
+  const hiddenClassName = `hide ${className}`;
 
   // State for handle mobile view
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
@@ -53,19 +65,19 @@ function StandardDropDown(props) {
 
   // HandleInputChange - Invoked when the dropdown value changes
   const HandleInputChange = (selectedOption) => {
-    onChange(name, selectedOption); 
+    onChange(name, selectedOption);
   };
 
-  // Component to remove Indicator Separator of 'Select' 
+  // Component to remove Indicator Separator of 'Select'
   const IndicatorSeparator = () => null;
 
   useEffect(() => {
     // Add event listener for window resize to update mobile view
-    window.addEventListener('resize', UpdateMobileView);
+    window.addEventListener("resize", UpdateMobileView);
     return () => {
       // Remove event listener when component unmounts
-      window.removeEventListener('resize', UpdateMobileView);
-    }
+      window.removeEventListener("resize", UpdateMobileView);
+    };
   }, [UpdateMobileView]);
 
   // Styling configurations for the 'react-select' component
@@ -73,34 +85,38 @@ function StandardDropDown(props) {
     control: (provided, state) => {
       let baseStyles = {
         ...provided,
-        display: 'flex',
-        height: 'auto',
-        minHeight: 'calc(6.675vmin)',
-        maxHeight: 'calc(6.675vmin)',
-        boxSizing: 'border-box',
-        borderRadius: 'calc(1.390625vmin)',
-        border: `calc(0.278125vmin) solid ${state.isFocused ? 'var(--Blue1)' : 'var(--Gray1)'}`,
-        fontSize: 'calc(2.225vmin)',
+        display: "flex",
+        height: "auto",
+        minHeight: "calc(6.675vmin)",
+        maxHeight: "calc(6.675vmin)",
+        boxSizing: "border-box",
+        borderRadius: "calc(1.390625vmin)",
+        border: `calc(0.278125vmin) solid ${
+          state.isFocused ? "var(--Blue1)" : "var(--Gray1)"
+        }`,
+        fontSize: "calc(2.225vmin)",
         fontFamily: "'Poppins Regular', sans-serif",
-        boxShadow: 'none',
-        textAlignment: 'left',
-        '&:hover': undefined,
-        '&:focus': {
-          outline: 'none',
-          boxShadow: 'none',
+        boxShadow: "none",
+        textAlignment: "left",
+        "&:hover": undefined,
+        "&:focus": {
+          outline: "none",
+          boxShadow: "none",
         },
       };
-  
+
       // For mobile or any smaller devices
-      if(isMobileView) {
+      if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          height: 'calc(13.35vmin)',
-          minHeight: 'calc(13.35vmin)',
-          padding: '0px calc(1vmin)',
-          borderRadius: 'calc(2.78125vmin)',
-          border: `calc(0.55625vmin) solid ${state.isFocused ? 'var(--Blue1)' : 'var(--Gray1)'}`,
-          fontSize: 'calc(4.45vmin)',
+          height: "calc(13.35vmin)",
+          minHeight: "calc(13.35vmin)",
+          padding: "0px calc(1vmin)",
+          borderRadius: "calc(2.78125vmin)",
+          border: `calc(0.55625vmin) solid ${
+            state.isFocused ? "var(--Blue1)" : "var(--Gray1)"
+          }`,
+          fontSize: "calc(4.45vmin)",
         };
       }
 
@@ -109,19 +125,19 @@ function StandardDropDown(props) {
     menu: (provided) => {
       let baseStyles = {
         ...provided,
-        overflow: 'auto',
-        borderRadius: 'calc(1.390625vmin)',
-        border: 'calc(0.278125vmin) solid var(--Gray1)',
-        boxShadow: 'none',
+        overflow: "auto",
+        borderRadius: "calc(1.390625vmin)",
+        border: "calc(0.278125vmin) solid var(--Gray1)",
+        boxShadow: "none",
       };
 
       // For mobile or any smaller devices
-      if(isMobileView) {
+      if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          borderRadius: 'calc(2.78125vmin)',
-          border: 'calc(0.55625vmin) solid var(--Gray1)',
-          boxShadow: 'none',
+          borderRadius: "calc(2.78125vmin)",
+          border: "calc(0.55625vmin) solid var(--Gray1)",
+          boxShadow: "none",
         };
       }
 
@@ -130,19 +146,19 @@ function StandardDropDown(props) {
     option: (provided, state) => {
       let baseStyles = {
         ...provided,
-        fontSize: 'calc(2.225vmin)',
+        fontSize: "calc(2.225vmin)",
         fontFamily: "'Poppins Regular', sans-serif",
-        padding: 'calc(1.75vmin) calc(2vmin)',
-        color: state.isSelected ? 'var(--White1)' : 'var(--Black1)',
+        padding: "calc(1.75vmin) calc(2vmin)",
+        color: state.isSelected ? "var(--White1)" : "var(--Black1)",
       };
 
       // For mobile or any smaller devices
-      if(isMobileView) {
+      if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          fontSize: 'calc(4.45vmin)',
-          padding: 'calc(3.5vmin) calc(4vmin)',
-        }
+          fontSize: "calc(4.45vmin)",
+          padding: "calc(3.5vmin) calc(4vmin)",
+        };
       }
 
       return baseStyles;
@@ -152,63 +168,70 @@ function StandardDropDown(props) {
         ...provided,
         paddingTop: 0,
         paddingBottom: 0,
-        height: 'auto'
+        height: "auto",
       };
     },
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      color: state.isFocused || state.hasValue ? 'var(--Black1) !important' : 'var(--Gray1) !important',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '0px calc(1.45vmin)',
+      color:
+        state.isFocused || state.hasValue
+          ? "var(--Black1) !important"
+          : "var(--Gray1) !important",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "0px calc(1.45vmin)",
     }),
     placeholder: (provided) => {
       return {
         ...provided,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: 'var(--Gray3)',
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        color: "var(--Gray3)",
       };
     },
     valueContainer: (provided) => {
       let baseStyles = {
         ...provided,
-        padding: '0px calc(1.45vmin)',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+        padding: "0px calc(1.45vmin)",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
       };
 
       // For mobile and smaller devices
-      if(isMobileView) {
+      if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          padding: '0px calc(2vmin)',
+          padding: "0px calc(2vmin)",
         };
       }
       return baseStyles;
-    }
+    },
   };
-  
+
   return (
-      <Select
-        styles={styles}
-        placeholder={placeholder}
-        className={`StandardDropDown ${visibility === false ? hiddenClassName : className}`}
-        name={name}
-        value={value}
-        options={options}
-        isDisabled={isDisabled}
-        isSearchable={isSearchable}
-        components={{
-          DropdownIndicator, 
-          IndicatorSeparator}}
-        onChange={HandleInputChange}/>
-  )
-};
+    <Select
+      styles={styles}
+      placeholder={placeholder}
+      className={`StandardDropDown ${
+        visibility === false ? hiddenClassName : className
+      }`}
+      name={name}
+      value={value}
+      options={options}
+      isDisabled={isDisabled}
+      isSearchable={isSearchable}
+      components={{
+        DropdownIndicator,
+        IndicatorSeparator,
+      }}
+      onChange={HandleInputChange}
+    />
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 StandardDropDown.propTypes = {
@@ -225,8 +248,8 @@ StandardDropDown.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 StandardDropDown.defaultProps = {
-  className: '',
-  placeholder: 'Select an option',
+  className: "",
+  placeholder: "Select an option",
   isSearchable: false,
   isDisabled: false,
   options: [],

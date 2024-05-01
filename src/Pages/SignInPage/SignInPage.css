@@ -1,127 +1,127 @@
 /* General Stylings */
 .SignInPage-Wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .SignInPage-FormContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .SignInPage-FormHeaderContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .SignInPage-LogoContainer {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .SignInPage-LogoContainer img {
-    width:100%;
-    height:100%;
+  width: 100%;
+  height: 100%;
 }
 
 .SignInPage-Form {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .SignInPage-ErrorMessageContainer {
-    width: 100%;
-    color: var(--Red2);
+  width: 100%;
+  color: var(--Red2);
 }
 
 .SignInPage-FormFooterContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .SignInPage-ContinueButton {
-    width:100%;
+  width: 100%;
 }
 
 .SignInPage-FooterButtonsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 /* For tablet and bigger devices */
 @media screen and (min-width: 481px) {
-    .SignInPage-LogoContainer {
-        width: calc(8.9vmin); 
-    }
+  .SignInPage-LogoContainer {
+    width: calc(8.9vmin);
+  }
 
-    .SignInPage-Form {
-        width: calc(39.215625vmin);
-        margin: calc(2.225vmin) 0px;
-    }
+  .SignInPage-Form {
+    width: calc(39.215625vmin);
+    margin: calc(2.225vmin) 0px;
+  }
 
-    .SignInPage-StandardTextInputField {
-        width: calc(39.215625vmin);
-        margin-bottom: calc(1.66875vmin);
-    }
+  .SignInPage-StandardTextInputField {
+    width: calc(39.215625vmin);
+    margin-bottom: calc(1.66875vmin);
+  }
 
-    .SignInPage-ErrorMessageContainer {
-        margin: calc(1.66875vmin) 0px 0px 0px;
-    }
+  .SignInPage-ErrorMessageContainer {
+    margin: calc(1.66875vmin) 0px 0px 0px;
+  }
 
-    .SignInPage-FooterButtonsContainer {
-        margin: calc(2.225vmin) 0px;
-    }
+  .SignInPage-FooterButtonsContainer {
+    margin: calc(2.225vmin) 0px;
+  }
 
-    .SignInPage-FooterButtonSeparator {
-        margin: 0px calc(1.1125vmin); 
-    }
+  .SignInPage-FooterButtonSeparator {
+    margin: 0px calc(1.1125vmin);
+  }
 
-    .SignInPage-StandardTextInputField:last-child,
-    .SignInPage-LastInputField {
-        margin-bottom: 0px;
-    }
+  .SignInPage-StandardTextInputField:last-child,
+  .SignInPage-LastInputField {
+    margin-bottom: 0px;
+  }
 }
 
 /* For phone and smaller devices */
 @media screen and (max-width: 480px) {
-    .SignInPage-LogoContainer {
-        width: calc(17.8vmin); 
-    }
+  .SignInPage-LogoContainer {
+    width: calc(17.8vmin);
+  }
 
-    .SignInPage-Form {
-        width: calc(78.43125vmin);
-        margin: calc(4.45vmin) 0px;
-    }
+  .SignInPage-Form {
+    width: calc(78.43125vmin);
+    margin: calc(4.45vmin) 0px;
+  }
 
-    .SignInPage-StandardTextInputField {
-        width: calc(78.43125vmin);
-        margin-bottom: 3.3375vmin;
-    }
+  .SignInPage-StandardTextInputField {
+    width: calc(78.43125vmin);
+    margin-bottom: 3.3375vmin;
+  }
 
-    .SignInPage-ErrorMessageContainer {
-        margin: calc(3.3375vmin) 0px 0px 0px;
-    }
+  .SignInPage-ErrorMessageContainer {
+    margin: calc(3.3375vmin) 0px 0px 0px;
+  }
 
-    .SignInPage-FooterButtonsContainer {
-        margin: calc(4.45vmin) 0px;
-    }
-    
-    .SignInPage-FooterButtonSeparator {
-        margin: 0px calc(2.225vmin); 
-    }
+  .SignInPage-FooterButtonsContainer {
+    margin: calc(4.45vmin) 0px;
+  }
 
-    .SignInPage-StandardTextInputField:last-child,
-    .SignInPage-LastInputField {
-        margin-bottom: 0px;
-    }
+  .SignInPage-FooterButtonSeparator {
+    margin: 0px calc(2.225vmin);
+  }
+
+  .SignInPage-StandardTextInputField:last-child,
+  .SignInPage-LastInputField {
+    margin-bottom: 0px;
+  }
 }

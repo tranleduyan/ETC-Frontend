@@ -1,27 +1,27 @@
 .Message-Container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 /* For tablet and bigger devices */
 @media screen and (min-width: 481px) {
-    .Message-Icon {
-        font-size: calc(3.3375vmin);
-        margin-right: calc(1.1125vmin);
-        min-width: calc(4.45vmin);
-    }
+  .Message-Icon {
+    font-size: calc(3.3375vmin);
+    margin-right: calc(1.1125vmin);
+    min-width: calc(4.45vmin);
+  }
 }
 
 /* For phone and smaller devices */
 @media screen and (max-width: 480px) {
-    .Message-Icon {
-        font-size: calc(6.675vmin);
-        margin-right: calc(2.225vmin);
-        min-width: calc(8.9vmin);
-    }
+  .Message-Icon {
+    font-size: calc(6.675vmin);
+    margin-right: calc(2.225vmin);
+    min-width: calc(8.9vmin);
+  }
 }

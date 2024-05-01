@@ -2,4 +2,4 @@
 from the './EquipmentInventory' module (EquipmentInventory.js file).
 The 'default' keyword is used because it's the default export
 from the './EquipmentInventory' module. */
-export { default } from './EquipmentInventory';
+export { default } from "./EquipmentInventory";

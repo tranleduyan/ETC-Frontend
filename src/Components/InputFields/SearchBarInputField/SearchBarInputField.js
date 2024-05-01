@@ -1,17 +1,16 @@
 //#region Import Necessary Dependencies
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './SearchBarInputField.css';
+import "./SearchBarInputField.css";
 
 // Import Icons
-import { HiSearch } from 'react-icons/hi';
+import { HiSearch } from "react-icons/hi";
 
 // Define the search bar input field
 function SearchBarInputField(props) {
-
   // Destructure props to extract relevant information
   const { className, placeholder, name, value, onChange, onKeyDown } = props;
 
@@ -20,7 +19,7 @@ function SearchBarInputField(props) {
 
   // Handle input change and propagate changes using the provided onChange function
   const HandleInputChange = (event) => {
-    const { name, value} = event.target;
+    const { name, value } = event.target;
     onChange(name, value);
   };
 
@@ -35,27 +34,29 @@ function SearchBarInputField(props) {
   };
 
   // Determine the container class based on the focus state and value
-  const containerClassName = `${className} SearchBarInputField-Container ${ value || isFocused ? 'SearchBarInputField-Focused' : ''}`;
+  const containerClassName = `${className} SearchBarInputField-Container ${
+    value || isFocused ? "SearchBarInputField-Focused" : ""
+  }`;
 
   return (
     <div className={containerClassName}>
       {/* Render the search icon */}
-      <HiSearch className='SearchBarInputField-Icon'/>
+      <HiSearch className="SearchBarInputField-Icon" />
       {/* Render the input field with specified properties */}
       <input
-        type='text'
+        type="text"
         placeholder={placeholder}
-        className='SearchBarInputField-Input'
+        className="SearchBarInputField-Input"
         name={name}
         value={value}
         onChange={HandleInputChange}
         onKeyDown={onKeyDown}
         onFocus={OnFocus}
-        onBlur ={OnBlur}
-        />
+        onBlur={OnBlur}
+      />
     </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 SearchBarInputField.propTypes = {
@@ -69,9 +70,9 @@ SearchBarInputField.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 SearchBarInputField.defaultProps = {
-  className: '',
-  placeholder: 'Search here',
-  onKeyDown: () => {}
+  className: "",
+  placeholder: "Search here",
+  onKeyDown: () => {},
 };
 
 // Exports the SearchBarInputField component as the default export for the SearchBarInputField module.

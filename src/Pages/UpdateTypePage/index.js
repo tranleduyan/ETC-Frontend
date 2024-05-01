@@ -2,4 +2,4 @@
 from the './UpdateTypePage' module (UpdateTypePage.js file).
 The 'default' keyword is used because it's the default export
 from the './UpdateTypePage' module. */
-export { default } from './UpdateTypePage';
+export { default } from "./UpdateTypePage";

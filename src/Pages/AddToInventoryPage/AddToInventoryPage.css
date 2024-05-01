@@ -1,156 +1,156 @@
 /* General Stylings */
 .AddToInventoryPage-PageContentContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .AddToInventoryPage-PageHeaderContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .AddToInventoryPage-ContentContainer {
-    width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .AddToInventoryPage-ModalIcon {
-    color: var(--Red1);
+  color: var(--Red1);
 }
 
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
-    .AddToInventoryPage-PageContentContainer {
-        height: 100dvh;
-    }
+  .AddToInventoryPage-PageContentContainer {
+    height: 100dvh;
+  }
 
-    .AddToInventoryPage-PageHeaderContainer {
-        height: calc(9.45625vmin);
-        border-bottom: calc(0.278125vmin) solid var(--Gray1);
-        padding: calc(2.225vmin);
-    }
-    
-    .AddToInventoryPage-LogoContainer {
-        display: none !important;
-    }
-    
-    .AddToInventoryPage-ContentContainer {
-        height: 100% - calc(9.45625vmin);
-        padding: calc(2.225vmin);
-    }
+  .AddToInventoryPage-PageHeaderContainer {
+    height: calc(9.45625vmin);
+    border-bottom: calc(0.278125vmin) solid var(--Gray1);
+    padding: calc(2.225vmin);
+  }
 
-    .AddToInventoryPage-ContentHeaderContainer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: calc(calc(6.675vmin));
-        width: 100%;
-    }
+  .AddToInventoryPage-LogoContainer {
+    display: none !important;
+  }
 
-    .AddToInventoryPage-HeaderContainer {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: calc(2.225vmin);
-    }
+  .AddToInventoryPage-ContentContainer {
+    height: 100% - calc(9.45625vmin);
+    padding: calc(2.225vmin);
+  }
 
-    .AddToInventoryPage-ActionContainer {
-        height: calc(6.675vmin);
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-        gap: calc(2.225vmin);
-    }
+  .AddToInventoryPage-ContentHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: calc(calc(6.675vmin));
+    width: 100%;
+  }
 
-    .AddToInventoryPage-AddButton {
-        width: calc(30vmin);
-    }
+  .AddToInventoryPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(2.225vmin);
+  }
 
-    .AddToInventoryPage-ImportEquipmentButton {
-        width: calc(20.58125vmin);
-    }
+  .AddToInventoryPage-ActionContainer {
+    height: calc(6.675vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: calc(2.225vmin);
+  }
 
-    .AddToInventoryPage-MobileAddButton {
-        display: none;
-    }
+  .AddToInventoryPage-AddButton {
+    width: calc(30vmin);
+  }
 
-    .AddToInventoryPage-ModalContainer {
-        width: calc(69.53125vmin);
-        height: calc(41.71875vmin);
-    }
+  .AddToInventoryPage-ImportEquipmentButton {
+    width: calc(20.58125vmin);
+  }
+
+  .AddToInventoryPage-MobileAddButton {
+    display: none;
+  }
+
+  .AddToInventoryPage-ModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
 }
 
 /* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
-    .AddToInventoryPage-PageContentContainer {
-        height: 0px;
-    }
+  .AddToInventoryPage-PageContentContainer {
+    height: 0px;
+  }
 
-    .AddToInventoryPage-PageHeaderContainer {
-        height: calc(17.8vmin);
-        border-bottom: calc(0.55625vmin) solid var(--Gray1);
-        padding: calc(4.45vmin);
-    }
+  .AddToInventoryPage-PageHeaderContainer {
+    height: calc(17.8vmin);
+    border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    padding: calc(4.45vmin);
+  }
 
-    .AddToInventoryPage-PageHeaderContainer p.heading-2 {
-        font-size: calc(5.562vmin);
-        margin-left: calc(4.45vmin);
-    }
+  .AddToInventoryPage-PageHeaderContainer p.heading-2 {
+    font-size: calc(5.562vmin);
+    margin-left: calc(4.45vmin);
+  }
 
-    .AddToInventoryPage-LogoContainer {
-        width: calc(8.9vmin); 
-    }
-    
-    .AddToInventoryPage-LogoContainer img {
-        width: 100%;
-        height: 100%;
-    }
+  .AddToInventoryPage-LogoContainer {
+    width: calc(8.9vmin);
+  }
 
-    .AddToInventoryPage-ContentContainer {
-        height: 100% - calc(17.8vmin);
-        padding: calc(4.45vmin);
-    }
+  .AddToInventoryPage-LogoContainer img {
+    width: 100%;
+    height: 100%;
+  }
 
-    .AddToInventoryPage-ContentHeaderContainer {
-        height: calc(13.35vmin);
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+  .AddToInventoryPage-ContentContainer {
+    height: 100% - calc(17.8vmin);
+    padding: calc(4.45vmin);
+  }
 
-    .AddToInventoryPage-HeaderContainer {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: calc(4.45vmin);
-    }
+  .AddToInventoryPage-ContentHeaderContainer {
+    height: calc(13.35vmin);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .AddToInventoryPage-ActionContainer {
-        display: none !important;
-    }
+  .AddToInventoryPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(4.45vmin);
+  }
 
-    .AddToInventoryPage-MobileAddButton {
-        width: 100%;
-    }
+  .AddToInventoryPage-ActionContainer {
+    display: none !important;
+  }
 
-    .AddToInventoryPage-ModalContainer {
-        width: calc(91.225vmin);
-        height: calc(61.1875vmin);
-    }
+  .AddToInventoryPage-MobileAddButton {
+    width: 100%;
+  }
+
+  .AddToInventoryPage-ModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
+  }
 }

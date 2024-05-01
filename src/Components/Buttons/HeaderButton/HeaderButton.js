@@ -1,25 +1,27 @@
-//#region Import Necessary Dependencies 
-import React from 'react';
-import PropTypes from 'prop-types';
+//#region Import Necessary Dependencies
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './HeaderButton.css';
+import "./HeaderButton.css";
 
 // Define HeaderButton Component
 function HeaderButton(props) {
-
   // Extract relevant information from props
   const { className, title, isSelected, onClick } = props;
 
   return (
-    <button 
-      className={`HeaderButton-Container ${className} ${isSelected ? 'HeaderButton-Active' : ''}`}
-      onClick={onClick}>
-      <p className='heading-5'>{title}</p>
+    <button
+      className={`HeaderButton-Container ${className} ${
+        isSelected ? "HeaderButton-Active" : ""
+      }`}
+      onClick={onClick}
+    >
+      <p className="heading-5">{title}</p>
     </button>
-  )
-};
+  );
+}
 
 // Define Header Button Prop Types Validation
 HeaderButton.propTypes = {
@@ -31,7 +33,7 @@ HeaderButton.propTypes = {
 
 // Define Header Button default Props values
 HeaderButton.defaultProps = {
-  className: '',
+  className: "",
   isSelected: false,
   onClick: () => {},
 };

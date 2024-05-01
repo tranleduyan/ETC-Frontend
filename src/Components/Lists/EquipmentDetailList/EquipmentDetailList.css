@@ -1,36 +1,36 @@
 .EquipmentDetailList-Container {
-    display:flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
 
 .EquipmentDetailList-EquipmentDetailCard {
-    width: 100%;
+  width: 100%;
 }
 
 .EquipmentDetailList-EquipmentDetailCard:first-child {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
-    .EquipmentDetailList-Container::-webkit-scrollbar {
-        display: none;
-    }
+  .EquipmentDetailList-Container::-webkit-scrollbar {
+    display: none;
+  }
 
-    .EquipmentDetailList-EquipmentDetailCard {
-        margin-top: calc(2.225vmin);
-    }
+  .EquipmentDetailList-EquipmentDetailCard {
+    margin-top: calc(2.225vmin);
+  }
 }
 
 /* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
-    .EquipmentDetailList-EquipmentDetailCard {
-        margin-top: calc(4.45vmin);
-    }
+  .EquipmentDetailList-EquipmentDetailCard {
+    margin-top: calc(4.45vmin);
+  }
 
-    .EquipmentDetailList-Margin:last-child {
-        margin-bottom: calc(4.45vmin);
-    }
+  .EquipmentDetailList-Margin:last-child {
+    margin-bottom: calc(4.45vmin);
+  }
 }

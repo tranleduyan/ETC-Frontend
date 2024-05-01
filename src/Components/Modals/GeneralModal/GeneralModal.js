@@ -1,25 +1,22 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './GeneralModal.css';
+import "./GeneralModal.css";
 
 // Define General Modal
 function GeneralModal(props) {
-
   // Extract necessary props
   const { children, className, isVisible } = props;
 
   return (
-    <div className={`${isVisible ? 'GeneralModal-Overlay' : 'hide'}`}>
-      <div className={`GeneralModal-Container ${className}`}>
-        {children}
-      </div>
+    <div className={`${isVisible ? "GeneralModal-Overlay" : "hide"}`}>
+      <div className={`GeneralModal-Container ${className}`}>{children}</div>
     </div>
-  )
-};
+  );
+}
 
 // Define types of the props of the component
 GeneralModal.propTypes = {
@@ -30,7 +27,7 @@ GeneralModal.propTypes = {
 
 // Define default values for the props for the component
 GeneralModal.defaultProps = {
-  className: '',
+  className: "",
   isVisible: false,
 };
 

@@ -1,36 +1,38 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import UI Components
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 
 //#region Import Stylings
-import './DatePickerInputField.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import "./DatePickerInputField.css";
+import "react-datepicker/dist/react-datepicker.css";
 //#endregion
 
 // Define DatePickerInputField Component
 function DatePickerInputField(props) {
-  
   const { className, onChange, name, value, placeholder, isError } = props;
 
   const HandleDateChange = (date) => {
     onChange(name, date);
-  }
+  };
 
   return (
-    <DatePicker showIcon
-                placeholderText={placeholder}
-                wrapperClassName={`${className} ${isError ? 'DatePickerInputField-Error' : ''}`}
-                name={name}
-                selected={value}
-                onChange={HandleDateChange}
-                dateFormat="MM/dd/yyyy"
-                />
-  )
-};
+    <DatePicker
+      showIcon
+      placeholderText={placeholder}
+      wrapperClassName={`${className} ${
+        isError ? "DatePickerInputField-Error" : ""
+      }`}
+      name={name}
+      selected={value}
+      onChange={HandleDateChange}
+      dateFormat="MM/dd/yyyy"
+    />
+  );
+}
 
 // Define PropTypes of the component
 DatePickerInputField.propTypes = {
@@ -39,14 +41,14 @@ DatePickerInputField.propTypes = {
   value: PropTypes.any,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  isError: PropTypes.bool
+  isError: PropTypes.bool,
 };
 
 // Define default props of the component
 DatePickerInputField.defaultProps = {
-  className: '',
+  className: "",
   value: null,
-  placeholder: 'Please Select Date',
+  placeholder: "Please Select Date",
   onChange: () => {},
   isError: false,
 };

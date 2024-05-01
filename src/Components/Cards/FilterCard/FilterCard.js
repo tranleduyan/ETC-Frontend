@@ -1,39 +1,54 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './FilterCard.css';
+import "./FilterCard.css";
 
 // Define FilterCard Component
 function FilterCard(props) {
-
   // Destructure props to extract relevant information
-  const { icon: Icon, className, iconClassName, title, quantity, units, onClick, isSelected} = props
+  const {
+    icon: Icon,
+    className,
+    iconClassName,
+    title,
+    quantity,
+    units,
+    onClick,
+    isSelected,
+  } = props;
 
   // Determine whether to use with an 's' or no
   const quantityUnitText = quantity > 1 ? `${units}s` : units;
 
   // Function triggered when the card is clicked
   const OnCardClick = () => {
-    if(onClick) {
+    if (onClick) {
       onClick(title);
     }
   };
 
   return (
-    <button 
-      className={`${className} FilterCard-Container ${isSelected ? 'FilterCard-Active' : ''}`}
-      onClick={OnCardClick}>
-      { Icon && <Icon className={`FilterCard-Icon ${iconClassName}`}/> }
-        <div className='FilterCard-Information'>
-            <p className='heading-5'>{title}</p>
-            {quantity && <p className='paragraph-1'>{quantity} {quantityUnitText}</p> }
-        </div>
+    <button
+      className={`${className} FilterCard-Container ${
+        isSelected ? "FilterCard-Active" : ""
+      }`}
+      onClick={OnCardClick}
+    >
+      {Icon && <Icon className={`FilterCard-Icon ${iconClassName}`} />}
+      <div className="FilterCard-Information">
+        <p className="heading-5">{title}</p>
+        {quantity && (
+          <p className="paragraph-1">
+            {quantity} {quantityUnitText}
+          </p>
+        )}
+      </div>
     </button>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 FilterCard.propTypes = {
@@ -50,10 +65,10 @@ FilterCard.propTypes = {
 // Set default values for props to avoid potential issues if not provided
 FilterCard.defaultProps = {
   icon: null,
-  className: '',
-  iconClassName: '',
+  className: "",
+  iconClassName: "",
   quantity: 0,
-  units: 'item',
+  units: "item",
   isSelected: false,
   onClick: () => {},
 };

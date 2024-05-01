@@ -1,47 +1,58 @@
 //#region Import Neccessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
-import { MESSAGE } from '../../../Constants';
+import React from "react";
+import PropTypes from "prop-types";
+import { MESSAGE } from "../../../Constants";
 //#endregion
 
 // Import Stylings
-import './AvailableModelList.css';
+import "./AvailableModelList.css";
 
 //#region Import UI Components
-import AvailableModelCard from '../../Cards/AvailableModelCard/AvailableModelCard';
+import AvailableModelCard from "../../Cards/AvailableModelCard/AvailableModelCard";
 //#endregion
 
 // Define AvailableModelList component
 function AvailableModelList(props) {
-
   // Extract necessary props
-  const { className, availableModels, selectedModels, onSelectModel, isMakingReservation } = props;
+  const {
+    className,
+    availableModels,
+    selectedModels,
+    onSelectModel,
+    isMakingReservation,
+  } = props;
 
   return (
-    <div className={`${availableModels?.length > 0 ? 'AvailableModelList-Container' : 'AvailableModelList-Message'} ${className}`}>
-      {availableModels?.length > 0
-        ?
+    <div
+      className={`${
+        availableModels?.length > 0
+          ? "AvailableModelList-Container"
+          : "AvailableModelList-Message"
+      } ${className}`}
+    >
+      {availableModels?.length > 0 ? (
         availableModels.map((item) => (
           <AvailableModelCard
-          key={item.modelId}
-          modelId={item.modelId}
-          modelName={item.modelName}
-          modelPhoto={item.modelPhoto}
-          typeName={item.typeName}
-          typeId={item.typeId}
-          availableCount={item.availableCount}
-          isSelected={selectedModels.some(selectedModel => selectedModel.modelId === item.modelId)}
-          onSelect={onSelectModel}
-          isMakingReservation={isMakingReservation}
+            key={item.modelId}
+            modelId={item.modelId}
+            modelName={item.modelName}
+            modelPhoto={item.modelPhoto}
+            typeName={item.typeName}
+            typeId={item.typeId}
+            availableCount={item.availableCount}
+            isSelected={selectedModels.some(
+              (selectedModel) => selectedModel.modelId === item.modelId
+            )}
+            onSelect={onSelectModel}
+            isMakingReservation={isMakingReservation}
           />
         ))
-        :
-          <p className='paragraph-1'>{MESSAGE.emptyAvailableModels}</p>
-      }
-
+      ) : (
+        <p className="paragraph-1">{MESSAGE.emptyAvailableModels}</p>
+      )}
     </div>
-  )
-};
+  );
+}
 
 // Define PropTypes for AvailableModelList
 AvailableModelList.propTypes = {
@@ -54,7 +65,7 @@ AvailableModelList.propTypes = {
 
 // Define default props value for AvailableModelList
 AvailableModelList.defaultProps = {
-  className: '',
+  className: "",
   availableModels: [],
   selectedModels: [],
   onSelectModel: () => {},

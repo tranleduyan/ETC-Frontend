@@ -1,51 +1,57 @@
 //#region Import Neccessary Dependencies
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { API, MESSAGE } from '../../Constants';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { API, MESSAGE } from "../../Constants";
+import { connect } from "react-redux";
 //#endregion
 
 //#region Import UI Components
-import IconModal from '../../Components/Modals/IconModal/IconModal';
-import ConfirmationModal from '../../Components/Modals/ConfirmationModal/ConfirmationModal';
-import IconButton from '../../Components/Buttons/IconButton/IconButton';
-import StandardButton from '../../Components/Buttons/StandardButton/StandardButton';
-import ModelForm from '../../Components/Forms/ModelForm/ModelForm';
+import IconModal from "../../Components/Modals/IconModal/IconModal";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
+import IconButton from "../../Components/Buttons/IconButton/IconButton";
+import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
+import ModelForm from "../../Components/Forms/ModelForm/ModelForm";
 //#endregion
 
 // Import Stylings
-import './UpdateModelPage.css';
+import "./UpdateModelPage.css";
 
 //#region Import Icons
-import { HiSwitchHorizontal, HiExclamationCircle, HiCheckCircle, HiChevronLeft, HiBookmarkAlt, HiTrash } from 'react-icons/hi';
+import {
+  HiSwitchHorizontal,
+  HiExclamationCircle,
+  HiCheckCircle,
+  HiChevronLeft,
+  HiBookmarkAlt,
+  HiTrash,
+} from "react-icons/hi";
 //#endregion
 
 // Define UpdateModelPage Component
 function UpdateModelPage(props) {
-
   // Extract relevant information
-  const { setEditSection, modelId, schoolId, setIsUpdated } = props; 
+  const { setEditSection, modelId, schoolId, setIsUpdated } = props;
 
   // Types options
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
 
   // Information for updating model
   const [modelInformation, setModelInformation] = useState({
-    name: '',
+    name: "",
     type: null,
     photo: null,
   });
 
   // Model form error state and error message
-  const [modelIsError, setModelIsError] = useState(false); 
-  const [modelErrorMessage, setModelErrorMessage] = useState('');
+  const [modelIsError, setModelIsError] = useState(false);
+  const [modelErrorMessage, setModelErrorMessage] = useState("");
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
-    title: '',
-    content: '',
-    warning: '',
+    title: "",
+    content: "",
+    warning: "",
     onYes: () => {},
     onNo: () => {},
     isVisible: false,
@@ -56,44 +62,44 @@ function UpdateModelPage(props) {
 
   // Response Modal State Object - Control visibility and content of the response
   const [responseModal, setResponseModal] = useState({
-    message: '',
+    message: "",
     error: false,
     isVisible: false,
   });
 
   // IsModelFormValid - Check for form validation
   const IsModelFormValid = () => {
-    if(!modelInformation.name) {
+    if (!modelInformation.name) {
       setModelIsError(true);
-      setModelErrorMessage('Please enter the model name.');
+      setModelErrorMessage("Please enter the model name.");
       return false;
     }
-  
-    if(!modelInformation.type) {
+
+    if (!modelInformation.type) {
       setModelIsError(true);
-      setModelErrorMessage('Please select the model type.');
+      setModelErrorMessage("Please select the model type.");
       return false;
     }
-  
-    if(!modelInformation.photo) {
+
+    if (!modelInformation.photo) {
       setModelIsError(true);
-      setModelErrorMessage('Please upload the model photo.');
+      setModelErrorMessage("Please upload the model photo.");
       return false;
     }
-  
-    if(modelIsError) {
+
+    if (modelIsError) {
       setModelIsError(false);
-      setModelErrorMessage('');
+      setModelErrorMessage("");
     }
-  
+
     return true;
   };
 
   // OnBack - Set editSection to empty to hide the component and show the previous page.
   const OnBack = () => {
-    setEditSection('');
+    setEditSection("");
     setModelInformation({
-      name: '',
+      name: "",
       type: null,
       photo: null,
     });
@@ -101,29 +107,29 @@ function UpdateModelPage(props) {
 
   // SaveUpdate - Update the model information
   const SaveUpdate = () => {
-    if(IsModelFormValid()) {
+    if (IsModelFormValid()) {
       // Show processing message
       setIsProcessing(true);
       setResponseModal({
-        message: 'Saving the updates...',
+        message: "Saving the updates...",
       });
 
       // Form data to submit
       const formData = new FormData();
 
       //Appened necessary information to the form data
-      formData.append('modelName', modelInformation.name);
-      formData.append('typeId', modelInformation.type.value);
-      formData.append('image', modelInformation.photo);
-      formData.append('schoolId', schoolId);
+      formData.append("modelName", modelInformation.name);
+      formData.append("typeId", modelInformation.type.value);
+      formData.append("image", modelInformation.photo);
+      formData.append("schoolId", schoolId);
 
       // Perform API call for equipment model update
       axios
         .put(`${API.domain}/api/inventory/models/${modelId}`, formData, {
           headers: {
-            'X-API-KEY': API.key,
-            'Content-Type': 'multipart/form-data',
-          }
+            "X-API-KEY": API.key,
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then(() => {
           // Hide processing message
@@ -139,7 +145,7 @@ function UpdateModelPage(props) {
           // Turn off the response modal after 1500ms.
           setTimeout(() => {
             setResponseModal({
-              message: '',
+              message: "",
               error: false,
               isVisible: false,
             });
@@ -152,16 +158,16 @@ function UpdateModelPage(props) {
 
           // Show error message
           setResponseModal({
-            message: 'Something went wrong while updating the current type.',
+            message: "Something went wrong while updating the current type.",
             error: true,
             isVisible: true,
           });
           setTimeout(() => {
             setResponseModal({
-              message: '',
+              message: "",
               error: false,
               isVisible: false,
-            })
+            });
           }, 1500);
           setIsUpdated(false);
         });
@@ -172,16 +178,17 @@ function UpdateModelPage(props) {
   const DeleteModel = () => {
     // Show confirmation modal for type deletion
     setConfirmationModal({
-      title: 'Remove Model',
-      content: 'Are you sure you want to remove the current equipment model?',
-      warning: 'This will also permanently delete all equipment associated with the current model and the action cannot be undone.',
+      title: "Remove Model",
+      content: "Are you sure you want to remove the current equipment model?",
+      warning:
+        "This will also permanently delete all equipment associated with the current model and the action cannot be undone.",
       onYes: () => {
         // Close the confirmation modal
         CloseConfirmationModal();
 
         // Set and Show the response modal
         setResponseModal({
-          message: 'Deleting the current model...',
+          message: "Deleting the current model...",
           isVisible: true,
         });
 
@@ -192,7 +199,7 @@ function UpdateModelPage(props) {
         axios
           .delete(`${API.domain}/api/inventory/models`, {
             headers: {
-              'X-API-KEY': API.key,
+              "X-API-KEY": API.key,
             },
             data: {
               schoolId: schoolId,
@@ -208,12 +215,12 @@ function UpdateModelPage(props) {
             });
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
             }, 1500);
-            
+
             setIsUpdated(true);
 
             // Return to the previous page
@@ -225,13 +232,13 @@ function UpdateModelPage(props) {
 
             // Show error message
             setResponseModal({
-              message: 'Something went wrong while deleting the current model.',
+              message: "Something went wrong while deleting the current model.",
               error: true,
               isVisible: true,
             });
             setTimeout(() => {
               setResponseModal({
-                message: '',
+                message: "",
                 error: false,
                 isVisible: false,
               });
@@ -250,9 +257,9 @@ function UpdateModelPage(props) {
   // CloseConfirmationModal - Hide/Close the confirmation modal
   const CloseConfirmationModal = () => {
     setConfirmationModal({
-      title: '',
-      content: '',
-      warning: '',
+      title: "",
+      content: "",
+      warning: "",
       onYes: () => {},
       onNo: () => {},
       isVisible: false,
@@ -273,26 +280,29 @@ function UpdateModelPage(props) {
     axios
       .get(`${API.domain}/api/inventory/models/${modelId}`, {
         headers: {
-          'X-API-KEY': API.key,
-        }
+          "X-API-KEY": API.key,
+        },
       })
-      .then(response => {
+      .then((response) => {
         const typeId = response.data.responseObject.typeId;
 
         // Find the corresponding type option based on typeId
-        const currentType = equipmentTypeOptions.find(option => option.value === typeId);
+        const currentType = equipmentTypeOptions.find(
+          (option) => option.value === typeId
+        );
 
         // Set model information
         setModelInformation({
           name: response.data.responseObject.modelName,
           photo: response.data.responseObject.modelPhoto,
           type: currentType,
-        })
+        });
       })
       .catch(() => {
         // Show Error Message
         setResponseModal({
-          message:'Something went wrong while retrieving the current model information.',
+          message:
+            "Something went wrong while retrieving the current model information.",
           error: true,
           isVisible: true,
         });
@@ -300,7 +310,7 @@ function UpdateModelPage(props) {
         // Turn off message after 1500ms, and go back.
         setTimeout(() => {
           setResponseModal({
-            message: '',
+            message: "",
             error: false,
             isVisible: false,
           });
@@ -312,36 +322,37 @@ function UpdateModelPage(props) {
 
   // FetchAllTypeOptions - fetch all type options
   const FetchAllTypeOptions = () => {
-    axios.get(`${API.domain}/api/inventory/types`, {
-      headers: {
-        'X-API-KEY': API.key,
-      }
-    })
-    .then(response => {
-      // Map Value and Label
-      const options = response.data.responseObject.map(type => ({
-        value: type.typeId,
-        label: type.typeName,
-      }));
+    axios
+      .get(`${API.domain}/api/inventory/types`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        // Map Value and Label
+        const options = response.data.responseObject.map((type) => ({
+          value: type.typeId,
+          label: type.typeName,
+        }));
 
-      // Set the options
-      setEquipmentTypeOptions(options);
-    })
-    .catch(() => {
-      // Type not found
-      setEquipmentTypeOptions([]);
-    });
+        // Set the options
+        setEquipmentTypeOptions(options);
+      })
+      .catch(() => {
+        // Type not found
+        setEquipmentTypeOptions([]);
+      });
   };
 
   // Fetch all type options on component mount
   useEffect(() => {
     FetchAllTypeOptions();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   // Fetch model information when equipmentTypeOptions change
   useEffect(() => {
-    if(equipmentTypeOptions) {
+    if (equipmentTypeOptions) {
       FetchModelInformation();
     }
     // eslint-disable-next-line
@@ -351,45 +362,50 @@ function UpdateModelPage(props) {
     <>
       {/* Response Modal for displaying successful messages or errors */}
       <IconModal
-        className='UpdateModelPage-ResponseModalContainer'
+        className="UpdateModelPage-ResponseModalContainer"
         icon={ResponseIcon()}
-        iconClassName='UpdateModelPage-ResponseModalIcon'
+        iconClassName="UpdateModelPage-ResponseModalIcon"
         message={responseModal.message}
-        isVisible={responseModal.isVisible || isProcessing} />
+        isVisible={responseModal.isVisible || isProcessing}
+      />
       {/* Confirmation Modal for warnings and confirmation actions */}
       <ConfirmationModal
-        className='UpdateModelPage-ConfirmationModalContainer'
+        className="UpdateModelPage-ConfirmationModalContainer"
         title={confirmationModal.title}
         content={confirmationModal.content}
         warning={confirmationModal.warning}
         onYes={confirmationModal.onYes}
         onNo={confirmationModal.onNo}
-        isVisible={confirmationModal.isVisible} />
-      <div className='UpdateModelPage-ContentContainer'>
+        isVisible={confirmationModal.isVisible}
+      />
+      <div className="UpdateModelPage-ContentContainer">
         {/* Content Header Container */}
-        <div className='UpdateModelPage-ContentHeaderContainer'>
+        <div className="UpdateModelPage-ContentHeaderContainer">
           {/* Header Container */}
-          <div className='UpdateModelPage-HeaderContainer'>
+          <div className="UpdateModelPage-HeaderContainer">
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className='UpdateModelPage-BackButton'
-              onClick={OnBack}/>
+              className="UpdateModelPage-BackButton"
+              onClick={OnBack}
+            />
             {/* Header */}
-            <p className='heading-5'>Update Model</p>
+            <p className="heading-5">Update Model</p>
           </div>
           {/* Action Container */}
-          <div className='UpdateModelPage-ActionContainer'>
+          <div className="UpdateModelPage-ActionContainer">
             <StandardButton
-              title='Save'
+              title="Save"
               onClick={SaveUpdate}
-              className='UpdateModelPage-SaveButton'
-              icon={HiBookmarkAlt}/>
+              className="UpdateModelPage-SaveButton"
+              icon={HiBookmarkAlt}
+            />
             <StandardButton
-              title=''
+              title=""
               onClick={DeleteModel}
-              className='UpdateModelPage-DeleteButton'
-              icon={HiTrash}/>
+              className="UpdateModelPage-DeleteButton"
+              icon={HiTrash}
+            />
           </div>
         </div>
         {/* Model Form */}
@@ -398,17 +414,19 @@ function UpdateModelPage(props) {
           setModelInformation={setModelInformation}
           isError={modelIsError}
           errorMessage={modelErrorMessage}
-          equipmentTypeOptions={equipmentTypeOptions}/>
+          equipmentTypeOptions={equipmentTypeOptions}
+        />
         {/* Mobile Save Update Button */}
         <StandardButton
-          title='Save'
+          title="Save"
           onClick={SaveUpdate}
-          className='UpdateModelPage-MobileSaveButton'
-          icon={HiBookmarkAlt}/>
+          className="UpdateModelPage-MobileSaveButton"
+          icon={HiBookmarkAlt}
+        />
       </div>
     </>
-  )
-};
+  );
+}
 
 // Define the props types for the component
 UpdateModelPage.propTypes = {
@@ -420,7 +438,7 @@ UpdateModelPage.propTypes = {
 
 // Define default props for the component
 UpdateModelPage.defaultProps = {
-  schoolId: '',
+  schoolId: "",
 };
 
 // Map from Redux state to component props

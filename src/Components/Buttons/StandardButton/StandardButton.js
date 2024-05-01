@@ -1,28 +1,26 @@
 //#region Import Necessary Dependencies
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 //#endregion
 
 // Import Stylings
-import './StandardButton.css';
+import "./StandardButton.css";
 
 // Define Standard Button Components
 function StandardButton(props) {
-  
   // Extract necessary props
   const { title, onClick, className, icon: Icon } = props;
 
   return (
-    <button className={`${className} StandardButton-Container`} onClick={onClick}>
-      {title !== '' && (
-        <p className='paragraph-2'>{title}</p>
-      )}
-      {Icon &&
-        <Icon className='StandardButton-Icon'/>
-      }
+    <button
+      className={`${className} StandardButton-Container`}
+      onClick={onClick}
+    >
+      {title !== "" && <p className="paragraph-2">{title}</p>}
+      {Icon && <Icon className="StandardButton-Icon" />}
     </button>
-  )
-};
+  );
+}
 
 // Define PropTypes for type-checking and documentation
 StandardButton.propTypes = {
@@ -34,8 +32,8 @@ StandardButton.propTypes = {
 
 // Set default values for props to avoid potential issues if not provided
 StandardButton.defaultProps = {
-  title: '',
-  className: '',
+  title: "",
+  className: "",
   icon: null,
 };
 
