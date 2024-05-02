@@ -1,0 +1,78 @@
+/* General Stylings */
+.LocationForm-FormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.LocationForm-LocationInformationGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.LocationForm-Field {
+  width: 100%;
+}
+
+.LocationForm-Instructions {
+  font-style: italic;
+  color: var(--Gray3);
+}
+
+.LocationForm-ErrorMessageContainer {
+  width: 100%;
+  color: var(--Red2);
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px) {
+  .LocationForm-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - calc(calc(6.675vmin) + calc(2.225vmin)));
+    margin-top: calc(2.225vmin);
+    gap: calc(2.225vmin);
+  }
+
+  .LocationForm-FormContainer {
+    width: 100%;
+    gap: calc(1.66875vmin);
+  }
+
+  .LocationForm-LocationInformationGroup {
+    gap: calc(2.225vmin);
+  }
+}
+
+/* For mobile and smaller screen */
+@media screen and (max-width: 480px) {
+  .LocationForm-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+    margin: calc(4.45vmin) 0px;
+    gap: calc(4.45vmin);
+    overflow-y: auto;
+  }
+
+  .LocationForm-FormContainer {
+    width: 100%;
+    gap: calc(3.3375vmin);
+  }
+
+  .LocationForm-LocationInformationGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .LocationForm-Instructions {
+    display: none;
+  }
+}

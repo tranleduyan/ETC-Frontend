@@ -9,6 +9,7 @@
   border: none;
   padding: 0;
   color: var(--Black1);
+  white-space: nowrap;
 }
 
 .HeaderButton-Active {
@@ -30,6 +31,11 @@
   .HeaderButton-Active {
     border-bottom: calc(0.278125vmin) solid var(--Red1);
   }
+
+  .HeaderButton-Icon {
+    font-size: calc(3.3375vmin);
+    min-width: calc(4.45vmin);
+  }
 }
 
 /* For mobile and smaller devices */
@@ -41,5 +47,10 @@
 
   .HeaderButton-Active {
     border-bottom: calc(0.55625vmin) solid var(--Red1);
+  }
+
+  .HeaderButton-Icon {
+    font-size: calc(6.675vmin);
+    min-width: calc(8.9vmin);
   }
 }

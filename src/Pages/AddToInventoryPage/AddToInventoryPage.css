@@ -28,6 +28,10 @@
   color: var(--Red1);
 }
 
+.AddToInventoryPage-HeaderContainer::-webkit-scrollbar {
+  display: none;
+}
+
 /* For tablets and any larger devices */
 @media screen and (min-width: 481px) {
   .AddToInventoryPage-PageContentContainer {
@@ -84,7 +88,7 @@
   }
 
   .AddToInventoryPage-MobileAddButton {
-    display: none;
+    display: none !important;
   }
 
   .AddToInventoryPage-ModalContainer {
@@ -134,11 +138,14 @@
   }
 
   .AddToInventoryPage-HeaderContainer {
+    flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     gap: calc(4.45vmin);
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .AddToInventoryPage-ActionContainer {
@@ -152,5 +159,17 @@
   .AddToInventoryPage-ModalContainer {
     width: calc(91.225vmin);
     height: calc(61.1875vmin);
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .AddToInventoryPage-MobileMiscHeaderButton {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .AddToInventoryPage-MiscHeaderButton {
+    display: none !important;
   }
 }

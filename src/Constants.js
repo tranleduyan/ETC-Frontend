@@ -52,6 +52,13 @@ export const MESSAGE = {
   successModelAddition:
     "The model has been successfully added to the inventory.",
 
+  // Message for successfully added a location
+  successLocationAddition: "The location has been successfully added.",
+
+  // Message for successfully added an RFID antenna
+  successRFIDAntennaAddition:
+    "The antenna has been successfully added to the inventory.",
+
   // Message for successfully added an equipment
   successEquipmentAddition:
     "The equipment has been successfully added to the inventory.",

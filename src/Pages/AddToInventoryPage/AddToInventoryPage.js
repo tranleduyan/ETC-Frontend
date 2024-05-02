@@ -29,7 +29,11 @@ import {
   HiCheckCircle,
   HiPlus,
   HiDocumentText,
+  HiStatusOnline,
+  HiLocationMarker,
 } from "react-icons/hi";
+import LocationForm from "../../Components/Forms/LocationForm";
+import RFIDAntennaForm from "../../Components/Forms/RFIDAntennaForm/RFIDAntennaForm";
 //#endregion
 
 // Define AddEquipmentPage Component
@@ -54,6 +58,9 @@ function AddToInventoryPage(props) {
   // Options for equipment types dropdowns
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
 
+  // Options for locations dropdowns
+  const [locationOptions, setLocationOptions] = useState([]);
+
   // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
   const [equipmentErrorMessage, setEquipmentErrorMessage] = useState("");
@@ -66,11 +73,20 @@ function AddToInventoryPage(props) {
   const [modelIsError, setModelIsError] = useState(false);
   const [modelErrorMessage, setModelErrorMessage] = useState("");
 
+  // RFID Antenna form error state and error message
+  const [rfidAntennaIsError, setRFIDAntennaIsError] = useState(false);
+  const [rfidAntennaErrorMessage, setRFIDAntennaErrorMessage] = useState("");
+
+  // Location form error state and error message
+  const [locationIsError, setLocationIsError] = useState(false);
+  const [locationErrorMessage, setLocationErrorMessage] = useState("");
+
   const [modalMessage, setModalMessage] = useState("");
   const [modalVisibility, setModalVisibility] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isTypeFetched, setIsTypeFetched] = useState(false);
+  const [isLocationFetched, setIsLocationFetched] = useState(false);
 
   // #region Addition Information
   // Information for adding equipment
@@ -101,6 +117,20 @@ function AddToInventoryPage(props) {
     type: null,
     photo: null,
   });
+
+  // Information for adding RFID antenna
+  const [rfidAntennaAdditionInformation, setRFIDAntennaAdditionInformation] =
+    useState({
+      id: "",
+      location: null,
+    });
+
+  // Information for adding location
+  const [locationAdditionInformation, setLocationAdditionInformation] =
+    useState({
+      name: "",
+    });
+
   // #endregion
 
   // Add Equipment - Add the equipment to the database.
@@ -163,11 +193,14 @@ function AddToInventoryPage(props) {
           setEquipmentModelOptions([]);
         })
         .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
           setIsLoading(false);
           setModalVisibility(false);
           setModalMessage("");
           setEquipmentIsError(true);
-          setEquipmentErrorMessage(error.response.data.message);
+          setEquipmentErrorMessage(errorMessage);
         });
     }
   };
@@ -215,11 +248,14 @@ function AddToInventoryPage(props) {
           setIsTypeFetched(false);
         })
         .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
           setIsLoading(false);
           setModalVisibility(false);
           setModalMessage("");
           setTypeIsError(true);
-          setTypeErrorMessage(error.response.data.message);
+          setTypeErrorMessage(errorMessage);
         });
     }
   };
@@ -266,11 +302,113 @@ function AddToInventoryPage(props) {
           });
         })
         .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
           setIsLoading(false);
           setModalVisibility(false);
           setModalMessage("");
           setModelIsError(true);
-          setModelErrorMessage(error.response.data.message);
+          setModelErrorMessage(errorMessage);
+        });
+    }
+  };
+
+  // AddLocation - Add the location name to the database
+  const AddLocation = () => {
+    if (IsLocationFormValid()) {
+      setModalMessage("Adding the location...");
+      setIsLoading(true);
+
+      const requestBody = {
+        schoolId: schoolId,
+        locationName: locationAdditionInformation.name,
+      };
+
+      // HTTP post request to post the request body
+      axios
+        .post(`${API.domain}/api/location/create`, requestBody, {
+          headers: {
+            "X-API-KEY": API.key,
+          },
+        })
+        .then(() => {
+          setIsLoading(false);
+
+          setModalMessage(MESSAGE.successLocationAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage("");
+          }, 1500);
+
+          // Reset the field.
+          setLocationAdditionInformation({
+            name: "",
+          });
+
+          setIsLocationFetched(false);
+        })
+        .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage("");
+          setLocationIsError(true);
+          setLocationErrorMessage(errorMessage);
+        });
+    }
+  };
+
+  // AddRFIDAntenna - Add the rfid antenna id to the database with the location
+  const AddRFIDAntenna = () => {
+    if (IsRFIDAntennaFormValid()) {
+      setModalMessage("Adding to inventory...");
+      setIsLoading(true);
+
+      const requestBody = {
+        schoolId: schoolId,
+        antennaId: rfidAntennaAdditionInformation.id,
+        locationId: rfidAntennaAdditionInformation.location?.value,
+      };
+
+      axios
+        .post(`${API.domain}/api/inventory/antenna/create`, requestBody, {
+          headers: {
+            "X-API-KEY": API.key,
+          },
+        })
+        .then(() => {
+          setIsLoading(false);
+
+          setModalMessage(MESSAGE.successRFIDAntennaAddition);
+          setModalVisibility(true);
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setModalVisibility(false);
+            setModalMessage("");
+          }, 1500);
+
+          // Reset the field
+          setRFIDAntennaAdditionInformation({
+            id: "",
+            location: null,
+          });
+        })
+        .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
+          setIsLoading(false);
+          setModalVisibility(false);
+          setModalMessage("");
+          setRFIDAntennaIsError(true);
+          setRFIDAntennaErrorMessage(errorMessage);
         });
     }
   };
@@ -365,11 +503,43 @@ function AddToInventoryPage(props) {
 
     return true;
   };
+
+  // IsLocationFormValid - Check for form validation
+  const IsLocationFormValid = () => {
+    if (!locationAdditionInformation.name) {
+      setLocationIsError(true);
+      setLocationErrorMessage("Please enter the location name.");
+      return false;
+    }
+
+    if (locationIsError) {
+      setLocationIsError(false);
+      setLocationErrorMessage("");
+    }
+
+    return true;
+  };
+
+  // IsRFIDAntennaFormValid - Check for form validation
+  const IsRFIDAntennaFormValid = () => {
+    if (!rfidAntennaAdditionInformation.id) {
+      setRFIDAntennaIsError(true);
+      setRFIDAntennaErrorMessage("Please enter the RFID antenna ID.");
+      return false;
+    }
+
+    if (locationIsError) {
+      setLocationIsError(false);
+      setLocationErrorMessage("");
+    }
+
+    return true;
+  };
   //#endregion
 
   //#region Helpers
   const FetchAllTypeOptions = () => {
-    // HTTP get request to fetch all the type
+    // HTTP get request to fetch all the type options
     axios
       .get(`${API.domain}/api/inventory/types`, {
         headers: {
@@ -387,8 +557,32 @@ function AddToInventoryPage(props) {
         setEquipmentTypeOptions(options);
       })
       .catch(() => {
-        // Type not found, reset type options and models, model options as well as the model photo
+        // Type not found, reset type options
         setEquipmentTypeOptions([]);
+      });
+  };
+
+  const FetchAllLocationOptions = () => {
+    // HTTP get request to fetch all the location options
+    axios
+      .get(`${API.domain}/api/location`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        // Map value and label
+        const options = response.data.responseObject.map((location) => ({
+          value: location.locationId,
+          label: location.locationName,
+        }));
+
+        // Set the options
+        setLocationOptions(options);
+      })
+      .catch(() => {
+        // Locations not found, reset location options
+        setLocationOptions([]);
       });
   };
   //#endregion
@@ -397,6 +591,7 @@ function AddToInventoryPage(props) {
   // Fetch all types upon component mounting
   useEffect(() => {
     FetchAllTypeOptions();
+    FetchAllLocationOptions();
   }, []);
 
   // Conditionally fetched type if there is new type added but not fetched yet.
@@ -406,6 +601,14 @@ function AddToInventoryPage(props) {
       setIsTypeFetched(true);
     }
   }, [isTypeFetched]);
+
+  // Conditionally fetched location options if there is new location added but not fetched yet.
+  useEffect(() => {
+    if (isLocationFetched === false) {
+      FetchAllLocationOptions();
+      setIsLocationFetched(true);
+    }
+  }, [isLocationFetched]);
 
   // Fetch all the equipment models of a selected type.
   useEffect(() => {
@@ -493,6 +696,36 @@ function AddToInventoryPage(props) {
                     isSelected={currentSection === "Model"}
                     onClick={() => setCurrentSection("Model")}
                   />
+                  {/* RFID Antenna Tab Button */}
+                  <HeaderButton
+                    className="AddToInventoryPage-MiscHeaderButton"
+                    title="RFID Antenna"
+                    isSelected={currentSection === "RFID Antenna"}
+                    onClick={() => setCurrentSection("RFID Antenna")}
+                  />
+                  {/* Mobile RFID Antenna Tab Button */}
+                  <HeaderButton
+                    className="AddToInventoryPage-MobileMiscHeaderButton"
+                    title=""
+                    isSelected={currentSection === "RFID Antenna"}
+                    onClick={() => setCurrentSection("RFID Antenna")}
+                    icon={HiStatusOnline}
+                  />
+                  {/* Location Tab Button */}
+                  <HeaderButton
+                    title="Location"
+                    className="AddToInventoryPage-MiscHeaderButton"
+                    isSelected={currentSection === "Location"}
+                    onClick={() => setCurrentSection("Location")}
+                  />
+                  {/* Mobile Location Tab Button */}
+                  <HeaderButton
+                    title=""
+                    className="AddToInventoryPage-MobileMiscHeaderButton"
+                    isSelected={currentSection === "Location"}
+                    onClick={() => setCurrentSection("Location")}
+                    icon={HiLocationMarker}
+                  />
                 </div>
                 {/* Action Container */}
                 <div className="AddToInventoryPage-ActionContainer">
@@ -527,6 +760,24 @@ function AddToInventoryPage(props) {
                     <StandardButton
                       title="Add Model"
                       onClick={AddModel}
+                      className="AddToInventoryPage-AddButton"
+                      icon={HiPlus}
+                    />
+                  )}
+                  {/* If RFID Antenna tab, display Add Antenna Button */}
+                  {currentSection === "RFID Antenna" && (
+                    <StandardButton
+                      title="Add Antenna"
+                      onClick={AddRFIDAntenna}
+                      className="AddToInventoryPage-AddButton"
+                      icon={HiPlus}
+                    />
+                  )}
+                  {/* If location tab, display Add Location Button */}
+                  {currentSection === "Location" && (
+                    <StandardButton
+                      title="Add Location"
+                      onClick={AddLocation}
                       className="AddToInventoryPage-AddButton"
                       icon={HiPlus}
                     />
@@ -590,6 +841,47 @@ function AddToInventoryPage(props) {
                   <StandardButton
                     title="Add Model"
                     onClick={AddModel}
+                    className="AddToInventoryPage-MobileAddButton"
+                    icon={HiPlus}
+                  />
+                </>
+              )}
+              {/* RFID Antenna Tab */}
+              {currentSection === "RFID Antenna" && (
+                <>
+                  {/* Location Addition Form */}
+                  <RFIDAntennaForm
+                    rfidAntennaInformation={rfidAntennaAdditionInformation}
+                    setRFIDAntennaInformation={
+                      setRFIDAntennaAdditionInformation
+                    }
+                    isError={rfidAntennaIsError}
+                    errorMessage={rfidAntennaErrorMessage}
+                    locationOptions={locationOptions}
+                  />
+                  {/* Mobile Add Model Button */}
+                  <StandardButton
+                    title="Add Antenna"
+                    onClick={AddRFIDAntenna}
+                    className="AddToInventoryPage-MobileAddButton"
+                    icon={HiPlus}
+                  />
+                </>
+              )}
+              {/* Location Tab */}
+              {currentSection === "Location" && (
+                <>
+                  {/* Location Addition Form */}
+                  <LocationForm
+                    locationInformation={locationAdditionInformation}
+                    setLocationInformation={setLocationAdditionInformation}
+                    isError={locationIsError}
+                    errorMessage={locationErrorMessage}
+                  />
+                  {/* Mobile Add Model Button */}
+                  <StandardButton
+                    title="Add Location"
+                    onClick={AddLocation}
                     className="AddToInventoryPage-MobileAddButton"
                     icon={HiPlus}
                   />

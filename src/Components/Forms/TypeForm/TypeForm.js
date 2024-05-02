@@ -25,7 +25,7 @@ function TypeForm(props) {
     errorMessage,
   } = props;
 
-  // HandleTypeAdditionInputChange - Update the information of the typeAdditionInformation new value to the propertyName
+  // HandleTypeAdditionInputChange - Update the information with the new value to the propertyName
   const HandleTypeInputChange = (propertyName, value) => {
     setTypeInformation({ ...typeInformation, [propertyName]: value });
   };

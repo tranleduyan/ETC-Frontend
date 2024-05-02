@@ -9,7 +9,7 @@ import "./HeaderButton.css";
 // Define HeaderButton Component
 function HeaderButton(props) {
   // Extract relevant information from props
-  const { className, title, isSelected, onClick } = props;
+  const { className, title, isSelected, onClick, icon: Icon } = props;
 
   return (
     <button
@@ -18,7 +18,8 @@ function HeaderButton(props) {
       }`}
       onClick={onClick}
     >
-      <p className="heading-5">{title}</p>
+      {title !== "" && <p className="heading-5">{title}</p>}
+      {Icon && <Icon className="HeaderButton-Icon" />}
     </button>
   );
 }
@@ -29,6 +30,7 @@ HeaderButton.propTypes = {
   title: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func,
+  icon: PropTypes.elementType,
 };
 
 // Define Header Button default Props values
@@ -36,6 +38,7 @@ HeaderButton.defaultProps = {
   className: "",
   isSelected: false,
   onClick: () => {},
+  icon: null,
 };
 
 // Exports the HeaderButton component as the default export for the HeaderButton module.

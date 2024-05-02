@@ -30,7 +30,7 @@ function ModelForm(props) {
   // Ref hooks to the file input
   const modelPhotoRef = useRef(null);
 
-  // HandleModelAdditionInputChange - Update the information of the modelAdditionInformation new value to the propertyName.
+  // HandleModelAdditionInputChange - Update the information with the new value to the propertyName.
   const HandleModelInputChange = (propertyName, selectedValue) => {
     setModelInformation({ ...modelInformation, [propertyName]: selectedValue });
   };
