@@ -26,6 +26,7 @@ import UpdateModelPage from "../UpdateModelPage/UpdateModelPage";
 import EquipmentDetailsPage from "../EquipmentDetailsPage/EquipmentDetailsPage";
 import UpdateEquipmentPage from "../UpdateEquipmentPage/UpdateEquipmentPage";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
+import RFIDAntennaInventory from "../../Components/Inventory/RFIDAntennaInventory/RFIDAntennaInventory";
 //#endregion
 
 //#region Import Icons
@@ -38,6 +39,8 @@ import {
   HiTrash,
   HiPlus,
   HiAdjustments,
+  HiStatusOnline,
+  HiLocationMarker,
 } from "react-icons/hi";
 //#endregion
 
@@ -76,6 +79,10 @@ function InventoryPage(props) {
   const [selectedModels, setSelectedModels] = useState([]);
   const [modelInventory, setModelInventory] = useState([]);
 
+  // RFID Antenna Inventory and Selection States
+  const [selectedRFIDAntennas, setSelectedRFIDAntennas] = useState([]);
+  const [rfidAntennaInventory, setRFIDAntennaInventory] = useState([]);
+
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
     title: "",
@@ -110,6 +117,11 @@ function InventoryPage(props) {
   // AddModel - Navigate to add equipment page with model tab
   const AddModel = () => {
     navigate("/AddToInventory", { state: { section: "Model" } });
+  };
+
+  // AddRFIDAntenna - Navigate to add equipment page with antenna tab
+  const AddRFIDAntenna = () => {
+    navigate("/AddToInventory", { state: { section: "RFID Antenna" } });
   };
 
   // OnFilterClick - TODO: Open Filter Modal based on the currentSection state
@@ -166,6 +178,21 @@ function InventoryPage(props) {
 
     setSelectedModels(updatedSelectedModel);
   };
+
+  // SelectRFIDAntenna - Update the user's selections of RFID Antennas
+  const SelectRFIDAntenna = (rfidAntennaID) => {
+    let updatedSelectedRFIDAntenna = [...selectedRFIDAntennas];
+
+    if (updatedSelectedRFIDAntenna.includes(rfidAntennaID)) {
+      updatedSelectedRFIDAntenna = updatedSelectedRFIDAntenna.filter(
+        (id) => id !== rfidAntennaID
+      );
+    } else {
+      updatedSelectedRFIDAntenna.push(rfidAntennaID);
+    }
+
+    setSelectedRFIDAntennas(updatedSelectedRFIDAntenna);
+  };
   //#endregion
 
   // CancelSelection - Cancel selection based on the currentSection state
@@ -176,6 +203,8 @@ function InventoryPage(props) {
       setSelectedModels([]);
     } else if (currentSection === "Equipment") {
       setSelectedEquipment([]);
+    } else if (currentSection === "RFID Antenna") {
+      setSelectedRFIDAntennas([]);
     }
   };
 
@@ -194,6 +223,10 @@ function InventoryPage(props) {
   // EditSelectedType - Render the Edit Type Component
   const EditSelectedType = () => {
     setEditSection("Type");
+  };
+
+  const EditSelectedRFIDAntenna = () => {
+    setEditSection("RFID Antenna");
   };
   //#endregion
 
@@ -442,6 +475,11 @@ function InventoryPage(props) {
       isVisible: true,
     });
   };
+
+  // DeleteSelectedRFIDAntennas - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
+  const DeleteSelectedRFIDAntennas = () => {
+    console.log("Delete RFID Antenna");
+  };
   //#endregion
 
   //#region Helpers
@@ -590,6 +628,36 @@ function InventoryPage(props) {
                         isSelected={currentSection === "Model"}
                         onClick={() => setCurrentSection("Model")}
                       />
+                      {/* RFID Antenna Tab Button */}
+                      <HeaderButton
+                        className="InventoryPage-MiscHeaderButton"
+                        title="RFID Antenna"
+                        isSelected={currentSection === "RFID Antenna"}
+                        onClick={() => setCurrentSection("RFID Antenna")}
+                      />
+                      {/* Mobile RFID Antenna Tab Button */}
+                      <HeaderButton
+                        className="InventoryPage-MobileMiscHeaderButton"
+                        title=""
+                        isSelected={currentSection === "RFID Antenna"}
+                        onClick={() => setCurrentSection("RFID Antenna")}
+                        icon={HiStatusOnline}
+                      />
+                      {/* Location Tab Button */}
+                      <HeaderButton
+                        title="Location"
+                        className="InventoryPage-MiscHeaderButton"
+                        isSelected={currentSection === "Location"}
+                        onClick={() => setCurrentSection("Location")}
+                      />
+                      {/* Mobile Location Tab Button */}
+                      <HeaderButton
+                        title=""
+                        className="InventoryPage-MobileMiscHeaderButton"
+                        isSelected={currentSection === "Location"}
+                        onClick={() => setCurrentSection("Location")}
+                        icon={HiLocationMarker}
+                      />
                     </div>
                     {/* Action Container */}
                     <div className="InventoryPage-ActionContainer">
@@ -627,12 +695,13 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be display when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
-                              />
+                              /> */}
                             </>
                           )}
                         </>
@@ -671,12 +740,13 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
-                              />
+                          /> */}
                             </>
                           )}
                         </>
@@ -715,12 +785,58 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
+                          /> */}
+                            </>
+                          )}
+                        </>
+                      )}
+                      {currentSection === "RFID Antenna" && (
+                        <>
+                          {selectedRFIDAntennas.length === 1 && (
+                            <StandardButton
+                              title="Edit"
+                              onClick={EditSelectedRFIDAntenna}
+                              className="InventoryPage-EditButton"
+                              icon={HiPencilAlt}
+                            />
+                          )}
+                          {selectedRFIDAntennas.length > 0 && (
+                            <>
+                              <StandardButton
+                                title="Cancel"
+                                onClick={CancelSelection}
+                                className="InventoryPage-CancelButton"
+                                icon={HiMinusCircle}
                               />
+                              <StandardButton
+                                title=""
+                                onClick={DeleteSelectedRFIDAntennas}
+                                className="InventoryPage-DeleteButton"
+                                icon={HiTrash}
+                              />
+                            </>
+                          )}
+                          {selectedRFIDAntennas.length === 0 && (
+                            <>
+                              <StandardButton
+                                title="Add Antenna"
+                                onClick={AddRFIDAntenna}
+                                className="InventoryPage-AddButton"
+                                icon={HiPlus}
+                              />
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
+                                title=""
+                                onClick={OnFilterClick}
+                                className="InventoryPage-FilterButton"
+                                icon={HiAdjustments}
+                          /> */}
                             </>
                           )}
                         </>
@@ -739,19 +855,27 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedEquipment.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedEquipment}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedEquipment.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedEquipment}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedEquipment.length === 0 && (
                           <StandardButton
@@ -775,19 +899,27 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedTypes.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedType}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedTypes.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedTypes}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedTypes.length === 0 && (
                           <StandardButton
@@ -811,24 +943,76 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedModels.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedModel}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedModels.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedModels}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedModels.length === 0 && (
                           <StandardButton
                             title="Add Model"
                             onClick={AddModel}
+                            className={"InventoryPage-MobileAddButton"}
+                            icon={HiPlus}
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+                  {/* RFID Antenna Tab */}
+                  {currentSection === "RFID Antenna" && (
+                    <>
+                      <RFIDAntennaInventory
+                        rfidAntennaInventory={rfidAntennaInventory}
+                        selectedRFIDAntennas={selectedRFIDAntennas}
+                        onSelectRFIDAntenna={SelectRFIDAntenna}
+                      />
+                      <div className="InventoryPage-MobileBottomActionContainer">
+                        {selectedRFIDAntennas.length === 1 && (
+                          <StandardButton
+                            title=""
+                            onClick={EditSelectedRFIDAntenna}
+                            className={"InventoryPage-MobileEditButton"}
+                            icon={HiPencilAlt}
+                          />
+                        )}
+                        {selectedRFIDAntennas.length > 0 && (
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedRFIDAntennas}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
+                        )}
+                        {selectedRFIDAntennas.length === 0 && (
+                          <StandardButton
+                            title="Add Antenna"
+                            onClick={AddRFIDAntenna}
                             className={"InventoryPage-MobileAddButton"}
                             icon={HiPlus}
                           />

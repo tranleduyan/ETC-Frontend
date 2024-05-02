@@ -21,6 +21,8 @@ import EquipmentForm from "../../Components/Forms/EquipmentForm/EquipmentForm";
 import TypeForm from "../../Components/Forms/TypeForm/TypeForm";
 import ModelForm from "../../Components/Forms/ModelForm";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
+import LocationForm from "../../Components/Forms/LocationForm";
+import RFIDAntennaForm from "../../Components/Forms/RFIDAntennaForm/RFIDAntennaForm";
 //#endregion
 
 //#region Import Icons
@@ -32,8 +34,6 @@ import {
   HiStatusOnline,
   HiLocationMarker,
 } from "react-icons/hi";
-import LocationForm from "../../Components/Forms/LocationForm";
-import RFIDAntennaForm from "../../Components/Forms/RFIDAntennaForm/RFIDAntennaForm";
 //#endregion
 
 // Define AddEquipmentPage Component
@@ -738,12 +738,13 @@ function AddToInventoryPage(props) {
                         className="AddToInventoryPage-AddButton"
                         icon={HiPlus}
                       />
-                      <StandardButton
+                      {/* Import Equipment can be displayed when the feature import is ready */}
+                      {/* <StandardButton
                         title="Import"
                         onClick={ImportEquipment}
                         className="AddToInventoryPage-ImportEquipmentButton"
                         icon={HiDocumentText}
-                      />
+                  /> */}
                     </>
                   )}
                   {/* If type tab, display Add Type Button */}

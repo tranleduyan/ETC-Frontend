@@ -23,21 +23,6 @@
   box-sizing: border-box;
 }
 
-.InventoryPage-ContentHeaderContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.InventoryPage-HeaderContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .InventoryPage-ActionContainer {
   display: flex;
   flex-direction: row;
@@ -71,10 +56,19 @@
   }
 
   .InventoryPage-ContentHeaderContainer {
-    height: calc(6.675vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: calc(calc(6.675vmin));
+    width: 100%;
   }
 
   .InventoryPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     gap: calc(2.225vmin);
   }
 
@@ -98,10 +92,10 @@
     width: calc(6.675vmin);
   }
 
-  .InventoryPage-MobileAddButton {
-    display: none !important;
-  }
-
+  .InventoryPage-MobileAddButton,
+  .InventoryPage-MobileEditButton,
+  .InventoryPage-MobileCancelButton,
+  .InventoryPage-MobileDeleteButton,
   .InventoryPage-MobileBottomActionContainer {
     display: none !important;
   }
@@ -150,30 +144,35 @@
 
   .InventoryPage-ContentHeaderContainer {
     height: calc(13.35vmin);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .InventoryPage-HeaderContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: calc(4.45vmin);
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
-  .InventoryPage-ActionContainer {
-    width: calc(13.35vmin);
-    height: calc(13.35vmin);
-  }
-
+  .InventoryPage-ActionContainer,
   .InventoryPage-EditButton,
   .InventoryPage-CancelButton,
+  .InventoryPage-DeleteButton,
+  .InventoryPage-FilterButton,
   .InventoryPage-AddButton {
     display: none !important;
   }
-
-  .InventoryPage-DeleteButton,
-  .InventoryPage-FilterButton {
+  .InventoryPage-MobileEditButton,
+  .InventoryPage-MobileDeleteButton {
     width: calc(13.35vmin);
-  }
-
-  .InventoryPage-MobileEditButton {
-    width: calc(44.5vmin);
   }
 
   .InventoryPage-MobileCancelButton {
@@ -200,5 +199,17 @@
   .InventoryPage-ResponseModalContainer {
     width: calc(91.225vmin);
     height: calc(61.1875vmin);
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .InventoryPage-MobileMiscHeaderButton {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .InventoryPage-MiscHeaderButton {
+    display: none !important;
   }
 }
