@@ -591,6 +591,22 @@ function InventoryPage(props) {
       });
   };
 
+  // FetchRFIDAntennaInventory - Fetch all RFID antennas in the inventory
+  const FetchRFIDAntennaInventory = () => {
+    axios
+      .get(`${API.domain}/api/inventory/antenna`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        setRFIDAntennaInventory(response.data.responseObject);
+      })
+      .catch((error) => {
+        setRFIDAntennaInventory([]);
+      });
+  };
+
   // CloseConfirmationModal - Hide/Close the confirmation modal
   const CloseConfirmationModal = () => {
     setConfirmationModal({
@@ -619,6 +635,7 @@ function InventoryPage(props) {
     FetchTypeInventory();
     FetchModelInventory();
     FetchLocationInventory();
+    FetchRFIDAntennaInventory();
   }, []);
 
   // useEffect to refresh data and reset selections after editing
@@ -628,6 +645,7 @@ function InventoryPage(props) {
       FetchModelInventory();
       FetchEquipmentInventory();
       FetchLocationInventory();
+      FetchRFIDAntennaInventory();
       setIsUpdated(false);
       setSelectedEquipment([]);
       setSelectedModels([]);

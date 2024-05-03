@@ -33,10 +33,10 @@ function RFIDAntennaInventory(props) {
       {rfidAntennaInventory?.length > 0 ? (
         rfidAntennaInventory.map((item) => (
           <RFIDAntennaInventoryCard
-            key={item.rfidAntennaId}
-            rfidAntennaId={item.rfidAntennaId}
-            rfidAntennaLocation={item.rfidAntennaLocation}
-            isSelected={selectedRFIDAntennas.includes(item.rfidAntennaId)}
+            key={item.antennaId}
+            rfidAntennaId={item.antennaId}
+            rfidAntennaLocation={item.locationName}
+            isSelected={selectedRFIDAntennas.includes(item.antennaId)}
             onSelect={onSelectRFIDAntenna}
           />
         ))

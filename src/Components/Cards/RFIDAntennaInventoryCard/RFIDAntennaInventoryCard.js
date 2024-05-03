@@ -45,7 +45,9 @@ function RFIDAntennaInventoryCard(props) {
       {/* RFID Antenna Information Section */}
       <div className="RFIDAntennaInventoryCard-InformationContainer">
         <p className="heading-5">{rfidAntennaId}</p>
-        <p className="paragraph-3">{rfidAntennaLocation}</p>
+        <p className="paragraph-3">
+          {rfidAntennaLocation ? rfidAntennaLocation : "Not used"}
+        </p>
       </div>
       {/* RFID Antenna Selection Button */}
       <div className="RFIDAntennaInventoryCard-SelectionContainer">
@@ -65,7 +67,7 @@ function RFIDAntennaInventoryCard(props) {
 RFIDAntennaInventoryCard.propTypes = {
   className: PropTypes.string,
   rfidAntennaId: PropTypes.string.isRequired,
-  rfidAntennaLocation: PropTypes.string.isRequired,
+  rfidAntennaLocation: PropTypes.string,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,
 };
@@ -74,6 +76,7 @@ RFIDAntennaInventoryCard.propTypes = {
 RFIDAntennaInventoryCard.defaultProps = {
   className: "",
   isSelected: false,
+  rfidAntennaLocation: "",
   onSelect: () => {},
 };
 

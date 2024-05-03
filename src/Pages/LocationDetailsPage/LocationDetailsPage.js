@@ -140,7 +140,7 @@ function LocationDetailsPage(props) {
       .catch(() => {
         setResponseModal({
           message:
-            "Something went wrong while retrieving the current equipment information.",
+            "Something went wrong while retrieving the current location information.",
           error: true,
           isVisible: true,
         });
