@@ -104,6 +104,14 @@
   height: 100%;
 }
 
+.LocationDetailsPage-LocationScanHistoryHeaderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
   .LocationDetailsPage-ContentContainer {
@@ -129,6 +137,7 @@
     width: calc(22.25vmin);
   }
 
+  .LocationDetailsPage-RefreshButton,
   .LocationDetailsPage-DeleteButton {
     width: calc(6.675vmin);
   }
@@ -243,22 +252,37 @@
   }
 
   .LocationDetailsPage-ActionContainer {
-    width: calc(13.35vmin);
+    flex: 1;
     height: calc(13.35vmin);
+    gap: calc(4.45vmin);
   }
 
+  .LocationDetailsPage-DeleteButton,
   .LocationDetailsPage-EditButton {
     display: none !important;
   }
 
-  .LocationDetailsPage-DeleteButton {
+  .LocationDetailsPage-RefreshButton {
     width: calc(13.35vmin);
   }
 
-  .LocationDetailsPage-MobileBottomActionContainer,
-  .LocationDetailsPage-MobileEditButton {
+  .LocationDetailsPage-MobileBottomActionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     width: 100%;
     height: calc(13.35vmin);
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsPage-MobileEditButton {
+    height: 100%;
+    flex: 1;
+  }
+
+  .LocationDetailsPage-MobileDeleteButton {
+    height: 100%;
+    width: calc(13.35vmin);
   }
 
   .LocationDetailsPage-ConfirmationModalContainer {

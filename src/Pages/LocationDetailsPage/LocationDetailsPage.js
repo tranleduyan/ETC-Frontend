@@ -28,6 +28,7 @@ import {
   HiChevronLeft,
   HiPencilAlt,
   HiTrash,
+  HiRefresh,
 } from "react-icons/hi";
 //#endregion
 
@@ -198,6 +199,12 @@ function LocationDetailsPage(props) {
           {/* Action Container */}
           <div className="LocationDetailsPage-ActionContainer">
             <StandardButton
+              title=""
+              onClick={FetchLocationInformation}
+              className="LocationDetailsPage-RefreshButton"
+              icon={HiRefresh}
+            />
+            <StandardButton
               title="Edit"
               onClick={HandleEdit}
               className="LocationDetailsPage-EditButton"
@@ -271,6 +278,12 @@ function LocationDetailsPage(props) {
             onClick={HandleEdit}
             className="LocationDetailsPage-MobileEditButton"
             icon={HiPencilAlt}
+          />
+          <StandardButton
+            title=""
+            onClick={DeleteLocation}
+            className="LocationDetailsPage-MobileDeleteButton"
+            icon={HiTrash}
           />
         </div>
       </div>
