@@ -528,9 +528,9 @@ function AddToInventoryPage(props) {
       return false;
     }
 
-    if (locationIsError) {
-      setLocationIsError(false);
-      setLocationErrorMessage("");
+    if (rfidAntennaIsError) {
+      setRFIDAntennaIsError(false);
+      setRFIDAntennaErrorMessage("");
     }
 
     return true;

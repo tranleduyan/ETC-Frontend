@@ -11,30 +11,49 @@ import LocationDetailsEquipmentCard from "../../Cards/LocationDetailsEquipmentCa
 import "./LocationDetailsEquipmentList.css";
 //#endregion
 
-//#region Import Icons
-import {
-  HiSwitchHorizontal,
-  HiExclamationCircle,
-  HiCheckCircle,
-  HiChevronLeft,
-  HiPencilAlt,
-  HiTrash,
-} from "react-icons/hi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
-//#endregion
-
 // Define LocationDetailsEquipmentList Component
 function LocationDetailsEquipmentList(props) {
   // Extract necessary props
   const { className, locationEquipment } = props;
 
   return (
-    <div className="LocationDetailsEquipmentList-Container">
-      <LocationDetailsEquipmentCard />
+    <div
+      className={`${
+        locationEquipment?.length > 0
+          ? "LocationDetailsEquipmentList-Container"
+          : "LocationDetailsEquipmentList-Message"
+      } ${className}`}
+    >
+      {locationEquipment?.length > 0 ? (
+        locationEquipment.map((item) => (
+          <LocationDetailsEquipmentCard
+            key={item.serialId}
+            serialId={item.serialId}
+            typeName={item.typeName}
+            modelPhoto={item.modelPhoto}
+            reservationStatus={item.reservationStatus}
+          />
+        ))
+      ) : (
+        <p className="paragraph-1">
+          There is no equipment has this location as a home.
+        </p>
+      )}
     </div>
   );
 }
+
+// Define PropTypes for the component
+LocationDetailsEquipmentList.propTypes = {
+  className: PropTypes.string,
+  locationEquipment: PropTypes.array,
+};
+
+// Define the defaultProps for the component
+LocationDetailsEquipmentList.defaultProps = {
+  className: "",
+  locationEquipment: [],
+};
 
 // Exports the LocationDetailsEquipmentList component as the default export for the LocationDetailsEquipmentList module.
 export default LocationDetailsEquipmentList;

@@ -149,7 +149,7 @@ function InventoryPage(props) {
   // OnLocationCardClick - Handle click on equipment card and navigate to detail page.
   const OnLocationCardClick = (locationId) => {
     setDetailSection("Location");
-    setLocationDetailId(locationDetailId);
+    setLocationDetailId(locationId);
   };
 
   //#region Selections
@@ -1211,7 +1211,7 @@ function InventoryPage(props) {
               <LocationDetailsPage
                 setDetailSection={setDetailSection}
                 setEditSection={setEditSection}
-                locationDetailId={locationDetailId}
+                locationId={locationDetailId}
                 setIsUpdated={setIsUpdated}
               />
             )}

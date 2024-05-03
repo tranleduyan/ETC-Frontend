@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { API } from "../../Constants";
 import { connect } from "react-redux";
-import { resetUserData } from "../../storage";
 //#endregion
 
 //#region Import UI Components
@@ -13,6 +12,8 @@ import ConfirmationModal from "../../Components/Modals/ConfirmationModal/Confirm
 import IconButton from "../../Components/Buttons/IconButton/IconButton";
 import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
 import Message from "../../Components/Message/Message";
+import LocationDetailsEquipmentList from "../../Components/Lists/LocationDetailsEquipmentList/LocationDetailsEquipmentList";
+import LocationDetailsAntennaList from "../../Components/Lists/LocationDetailsAntennaList";
 //#endregion
 
 //#region Import Stylings
@@ -27,23 +28,24 @@ import {
   HiChevronLeft,
   HiPencilAlt,
   HiTrash,
-  HiOutlineStatusOnline,
 } from "react-icons/hi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
-import LocationDetailsEquipmentList from "../../Components/Lists/LocationDetailsEquipmentList/LocationDetailsEquipmentList";
-import LocationDetailsAntennaList from "../../Components/Lists/LocationDetailsAntennaList";
 //#endregion
 
 // Define LocationDetailsPage Component
 function LocationDetailsPage(props) {
   // Extract revelevant information
-  const { setDetailSection, setEditSection, locationDetailId, setIsUpdated } =
-    props;
+  const {
+    setDetailSection,
+    setEditSection,
+    locationId,
+    setIsUpdated,
+    schoolId,
+    userRole,
+  } = props;
 
   const [locationInformation, setLocationInformation] = useState({
-    locationName: "alo",
-    attenas: [],
+    locationName: "",
+    antennas: [],
     scanHistory: [],
     equipment: [],
   });
@@ -73,7 +75,7 @@ function LocationDetailsPage(props) {
     setDetailSection("");
     setEditSection("");
     setLocationInformation({
-      attenas: [],
+      antennas: [],
       scanHistory: [],
       equipment: [],
     });
@@ -112,12 +114,51 @@ function LocationDetailsPage(props) {
 
   // FetchLocationInformation - Fetch location information
   const FetchLocationInformation = () => {
-    console.log("fetching locaiton informaiton");
+    axios
+      .get(`${API.domain}/api/location/${locationId}`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response.data.responseObject;
+
+        const adjustedScanHistory = responseObject.scanHistory.map((entry) => ({
+          ...entry,
+          scanTime: new Date(
+            new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
+          ),
+        }));
+
+        setLocationInformation({
+          locationName: responseObject.locationName,
+          antennas: responseObject.locationAntennas,
+          scanHistory: adjustedScanHistory,
+          equipment: responseObject.locationEquipment,
+        });
+      })
+      .catch(() => {
+        setResponseModal({
+          message:
+            "Something went wrong while retrieving the current equipment information.",
+          error: true,
+          isVisible: true,
+        });
+        setTimeout(() => {
+          setResponseModal({
+            message: "",
+            error: false,
+            isVisible: false,
+          });
+          OnBack();
+        }, 1500);
+      });
   };
 
   // Fetch location information upon mounting
   useEffect(() => {
     FetchLocationInformation();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -171,34 +212,57 @@ function LocationDetailsPage(props) {
           </div>
         </div>
         <div className="LocationDetailsPage-Content">
+          <div className="LocationDetailsPage-LocationScanHistoryContainer">
+            <p className="heading-5">Scan History</p>
+            {locationInformation.scanHistory?.length > 0 && (
+              <div className="LocationDetailsPage-LocationScanHistoryList">
+                {locationInformation.scanHistory.map((historyEntry) => (
+                  <div
+                    className="LocationDetailsPage-LocationScanHistoryCard"
+                    key={historyEntry?.scanHistoryId}
+                  >
+                    <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Date">
+                      {new Date(historyEntry?.scanTime).toLocaleDateString()}
+                    </p>
+                    <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Time">
+                      {new Date(historyEntry?.scanTime).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-EquipmentSerialID">
+                      {historyEntry?.serialId
+                        ? historyEntry.serialId
+                        : "[Serial ID]"}
+                    </p>
+                    <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Name">
+                      {historyEntry?.fullName ? historyEntry.fullName : "----"}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {locationInformation.scanHistory?.length === 0 && (
+              <Message
+                message={"The location has not been visited by anyone."}
+                className="LocationDetailsPage-EmptyUsageHistoryMessage"
+              />
+            )}
+          </div>
           <div className="LocationDetailsPage-InformationContainer">
             <div className="LocationDetailsPage-LocationEquipmentContainer">
               <p className="heading-5">Equipment</p>
-              <LocationDetailsEquipmentList className="LocationDetailsPage-LocationDetailsEquipmentList" />
+              <LocationDetailsEquipmentList
+                locationEquipment={locationInformation.equipment}
+              />
             </div>
-            <div className="LocationDetailsPage-LocationScanHistoryContainer">
-              <p className="heading-5">Scan History</p>
-              <div className="LocationDetailsPage-LocationScanHistoryList">
-                <div className="LocationDetailsPage-LocationScanHistoryCard">
-                  <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Date">
-                    11/02/2024
-                  </p>
-                  <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Time">
-                    06:54 PM
-                  </p>
-                  <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-EquipmentSerialID">
-                    AUSBH265
-                  </p>
-                  <p className="paragraph-1 LocationDetailsPage-LocationScanHistoryCard-Name">
-                    Paul, Wilson
-                  </p>
-                </div>
-              </div>
+            <div className="LocationDetailsPage-LocationAntennasContainer">
+              <p className="heading-5">RFID Antennas</p>
+              <LocationDetailsAntennaList
+                locationAntennas={locationInformation.antennas}
+                locationName={locationInformation.locationName}
+              />
             </div>
-          </div>
-          <div className="LocationDetailsPage-LocationAntennasContainer">
-            <p className="heading-5">RFID Antennas</p>
-            <LocationDetailsAntennaList />
           </div>
         </div>
         <div className="LocationDetailsPage-MobileBottomActionContainer">
@@ -214,4 +278,25 @@ function LocationDetailsPage(props) {
   );
 }
 
-export default LocationDetailsPage;
+// Define propTypes for LocationDetailsPage
+LocationDetailsPage.propTypes = {
+  setDetailSection: PropTypes.func.isRequired,
+  setEditSection: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+  locationId: PropTypes.number.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
+};
+
+// Define defaultProps for LocationDetailsPage
+LocationDetailsPage.defaultProps = {
+  schoolId: "",
+};
+
+// Map from Redux state to component props
+const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
+  schoolId: state.user.userData?.schoolId,
+});
+
+// Connect the component to Redux, mapping state and actions to props
+export default connect(mapStateToProps)(LocationDetailsPage);

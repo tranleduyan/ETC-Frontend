@@ -392,7 +392,7 @@ function EquipmentDetailsPage(props) {
                       })}
                     </p>
                     <p className="paragraph-1 EquipmentDetailsPage-UsageHistoryCard-Name">
-                      {historyEntry.FullName}
+                      {historyEntry.fullName}
                     </p>
                   </div>
                 ))}
