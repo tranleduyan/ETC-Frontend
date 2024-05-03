@@ -1,8 +1,17 @@
 //#region Import Necessary Dependencies
 import React from "react";
 import PropTypes from "prop-types";
+//#endregion
+
+//#region Import Stylings
 import "./RFIDAntennaInventoryCard.css";
+//#endregion
+
+//#region Import UI Components
 import IconButton from "../../Buttons/IconButton/IconButton";
+//#endregion
+
+//#region Import Icons
 import { HiOutlineStatusOnline } from "react-icons/hi";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 //#endregion
@@ -22,6 +31,7 @@ function RFIDAntennaInventoryCard(props) {
   const HandleOnSelect = () => {
     onSelect(rfidAntennaId);
   };
+
   return (
     <div
       className={`RFIDAntennaInventoryCard-Container ${

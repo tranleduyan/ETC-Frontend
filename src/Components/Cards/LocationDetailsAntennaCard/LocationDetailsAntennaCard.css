@@ -1,0 +1,125 @@
+/* General Stylings */
+.LocationDetailsAntennaCard-Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: var(--Black1);
+}
+
+.LocationDetailsAntennaCard-IconContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--Black1);
+}
+
+.LocationDetailsAntennaCard-InformationContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.LocationDetailsAntennaCard-Information {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 0px;
+}
+
+/* For tablets and larger screen */
+@media screen and (min-width: 481px) {
+  .LocationDetailsAntennaCard-Container {
+    min-height: calc(13.90625vmin);
+    border: calc(0.278125vmin) solid var(--Gray1);
+    border-radius: calc(1.390625vmin);
+    padding: calc(1.66875vmin);
+    gap: calc(2.225vmin);
+  }
+
+  .LocationDetailsAntennaCard-Active {
+    border: calc(0.278125vmin) solid var(--Black1);
+  }
+
+  .LocationDetailsAntennaCard-IconContainer {
+    height: calc(8.9vmin);
+    width: calc(8.9vmin);
+    border-radius: calc(1.390625vmin);
+  }
+
+  .LocationDetailsAntennaCard-Icon {
+    font-size: calc(6.675vmin);
+  }
+
+  .LocationDetailsAntennaCard-InformationContainer {
+    height: calc(8.9vmin);
+  }
+
+  .LocationDetailsAntennaCard-SelectionContainer {
+    height: calc(8.9vmin);
+    width: calc(3.3375vmin);
+  }
+
+  .LocationDetailsAntennaCard-InformationContainer p.heading-5 {
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -moz-box-lines: 2;
+    overflow: hidden;
+  }
+}
+
+/* For mobiles and smaller screen */
+@media screen and (max-width: 480px) {
+  .LocationDetailsAntennaCard-Container {
+    min-height: calc(32.25vmin);
+    border: calc(0.55625vmin) solid var(--Gray1);
+    border-radius: calc(2.78125vmin);
+    padding: calc(3.3375vmin);
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsAntennaCard-Active {
+    border: calc(0.55625vmin) solid var(--Black1);
+  }
+
+  .LocationDetailsAntennaCard-IconContainer {
+    width: calc(17.8vmin);
+    height: calc(17.8vmin);
+    border-radius: calc(2.78125vmin);
+  }
+
+  .LocationDetailsAntennaCard-Icon {
+    font-size: calc(13.35vmin);
+  }
+
+  .LocationDetailsAntennaCard-InformationContainer {
+    gap: calc(0.55625vmin);
+    flex: 1;
+  }
+
+  .LocationDetailsAntennaCard-SelectionContainer {
+    height: 100%;
+    width: calc(6.675vmin);
+  }
+
+  .LocationDetailsAntennaCard-InformationContainer p.heading-5 {
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -moz-box-lines: 2;
+    overflow: hidden;
+  }
+}

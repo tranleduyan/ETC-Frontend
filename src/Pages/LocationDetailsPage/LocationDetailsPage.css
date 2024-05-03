@@ -1,0 +1,348 @@
+/* General Stylings */
+.LocationDetailsPage-ContentContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.LocationDetailsPage-ContentHeaderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.LocationDetailsPage-HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.LocationDetailsPage-ActionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.LocationDetailsPage-ReponseModalIcon {
+  color: var(--Red1);
+}
+
+.LocationDetailsPage-Content {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.LocationDetailsPage-LocationAntennaCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: var(--Black1);
+}
+
+.LocationDetailsPage-InformationContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.LocationDetailsPage-LocationEquipmentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.LocationDetailsPage-LocationScanHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.LocationDetailsPage-LocationScanHistoryContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.LocationDetailsPage-LocationScanHistoryList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.LocationDetailsPage-LocationScanHistoryCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.LocationDetailsPage-LocationAntennasContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* For tablets and bigger devices */
+@media screen and (min-width: 481px) {
+  .LocationDetailsPage-ContentContainer {
+    height: calc(100% - calc(9.45625vmin));
+    padding: calc(2.225vmin);
+    gap: calc(2.225vmin);
+  }
+
+  .LocationDetailsPage-ContentHeaderContainer {
+    height: calc(6.675vmin);
+  }
+
+  .LocationDetailsPage-HeaderContainer {
+    gap: calc(2.225vmin);
+  }
+
+  .LocationDetailsPage-ActionContainer {
+    height: calc(6.675vmin);
+    gap: calc(2.225vmin);
+  }
+
+  .LocationDetailsPage-EditButton {
+    width: calc(22.25vmin);
+  }
+
+  .LocationDetailsPage-DeleteButton {
+    width: calc(6.675vmin);
+  }
+
+  .LocationDetailsPage-MobileEditButton {
+    display: none !important;
+  }
+
+  .LocationDetailsPage-MobileBottomActionContainer {
+    display: none !important;
+  }
+
+  .LocationDetailsPage-ConfirmationModalContainer {
+    width: calc(69.53125vmin);
+    max-height: calc(41.71875vmin);
+  }
+
+  .LocationDetailsPage-ResponseModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
+
+  .LocationDetailsPage-BackButton {
+    width: calc(1.66875vmin);
+    padding: 0px;
+  }
+
+  .LocationDetailsPage-Content {
+    flex-direction: row;
+    gap: calc(4.45vmin);
+    height: calc(100% - calc(8.9vmin));
+  }
+
+  .LocationDetailsPage-InformationContainer {
+    height: 100%;
+    flex: 1;
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsPage-LocationEquipmentContainer {
+    width: 100%;
+    gap: calc(2.225vmin);
+    height: 50%;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryContainer {
+    flex: 1;
+    width: 100%;
+    gap: calc(2.25vmin);
+    overflow-y: auto;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryList {
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: calc(0);
+    overflow-y: auto !important;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard {
+    padding: calc(2.225vmin);
+    gap: calc(2.225vmin);
+    border-top: calc(0.278125vmin) solid var(--Gray1);
+    border-left: calc(0.278125vmin) solid var(--Gray1);
+    border-right: calc(0.278125vmin) solid var(--Gray1);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard:last-child {
+    border-bottom: calc(0.278125vmin) solid var(--Gray1);
+    margin-bottom: 1px;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Date {
+    width: calc(14.8796875vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Time {
+    width: calc(11.125vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-EquipmentSerialID {
+    width: calc(33.375vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Name {
+    flex: 1;
+  }
+
+  .LocationDetailsPage-LocationAntennasContainer {
+    width: calc(50.0625vmin);
+    height: 100%;
+    gap: calc(2.225vmin);
+  }
+}
+
+/* For phones and smaller devices */
+@media screen and (max-width: 480px) {
+  .LocationDetailsPage-ContentContainer {
+    height: 100% - calc(17.8vmin);
+    padding: calc(4.45vmin);
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsPage-ContentHeaderContainer {
+    height: calc(13.35vmin);
+  }
+
+  .LocationDetailsPage-HeaderContainer {
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsPage-ActionContainer {
+    width: calc(13.35vmin);
+    height: calc(13.35vmin);
+  }
+
+  .LocationDetailsPage-EditButton {
+    display: none !important;
+  }
+
+  .LocationDetailsPage-DeleteButton {
+    width: calc(13.35vmin);
+  }
+
+  .LocationDetailsPage-MobileBottomActionContainer,
+  .LocationDetailsPage-MobileEditButton {
+    width: 100%;
+    height: calc(13.35vmin);
+  }
+
+  .LocationDetailsPage-ConfirmationModalContainer {
+    width: calc(91.225vmin);
+    max-height: calc(103.4625vmin);
+  }
+
+  .LocationDetailsPage-ResponseModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
+  }
+
+  .LocationDetailsPage-BackButton {
+    width: calc(0.834375vmin);
+    padding: 0;
+  }
+
+  .LocationDetailsPage-Content {
+    height: calc(100% - calc(calc(13.35vmin) + calc(22.25vmin)));
+    flex-direction: column;
+    gap: calc(8.9vmin);
+    width: 100%;
+    overflow-y: scroll;
+  }
+
+  .LocationDetailsPage-InformationContainer {
+    width: 100%;
+    gap: calc(4.45vmin);
+  }
+
+  .LocationDetailsPage-LocationEquipmentContainer {
+    width: 100%;
+    gap: calc(4.45vmin);
+    max-height: calc(91.225vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryContainer {
+    max-height: calc(91.225vmin);
+    width: 100%;
+    gap: calc(4.45vmin);
+    overflow-y: auto;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryList {
+    width: 100%;
+    flex: 1;
+    gap: calc(0);
+    overflow-y: auto !important;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard {
+    padding: calc(4.45vmin);
+    gap: calc(4.45vmin);
+    border-top: calc(0.55625vmin) solid var(--Gray1);
+    border-left: calc(0.55625vmin) solid var(--Gray1);
+    border-right: calc(0.55625vmin) solid var(--Gray1);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard:last-child {
+    border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    margin-bottom: 1px;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Date {
+    width: calc(30vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Time {
+    width: calc(22.25vmin);
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-EquipmentSerialID {
+    width: calc(28vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .LocationDetailsPage-LocationScanHistoryCard-Name {
+    width: calc(27.8125vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .LocationDetailsPage-LocationAntennasContainer {
+    width: 100%;
+    max-height: calc(91.225vmin);
+    gap: calc(4.45vmin);
+  }
+}

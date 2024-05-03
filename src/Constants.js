@@ -45,6 +45,9 @@ export const MESSAGE = {
   // Message for indicating empty RFID antennas
   emptyRFIDAntenna: "There are no RFID antennas in the inventory.",
 
+  // Message for indicating empty locations
+  emptyLocations: "There are no locations in the system.",
+
   // Message for indicating empty available items
   emptyAvailableModels: "There is no equipment available in this time period.",
 
