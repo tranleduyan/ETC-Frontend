@@ -367,8 +367,8 @@ function EquipmentDetailsPage(props) {
                 <p className="paragraph-1">
                   Home Room:{" "}
                   {equipmentInformation.homeRooms?.length > 0
-                    ? equipmentInformation.homeRooms
-                    : "None"}
+                    ? equipmentInformation.homeRooms.join(", ")
+                    : "No home rooms"}
                 </p>
               </div>
             </div>
