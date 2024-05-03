@@ -220,7 +220,7 @@ function LocationDetailsPage(props) {
         </div>
         <div className="LocationDetailsPage-Content">
           <div className="LocationDetailsPage-LocationScanHistoryContainer">
-            <p className="heading-5">Scan History</p>
+            <p className="heading-5">Recent Scan History</p>
             {locationInformation.scanHistory?.length > 0 && (
               <div className="LocationDetailsPage-LocationScanHistoryList">
                 {locationInformation.scanHistory.map((historyEntry) => (
