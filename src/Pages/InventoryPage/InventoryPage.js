@@ -276,7 +276,7 @@ function InventoryPage(props) {
       title: "Remove Equipment",
       content: "Are you sure you want to remove the selected equipment?",
       warning:
-        "This will also permanently delete all selected equipment and the action cannot be undone.",
+        "This will permanently delete all selected equipment and the action cannot be undone.",
       onYes: () => {
         // Close confirmation modal
         CloseConfirmationModal();
@@ -320,8 +320,10 @@ function InventoryPage(props) {
             // Refresh inventory data and reset selections
             FetchEquipmentInventory();
             setSelectedEquipment([]);
+
             FetchTypeInventory();
             setSelectedTypes([]);
+
             FetchModelInventory();
             setSelectedModels([]);
           })
@@ -517,12 +519,169 @@ function InventoryPage(props) {
 
   // DeleteSelectedRFIDAntennas - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
   const DeleteSelectedRFIDAntennas = () => {
-    console.log("Delete RFID Antenna");
+    const antennaText =
+      selectedRFIDAntennas?.length > 1 ? "antennas" : "antenna";
+    setConfirmationModal({
+      title: "Remove RFID Antennas",
+      content: `Are you sure you want to remove the selected ${antennaText}?`,
+      warning: `This will permanently delete all selected RFID ${antennaText} and the action cannot be undone.`,
+      onYes: () => {
+        // Close confirmation modal
+        CloseConfirmationModal();
+
+        // Show processing message
+        setResponseModal({
+          message: `Deleting the selected ${antennaText}...`,
+          isVisible: true,
+        });
+
+        setIsProcessing(true);
+
+        // Perform API call for RFID antennas deletion
+        axios
+          .delete(`${API.domain}/api/inventory/antenna`, {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              antennaIds: selectedRFIDAntennas,
+            },
+          })
+          .then(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show success message
+            setResponseModal({
+              message: `The selected ${antennaText} have been successfully removed from the inventory.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+
+            // Refresh inventory data and reset selections
+            FetchRFIDAntennaInventory();
+            setSelectedRFIDAntennas([]);
+
+            FetchLocationInventory();
+            setSelectedLocations([]);
+          })
+          .catch(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show error message
+            setResponseModal({
+              message: `Something went wrong while deleting the selected ${antennaText}.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          });
+      },
+      onNo: () => {
+        // Close confirmation modal if user chooses not to proceed
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
   };
 
   // DeleteSelectedLocations - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
   const DeleteSelectedLocations = () => {
-    console.log("Delete Locations");
+    const locationText =
+      selectedLocations?.length > 1 ? "locations" : "location";
+    // Show confirmation modal for location deletion
+    setConfirmationModal({
+      title: "Remove Locations",
+      content: `Are you sure you want to remove the selected ${locationText}?`,
+      warning: `This will also permanently deleted all selected ${locationText} and the action cannot be undone.`,
+      onYes: () => {
+        // Close confirmation modal
+        CloseConfirmationModal();
+
+        // Show processing message
+        setResponseModal({
+          message: `Deleting the selected ${locationText}...`,
+          isVisible: true,
+        });
+
+        setIsProcessing(true);
+
+        // Perform API call for locations deletion
+        axios
+          .delete(`${API.domain}/api/location`, {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              locationIds: selectedLocations,
+            },
+          })
+          .then(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show success message
+            setResponseModal({
+              message: `The selected ${locationText} have been successfully removed from the system.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+
+            // Refresh inventory data and reset selections
+            FetchRFIDAntennaInventory();
+            setSelectedRFIDAntennas([]);
+
+            FetchLocationInventory();
+            setSelectedLocations([]);
+          })
+          .catch(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show error message
+            setResponseModal({
+              message: `Something went wrong while deleting the selected ${locationText}.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          });
+      },
+      onNo: () => {
+        // Close confirmation modal if user chooses not to proceed
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
   };
   //#endregion
 
