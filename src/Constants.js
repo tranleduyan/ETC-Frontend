@@ -96,13 +96,17 @@ export const MESSAGE = {
   // Message for successfully update a type
   successTypeUpdate: "The type has been successfully updated in the inventory.",
 
-  // Message for successfully update a type
+  // Message for successfully update an equipment
   successEquipmentUpdate:
     "The equipment has been successfully updated in the inventory.",
 
-  // Message for successfully update a type
+  // Message for successfully update a model
   successModelUpdate:
     "The model has been successfully updated in the inventory.",
+
+  // Message for successfully update a location
+  successLocationUpdate:
+    "The location has been successfully updated in the system.",
 };
 
 // Constants for drop down options

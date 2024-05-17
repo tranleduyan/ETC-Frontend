@@ -242,6 +242,7 @@ function EquipmentDetailsPage(props) {
             error: false,
             isVisible: false,
           });
+          setIsUpdated(false);
           OnBack();
         }, 1500);
       });

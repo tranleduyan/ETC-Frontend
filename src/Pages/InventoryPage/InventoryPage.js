@@ -38,12 +38,13 @@ import {
   HiMinusCircle,
   HiTrash,
   HiPlus,
-  HiAdjustments,
+  // HiAdjustments,
   HiStatusOnline,
   HiLocationMarker,
 } from "react-icons/hi";
 import LocationInventory from "../../Components/Inventory/LocationInventory/LocationInventory";
 import LocationDetailsPage from "../LocationDetailsPage";
+import UpdateLocationPage from "../UpdateLocationPage";
 //#endregion
 
 // Define InventoryPage Component
@@ -136,9 +137,9 @@ function InventoryPage(props) {
   };
 
   // OnFilterClick - TODO: Open Filter Modal based on the currentSection state
-  const OnFilterClick = () => {
-    console.log("Filter");
-  };
+  // const OnFilterClick = () => {
+  //  console.log("Filter");
+  // };
 
   // OnEquipmentCardClick - Handle click on equipment card and navigate to detail page.
   const OnEquipmentCardClick = (equipmentSerialId) => {
@@ -1360,7 +1361,6 @@ function InventoryPage(props) {
               <UpdateTypePage
                 setEditSection={setEditSection}
                 typeId={selectedTypes?.[0]}
-                isUpdated={isUpdated}
                 setIsUpdated={setIsUpdated}
               />
             )}
@@ -1370,7 +1370,6 @@ function InventoryPage(props) {
               <UpdateModelPage
                 setEditSection={setEditSection}
                 modelId={selectedModels?.[0]}
-                isUpdated={isUpdated}
                 setIsUpdated={setIsUpdated}
               />
             )}
@@ -1401,7 +1400,16 @@ function InventoryPage(props) {
                 equipmentSerialId={equipmentDetailSerialId}
                 setEditSection={setEditSection}
                 setIsUpdated={setIsUpdated}
-                isUpdated={isUpdated}
+              />
+            )}
+            {/* If there is an editSection for location */}
+            {editSection === "Location" && (
+              <UpdateLocationPage
+                detailSection={detailSection}
+                setDetailSection={setDetailSection}
+                locationId={locationDetailId}
+                setEditSection={setEditSection}
+                setIsUpdated={setIsUpdated}
               />
             )}
           </div>

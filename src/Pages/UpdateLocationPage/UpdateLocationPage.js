@@ -1,21 +1,22 @@
-//#region Import Neccessary Dependencies
+//#region Import Necessary Dependencies
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-import { API, MESSAGE } from "../../Constants";
+import { API, MESSAGE, OPTIONS } from "../../Constants";
 import { connect } from "react-redux";
+import { resetUserData } from "../../storage";
+import PropTypes from "prop-types";
 //#endregion
+
+// Import Stylings
+import "./UpdateLocationPage.css";
 
 //#region Import UI Components
 import IconModal from "../../Components/Modals/IconModal/IconModal";
 import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
 import IconButton from "../../Components/Buttons/IconButton/IconButton";
 import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
-import ModelForm from "../../Components/Forms/ModelForm/ModelForm";
+import LocationForm from "../../Components/Forms/LocationForm/LocationForm";
 //#endregion
-
-// Import Stylings
-import "./UpdateModelPage.css";
 
 //#region Import Icons
 import {
@@ -28,24 +29,26 @@ import {
 } from "react-icons/hi";
 //#endregion
 
-// Define UpdateModelPage Component
-function UpdateModelPage(props) {
+// Define UpdateLocationPage Component
+function UpdateLocationPage(props) {
   // Extract relevant information
-  const { setEditSection, modelId, schoolId, setIsUpdated } = props;
+  const {
+    detailSection,
+    setDetailSection,
+    setEditSection,
+    locationId,
+    schoolId,
+    setIsUpdated,
+  } = props;
 
-  // Types options
-  const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
-
-  // Information for updating model
-  const [modelInformation, setModelInformation] = useState({
+  // Information for updating location
+  const [locationInformation, setLocationInformation] = useState({
     name: "",
-    type: null,
-    photo: null,
   });
 
-  // Model form error state and error message
-  const [modelIsError, setModelIsError] = useState(false);
-  const [modelErrorMessage, setModelErrorMessage] = useState("");
+  // Location form error state and error message
+  const [locationIsError, setLocationIsError] = useState(false);
+  const [locationErrorMessage, setLocationErrorMessage] = useState("");
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -67,29 +70,17 @@ function UpdateModelPage(props) {
     isVisible: false,
   });
 
-  // IsModelFormValid - Check for form validation
-  const IsModelFormValid = () => {
-    if (!modelInformation.name) {
-      setModelIsError(true);
-      setModelErrorMessage("Please enter the model name.");
+  // IsLocationFormValid - Check for form validation
+  const IsLocationFormValid = () => {
+    if (!locationInformation.name) {
+      setLocationIsError(true);
+      setLocationErrorMessage("Please enter the location name.");
       return false;
     }
 
-    if (!modelInformation.type) {
-      setModelIsError(true);
-      setModelErrorMessage("Please select the model type.");
-      return false;
-    }
-
-    if (!modelInformation.photo) {
-      setModelIsError(true);
-      setModelErrorMessage("Please upload the model photo.");
-      return false;
-    }
-
-    if (modelIsError) {
-      setModelIsError(false);
-      setModelErrorMessage("");
+    if (locationIsError) {
+      setLocationIsError(false);
+      setLocationErrorMessage("");
     }
 
     return true;
@@ -98,37 +89,32 @@ function UpdateModelPage(props) {
   // OnBack - Set editSection to empty to hide the component and show the previous page.
   const OnBack = () => {
     setEditSection("");
-    setModelInformation({
+    setLocationInformation({
       name: "",
-      type: null,
-      photo: null,
     });
   };
 
-  // SaveUpdate - Update the model information
+  // SaveUpdate - Update the location information
   const SaveUpdate = () => {
-    if (IsModelFormValid()) {
+    if (IsLocationFormValid()) {
       // Show processing message
       setIsProcessing(true);
       setResponseModal({
         message: "Saving the updates...",
+        error: false,
+        isVisible: true,
       });
 
-      // Form data to submit
-      const formData = new FormData();
+      const requestBody = {
+        schoolId: schoolId,
+        newLocationName: locationInformation.name,
+      };
 
-      //Appened necessary information to the form data
-      formData.append("modelName", modelInformation.name);
-      formData.append("typeId", modelInformation.type.value);
-      formData.append("image", modelInformation.photo);
-      formData.append("schoolId", schoolId);
-
-      // Perform API call for equipment model update
+      // Perform API call for equipment type update
       axios
-        .put(`${API.domain}/api/inventory/models/${modelId}`, formData, {
+        .put(`${API.domain}/api/location/${locationId}`, requestBody, {
           headers: {
             "X-API-KEY": API.key,
-            "Content-Type": "multipart/form-data",
           },
         })
         .then(() => {
@@ -137,7 +123,7 @@ function UpdateModelPage(props) {
 
           // Show success message
           setResponseModal({
-            message: MESSAGE.successModelUpdate,
+            message: MESSAGE.successLocationUpdate,
             error: false,
             isVisible: true,
           });
@@ -152,13 +138,14 @@ function UpdateModelPage(props) {
           }, 1500);
           setIsUpdated(true);
         })
-        .catch((error) => {
+        .catch(() => {
           // Hide processing message
           setIsProcessing(false);
 
           // Show error message
           setResponseModal({
-            message: "Something went wrong while updating the current type.",
+            message:
+              "Something went wrong while updating the current location.",
             error: true,
             isVisible: true,
           });
@@ -174,57 +161,65 @@ function UpdateModelPage(props) {
     }
   };
 
-  // DeleteModel - Delete the model
-  const DeleteModel = () => {
-    // Show confirmation modal for type deletion
+  // DeleteLocation - Delete the current location
+  const DeleteLocation = () => {
+    // Show confirmation modal for equipment deletion
     setConfirmationModal({
-      title: "Remove Model",
-      content: "Are you sure you want to remove the current equipment model?",
-      warning:
-        "This will also permanently delete all equipment associated with the current model and the action cannot be undone.",
+      title: "Remove Location",
+      content: `Are you sure you want to remove this location?`,
+      warning: `This will also permanently delete this location and the action cannot be undone.`,
       onYes: () => {
-        // Close the confirmation modal
+        // Close confirmation modal
         CloseConfirmationModal();
 
-        // Set and Show the response modal
+        // Show processing message
         setResponseModal({
-          message: "Deleting the current model...",
+          message: `Deleting this location...`,
           isVisible: true,
         });
 
-        // Set state to is processing
         setIsProcessing(true);
 
-        // Process - perform deletion api
+        // Perform API call for location deletion
         axios
-          .delete(`${API.domain}/api/inventory/models`, {
+          .delete(`${API.domain}/api/location`, {
             headers: {
               "X-API-KEY": API.key,
             },
             data: {
               schoolId: schoolId,
-              modelIds: [modelId],
+              locationIds: [locationId],
             },
           })
           .then(() => {
+            // Hide processing message
             setIsProcessing(false);
+
+            // Show success message
             setResponseModal({
-              message: MESSAGE.successModelRemoval,
+              message: `The location has been successfully removed from the system.`,
               error: false,
               isVisible: true,
             });
+
+            // Turn off the response modal after 1500ms and navigate back.
             setTimeout(() => {
               setResponseModal({
                 message: "",
                 error: false,
                 isVisible: false,
               });
+
+              setEditSection("");
+              setLocationInformation({
+                name: "",
+              });
+
+              if (detailSection) {
+                setDetailSection("");
+              }
             }, 1500);
-
             setIsUpdated(true);
-
-            // Return to the previous page
-            OnBack();
           })
           .catch(() => {
             // Hide processing message
@@ -232,7 +227,7 @@ function UpdateModelPage(props) {
 
             // Show error message
             setResponseModal({
-              message: "Something went wrong while deleting the current model.",
+              message: "Something went wrong while deleting the location.",
               error: true,
               isVisible: true,
             });
@@ -275,103 +270,59 @@ function UpdateModelPage(props) {
     }
   };
 
-  // FetchModelInformation - fetch model information
-  const FetchModelInformation = () => {
+  // FetchLocationInformation - Fetch location information
+  const FetchLocationInformation = () => {
     axios
-      .get(`${API.domain}/api/inventory/models/${modelId}`, {
+      .get(`${API.domain}/api/location/${locationId}`, {
         headers: {
           "X-API-KEY": API.key,
         },
       })
       .then((response) => {
-        const typeId = response.data.responseObject.typeId;
+        const responseObject = response.data.responseObject;
 
-        // Find the corresponding type option based on typeId
-        const currentType = equipmentTypeOptions.find(
-          (option) => option.value === typeId
-        );
-
-        // Set model information
-        setModelInformation({
-          name: response.data.responseObject.modelName,
-          photo: response.data.responseObject.modelPhoto,
-          type: currentType,
+        setLocationInformation({
+          name: responseObject.locationName,
         });
       })
       .catch(() => {
-        // Show Error Message
         setResponseModal({
           message:
-            "Something went wrong while retrieving the current model information.",
+            "Something went wrong while retrieving the current location information.",
           error: true,
           isVisible: true,
         });
-
-        // Turn off message after 1500ms, and go back.
         setTimeout(() => {
           setResponseModal({
             message: "",
             error: false,
             isVisible: false,
           });
+          setIsUpdated(false);
           OnBack();
         }, 1500);
-        setIsUpdated(false);
-        OnBack();
       });
   };
 
-  // FetchAllTypeOptions - fetch all type options
-  const FetchAllTypeOptions = () => {
-    axios
-      .get(`${API.domain}/api/inventory/types`, {
-        headers: {
-          "X-API-KEY": API.key,
-        },
-      })
-      .then((response) => {
-        // Map Value and Label
-        const options = response.data.responseObject.map((type) => ({
-          value: type.typeId,
-          label: type.typeName,
-        }));
-
-        // Set the options
-        setEquipmentTypeOptions(options);
-      })
-      .catch(() => {
-        // Type not found
-        setEquipmentTypeOptions([]);
-      });
-  };
-
-  // Fetch all type options on component mount
+  // Fetch location information upon mounting
   useEffect(() => {
-    FetchAllTypeOptions();
+    FetchLocationInformation();
     // eslint-disable-next-line
   }, []);
-
-  // Fetch model information when equipmentTypeOptions change
-  useEffect(() => {
-    if (equipmentTypeOptions) {
-      FetchModelInformation();
-    }
-    // eslint-disable-next-line
-  }, [equipmentTypeOptions]);
 
   return (
     <>
       {/* Response Modal for displaying successful messages or errors */}
       <IconModal
-        className="UpdateModelPage-ResponseModalContainer"
+        className="UpdateLocationPage-ResponseModalContainer"
         icon={ResponseIcon()}
-        iconClassName="UpdateModelPage-ResponseModalIcon"
+        iconClassName="UpdateLocationPage-ResponseModalIcon"
         message={responseModal.message}
         isVisible={responseModal.isVisible || isProcessing}
       />
       {/* Confirmation Modal for warnings and confirmation actions */}
       <ConfirmationModal
-        className="UpdateModelPage-ConfirmationModalContainer"
+        className="UpdateLocationPage-ConfirmationModalContainer"
         title={confirmationModal.title}
         content={confirmationModal.content}
         warning={confirmationModal.warning}
@@ -379,49 +330,48 @@ function UpdateModelPage(props) {
         onNo={confirmationModal.onNo}
         isVisible={confirmationModal.isVisible}
       />
-      <div className="UpdateModelPage-ContentContainer">
+      <div className="UpdateLocationPage-ContentContainer">
         {/* Content Header Container */}
-        <div className="UpdateModelPage-ContentHeaderContainer">
+        <div className="UpdateLocationPage-ContentHeaderContainer">
           {/* Header Container */}
-          <div className="UpdateModelPage-HeaderContainer">
+          <div className="UpdateLocationPage-HeaderContainer">
             {/* Back Button */}
             <IconButton
               icon={HiChevronLeft}
-              className="UpdateModelPage-BackButton"
+              className="UpdateLocationPage-BackButton"
               onClick={OnBack}
             />
             {/* Header */}
-            <p className="heading-5">Update Model</p>
+            <p className="heading-5">Update Location</p>
           </div>
           {/* Action Container */}
-          <div className="UpdateModelPage-ActionContainer">
+          <div className="UpdateLocationPage-ActionContainer">
             <StandardButton
               title="Save"
               onClick={SaveUpdate}
-              className="UpdateModelPage-SaveButton"
+              className="UpdateLocationPage-SaveButton"
               icon={HiBookmarkAlt}
             />
             <StandardButton
               title=""
-              onClick={DeleteModel}
-              className="UpdateModelPage-DeleteButton"
+              onClick={DeleteLocation}
+              className="UpdateLocationPage-DeleteButton"
               icon={HiTrash}
             />
           </div>
         </div>
-        {/* Model Form */}
-        <ModelForm
-          modelInformation={modelInformation}
-          setModelInformation={setModelInformation}
-          isError={modelIsError}
-          errorMessage={modelErrorMessage}
-          equipmentTypeOptions={equipmentTypeOptions}
+        {/* Location Form */}
+        <LocationForm
+          locationInformation={locationInformation}
+          setLocationInformation={setLocationInformation}
+          isError={locationIsError}
+          errorMessage={locationErrorMessage}
         />
         {/* Mobile Save Update Button */}
         <StandardButton
           title="Save"
           onClick={SaveUpdate}
-          className="UpdateModelPage-MobileSaveButton"
+          className="UpdateLocationPage-MobileSaveButton"
           icon={HiBookmarkAlt}
         />
       </div>
@@ -429,23 +379,30 @@ function UpdateModelPage(props) {
   );
 }
 
-// Define the props types for the component
-UpdateModelPage.propTypes = {
+// Define PropTypes
+UpdateLocationPage.propTypes = {
+  detailSection: PropTypes.string.isRequired,
+  setDetailSection: PropTypes.func,
   setEditSection: PropTypes.func.isRequired,
-  modelId: PropTypes.number.isRequired,
-  setIsUpdated: PropTypes.func.isRequired,
+  locationId: PropTypes.number.isRequired,
   schoolId: PropTypes.string,
+  setIsUpdated: PropTypes.func.isRequired,
 };
 
-// Define default props for the component
-UpdateModelPage.defaultProps = {
+// Define defaultProps
+UpdateLocationPage.defaultProps = {
   schoolId: "",
 };
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
+  userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
 });
 
-// Exports the UpdateModelPage component as the default export for the UpdateModelPage module.
-export default connect(mapStateToProps)(UpdateModelPage);
+// Define the actions to be mapped to props
+const mapDispatchToProps = {
+  resetUserData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateLocationPage);

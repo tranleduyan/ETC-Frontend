@@ -194,7 +194,7 @@ function UpdateEquipmentPage(props) {
 
   // DeleteEquipment - Delete the current equipment
   const DeleteEquipment = () => {
-    // Show confirmation modal for type deletion
+    // Show confirmation modal for equipment deletion
     setConfirmationModal({
       title: "Remove Equipment",
       content: `Are you sure you want to remove ${equipmentSerialId}?`,
@@ -440,6 +440,7 @@ function UpdateEquipmentPage(props) {
               isVisible: false,
             });
             OnBack();
+            setIsUpdated(false);
           }, 1500);
         });
     }
