@@ -51,6 +51,9 @@ function UpdateEquipmentPage(props) {
   // Options for equipment types dropdowns
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
 
+  // Options for locations dropdowns
+  const [locationOptions, setLocationOptions] = useState([]);
+
   // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
   const [equipmentErrorMessage, setEquipmentErrorMessage] = useState("");
@@ -65,7 +68,7 @@ function UpdateEquipmentPage(props) {
       (status) => status.value === "Available"
     ),
     rfidTag: "",
-    homeLocation: null,
+    homeLocations: [],
     condition: "",
     purchaseCost: "",
     purchaseDate: null,
@@ -103,7 +106,7 @@ function UpdateEquipmentPage(props) {
         (status) => status.value === "Available"
       ),
       rfidTag: "",
-      homeLocation: null,
+      homeLocations: [],
       condition: "",
       purchaseCost: "",
       purchaseDate: null,
@@ -127,6 +130,7 @@ function UpdateEquipmentPage(props) {
         modelId: equipmentInformation.model.value,
         maintenanceStatus: equipmentInformation.maintenanceStatus.value,
         reservationStatus: equipmentInformation.reservationStatus.value,
+        homeLocations: equipmentInformation.homeLocations,
         usageCondition: equipmentInformation.condition.value,
         purchaseCost: parseFloat(equipmentInformation.purchaseCost),
         purchaseDate: equipmentInformation.purchaseDate
@@ -251,7 +255,7 @@ function UpdateEquipmentPage(props) {
                   (status) => status.value === "Available"
                 ),
                 rfidTag: "",
-                homeLocation: null,
+                homeLocations: [],
                 condition: "",
                 purchaseCost: "",
                 purchaseDate: null,
@@ -358,6 +362,31 @@ function UpdateEquipmentPage(props) {
     }
   };
 
+  // FetchAllLocationOptions - Fetching all the locations options.
+  const FetchAllLocationOptions = () => {
+    // HTTP get request to fetch all the location options
+    axios
+      .get(`${API.domain}/api/location`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        // Map value and label
+        const options = response.data.responseObject.map((location) => ({
+          value: location.locationId,
+          label: location.locationName,
+        }));
+
+        // Set the options
+        setLocationOptions(options);
+      })
+      .catch(() => {
+        // Locations not found, reset location options
+        setLocationOptions([]);
+      });
+  };
+
   // FetchAllTypeOptions - Fetching all the types available.
   const FetchAllTypeOptions = () => {
     axios
@@ -382,6 +411,7 @@ function UpdateEquipmentPage(props) {
   // Fetch all the types for options upon mounting
   useEffect(() => {
     FetchAllTypeOptions();
+    FetchAllLocationOptions();
     // eslint-disable-next-line
   }, []);
 
@@ -409,7 +439,14 @@ function UpdateEquipmentPage(props) {
               (status) => status.value === responseObject.reservationStatus
             ),
             rfidTag: "",
-            homeLocation: null,
+            homeLocations:
+              Array.isArray(responseObject.homeRooms) &&
+              responseObject.homeRooms.length > 0
+                ? responseObject.homeRooms.map((room) => ({
+                    value: room.locationId,
+                    label: room.locationName,
+                  }))
+                : [],
             condition: OPTIONS.equipment.conditions.find(
               (condition) => condition.value === responseObject.usageCondition
             ),
@@ -561,6 +598,7 @@ function UpdateEquipmentPage(props) {
           equipmentModelOptions={equipmentModelOptions}
           equipmentTypeOptions={equipmentTypeOptions}
           disableSerialNumber={true}
+          equipmentHomeLocationOptions={locationOptions}
         />
         {/* Mobile Save Update Button */}
         <StandardButton
