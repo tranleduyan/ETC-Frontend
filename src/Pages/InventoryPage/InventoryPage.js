@@ -45,6 +45,7 @@ import {
 import LocationInventory from "../../Components/Inventory/LocationInventory/LocationInventory";
 import LocationDetailsPage from "../LocationDetailsPage";
 import UpdateLocationPage from "../UpdateLocationPage";
+import UpdateRFIDAntennaPage from "../UpdateRFIDAntennaPage";
 //#endregion
 
 // Define InventoryPage Component
@@ -267,6 +268,7 @@ function InventoryPage(props) {
   // EditSelectedLocation - Render the Edit Location Component
   const EditSelectedLocation = () => {
     setEditSection("Location");
+    setLocationDetailId(selectedLocations?.[0]);
   };
   //#endregion
 
@@ -1373,6 +1375,16 @@ function InventoryPage(props) {
                 setIsUpdated={setIsUpdated}
               />
             )}
+
+            {/* If there is an editSection request for RFID Antenna present */}
+            {!detailSection && editSection === "RFID Antenna" && (
+              <UpdateRFIDAntennaPage
+                setEditSection={setEditSection}
+                rfidAntennaId={selectedRFIDAntennas?.[0]}
+                setIsUpdated={setIsUpdated}
+              />
+            )}
+
             {/* If there is a detailSection present and not have an editSection */}
             {detailSection === "Equipment" && !editSection && (
               <EquipmentDetailsPage

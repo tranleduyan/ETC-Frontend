@@ -176,7 +176,7 @@ function UpdateModelPage(props) {
 
   // DeleteModel - Delete the model
   const DeleteModel = () => {
-    // Show confirmation modal for type deletion
+    // Show confirmation modal for model deletion
     setConfirmationModal({
       title: "Remove Model",
       content: "Are you sure you want to remove the current equipment model?",
