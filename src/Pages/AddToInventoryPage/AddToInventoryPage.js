@@ -100,7 +100,7 @@ function AddToInventoryPage(props) {
         (status) => status.value === "Available"
       ),
       rfidTag: "",
-      homeLocation: null,
+      homeLocations: [],
       condition: "",
       purchaseCost: "",
       purchaseDate: null,
@@ -153,6 +153,9 @@ function AddToInventoryPage(props) {
               .toISOString()
               .split("T")[0]
           : null,
+        homeLocations: equipmentAdditionInformation.homeLocations.map(
+          (location) => location.value
+        ),
       };
 
       axios
@@ -183,7 +186,7 @@ function AddToInventoryPage(props) {
               (status) => status.value === "Available"
             ),
             rfidTag: "",
-            homeLocation: null,
+            homeLocations: [],
             condition: "",
             purchaseCost: "",
             purchaseDate: null,
@@ -798,6 +801,7 @@ function AddToInventoryPage(props) {
                     equipmentModelOptions={equipmentModelOptions}
                     equipmentTypeOptions={equipmentTypeOptions}
                     disableReservationStatus={true}
+                    equipmentHomeLocationOptions={locationOptions}
                   />
                   {/* Mobile Add Equipment Button */}
                   <StandardButton

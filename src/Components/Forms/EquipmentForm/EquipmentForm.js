@@ -28,6 +28,7 @@ function EquipmentForm(props) {
     equipmentModels,
     equipmentModelOptions,
     equipmentTypeOptions,
+    equipmentHomeLocationOptions,
     equipmentInformation,
     setEquipmentInformation,
     isError,
@@ -198,9 +199,10 @@ function EquipmentForm(props) {
             <StandardDropDown
               placeholder="Select home location"
               className="EquipmentForm-Field"
-              name="homeLocation"
-              options={[]}
-              value={equipmentInformation.homeLocation}
+              name="homeLocations"
+              options={equipmentHomeLocationOptions}
+              value={equipmentInformation.homeLocations}
+              isMulti={true}
               onChange={(name, value) =>
                 HandleEquipmentInputChange(name, value)
               }
@@ -274,6 +276,7 @@ EquipmentForm.propTypes = {
   equipmentTypeOptions: PropTypes.array.isRequired,
   disableReservationStatus: PropTypes.bool,
   disableSerialNumber: PropTypes.bool,
+  equipmentHomeLocationOptions: PropTypes.array.isRequired,
 };
 
 // Define Default Props for the component
