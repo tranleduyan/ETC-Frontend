@@ -41,7 +41,6 @@ function LocationDetailsPage(props) {
     locationId,
     setIsUpdated,
     schoolId,
-    userRole,
   } = props;
 
   const [locationInformation, setLocationInformation] = useState({
@@ -101,7 +100,68 @@ function LocationDetailsPage(props) {
 
   // DeleteLocation - Delete the location upon yes selection, else close the confirmation modal if no.
   const DeleteLocation = () => {
-    console.log("delete location");
+    setConfirmationModal({
+      title: `Remove Location`,
+      content: `Are you sure you want to remove this location?`,
+      warning: `This will also permanently delete this location and the action cannot be undone.`,
+      onYes: () => {
+        CloseConfirmationModal();
+        setResponseModal({
+          message: `Deleting this location...`,
+          isVisible: true,
+        });
+        setIsProcessing(true);
+
+        axios
+          .delete(`${API.domain}/api/location`, {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              locationIds: [locationId],
+            },
+          })
+          .then(() => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: `The location has been successfully removed from the inventory.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+              OnBack();
+            }, 1500);
+            setIsUpdated(true);
+          })
+          .catch(() => {
+            setIsProcessing(false);
+            setResponseModal({
+              message: `Something went wrong while deleting this location.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+            setIsUpdated(false);
+          });
+      },
+      // Close the confirmation modal if choose not to proceed further
+      onNo: () => {
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
   };
 
   // ResponseIcon - Determine response icon based on processing state
@@ -307,7 +367,6 @@ LocationDetailsPage.defaultProps = {
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
-  userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
 });
 

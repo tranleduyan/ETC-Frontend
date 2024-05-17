@@ -436,7 +436,6 @@ EquipmentDetailsPage.defaultProps = {
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
-  userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
 });
 
