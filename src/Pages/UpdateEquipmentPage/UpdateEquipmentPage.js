@@ -130,7 +130,9 @@ function UpdateEquipmentPage(props) {
         modelId: equipmentInformation.model.value,
         maintenanceStatus: equipmentInformation.maintenanceStatus.value,
         reservationStatus: equipmentInformation.reservationStatus.value,
-        homeLocations: equipmentInformation.homeLocations,
+        homeLocations: equipmentInformation.homeLocations.map(
+          (location) => location.value
+        ),
         usageCondition: equipmentInformation.condition.value,
         purchaseCost: parseFloat(equipmentInformation.purchaseCost),
         purchaseDate: equipmentInformation.purchaseDate

@@ -394,7 +394,7 @@ function StudentDashboard(props) {
             }`}
           >
             {/* Equipment Filter Section */}
-            <div className="StudentDashboard-EquipmentFilterSection StudentDashboard-Hide">
+            <div className="StudentDashboard-EquipmentFilterSection">
               {/* Section Header */}
               <div className="StudentDashboard-SectionHeader">
                 {/* Title */}

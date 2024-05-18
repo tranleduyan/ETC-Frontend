@@ -1,6 +1,7 @@
 // Import Components
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Loading from "./Components/Loading/Loading";
 
 // Page Components
 const SignInPage = lazy(() => import("./Pages/SignInPage"));
@@ -24,7 +25,7 @@ function App() {
   return (
     <Router>
       {/* TODO: Loading Page */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<SignInPage />} />
           <Route path="/SignUp" element={<SignUpPage />} />

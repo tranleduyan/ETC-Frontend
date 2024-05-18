@@ -1,0 +1,136 @@
+/* General Stylings */
+.UpdateRFIDAntennaPage-ContentContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.UpdateRFIDAntennaPage-ContentHeaderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.UpdateRFIDAntennaPage-HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.UpdateRFIDAntennaPage-ActionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.UpdateRFIDAntennaPage-ResponseModalIcon {
+  color: var(--Red1);
+}
+
+/* For tablets and bigger devices */
+@media screen and (min-width: 481px) {
+  .UpdateRFIDAntennaPage-ContentContainer {
+    height: 100% - calc(9.45625vmin);
+    padding: calc(2.225vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ContentHeaderContainer {
+    height: calc(6.675vmin);
+  }
+
+  .UpdateRFIDAntennaPage-HeaderContainer {
+    gap: calc(2.225vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ActionContainer {
+    height: calc(6.675vmin);
+    gap: calc(2.225vmin);
+  }
+
+  .UpdateRFIDAntennaPage-SaveButton {
+    width: calc(22.25vmin);
+  }
+
+  .UpdateRFIDAntennaPage-DeleteButton {
+    width: calc(6.675vmin);
+  }
+
+  .UpdateRFIDAntennaPage-MobileSaveButton {
+    display: none !important;
+  }
+
+  .UpdateRFIDAntennaPage-MobileBottomActionContainer {
+    display: none !important;
+  }
+
+  .UpdateRFIDAntennaPage-ConfirmationModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ResponseModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
+
+  .UpdateRFIDAntennaPage-BackButton {
+    width: calc(1.66875vmin);
+    padding: 0px;
+  }
+}
+
+/* For mobiles and smaller devices */
+@media screen and (max-width: 480px) {
+  .UpdateRFIDAntennaPage-ContentContainer {
+    height: 100% - calc(17.8vmin);
+    padding: calc(4.45vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ContentHeaderContainer {
+    height: calc(13.35vmin);
+  }
+
+  .UpdateRFIDAntennaPage-HeaderContainer {
+    gap: calc(4.45vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ActionContainer {
+    width: calc(13.35vmin);
+    height: calc(13.35vmin);
+  }
+
+  .UpdateRFIDAntennaPage-SaveButton {
+    display: none !important;
+  }
+
+  .UpdateRFIDAntennaPage-DeleteButton {
+    width: calc(13.35vmin);
+  }
+
+  .UpdateRFIDAntennaPage-MobileBottomActionContainer,
+  .UpdateRFIDAntennaPage-MobileSaveButton {
+    width: 100%;
+  }
+
+  .UpdateRFIDAntennaPage-ConfirmationModalContainer {
+    width: calc(91.225vmin);
+    height: calc(103.4625vmin);
+  }
+
+  .UpdateRFIDAntennaPage-ResponseModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
+  }
+
+  .UpdateRFIDAntennaPage-BackButton {
+    width: calc(0.834375vmin);
+    padding: 0;
+  }
+}

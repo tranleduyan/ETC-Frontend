@@ -289,12 +289,82 @@ function UpdateRFIDAntennaPage(props) {
       });
   };
 
+  // TODO: Fetch RFID antenna information
+  const FetchRFIDAntennaInformation = () => {};
+
   // Fetch all locations upon component mounting and the antenna information
   useEffect(() => {
     FetchAllLocationOptions();
   }, []);
 
-  return <div>UpdateRFIDAntennaPage</div>;
+  return (
+    <>
+      {/* Response Modal for displaying successful messages or errors */}
+      <IconModal
+        className="UpdateRFIDAntennaPage-ResponseModalContainer"
+        icon={ResponseIcon()}
+        iconClassName="UpdateRFIDAntennaPage-ResponseModalIcon"
+        message={responseModal.message}
+        isVisible={responseModal.isVisible || isProcessing}
+      />
+      {/* Confirmation Modal for warnings and confirmation actions */}
+      <ConfirmationModal
+        className="UpdateRFIDAntennaPage-ConfirmationModalContainer"
+        title={confirmationModal.title}
+        content={confirmationModal.content}
+        warning={confirmationModal.warning}
+        onYes={confirmationModal.onYes}
+        onNo={confirmationModal.onNo}
+        isVisible={confirmationModal.isVisible}
+      />
+      <div className="UpdateRFIDAntennaPage-ContentContainer">
+        {/* Content Header Container */}
+        <div className="UpdateRFIDAntennaPage-ContentHeaderContainer">
+          {/* Header Container */}
+          <div className="UpdateRFIDAntennaPage-HeaderContainer">
+            {/* Back Button */}
+            <IconButton
+              icon={HiChevronLeft}
+              className="UpdateRFIDAntennaPage-BackButton"
+              onClick={OnBack}
+            />
+            {/* Header */}
+            <p className="heading-5">Update RFID Antenna</p>
+          </div>
+          {/* Action Container */}
+          <div className="UpdateRFIDAntennaPage-ActionContainer">
+            <StandardButton
+              title="Save"
+              onClick={SaveUpdate}
+              className="UpdateRFIDAntennaPage-SaveButton"
+              icon={HiBookmarkAlt}
+            />
+            <StandardButton
+              title=""
+              onClick={DeleteRFIDAntennas}
+              className="UpdateRFIDAntennaPage-DeleteButton"
+              icon={HiTrash}
+            />
+          </div>
+        </div>
+        {/* Model Form */}
+        <RFIDAntennaForm
+          rfidAntennaInformation={rfidAntennaInformation}
+          setRFIDAntennaInformation={setRFIDAntennaInformation}
+          isError={rfidAntennaIsError}
+          errorMessage={rfidAntennaErrorMessage}
+          locationOptions={locationOptions}
+        />
+        {/* Mobile Save Update Button */}
+        <StandardButton
+          title="Save"
+          onClick={SaveUpdate}
+          className="UpdateRFIDAntennaPage-MobileSaveButton"
+          icon={HiBookmarkAlt}
+        />
+      </div>
+    </>
+  );
 }
 
 export default UpdateRFIDAntennaPage;
