@@ -202,9 +202,9 @@ function EquipmentDetailsPage(props) {
         },
       })
       .then((response) => {
-        setEquipmentModelPhoto(response.data.responseObject.modelPhoto);
+        setEquipmentModelPhoto(response?.data?.responseObject.modelPhoto);
         const adjustedUsageHistory =
-          response.data.responseObject.usageHistory.map((entry) => ({
+          response?.data?.responseObject.usageHistory.map((entry) => ({
             ...entry,
             scanTime: new Date(
               new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
@@ -212,20 +212,20 @@ function EquipmentDetailsPage(props) {
           }));
 
         setEquipmentInformation({
-          typeName: response.data.responseObject.typeName,
-          modelName: response.data.responseObject.modelName,
-          serialId: response.data.responseObject.serialId,
-          maintenanceStatus: response.data.responseObject.maintenanceStatus,
-          reservationStatus: response.data.responseObject.reservationStatus,
-          usageCondition: response.data.responseObject.usageCondition,
+          typeName: response?.data?.responseObject?.typeName,
+          modelName: response?.data?.responseObject?.modelName,
+          serialId: response?.data?.responseObject?.serialId,
+          maintenanceStatus: response?.data?.responseObject?.maintenanceStatus,
+          reservationStatus: response?.data?.responseObject?.reservationStatus,
+          usageCondition: response?.data?.responseObject?.usageCondition,
           purchaseCost:
-            response.data.responseObject.purchaseCost !== "$--.--"
-              ? `$${response.data.responseObject.purchaseCost}`
-              : response.data.responseObject.purchaseCost,
-          purchaseDate: response.data.responseObject.purchaseDate,
-          rfidTag: response.data.responseObject.rfidTag,
-          lastSeen: response.data.responseObject.lastSeen,
-          homeRooms: response.data.responseObject.homeRooms,
+            response?.data?.responseObject?.purchaseCost !== "$--.--"
+              ? `$${response?.data.responseObject?.purchaseCost}`
+              : response?.data?.responseObject?.purchaseCost,
+          purchaseDate: response?.data?.responseObject?.purchaseDate,
+          rfidTag: response?.data?.responseObject?.rfidTag,
+          lastSeen: response?.data?.responseObject?.lastSeen,
+          homeRooms: response?.data?.responseObject?.homeRooms,
           usageHistory: adjustedUsageHistory,
         });
       })

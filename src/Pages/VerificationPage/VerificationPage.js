@@ -35,7 +35,7 @@ function VerificationPage() {
   const [verificationCode, setVerificationCode] = useState("");
 
   // Handle Input Change to update the state of userInformation object
-  const HandleInputChange = (propertyName, inputValue) => {
+  const HandleInputChange = (inputValue) => {
     setVerificationCode(inputValue);
   };
 
@@ -71,13 +71,13 @@ function VerificationPage() {
   // Call the sign up api and navigate to the sign in page.
   const SignUp = () => {
     const requestBody = {
-      userRole: userInformation.userRole,
-      firstName: userInformation.firstName,
-      middleName: userInformation.middleName,
-      lastName: userInformation.lastName,
-      schoolId: userInformation.schoolId,
-      emailAddress: userInformation.emailAddress,
-      accountPassword: userInformation.password,
+      userRole: userInformation?.userRole,
+      firstName: userInformation?.firstName,
+      middleName: userInformation?.middleName,
+      lastName: userInformation?.lastName,
+      schoolId: userInformation?.schoolId,
+      emailAddress: userInformation?.emailAddress,
+      accountPassword: userInformation?.password,
     };
     axios
       .post(`${API.domain}/api/authentication/sign-up`, requestBody, {
@@ -85,12 +85,12 @@ function VerificationPage() {
           "X-API-KEY": API.key,
         },
       })
-      .then((response) => {
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {
         setIsError(true);
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error?.response?.data?.message);
       });
   };
 

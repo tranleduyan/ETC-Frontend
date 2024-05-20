@@ -139,7 +139,7 @@ function FacultyDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -154,10 +154,10 @@ function FacultyDashboard(props) {
             isIconSpin: false,
           });
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -209,7 +209,7 @@ function FacultyDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -225,10 +225,10 @@ function FacultyDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -286,7 +286,7 @@ function FacultyDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setApprovedReservations(response.data.responseObject);
+          setApprovedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -331,7 +331,7 @@ function FacultyDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setRequestedReservations(response.data.responseObject);
+          setRequestedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -370,7 +370,7 @@ function FacultyDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -386,10 +386,10 @@ function FacultyDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -451,7 +451,7 @@ function FacultyDashboard(props) {
         },
       })
       .then((response) => {
-        const responseObject = response.data?.responseObject;
+        const responseObject = response?.data?.responseObject;
         setCurrentlyUsingEquipment(responseObject?.currentlyUsed);
         setRecentlyUsedEquipment(responseObject?.recentlyUsed);
       })

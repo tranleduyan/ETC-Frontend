@@ -698,7 +698,7 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setEquipmentInventory(response.data.responseObject);
+        setEquipmentInventory(response?.data?.responseObject);
       })
       .catch(() => {
         setEquipmentInventory([]);
@@ -714,7 +714,7 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setTypeInventory(response.data.responseObject);
+        setTypeInventory(response?.data?.responseObject);
       })
       .catch((error) => {
         setTypeInventory([]);
@@ -730,9 +730,9 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setModelInventory(response.data.responseObject);
+        setModelInventory(response?.data?.responseObject);
       })
-      .catch((error) => {
+      .catch(() => {
         setModelInventory([]);
       });
   };
@@ -746,9 +746,9 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setLocationInventory(response.data.responseObject);
+        setLocationInventory(response?.data?.responseObject);
       })
-      .catch((error) => {
+      .catch(() => {
         setLocationInventory([]);
       });
   };
@@ -762,9 +762,9 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setRFIDAntennaInventory(response.data.responseObject);
+        setRFIDAntennaInventory(response?.data?.responseObject);
       })
-      .catch((error) => {
+      .catch(() => {
         setRFIDAntennaInventory([]);
       });
   };

@@ -140,7 +140,7 @@ function StudentDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -156,10 +156,10 @@ function StudentDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -235,7 +235,7 @@ function StudentDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setApprovedReservations(response.data.responseObject);
+          setApprovedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -280,7 +280,7 @@ function StudentDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setRequestedReservations(response.data.responseObject);
+          setRequestedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -311,7 +311,7 @@ function StudentDashboard(props) {
         },
       })
       .then((response) => {
-        const responseObject = response.data?.responseObject;
+        const responseObject = response?.data?.responseObject;
         setCurrentlyUsingEquipment(responseObject?.currentlyUsed);
         setRecentlyUsedEquipment(responseObject?.recentlyUsed);
       })

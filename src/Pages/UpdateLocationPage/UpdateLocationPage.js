@@ -279,10 +279,10 @@ function UpdateLocationPage(props) {
         },
       })
       .then((response) => {
-        const responseObject = response.data.responseObject;
+        const responseObject = response?.data?.responseObject;
 
         setLocationInformation({
-          name: responseObject.locationName,
+          name: responseObject?.locationName,
         });
       })
       .catch(() => {

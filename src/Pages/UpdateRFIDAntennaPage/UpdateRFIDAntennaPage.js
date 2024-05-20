@@ -278,9 +278,9 @@ function UpdateRFIDAntennaPage(props) {
       })
       .then((response) => {
         // Map value and label
-        const options = response.data.responseObject.map((location) => ({
-          value: location.locationId,
-          label: location.locationName,
+        const options = response?.data?.responseObject?.map((location) => ({
+          value: location?.locationId,
+          label: location?.locationName,
         }));
 
         // Set the options

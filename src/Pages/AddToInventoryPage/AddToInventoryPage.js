@@ -551,7 +551,7 @@ function AddToInventoryPage(props) {
       })
       .then((response) => {
         // Map value and label
-        const options = response.data.responseObject.map((type) => ({
+        const options = response?.data?.responseObject.map((type) => ({
           value: type.typeId,
           label: type.typeName,
         }));
@@ -575,7 +575,7 @@ function AddToInventoryPage(props) {
       })
       .then((response) => {
         // Map value and label
-        const options = response.data.responseObject.map((location) => ({
+        const options = response?.data?.responseObject.map((location) => ({
           value: location.locationId,
           label: location.locationName,
         }));
@@ -629,13 +629,13 @@ function AddToInventoryPage(props) {
         )
         .then((response) => {
           // Map value and label
-          const options = response.data.responseObject?.map((model) => ({
+          const options = response?.data?.responseObject?.map((model) => ({
             value: model.modelId,
             label: model.modelName,
           }));
 
           // Set the equipmentModels to the response object - Array of all models of a type
-          setEquipmentModels(response.data.responseObject);
+          setEquipmentModels(response?.data?.responseObject);
 
           // Set the equipmentModelOptions to options
           setEquipmentModelOptions(options);

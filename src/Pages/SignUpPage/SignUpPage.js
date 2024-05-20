@@ -272,12 +272,12 @@ function SignUpPage(props) {
           },
         }
       )
-      .then((response) => {
+      .then(() => {
         NavigateEmailVerification(requestBody);
       })
       .catch((error) => {
         setIsError(true);
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error?.response?.data?.message);
       });
   };
 

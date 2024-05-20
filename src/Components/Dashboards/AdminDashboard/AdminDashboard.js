@@ -201,7 +201,7 @@ function AdminDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setApprovedReservations(response.data.responseObject);
+          setApprovedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -246,7 +246,7 @@ function AdminDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setRequestedReservations(response.data.responseObject);
+          setRequestedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -313,7 +313,7 @@ function AdminDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -328,10 +328,10 @@ function AdminDashboard(props) {
             isIconSpin: false,
           });
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -383,7 +383,7 @@ function AdminDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -399,10 +399,10 @@ function AdminDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -454,7 +454,7 @@ function AdminDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -470,10 +470,10 @@ function AdminDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 

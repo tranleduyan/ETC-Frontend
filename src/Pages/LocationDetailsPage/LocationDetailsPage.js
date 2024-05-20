@@ -182,20 +182,22 @@ function LocationDetailsPage(props) {
         },
       })
       .then((response) => {
-        const responseObject = response.data.responseObject;
+        const responseObject = response?.data?.responseObject;
 
-        const adjustedScanHistory = responseObject.scanHistory.map((entry) => ({
-          ...entry,
-          scanTime: new Date(
-            new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
-          ),
-        }));
+        const adjustedScanHistory = responseObject?.scanHistory.map(
+          (entry) => ({
+            ...entry,
+            scanTime: new Date(
+              new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
+            ),
+          })
+        );
 
         setLocationInformation({
-          locationName: responseObject.locationName,
-          antennas: responseObject.locationAntennas,
+          locationName: responseObject?.locationName,
+          antennas: responseObject?.locationAntennas,
           scanHistory: adjustedScanHistory,
-          equipment: responseObject.locationEquipment,
+          equipment: responseObject?.locationEquipment,
         });
       })
       .catch(() => {
