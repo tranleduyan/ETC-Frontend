@@ -51,6 +51,7 @@ function StandardDropDown(props) {
     onChange,
     options,
     visibility,
+    isClearable,
   } = props;
 
   // CSS class for hiding the component
@@ -265,6 +266,7 @@ function StandardDropDown(props) {
       value={value}
       options={options}
       isMulti={isMulti}
+      isClearable={isClearable}
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       components={{
@@ -288,6 +290,7 @@ StandardDropDown.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array,
   visibility: PropTypes.bool,
+  isClearable: PropTypes.bool,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -299,6 +302,7 @@ StandardDropDown.defaultProps = {
   options: [],
   isMulti: false,
   visibility: true,
+  isClearable: false,
 };
 
 // Exports the StandardDropDown component as the default export for the StandardDropDown module.

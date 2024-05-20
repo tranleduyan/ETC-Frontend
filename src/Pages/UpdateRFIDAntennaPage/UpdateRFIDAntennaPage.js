@@ -38,7 +38,7 @@ function UpdateRFIDAntennaPage(props) {
 
   // Information for adding RFID antenna
   const [rfidAntennaInformation, setRFIDAntennaInformation] = useState({
-    id: "",
+    id: rfidAntennaId,
     location: null,
   });
 
@@ -104,8 +104,10 @@ function UpdateRFIDAntennaPage(props) {
 
       const requestBody = {
         schoolId: schoolId,
-        newAntennaId: rfidAntennaInformation.name,
-        locationId: rfidAntennaInformation.location?.value,
+        newAntennaId: rfidAntennaInformation.id,
+        locationId: rfidAntennaInformation.location
+          ? rfidAntennaInformation.location.value
+          : null,
       };
 
       // Perform API call for equipment type update
@@ -140,24 +142,21 @@ function UpdateRFIDAntennaPage(props) {
           }, 1500);
           setIsUpdated(true);
         })
-        .catch(() => {
+        .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message ||
+            "An error occurred. Please try again.";
           // Hide processing message
           setIsProcessing(false);
 
           // Show error message
           setResponseModal({
-            message:
-              "Something went wrong while updating the current RFID antenna.",
-            error: true,
-            isVisible: true,
+            message: "",
+            error: false,
+            isVisible: false,
           });
-          setTimeout(() => {
-            setResponseModal({
-              message: "",
-              error: false,
-              isVisible: false,
-            });
-          }, 1500);
+          setRFIDAntennaIsError(true);
+          setRFIDAntennaErrorMessage(errorMessage);
           setIsUpdated(false);
         });
     }
@@ -165,7 +164,7 @@ function UpdateRFIDAntennaPage(props) {
 
   // DeleteSelectedRFIDAntennas - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
   const DeleteRFIDAntennas = () => {
-    const antennaText = setConfirmationModal({
+    setConfirmationModal({
       // Show confirmation modal for RFID antenna deletion
       title: "Remove RFID Antenna",
       content: `Are you sure you want to remove this ${rfidAntennaId} RFID antenna?`,
@@ -216,13 +215,17 @@ function UpdateRFIDAntennaPage(props) {
             // Return to the previous page
             OnBack();
           })
-          .catch(() => {
+          .catch((error) => {
+            const errorMessage =
+              error.response?.data?.message ||
+              "An error occurred. Please try again.";
+
             // Hide processing message
             setIsProcessing(false);
 
             // Show error message
             setResponseModal({
-              message: `Something went wrong while deleting the ${rfidAntennaId} RFID antenna.`,
+              message: errorMessage,
               error: true,
               isVisible: true,
             });
@@ -289,13 +292,58 @@ function UpdateRFIDAntennaPage(props) {
       });
   };
 
-  // TODO: Fetch RFID antenna information
-  const FetchRFIDAntennaInformation = () => {};
+  // FetchRFIDAntennaInformation - Fetch RFID antenna information
+  const FetchRFIDAntennaInformation = () => {
+    axios
+      .get(`${API.domain}/api/inventory/antenna/${rfidAntennaId}`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response?.data?.responseObject;
+
+        const currentLocation = locationOptions.find(
+          (location) => location.value === responseObject?.locationId
+        );
+
+        setRFIDAntennaInformation({
+          id: responseObject.antennaId,
+          location: currentLocation,
+        });
+      })
+      .catch(() => {
+        // Show Error Message
+        setResponseModal({
+          message:
+            "Something went wrong while retrieving the current RIF antenna information.",
+          error: true,
+          isVisible: true,
+        });
+
+        // Turn off message after 1500ms, and go back.
+        setTimeout(() => {
+          setResponseModal({
+            message: "",
+            error: false,
+            isVisible: false,
+          });
+          OnBack();
+        }, 1500);
+        setIsUpdated(false);
+        OnBack();
+      });
+  };
 
   // Fetch all locations upon component mounting and the antenna information
   useEffect(() => {
     FetchAllLocationOptions();
   }, []);
+
+  useEffect(() => {
+    FetchRFIDAntennaInformation();
+    // eslint-disable-next-line
+  }, [locationOptions]);
 
   return (
     <>
@@ -367,4 +415,22 @@ function UpdateRFIDAntennaPage(props) {
   );
 }
 
-export default UpdateRFIDAntennaPage;
+// Define the props types for the component
+UpdateRFIDAntennaPage.propTypes = {
+  setEditSection: PropTypes.func.isRequired,
+  rfidAntennaId: PropTypes.string.isRequired,
+  setIsUpdated: PropTypes.func.isRequired,
+  schoolId: PropTypes.string,
+};
+
+// Define default props for the component
+UpdateRFIDAntennaPage.defaultProps = {
+  schoolId: "",
+};
+
+// Map from Redux state to component props
+const mapStateToProps = (state) => ({
+  schoolId: state.user.userData?.schoolId,
+});
+
+export default connect(mapStateToProps)(UpdateRFIDAntennaPage);

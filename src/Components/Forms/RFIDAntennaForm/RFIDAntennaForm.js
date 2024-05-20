@@ -65,6 +65,7 @@ function RFIDAntennaForm(props) {
             onChange={(name, value) =>
               HandleRFIDAntennaInputChange(name, value)
             }
+            isClearable={true}
           />
         </div>
         {/* Instructions/Messages */}
