@@ -800,7 +800,7 @@ function ReservationsPage(props) {
     }
   }, [pageState]);
 
-  // Effect to set isRefreshed to false every 2 minute
+  // Effect to set isRefreshed to false every 1 minute
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefreshed({
