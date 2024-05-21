@@ -42,6 +42,12 @@ export const MESSAGE = {
   // Message for indicating empty equipments
   emptyEquipment: "There is no equipment in the inventory.",
 
+  // Message for indicating empty RFID antennas
+  emptyRFIDAntenna: "There are no RFID antennas in the inventory.",
+
+  // Message for indicating empty locations
+  emptyLocations: "There are no locations in the system.",
+
   // Message for indicating empty available items
   emptyAvailableModels: "There is no equipment available in this time period.",
 
@@ -90,13 +96,20 @@ export const MESSAGE = {
   // Message for successfully update a type
   successTypeUpdate: "The type has been successfully updated in the inventory.",
 
-  // Message for successfully update a type
+  // Message for successfully update an equipment
   successEquipmentUpdate:
     "The equipment has been successfully updated in the inventory.",
 
-  // Message for successfully update a type
+  // Message for successfully update a model
   successModelUpdate:
     "The model has been successfully updated in the inventory.",
+
+  // Message for successfully update a location
+  successLocationUpdate:
+    "The location has been successfully updated in the system.",
+  // Message for successfully update an RFID antenna
+  successRFIDAntennaUpdate:
+    "The RFID antenna has been successfully updated in the inventory.",
 };
 
 // Constants for drop down options

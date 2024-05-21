@@ -176,7 +176,7 @@ function UpdateModelPage(props) {
 
   // DeleteModel - Delete the model
   const DeleteModel = () => {
-    // Show confirmation modal for type deletion
+    // Show confirmation modal for model deletion
     setConfirmationModal({
       title: "Remove Model",
       content: "Are you sure you want to remove the current equipment model?",
@@ -284,17 +284,17 @@ function UpdateModelPage(props) {
         },
       })
       .then((response) => {
-        const typeId = response.data.responseObject.typeId;
+        const typeId = response?.data?.responseObject?.typeId;
 
         // Find the corresponding type option based on typeId
-        const currentType = equipmentTypeOptions.find(
-          (option) => option.value === typeId
+        const currentType = equipmentTypeOptions?.find(
+          (option) => option?.value === typeId
         );
 
         // Set model information
         setModelInformation({
-          name: response.data.responseObject.modelName,
-          photo: response.data.responseObject.modelPhoto,
+          name: response?.data?.responseObject?.modelName,
+          photo: response?.data?.responseObject?.modelPhoto,
           type: currentType,
         });
       })
@@ -317,6 +317,7 @@ function UpdateModelPage(props) {
           OnBack();
         }, 1500);
         setIsUpdated(false);
+        OnBack();
       });
   };
 
@@ -330,9 +331,9 @@ function UpdateModelPage(props) {
       })
       .then((response) => {
         // Map Value and Label
-        const options = response.data.responseObject.map((type) => ({
-          value: type.typeId,
-          label: type.typeName,
+        const options = response?.data?.responseObject?.map((type) => ({
+          value: type?.typeId,
+          label: type?.typeName,
         }));
 
         // Set the options

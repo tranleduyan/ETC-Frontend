@@ -23,13 +23,17 @@ function DetailSection(props) {
     actionIcon: ActionIcon,
     action,
     isMargin,
+    inventoryMessage,
   } = props;
 
   // Calculate the number of items in equipmentDetails array.
-  const itemCount = equipmentDetails.reduce(
-    (total, equipment) => total + equipment.itemQuantity,
-    0
-  );
+  const itemCount =
+    detailsType === "reservation"
+      ? equipmentDetails.reduce(
+          (total, equipment) => total + equipment.itemQuantity,
+          0
+        )
+      : equipmentDetails.length;
 
   // Choose the appropriate text based on the number of items.
   const itemText = itemCount <= 1 ? "item" : "items";
@@ -65,6 +69,7 @@ function DetailSection(props) {
         equipmentDetails={equipmentDetails}
         detailsType={detailsType}
         isMargin={isMargin}
+        inventoryMessage={inventoryMessage}
       />
     </div>
   );
@@ -80,6 +85,7 @@ DetailSection.propTypes = {
   actionIcon: PropTypes.elementType,
   action: PropTypes.func,
   isMargin: PropTypes.bool,
+  inventoryMessage: PropTypes.string,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -92,6 +98,7 @@ DetailSection.defaultProps = {
   actionIcon: null,
   action: () => {},
   isMargin: false,
+  inventoryMessage: "There is no equipment.",
 };
 
 // Exports the DetailSection component as the default export for the DetailSection module.

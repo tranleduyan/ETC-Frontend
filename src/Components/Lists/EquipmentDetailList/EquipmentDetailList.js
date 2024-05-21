@@ -6,28 +6,43 @@ import PropTypes from "prop-types";
 // Import Stylings
 import "./EquipmentDetailList.css";
 
-// Import UI Components
+//#region Import UI Components
 import EquipmentDetailCard from "../../Cards/EquipmentDetailCard/EquipmentDetailCard";
+import Message from "../../Message/Message";
+//#endregion
 
 // Define EquipmentDetailList Component
 function EquipmentDetailList(props) {
   // Destructure props to extract relevant information
-  const { className, equipmentDetails, detailsType, isMargin } = props;
+  const {
+    className,
+    equipmentDetails,
+    detailsType,
+    isMargin,
+    inventoryMessage,
+  } = props;
 
   return (
     <div className={`${className} EquipmentDetailList-Container`}>
-      {/* Render EquipmentDetailCard components for inventory details */}
+      {/* Render EquipmentDetailCard components for equipment in use and recently use details */}
       {detailsType === "inventory" &&
-        equipmentDetails.map((item) => (
-          <EquipmentDetailCard
-            className={`EquipmentDetailList-EquipmentDetailCard ${
-              isMargin ? "EquipmentDetailList-Margin" : ""
-            }`}
-            key={item.serialNumber}
-            title={item.modelName}
-            information={[item.typeName, item.serialNumber]}
-            modelPhotoPath={item.modelPhotoPath}
+        (equipmentDetails?.length === 0 ? (
+          <Message
+            message={inventoryMessage}
+            className="EquipmentDetailList-EmptyMessage"
           />
+        ) : (
+          equipmentDetails.map((item) => (
+            <EquipmentDetailCard
+              className={`EquipmentDetailList-EquipmentDetailCard ${
+                isMargin ? "EquipmentDetailList-Margin" : ""
+              }`}
+              key={item.serialId}
+              title={item.modelName}
+              information={[item.typeName, item.serialId]}
+              modelPhotoPath={item.modelPhoto}
+            />
+          ))
         ))}
       {/* Render EquipmentDetailCard components for reservation details */}
       {detailsType === "reservation" &&
@@ -52,6 +67,7 @@ EquipmentDetailList.propTypes = {
   equipmentDetails: PropTypes.array,
   detailsType: PropTypes.oneOf(["inventory", "reservation"]),
   isMargin: PropTypes.bool,
+  inventoryMessage: PropTypes.string,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -60,6 +76,7 @@ EquipmentDetailList.defaultProps = {
   equipmentDetails: [],
   detailsType: "inventory",
   isMargin: false,
+  inventoryMessage: "There is no equipment.",
 };
 
 // Exports the EquipmentDetailList component as the default export for the EquipmentDetailList module.

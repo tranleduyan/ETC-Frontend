@@ -21,6 +21,8 @@ import EquipmentForm from "../../Components/Forms/EquipmentForm/EquipmentForm";
 import TypeForm from "../../Components/Forms/TypeForm/TypeForm";
 import ModelForm from "../../Components/Forms/ModelForm";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
+import LocationForm from "../../Components/Forms/LocationForm";
+import RFIDAntennaForm from "../../Components/Forms/RFIDAntennaForm/RFIDAntennaForm";
 //#endregion
 
 //#region Import Icons
@@ -28,12 +30,11 @@ import {
   HiSwitchHorizontal,
   HiCheckCircle,
   HiPlus,
+  // eslint-disable-next-line
   HiDocumentText,
   HiStatusOnline,
   HiLocationMarker,
 } from "react-icons/hi";
-import LocationForm from "../../Components/Forms/LocationForm";
-import RFIDAntennaForm from "../../Components/Forms/RFIDAntennaForm/RFIDAntennaForm";
 //#endregion
 
 // Define AddEquipmentPage Component
@@ -100,7 +101,7 @@ function AddToInventoryPage(props) {
         (status) => status.value === "Available"
       ),
       rfidTag: "",
-      homeLocation: null,
+      homeLocations: [],
       condition: "",
       purchaseCost: "",
       purchaseDate: null,
@@ -153,6 +154,10 @@ function AddToInventoryPage(props) {
               .toISOString()
               .split("T")[0]
           : null,
+        homeLocations: equipmentAdditionInformation.homeLocations.map(
+          (location) => location.value
+        ),
+        rfidTag: equipmentAdditionInformation.rfidTag
       };
 
       axios
@@ -183,7 +188,7 @@ function AddToInventoryPage(props) {
               (status) => status.value === "Available"
             ),
             rfidTag: "",
-            homeLocation: null,
+            homeLocations: [],
             condition: "",
             purchaseCost: "",
             purchaseDate: null,
@@ -206,6 +211,7 @@ function AddToInventoryPage(props) {
   };
 
   // TODO: Import Equipment - Import CSV and add the content to the database
+  // eslint-disable-next-line
   const ImportEquipment = () => {
     console.log("Import Equipment");
   };
@@ -528,9 +534,9 @@ function AddToInventoryPage(props) {
       return false;
     }
 
-    if (locationIsError) {
-      setLocationIsError(false);
-      setLocationErrorMessage("");
+    if (rfidAntennaIsError) {
+      setRFIDAntennaIsError(false);
+      setRFIDAntennaErrorMessage("");
     }
 
     return true;
@@ -548,7 +554,7 @@ function AddToInventoryPage(props) {
       })
       .then((response) => {
         // Map value and label
-        const options = response.data.responseObject.map((type) => ({
+        const options = response?.data?.responseObject.map((type) => ({
           value: type.typeId,
           label: type.typeName,
         }));
@@ -572,7 +578,7 @@ function AddToInventoryPage(props) {
       })
       .then((response) => {
         // Map value and label
-        const options = response.data.responseObject.map((location) => ({
+        const options = response?.data?.responseObject.map((location) => ({
           value: location.locationId,
           label: location.locationName,
         }));
@@ -626,13 +632,13 @@ function AddToInventoryPage(props) {
         )
         .then((response) => {
           // Map value and label
-          const options = response.data.responseObject?.map((model) => ({
+          const options = response?.data?.responseObject?.map((model) => ({
             value: model.modelId,
             label: model.modelName,
           }));
 
           // Set the equipmentModels to the response object - Array of all models of a type
-          setEquipmentModels(response.data.responseObject);
+          setEquipmentModels(response?.data?.responseObject);
 
           // Set the equipmentModelOptions to options
           setEquipmentModelOptions(options);
@@ -738,12 +744,13 @@ function AddToInventoryPage(props) {
                         className="AddToInventoryPage-AddButton"
                         icon={HiPlus}
                       />
-                      <StandardButton
+                      {/* Import Equipment can be displayed when the feature import is ready */}
+                      {/* <StandardButton
                         title="Import"
                         onClick={ImportEquipment}
                         className="AddToInventoryPage-ImportEquipmentButton"
                         icon={HiDocumentText}
-                      />
+                  /> */}
                     </>
                   )}
                   {/* If type tab, display Add Type Button */}
@@ -797,6 +804,7 @@ function AddToInventoryPage(props) {
                     equipmentModelOptions={equipmentModelOptions}
                     equipmentTypeOptions={equipmentTypeOptions}
                     disableReservationStatus={true}
+                    equipmentHomeLocationOptions={locationOptions}
                   />
                   {/* Mobile Add Equipment Button */}
                   <StandardButton

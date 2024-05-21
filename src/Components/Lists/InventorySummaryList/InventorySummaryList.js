@@ -31,7 +31,7 @@ function InventorySummaryList(props) {
       .then((response) => {
         // Update state with sorted inventory types from the API response
         setInventoryTypes(
-          [...response.data.responseObject].sort((a, b) =>
+          [...response?.data?.responseObject].sort((a, b) =>
             a.typeName.localeCompare(b.typeName)
           )
         );

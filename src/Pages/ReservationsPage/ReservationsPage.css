@@ -161,6 +161,10 @@
   color: var(--Red1);
 }
 
+.ReservationsPage-Hide {
+  display: none !important;
+}
+
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
   .ReservationsPage-PageContentContainer {
@@ -349,7 +353,7 @@
   .ReservationsPage-MobileContentHeaderContainer {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: calc(4.45vmin);
   }
 
@@ -381,13 +385,15 @@
     display: none;
   }
 
-  .ReservationsPage-CancelButton,
-  .ReservationsPage-ReserveButton {
-    width: calc(36.15625vmin);
+  .ReservationsPage-MobileActionButtonContainer {
+    display: flex;
+    flex-direction: row;
+    gap: calc(4.45vmin);
   }
 
-  .ReservationsPage-YourReservationsButton {
-    width: 100%;
+  .ReservationsPage-CancelButton,
+  .ReservationsPage-ReserveButton {
+    flex: 1;
   }
 
   .ReservationsPage-ReservationConfirmationContainer {
@@ -424,12 +430,20 @@
   }
 
   .ReservationsPage-ConfirmButton,
-  .ReservationsPage-ContinueButton,
-  .ReservationsPage-YourReservationsButton {
-    width: 100%;
+  .ReservationsPage-ContinueButton {
+    flex: 1;
     height: calc(13.35vmin);
   }
 
+  .ReservationsPage-YourReservationsButton {
+    width: auto;
+    height: calc(13.35vmin);
+  }
+
+  .ReservationsPage-AvailableModelList {
+    flex: 1;
+  }
+  
   .ReservationsPage-ReservationsPanel {
     width: 100%;
     height: calc(100% - calc(4.45vmin));

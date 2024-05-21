@@ -94,10 +94,6 @@
   width: 100%;
 }
 
-.StudentDashboard-ReservationActionButton:first-child {
-  margin-left: 0px;
-}
-
 .StudentDashboard-Hide {
   display: none !important;
 }
@@ -171,10 +167,7 @@
 
   .StudentDashboard-ReservationActionContainer {
     margin-top: calc(2.225vmin);
-  }
-
-  .StudentDashboard-ReservationActionButton {
-    margin-left: calc(2.225vmin);
+    gap:calc(2.225vmin);
   }
 
   .StudentDashboard-IconModalContainer {
@@ -275,10 +268,7 @@
 
   .StudentDashboard-ReservationActionContainer {
     margin-bottom: calc(4.45vmin);
-  }
-
-  .StudentDashboard-ReservationActionButton {
-    margin-left: calc(4.45vmin);
+    gap: calc(4.45vmin);
   }
 
   .StudentDashboard-IconModalContainer {

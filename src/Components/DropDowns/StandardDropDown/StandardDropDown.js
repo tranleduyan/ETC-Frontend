@@ -45,11 +45,13 @@ function StandardDropDown(props) {
     placeholder,
     name,
     value,
+    isMulti,
     isSearchable,
     isDisabled,
     onChange,
     options,
     visibility,
+    isClearable,
   } = props;
 
   // CSS class for hiding the component
@@ -86,6 +88,7 @@ function StandardDropDown(props) {
       let baseStyles = {
         ...provided,
         display: "flex",
+        flexDirection: "row",
         height: "auto",
         minHeight: "calc(6.675vmin)",
         maxHeight: "calc(6.675vmin)",
@@ -103,14 +106,15 @@ function StandardDropDown(props) {
           outline: "none",
           boxShadow: "none",
         },
+        overflow: "hidden",
       };
 
       // For mobile or any smaller devices
       if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          height: "calc(13.35vmin)",
           minHeight: "calc(13.35vmin)",
+          maxHeight: "auto",
           padding: "0px calc(1vmin)",
           borderRadius: "calc(2.78125vmin)",
           border: `calc(0.55625vmin) solid ${
@@ -171,18 +175,53 @@ function StandardDropDown(props) {
         height: "auto",
       };
     },
-    dropdownIndicator: (provided, state) => ({
-      ...provided,
-      color:
-        state.isFocused || state.hasValue
-          ? "var(--Black1) !important"
-          : "var(--Gray1) !important",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "0px calc(1.45vmin)",
-    }),
+    clearIndicator: (provided, state) => {
+      let baseStyles = {
+        ...provided,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        boxSizing: "border-box",
+        padding: "2vmin 1vmin",
+      };
+
+      // For mobile or any smaller devices
+      if (isMobileView) {
+        baseStyles = {
+          ...baseStyles,
+          fontSize: "calc(4.45vmin)",
+          padding: "calc(3.5vmin) calc(2vmin)",
+        };
+      }
+      return baseStyles;
+    },
+    dropdownIndicator: (provided, state) => {
+      let baseStyles = {
+        ...provided,
+        color:
+          state.isFocused || state.hasValue
+            ? "var(--Black1) !important"
+            : "var(--Gray1) !important",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        height: "100%",
+        boxSizing: "border-box",
+        padding: "1.45vmin 1vmin",
+      };
+      // For mobile or any smaller devices
+      if (isMobileView) {
+        baseStyles = {
+          ...baseStyles,
+          fontSize: "calc(4.45vmin)",
+          padding: "calc(3vmin) calc(1vmin)",
+        };
+      }
+      return baseStyles;
+    },
     placeholder: (provided) => {
       return {
         ...provided,
@@ -195,17 +234,21 @@ function StandardDropDown(props) {
     valueContainer: (provided) => {
       let baseStyles = {
         ...provided,
-        padding: "0px calc(1.45vmin)",
+        boxSizing: "border-box",
+        padding: "calc(1vmin) calc(1.45vmin)",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        height: "calc(6.5vmin)",
+        overflowY: "auto",
       };
 
       // For mobile and smaller devices
       if (isMobileView) {
         baseStyles = {
           ...baseStyles,
-          padding: "0px calc(2vmin)",
+          height: "auto",
+          padding: "calc(1vmin) calc(2vmin)",
         };
       }
       return baseStyles;
@@ -222,6 +265,8 @@ function StandardDropDown(props) {
       name={name}
       value={value}
       options={options}
+      isMulti={isMulti}
+      isClearable={isClearable}
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       components={{
@@ -240,10 +285,12 @@ StandardDropDown.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
   isDisabled: PropTypes.bool,
+  isMulti: PropTypes.bool,
   isSearchable: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array,
   visibility: PropTypes.bool,
+  isClearable: PropTypes.bool,
 };
 
 // Set default values for props to avoid potential issues if not provided
@@ -253,7 +300,9 @@ StandardDropDown.defaultProps = {
   isSearchable: false,
   isDisabled: false,
   options: [],
+  isMulti: false,
   visibility: true,
+  isClearable: false,
 };
 
 // Exports the StandardDropDown component as the default export for the StandardDropDown module.

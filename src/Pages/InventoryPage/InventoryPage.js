@@ -26,6 +26,7 @@ import UpdateModelPage from "../UpdateModelPage/UpdateModelPage";
 import EquipmentDetailsPage from "../EquipmentDetailsPage/EquipmentDetailsPage";
 import UpdateEquipmentPage from "../UpdateEquipmentPage/UpdateEquipmentPage";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
+import RFIDAntennaInventory from "../../Components/Inventory/RFIDAntennaInventory/RFIDAntennaInventory";
 //#endregion
 
 //#region Import Icons
@@ -37,8 +38,14 @@ import {
   HiMinusCircle,
   HiTrash,
   HiPlus,
-  HiAdjustments,
+  // HiAdjustments,
+  HiStatusOnline,
+  HiLocationMarker,
 } from "react-icons/hi";
+import LocationInventory from "../../Components/Inventory/LocationInventory/LocationInventory";
+import LocationDetailsPage from "../LocationDetailsPage";
+import UpdateLocationPage from "../UpdateLocationPage";
+import UpdateRFIDAntennaPage from "../UpdateRFIDAntennaPage";
 //#endregion
 
 // Define InventoryPage Component
@@ -48,7 +55,6 @@ function InventoryPage(props) {
 
   const navigate = useNavigate();
 
-  //#region Section State of the page - Equipment, Type, Model tabs
   // State for current section of the page
   const [currentSection, setCurrentSection] = useState("Equipment");
 
@@ -60,7 +66,8 @@ function InventoryPage(props) {
 
   // State for equipment detail serial ID upon going to the detail section for fetching
   const [equipmentDetailSerialId, setEquipmentDetailSerialId] = useState("");
-  //#endregion
+
+  const [locationDetailId, setLocationDetailId] = useState(null);
 
   // State for selected equipment
   const [selectedEquipment, setSelectedEquipment] = useState([]);
@@ -75,6 +82,14 @@ function InventoryPage(props) {
   // Models Inventory and Selection States
   const [selectedModels, setSelectedModels] = useState([]);
   const [modelInventory, setModelInventory] = useState([]);
+
+  // RFID Antenna Inventory and Selection States
+  const [selectedRFIDAntennas, setSelectedRFIDAntennas] = useState([]);
+  const [rfidAntennaInventory, setRFIDAntennaInventory] = useState([]);
+
+  // Location Inventory and Selection States
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [locationInventory, setLocationInventory] = useState([]);
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -97,30 +112,46 @@ function InventoryPage(props) {
     isVisible: false,
   });
 
-  // AddEquipment - Navigate to add equipment page with equipment tab
+  // AddEquipment - Navigate to add to inventory page with equipment tab
   const AddEquipment = () => {
     navigate("/AddToInventory", { state: { section: "Equipment" } });
   };
 
-  // AddType - Navigate to add equipment page with type tab
+  // AddType - Navigate to add to inventory page with type tab
   const AddType = () => {
     navigate("/AddToInventory", { state: { section: "Type" } });
   };
 
-  // AddModel - Navigate to add equipment page with model tab
+  // AddModel - Navigate to add to inventory page with model tab
   const AddModel = () => {
     navigate("/AddToInventory", { state: { section: "Model" } });
   };
 
-  // OnFilterClick - TODO: Open Filter Modal based on the currentSection state
-  const OnFilterClick = () => {
-    console.log("Filter");
+  // AddRFIDAntenna - Navigate to add to inventory page with antenna tab
+  const AddRFIDAntenna = () => {
+    navigate("/AddToInventory", { state: { section: "RFID Antenna" } });
   };
+
+  // AddLocation - Navigate to add to inventory page with location tab
+  const AddLocation = () => {
+    navigate("/AddToInventory", { state: { section: "Location" } });
+  };
+
+  // OnFilterClick - TODO: Open Filter Modal based on the currentSection state
+  // const OnFilterClick = () => {
+  //  console.log("Filter");
+  // };
 
   // OnEquipmentCardClick - Handle click on equipment card and navigate to detail page.
   const OnEquipmentCardClick = (equipmentSerialId) => {
     setDetailSection("Equipment");
     setEquipmentDetailSerialId(equipmentSerialId);
+  };
+
+  // OnLocationCardClick - Handle click on equipment card and navigate to detail page.
+  const OnLocationCardClick = (locationId) => {
+    setDetailSection("Location");
+    setLocationDetailId(locationId);
   };
 
   //#region Selections
@@ -141,30 +172,59 @@ function InventoryPage(props) {
 
   // SelectType - Update the user's selections of types
   const SelectType = (typeId) => {
-    let updatedSelectedType = [...selectedTypes];
+    let updatedSelectedTypes = [...selectedTypes];
 
-    if (updatedSelectedType.includes(typeId)) {
-      updatedSelectedType = updatedSelectedType.filter((id) => id !== typeId);
+    if (updatedSelectedTypes.includes(typeId)) {
+      updatedSelectedTypes = updatedSelectedTypes.filter((id) => id !== typeId);
     } else {
-      updatedSelectedType.push(typeId);
+      updatedSelectedTypes.push(typeId);
     }
 
-    setSelectedTypes(updatedSelectedType);
+    setSelectedTypes(updatedSelectedTypes);
   };
 
   // SelectModel - Update the user's selections of models
   const SelectModel = (modelId) => {
-    let updatedSelectedModel = [...selectedModels];
+    let updatedSelectedModels = [...selectedModels];
 
-    if (updatedSelectedModel.includes(modelId)) {
-      updatedSelectedModel = updatedSelectedModel.filter(
+    if (updatedSelectedModels.includes(modelId)) {
+      updatedSelectedModels = updatedSelectedModels.filter(
         (id) => id !== modelId
       );
     } else {
-      updatedSelectedModel.push(modelId);
+      updatedSelectedModels.push(modelId);
     }
 
-    setSelectedModels(updatedSelectedModel);
+    setSelectedModels(updatedSelectedModels);
+  };
+
+  // SelectRFIDAntenna - Update the user's selections of RFID Antennas
+  const SelectRFIDAntenna = (rfidAntennaID) => {
+    let updatedSelectedRFIDAntennas = [...selectedRFIDAntennas];
+
+    if (updatedSelectedRFIDAntennas.includes(rfidAntennaID)) {
+      updatedSelectedRFIDAntennas = updatedSelectedRFIDAntennas.filter(
+        (id) => id !== rfidAntennaID
+      );
+    } else {
+      updatedSelectedRFIDAntennas.push(rfidAntennaID);
+    }
+
+    setSelectedRFIDAntennas(updatedSelectedRFIDAntennas);
+  };
+
+  const SelectLocation = (locationID) => {
+    let updatedSelectedLocations = [...selectedLocations];
+
+    if (updatedSelectedLocations.includes(locationID)) {
+      updatedSelectedLocations = updatedSelectedLocations.filter(
+        (id) => id !== locationID
+      );
+    } else {
+      updatedSelectedLocations.push(locationID);
+    }
+
+    setSelectedLocations(updatedSelectedLocations);
   };
   //#endregion
 
@@ -176,6 +236,10 @@ function InventoryPage(props) {
       setSelectedModels([]);
     } else if (currentSection === "Equipment") {
       setSelectedEquipment([]);
+    } else if (currentSection === "RFID Antenna") {
+      setSelectedRFIDAntennas([]);
+    } else if (currentSection === "Location") {
+      setSelectedLocations([]);
     }
   };
 
@@ -195,6 +259,17 @@ function InventoryPage(props) {
   const EditSelectedType = () => {
     setEditSection("Type");
   };
+
+  // EditSelectedRFIDAntenna - Render the Edit RFID Antenna Component
+  const EditSelectedRFIDAntenna = () => {
+    setEditSection("RFID Antenna");
+  };
+
+  // EditSelectedLocation - Render the Edit Location Component
+  const EditSelectedLocation = () => {
+    setEditSection("Location");
+    setLocationDetailId(selectedLocations?.[0]);
+  };
   //#endregion
 
   //#region Deletion
@@ -204,7 +279,7 @@ function InventoryPage(props) {
       title: "Remove Equipment",
       content: "Are you sure you want to remove the selected equipment?",
       warning:
-        "This will also permanently delete all selected equipment and the action cannot be undone.",
+        "This will permanently delete all selected equipment and the action cannot be undone.",
       onYes: () => {
         // Close confirmation modal
         CloseConfirmationModal();
@@ -248,8 +323,10 @@ function InventoryPage(props) {
             // Refresh inventory data and reset selections
             FetchEquipmentInventory();
             setSelectedEquipment([]);
+
             FetchTypeInventory();
             setSelectedTypes([]);
+
             FetchModelInventory();
             setSelectedModels([]);
           })
@@ -442,6 +519,173 @@ function InventoryPage(props) {
       isVisible: true,
     });
   };
+
+  // DeleteSelectedRFIDAntennas - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
+  const DeleteSelectedRFIDAntennas = () => {
+    const antennaText =
+      selectedRFIDAntennas?.length > 1 ? "antennas" : "antenna";
+    setConfirmationModal({
+      title: "Remove RFID Antennas",
+      content: `Are you sure you want to remove the selected ${antennaText}?`,
+      warning: `This will permanently delete all selected RFID ${antennaText} and the action cannot be undone.`,
+      onYes: () => {
+        // Close confirmation modal
+        CloseConfirmationModal();
+
+        // Show processing message
+        setResponseModal({
+          message: `Deleting the selected ${antennaText}...`,
+          isVisible: true,
+        });
+
+        setIsProcessing(true);
+
+        // Perform API call for RFID antennas deletion
+        axios
+          .delete(`${API.domain}/api/inventory/antenna`, {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              antennaIds: selectedRFIDAntennas,
+            },
+          })
+          .then(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show success message
+            setResponseModal({
+              message: `The selected ${antennaText} have been successfully removed from the inventory.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+
+            // Refresh inventory data and reset selections
+            FetchRFIDAntennaInventory();
+            setSelectedRFIDAntennas([]);
+
+            FetchLocationInventory();
+            setSelectedLocations([]);
+          })
+          .catch(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show error message
+            setResponseModal({
+              message: `Something went wrong while deleting the selected ${antennaText}.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          });
+      },
+      onNo: () => {
+        // Close confirmation modal if user chooses not to proceed
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
+  };
+
+  // DeleteSelectedLocations - Show the confirmation modal with warnings, if yes, perform a delete, if no, close the confirmation modal
+  const DeleteSelectedLocations = () => {
+    const locationText =
+      selectedLocations?.length > 1 ? "locations" : "location";
+    // Show confirmation modal for location deletion
+    setConfirmationModal({
+      title: "Remove Locations",
+      content: `Are you sure you want to remove the selected ${locationText}?`,
+      warning: `This will also permanently deleted all selected ${locationText} and the action cannot be undone.`,
+      onYes: () => {
+        // Close confirmation modal
+        CloseConfirmationModal();
+
+        // Show processing message
+        setResponseModal({
+          message: `Deleting the selected ${locationText}...`,
+          isVisible: true,
+        });
+
+        setIsProcessing(true);
+
+        // Perform API call for locations deletion
+        axios
+          .delete(`${API.domain}/api/location`, {
+            headers: {
+              "X-API-KEY": API.key,
+            },
+            data: {
+              schoolId: schoolId,
+              locationIds: selectedLocations,
+            },
+          })
+          .then(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show success message
+            setResponseModal({
+              message: `The selected ${locationText} have been successfully removed from the system.`,
+              error: false,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+
+            // Refresh inventory data and reset selections
+            FetchRFIDAntennaInventory();
+            setSelectedRFIDAntennas([]);
+
+            FetchLocationInventory();
+            setSelectedLocations([]);
+          })
+          .catch(() => {
+            // Hide processing message
+            setIsProcessing(false);
+
+            // Show error message
+            setResponseModal({
+              message: `Something went wrong while deleting the selected ${locationText}.`,
+              error: true,
+              isVisible: true,
+            });
+            setTimeout(() => {
+              setResponseModal({
+                message: "",
+                error: false,
+                isVisible: false,
+              });
+            }, 1500);
+          });
+      },
+      onNo: () => {
+        // Close confirmation modal if user chooses not to proceed
+        CloseConfirmationModal();
+      },
+      isVisible: true,
+    });
+  };
   //#endregion
 
   //#region Helpers
@@ -454,7 +698,7 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setEquipmentInventory(response.data.responseObject);
+        setEquipmentInventory(response?.data?.responseObject);
       })
       .catch(() => {
         setEquipmentInventory([]);
@@ -470,7 +714,7 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setTypeInventory(response.data.responseObject);
+        setTypeInventory(response?.data?.responseObject);
       })
       .catch((error) => {
         setTypeInventory([]);
@@ -486,10 +730,42 @@ function InventoryPage(props) {
         },
       })
       .then((response) => {
-        setModelInventory(response.data.responseObject);
+        setModelInventory(response?.data?.responseObject);
       })
-      .catch((error) => {
+      .catch(() => {
         setModelInventory([]);
+      });
+  };
+
+  // FetchLocationInventory - Fetch all types in the inventory
+  const FetchLocationInventory = () => {
+    axios
+      .get(`${API.domain}/api/location`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        setLocationInventory(response?.data?.responseObject);
+      })
+      .catch(() => {
+        setLocationInventory([]);
+      });
+  };
+
+  // FetchRFIDAntennaInventory - Fetch all RFID antennas in the inventory
+  const FetchRFIDAntennaInventory = () => {
+    axios
+      .get(`${API.domain}/api/inventory/antenna`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        setRFIDAntennaInventory(response?.data?.responseObject);
+      })
+      .catch(() => {
+        setRFIDAntennaInventory([]);
       });
   };
 
@@ -520,6 +796,8 @@ function InventoryPage(props) {
     FetchEquipmentInventory();
     FetchTypeInventory();
     FetchModelInventory();
+    FetchLocationInventory();
+    FetchRFIDAntennaInventory();
   }, []);
 
   // useEffect to refresh data and reset selections after editing
@@ -528,10 +806,14 @@ function InventoryPage(props) {
       FetchTypeInventory();
       FetchModelInventory();
       FetchEquipmentInventory();
+      FetchLocationInventory();
+      FetchRFIDAntennaInventory();
       setIsUpdated(false);
       setSelectedEquipment([]);
       setSelectedModels([]);
       setSelectedTypes([]);
+      setSelectedRFIDAntennas([]);
+      setSelectedLocations([]);
     }
   }, [isUpdated, editSection]);
 
@@ -590,6 +872,36 @@ function InventoryPage(props) {
                         isSelected={currentSection === "Model"}
                         onClick={() => setCurrentSection("Model")}
                       />
+                      {/* RFID Antenna Tab Button */}
+                      <HeaderButton
+                        className="InventoryPage-MiscHeaderButton"
+                        title="RFID Antenna"
+                        isSelected={currentSection === "RFID Antenna"}
+                        onClick={() => setCurrentSection("RFID Antenna")}
+                      />
+                      {/* Mobile RFID Antenna Tab Button */}
+                      <HeaderButton
+                        className="InventoryPage-MobileMiscHeaderButton"
+                        title=""
+                        isSelected={currentSection === "RFID Antenna"}
+                        onClick={() => setCurrentSection("RFID Antenna")}
+                        icon={HiStatusOnline}
+                      />
+                      {/* Location Tab Button */}
+                      <HeaderButton
+                        title="Location"
+                        className="InventoryPage-MiscHeaderButton"
+                        isSelected={currentSection === "Location"}
+                        onClick={() => setCurrentSection("Location")}
+                      />
+                      {/* Mobile Location Tab Button */}
+                      <HeaderButton
+                        title=""
+                        className="InventoryPage-MobileMiscHeaderButton"
+                        isSelected={currentSection === "Location"}
+                        onClick={() => setCurrentSection("Location")}
+                        icon={HiLocationMarker}
+                      />
                     </div>
                     {/* Action Container */}
                     <div className="InventoryPage-ActionContainer">
@@ -627,12 +939,13 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be display when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
-                              />
+                              /> */}
                             </>
                           )}
                         </>
@@ -671,12 +984,13 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
-                              />
+                          /> */}
                             </>
                           )}
                         </>
@@ -715,12 +1029,103 @@ function InventoryPage(props) {
                                 className="InventoryPage-AddButton"
                                 icon={HiPlus}
                               />
-                              <StandardButton
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
                                 title=""
                                 onClick={OnFilterClick}
                                 className="InventoryPage-FilterButton"
                                 icon={HiAdjustments}
+                          /> */}
+                            </>
+                          )}
+                        </>
+                      )}
+                      {currentSection === "RFID Antenna" && (
+                        <>
+                          {selectedRFIDAntennas.length === 1 && (
+                            <StandardButton
+                              title="Edit"
+                              onClick={EditSelectedRFIDAntenna}
+                              className="InventoryPage-EditButton"
+                              icon={HiPencilAlt}
+                            />
+                          )}
+                          {selectedRFIDAntennas.length > 0 && (
+                            <>
+                              <StandardButton
+                                title="Cancel"
+                                onClick={CancelSelection}
+                                className="InventoryPage-CancelButton"
+                                icon={HiMinusCircle}
                               />
+                              <StandardButton
+                                title=""
+                                onClick={DeleteSelectedRFIDAntennas}
+                                className="InventoryPage-DeleteButton"
+                                icon={HiTrash}
+                              />
+                            </>
+                          )}
+                          {selectedRFIDAntennas.length === 0 && (
+                            <>
+                              <StandardButton
+                                title="Add Antenna"
+                                onClick={AddRFIDAntenna}
+                                className="InventoryPage-AddButton"
+                                icon={HiPlus}
+                              />
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
+                                title=""
+                                onClick={OnFilterClick}
+                                className="InventoryPage-FilterButton"
+                                icon={HiAdjustments}
+                          /> */}
+                            </>
+                          )}
+                        </>
+                      )}
+                      {currentSection === "Location" && (
+                        <>
+                          {selectedLocations.length === 1 && (
+                            <StandardButton
+                              title="Edit"
+                              onClick={EditSelectedLocation}
+                              className="InventoryPage-EditButton"
+                              icon={HiPencilAlt}
+                            />
+                          )}
+                          {selectedLocations.length > 0 && (
+                            <>
+                              <StandardButton
+                                title="Cancel"
+                                onClick={CancelSelection}
+                                className="InventoryPage-CancelButton"
+                                icon={HiMinusCircle}
+                              />
+                              <StandardButton
+                                title=""
+                                onClick={DeleteSelectedLocations}
+                                className="InventoryPage-DeleteButton"
+                                icon={HiTrash}
+                              />
+                            </>
+                          )}
+                          {selectedLocations.length === 0 && (
+                            <>
+                              <StandardButton
+                                title="Add Location"
+                                onClick={AddLocation}
+                                className="InventoryPage-AddButton"
+                                icon={HiPlus}
+                              />
+                              {/* Can be displayed when the filter feature is ready */}
+                              {/* <StandardButton
+                                title=""
+                                onClick={OnFilterClick}
+                                className="InventoryPage-FilterButton"
+                                icon={HiAdjustments}
+                          /> */}
                             </>
                           )}
                         </>
@@ -739,19 +1144,27 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedEquipment.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedEquipment}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedEquipment.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedEquipment}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedEquipment.length === 0 && (
                           <StandardButton
@@ -775,19 +1188,27 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedTypes.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedType}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedTypes.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedTypes}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedTypes.length === 0 && (
                           <StandardButton
@@ -811,24 +1232,121 @@ function InventoryPage(props) {
                       <div className="InventoryPage-MobileBottomActionContainer">
                         {selectedModels.length === 1 && (
                           <StandardButton
-                            title="Edit"
+                            title=""
                             onClick={EditSelectedModel}
                             className={"InventoryPage-MobileEditButton"}
                             icon={HiPencilAlt}
                           />
                         )}
                         {selectedModels.length > 0 && (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={CancelSelection}
-                            className={"InventoryPage-MobileCancelButton"}
-                            icon={HiMinusCircle}
-                          />
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedModels}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
                         )}
                         {selectedModels.length === 0 && (
                           <StandardButton
                             title="Add Model"
                             onClick={AddModel}
+                            className={"InventoryPage-MobileAddButton"}
+                            icon={HiPlus}
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+                  {/* RFID Antenna Tab */}
+                  {currentSection === "RFID Antenna" && (
+                    <>
+                      <RFIDAntennaInventory
+                        rfidAntennaInventory={rfidAntennaInventory}
+                        selectedRFIDAntennas={selectedRFIDAntennas}
+                        onSelectRFIDAntenna={SelectRFIDAntenna}
+                      />
+                      <div className="InventoryPage-MobileBottomActionContainer">
+                        {selectedRFIDAntennas.length === 1 && (
+                          <StandardButton
+                            title=""
+                            onClick={EditSelectedRFIDAntenna}
+                            className={"InventoryPage-MobileEditButton"}
+                            icon={HiPencilAlt}
+                          />
+                        )}
+                        {selectedRFIDAntennas.length > 0 && (
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedRFIDAntennas}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
+                        )}
+                        {selectedRFIDAntennas.length === 0 && (
+                          <StandardButton
+                            title="Add Antenna"
+                            onClick={AddRFIDAntenna}
+                            className={"InventoryPage-MobileAddButton"}
+                            icon={HiPlus}
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+                  {/* Location Tab */}
+                  {currentSection === "Location" && (
+                    <>
+                      <LocationInventory
+                        locationInventory={locationInventory}
+                        selectedLocations={selectedLocations}
+                        onSelectLocation={SelectLocation}
+                        onLocationCardClick={OnLocationCardClick}
+                      />
+                      <div className="InventoryPage-MobileBottomActionContainer">
+                        {selectedLocations.length === 1 && (
+                          <StandardButton
+                            title=""
+                            onClick={EditSelectedLocation}
+                            className={"InventoryPage-MobileEditButton"}
+                            icon={HiPencilAlt}
+                          />
+                        )}
+                        {selectedLocations.length > 0 && (
+                          <>
+                            <StandardButton
+                              title="Cancel"
+                              onClick={CancelSelection}
+                              className={"InventoryPage-MobileCancelButton"}
+                              icon={HiMinusCircle}
+                            />
+                            <StandardButton
+                              title=""
+                              onClick={DeleteSelectedLocations}
+                              className="InventoryPage-MobileDeleteButton"
+                              icon={HiTrash}
+                            />
+                          </>
+                        )}
+                        {selectedLocations.length === 0 && (
+                          <StandardButton
+                            title="Add Location"
+                            onClick={AddLocation}
                             className={"InventoryPage-MobileAddButton"}
                             icon={HiPlus}
                           />
@@ -845,7 +1363,6 @@ function InventoryPage(props) {
               <UpdateTypePage
                 setEditSection={setEditSection}
                 typeId={selectedTypes?.[0]}
-                isUpdated={isUpdated}
                 setIsUpdated={setIsUpdated}
               />
             )}
@@ -855,16 +1372,34 @@ function InventoryPage(props) {
               <UpdateModelPage
                 setEditSection={setEditSection}
                 modelId={selectedModels?.[0]}
-                isUpdated={isUpdated}
                 setIsUpdated={setIsUpdated}
               />
             )}
+
+            {/* If there is an editSection request for RFID Antenna present */}
+            {!detailSection && editSection === "RFID Antenna" && (
+              <UpdateRFIDAntennaPage
+                setEditSection={setEditSection}
+                rfidAntennaId={selectedRFIDAntennas?.[0]}
+                setIsUpdated={setIsUpdated}
+              />
+            )}
+
             {/* If there is a detailSection present and not have an editSection */}
             {detailSection === "Equipment" && !editSection && (
               <EquipmentDetailsPage
                 setDetailSection={setDetailSection}
                 setEditSection={setEditSection}
                 equipmentSerialId={equipmentDetailSerialId}
+                setIsUpdated={setIsUpdated}
+              />
+            )}
+
+            {detailSection === "Location" && !editSection && (
+              <LocationDetailsPage
+                setDetailSection={setDetailSection}
+                setEditSection={setEditSection}
+                locationId={locationDetailId}
                 setIsUpdated={setIsUpdated}
               />
             )}
@@ -877,7 +1412,16 @@ function InventoryPage(props) {
                 equipmentSerialId={equipmentDetailSerialId}
                 setEditSection={setEditSection}
                 setIsUpdated={setIsUpdated}
-                isUpdated={isUpdated}
+              />
+            )}
+            {/* If there is an editSection for location */}
+            {editSection === "Location" && (
+              <UpdateLocationPage
+                detailSection={detailSection}
+                setDetailSection={setDetailSection}
+                locationId={locationDetailId}
+                setEditSection={setEditSection}
+                setIsUpdated={setIsUpdated}
               />
             )}
           </div>

@@ -54,11 +54,14 @@ function StudentDashboard(props) {
   const [reservationsFilterStatus, setReservationsFilterStatus] =
     useState("Approved");
   const [selectedEquipmentFilter, setSelectedEquipmentFilter] = useState(null);
+  const [currentlyUsingEquipment, setCurrentlyUsingEquipment] = useState([]);
+  const [recentlyUsedEquipment, setRecentlyUsedEquipment] = useState([]);
 
   // State variable for reservation list refresh
   const [isRefreshed, setIsRefreshed] = useState({
     approvedReservation: false,
     requestedReservation: false,
+    equipmentUsage: false,
   });
 
   // State for selected reservation
@@ -137,7 +140,7 @@ function StudentDashboard(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -153,10 +156,10 @@ function StudentDashboard(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
+          const approved = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
+          const requested = response?.data?.responseObject.filter(
             (reservation) => reservation.status === "Requested"
           );
 
@@ -232,7 +235,7 @@ function StudentDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setApprovedReservations(response.data.responseObject);
+          setApprovedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -277,7 +280,7 @@ function StudentDashboard(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setRequestedReservations(response.data.responseObject);
+          setRequestedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -295,6 +298,42 @@ function StudentDashboard(props) {
             isIconSpin: false,
           });
           setRequestedReservations([]);
+        }, 1500);
+      });
+  };
+
+  // FetchEquipmentUsage - Fetch the in-use and recently use equipment list
+  const FetchEquipmentUsage = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}/equipment-usage`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response?.data?.responseObject;
+        setCurrentlyUsingEquipment(responseObject?.currentlyUsed);
+        setRecentlyUsedEquipment(responseObject?.recentlyUsed);
+      })
+      .catch((error) => {
+        const errorMessage =
+          error.response?.data?.message ||
+          "An error occurred. Please try again.";
+        setIconModal({
+          message: errorMessage,
+          icon: HiExclamationCircle,
+          visibility: true,
+          isIconSpin: false,
+        });
+        setTimeout(() => {
+          setIconModal({
+            message: "",
+            icon: HiExclamationCircle,
+            visibility: false,
+            isIconSpin: false,
+          });
+          setCurrentlyUsingEquipment([]);
+          setRecentlyUsedEquipment([]);
         }, 1500);
       });
   };
@@ -320,10 +359,11 @@ function StudentDashboard(props) {
     }
   }, [selectedEquipmentFilter, selectedReservation, isMobileView]);
 
-  // Effect to set isRefreshed to false every 2 minute
+  // Effect to set isRefreshed to false for reservation every 1 minute
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefreshed({
+        ...isRefreshed,
         approvedReservation: false,
         requestedReservation: false,
       });
@@ -331,6 +371,20 @@ function StudentDashboard(props) {
 
     // Clear interval on component unmount
     return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, []);
+
+  // Effect to set isRefreshed to false for equipment usage every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshed({
+        ...isRefreshed,
+        equipmentUsage: false,
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
   }, []);
 
   // Upon changing the reservationsFilterStatus, get different filter status reservations.
@@ -348,6 +402,15 @@ function StudentDashboard(props) {
     }
     // eslint-disable-next-line
   }, [reservationsFilterStatus]);
+
+  // Upon changing the isRefreshed equipmentUsage, fetch again.
+  useEffect(() => {
+    if (isRefreshed.equipmentUsage === false) {
+      FetchEquipmentUsage();
+      setIsRefreshed({ ...isRefreshed, equipmentUsage: true });
+    }
+    // eslint-disable-next-line
+  }, [isRefreshed.equipmentUsage]);
 
   // Updating reservation list upon fetching
   useEffect(() => {
@@ -394,7 +457,7 @@ function StudentDashboard(props) {
             }`}
           >
             {/* Equipment Filter Section */}
-            <div className="StudentDashboard-EquipmentFilterSection StudentDashboard-Hide">
+            <div className="StudentDashboard-EquipmentFilterSection">
               {/* Section Header */}
               <div className="StudentDashboard-SectionHeader">
                 {/* Title */}
@@ -412,6 +475,8 @@ function StudentDashboard(props) {
                 className="StudentDashboard-EquipmentFilterCardList"
                 selectedEquipmentFilter={selectedEquipmentFilter}
                 OnEquipmentFilterCardClick={OnEquipmentFilterCardClick}
+                currentlyUsingQuantity={currentlyUsingEquipment?.length}
+                recentlyUsedQuantity={recentlyUsedEquipment?.length}
               />
             </div>
             {/* Reservation Section */}
@@ -470,22 +535,24 @@ function StudentDashboard(props) {
                 <DetailSection
                   className="StudentDashboard-CurrentlyUsingSection"
                   title="Currently Using"
-                  additionalInformation={`MM/DD/YYYY`}
-                  equipmentDetails={[]}
+                  additionalInformation={"All in-used items"}
+                  equipmentDetails={currentlyUsingEquipment}
                   actionIcon={isMobileView ? HiX : null}
                   action={CloseDetailSection}
                   isMargin={true}
+                  inventoryMessage="You are not using any equipment."
                 />
               )}
               {selectedEquipmentFilter === "Recently Used" && (
                 <DetailSection
                   className="StudentDashboard-RecentlyUsedSection"
                   title="Recently Used"
-                  additionalInformation={`MM/DD/YYYY - MM/DD/YYYY`}
-                  equipmentDetails={[]}
+                  additionalInformation={"Last 7 days"}
+                  equipmentDetails={recentlyUsedEquipment}
                   actionIcon={isMobileView ? HiX : null}
                   action={CloseDetailSection}
                   isMargin={true}
+                  inventoryMessage="You did not use any equipment in the last 7 days."
                 />
               )}
               {selectedReservation && (
@@ -504,7 +571,7 @@ function StudentDashboard(props) {
                       <StandardButton
                         title="Edit"
                         onClick={OnEditReservationClick}
-                        className="StudentDashboard-ReservationActionButton"
+                        className="StudentDashboard-ReservationActionButton StudentDashboard-Hide"
                         icon={HiPencilAlt}
                       />
                       <StandardButton

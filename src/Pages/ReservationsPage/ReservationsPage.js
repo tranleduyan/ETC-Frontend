@@ -32,7 +32,6 @@ import {
   HiCalendar,
   HiCheck,
   HiChevronLeft,
-  HiChevronRight,
   HiExclamationCircle,
   HiMinusCircle,
   HiPencilAlt,
@@ -251,7 +250,7 @@ function ReservationsPage(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -267,11 +266,11 @@ function ReservationsPage(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Approved"
+          const approved = response?.data?.responseObject.filter(
+            (reservation) => reservation?.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Requested"
+          const requested = response?.data.responseObject.filter(
+            (reservation) => reservation?.status === "Requested"
           );
 
           // Set filtered reservations to state variables
@@ -322,7 +321,7 @@ function ReservationsPage(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -337,11 +336,11 @@ function ReservationsPage(props) {
             isIconSpin: false,
           });
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Approved"
+          const approved = response?.data?.responseObject.filter(
+            (reservation) => reservation?.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Requested"
+          const requested = response?.data?.responseObject.filter(
+            (reservation) => reservation?.status === "Requested"
           );
 
           // Set filtered reservations to state variables
@@ -392,7 +391,7 @@ function ReservationsPage(props) {
       .then((response) => {
         // Show success message
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -408,11 +407,11 @@ function ReservationsPage(props) {
           });
 
           // Filter reservations by status
-          const approved = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Approved"
+          const approved = response?.data?.responseObject.filter(
+            (reservation) => reservation?.status === "Approved"
           );
-          const requested = response.data.responseObject.filter(
-            (reservation) => reservation.status === "Requested"
+          const requested = response?.data?.responseObject.filter(
+            (reservation) => reservation?.status === "Requested"
           );
 
           // Set filtered reservations to state variables
@@ -474,7 +473,7 @@ function ReservationsPage(props) {
       })
       .then((response) => {
         setIconModal({
-          message: response.data.message,
+          message: response?.data?.message,
           icon: HiCheck,
           visibility: true,
           isIconSpin: false,
@@ -556,7 +555,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setApprovedReservations(response.data.responseObject);
+          setApprovedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -601,7 +600,7 @@ function ReservationsPage(props) {
             visibility: false,
             isIconSpin: false,
           });
-          setRequestedReservations(response.data.responseObject);
+          setRequestedReservations(response?.data?.responseObject);
         }, 1500);
       })
       .catch(() => {
@@ -646,7 +645,7 @@ function ReservationsPage(props) {
         }
       )
       .then((response) => {
-        setAvailableModels(response.data.responseObject);
+        setAvailableModels(response?.data?.responseObject);
         setTimeout(() => {
           setIconModal({
             message: "",
@@ -800,7 +799,7 @@ function ReservationsPage(props) {
     }
   }, [pageState]);
 
-  // Effect to set isRefreshed to false every 2 minute
+  // Effect to set isRefreshed to false every 1 minute
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefreshed({
@@ -898,31 +897,6 @@ function ReservationsPage(props) {
                 <div className="ReservationsPage-MobileContentHeaderContainer">
                   {reservationCreationState === "Initial" && (
                     <>
-                      <div className="ReservationsPage-MobileHeaderRow">
-                        <SearchBarInputField
-                          className="ReservationsPage-SearchBar"
-                          placeholder="Search"
-                          name="equipmentSerialId"
-                          value={searchQuery.equipmentSerialId}
-                          onChange={HandleSearchQueryChange}
-                          onKeyDown={(e) => e.key === "Enter" && Search()}
-                        />
-                        {isMakingReservation ? (
-                          <StandardButton
-                            title="Cancel"
-                            onClick={OnCancelReservationCreationClick}
-                            className="ReservationsPage-CancelButton"
-                            icon={HiMinusCircle}
-                          />
-                        ) : (
-                          <StandardButton
-                            title="Reserve"
-                            onClick={OnReserveClick}
-                            className="ReservationsPage-ReserveButton"
-                            icon={HiPlus}
-                          />
-                        )}
-                      </div>
                       <div className="ReservationsPage-ReservationDateContainer">
                         <DatePickerInputField
                           className={`ReservationsPage-ReservationDateField`}
@@ -972,7 +946,7 @@ function ReservationsPage(props) {
                   {reservationCreationState === "Initial" && (
                     <>
                       <SearchBarInputField
-                        className="ReservationsPage-SearchBar"
+                        className="ReservationsPage-SearchBar ReservationsPage-Hide"
                         placeholder="Search equipment"
                         name="equipmentSerialId"
                         value={searchQuery.equipmentSerialId}
@@ -1072,6 +1046,7 @@ function ReservationsPage(props) {
                 </div>
                 {reservationCreationState === "Initial" && (
                   <AvailableModelList
+                  className="ReservationsPage-AvailableModelList"
                     availableModels={availableModels}
                     selectedModels={selectedModels}
                     onSelectModel={SelectModel}
@@ -1127,6 +1102,14 @@ function ReservationsPage(props) {
                           icon={HiArrowSmRight}
                         />
                       )}
+                      {reservationCreationState === "Initial" && (
+                        <StandardButton
+                          title="Cancel"
+                          onClick={OnCancelReservationCreationClick}
+                          className="ReservationsPage-CancelButton"
+                          icon={HiMinusCircle}
+                        />
+                      )}
                       {reservationCreationState === "Confirm Reservation" && (
                         <StandardButton
                           title="Confirm"
@@ -1137,16 +1120,20 @@ function ReservationsPage(props) {
                       )}
                     </>
                   ) : (
-                    <StandardButton
-                      title={
-                        userRole === "Faculty" || userRole === "Admin"
-                          ? "All Reservations"
-                          : "Your Reservations"
-                      }
-                      onClick={OnYourReservationsClick}
-                      className="ReservationsPage-YourReservationsButton"
-                      icon={HiChevronRight}
-                    />
+                    <>
+                      <StandardButton
+                        title="Reserve"
+                        onClick={OnReserveClick}
+                        className="ReservationsPage-ReserveButton"
+                        icon={HiPlus}
+                      />
+                      <StandardButton
+                        title=""
+                        onClick={OnYourReservationsClick}
+                        className="ReservationsPage-YourReservationsButton"
+                        icon={HiCalendar}
+                      />
+                    </>
                   )}
                 </div>
               </div>

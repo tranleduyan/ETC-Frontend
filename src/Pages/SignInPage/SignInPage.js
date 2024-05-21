@@ -102,7 +102,7 @@ function SignInPage(props) {
         // If it is success, extract from the response body and capture the data to the storage, and navigate to dashboard.
         .then((response) => {
           // Extract user data from the response
-          const userData = response.data.responseObject;
+          const userData = response?.data?.responseObject;
           const userId = userData.userId;
 
           // Dispatch the setUserData action to update Redux store
@@ -115,7 +115,7 @@ function SignInPage(props) {
         // Else if it is not a success, display the error message to the user.
         .catch((error) => {
           setIsError(true);
-          setErrorMessage(error.response.data.message);
+          setErrorMessage(error?.response?.data?.message);
         });
     }
   };

@@ -264,7 +264,7 @@ function UpdateTypePage(props) {
       .then((response) => {
         setTypeInformation({
           ...typeInformation,
-          name: response.data.responseObject.typeName,
+          name: response?.data?.responseObject?.typeName,
         });
       })
       .catch(() => {

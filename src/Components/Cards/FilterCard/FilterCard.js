@@ -40,7 +40,7 @@ function FilterCard(props) {
       {Icon && <Icon className={`FilterCard-Icon ${iconClassName}`} />}
       <div className="FilterCard-Information">
         <p className="heading-5">{title}</p>
-        {quantity && (
+        {(quantity || quantity === 0) && (
           <p className="paragraph-1">
             {quantity} {quantityUnitText}
           </p>

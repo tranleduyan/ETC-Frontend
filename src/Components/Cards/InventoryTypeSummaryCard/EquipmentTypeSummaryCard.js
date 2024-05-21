@@ -15,12 +15,13 @@ function EquipmentTypeSummaryCard(props) {
   // eslint-disable-next-line
   const {
     className,
-    typeID,
     typeName,
     inventoryAmount,
-    reservationAmount,
-    isSelected,
     OnEquipmentTypeSummaryCardClick,
+    // eslint-disable-next-line
+    typeID,
+    // eslint-disable-next-line
+    isSelected,
   } = props;
 
   // Determine whether to use 'models' or 'model' based on the inventory amount
@@ -56,8 +57,6 @@ function EquipmentTypeSummaryCard(props) {
             </p>
           </div>
         </div>
-        {/* Display the number of reserved items */}
-        <p className="paragraph-1">Reserved: {reservationAmount}</p>
       </button>
     </>
   );

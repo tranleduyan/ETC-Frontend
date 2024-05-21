@@ -51,6 +51,9 @@ function UpdateEquipmentPage(props) {
   // Options for equipment types dropdowns
   const [equipmentTypeOptions, setEquipmentTypeOptions] = useState([]);
 
+  // Options for locations dropdowns
+  const [locationOptions, setLocationOptions] = useState([]);
+
   // Equipment form error state and error message
   const [equipmentIsError, setEquipmentIsError] = useState(false);
   const [equipmentErrorMessage, setEquipmentErrorMessage] = useState("");
@@ -65,11 +68,18 @@ function UpdateEquipmentPage(props) {
       (status) => status.value === "Available"
     ),
     rfidTag: "",
-    homeLocation: null,
+    homeLocations: [],
     condition: "",
     purchaseCost: "",
     purchaseDate: null,
   });
+  const modifiedEquipmentInformation = {
+    ...equipmentInformation,
+    // Check if rfidTag is "---" and set it to an empty string if true
+    rfidTag: equipmentInformation.rfidTag === "---" ? "" : equipmentInformation.rfidTag,
+    purchaseDate: equipmentInformation.purchaseDate === "--/--/----" ? null : equipmentInformation.purchaseDate,
+    purchaseCost: equipmentInformation.purchaseCost === "$--.--" ? null : equipmentInformation.purchaseCost
+  };
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -103,7 +113,7 @@ function UpdateEquipmentPage(props) {
         (status) => status.value === "Available"
       ),
       rfidTag: "",
-      homeLocation: null,
+      homeLocations: [],
       condition: "",
       purchaseCost: "",
       purchaseDate: null,
@@ -127,8 +137,12 @@ function UpdateEquipmentPage(props) {
         modelId: equipmentInformation.model.value,
         maintenanceStatus: equipmentInformation.maintenanceStatus.value,
         reservationStatus: equipmentInformation.reservationStatus.value,
+        homeLocations: equipmentInformation.homeLocations.map(
+          (location) => location.value
+        ),
+        rfidTag: equipmentInformation.rfidTag,
         usageCondition: equipmentInformation.condition.value,
-        purchaseCost: parseFloat(equipmentInformation.purchaseCost),
+        purchaseCost: equipmentInformation.purchaseCost ? parseFloat(equipmentInformation.purchaseCost) : null,
         purchaseDate: equipmentInformation.purchaseDate
           ? new Date(equipmentInformation.purchaseDate)
               .toISOString()
@@ -194,7 +208,7 @@ function UpdateEquipmentPage(props) {
 
   // DeleteEquipment - Delete the current equipment
   const DeleteEquipment = () => {
-    // Show confirmation modal for type deletion
+    // Show confirmation modal for equipment deletion
     setConfirmationModal({
       title: "Remove Equipment",
       content: `Are you sure you want to remove ${equipmentSerialId}?`,
@@ -251,7 +265,7 @@ function UpdateEquipmentPage(props) {
                   (status) => status.value === "Available"
                 ),
                 rfidTag: "",
-                homeLocation: null,
+                homeLocations: [],
                 condition: "",
                 purchaseCost: "",
                 purchaseDate: null,
@@ -358,6 +372,31 @@ function UpdateEquipmentPage(props) {
     }
   };
 
+  // FetchAllLocationOptions - Fetching all the locations options.
+  const FetchAllLocationOptions = () => {
+    // HTTP get request to fetch all the location options
+    axios
+      .get(`${API.domain}/api/location`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        // Map value and label
+        const options = response?.data?.responseObject.map((location) => ({
+          value: location?.locationId,
+          label: location?.locationName,
+        }));
+
+        // Set the options
+        setLocationOptions(options);
+      })
+      .catch(() => {
+        // Locations not found, reset location options
+        setLocationOptions([]);
+      });
+  };
+
   // FetchAllTypeOptions - Fetching all the types available.
   const FetchAllTypeOptions = () => {
     axios
@@ -367,9 +406,9 @@ function UpdateEquipmentPage(props) {
         },
       })
       .then((response) => {
-        const options = response.data.responseObject.map((type) => ({
-          value: type.typeId,
-          label: type.typeName,
+        const options = response?.data?.responseObject.map((type) => ({
+          value: type?.typeId,
+          label: type?.typeName,
         }));
 
         setEquipmentTypeOptions(options);
@@ -382,6 +421,7 @@ function UpdateEquipmentPage(props) {
   // Fetch all the types for options upon mounting
   useEffect(() => {
     FetchAllTypeOptions();
+    FetchAllLocationOptions();
     // eslint-disable-next-line
   }, []);
 
@@ -395,32 +435,39 @@ function UpdateEquipmentPage(props) {
           },
         })
         .then((response) => {
-          const responseObject = response.data.responseObject;
+          const responseObject = response?.data?.responseObject;
           const equipmentInfo = {
-            serialNumber: responseObject.serialId,
+            serialNumber: responseObject?.serialId,
             type: equipmentTypeOptions.find(
-              (type) => type.label === responseObject.typeName
+              (type) => type?.label === responseObject?.typeName
             ),
             model: null,
-            maintenanceStatus: OPTIONS.equipment.maintenanceStatus.find(
-              (status) => status.value === responseObject.maintenanceStatus
+            maintenanceStatus: OPTIONS?.equipment?.maintenanceStatus.find(
+              (status) => status?.value === responseObject?.maintenanceStatus
             ),
-            reservationStatus: OPTIONS.equipment.reservationStatus.find(
-              (status) => status.value === responseObject.reservationStatus
+            reservationStatus: OPTIONS?.equipment?.reservationStatus.find(
+              (status) => status?.value === responseObject?.reservationStatus
             ),
-            rfidTag: "",
-            homeLocation: null,
-            condition: OPTIONS.equipment.conditions.find(
-              (condition) => condition.value === responseObject.usageCondition
+            rfidTag: responseObject?.rfidTag ? responseObject?.rfidTag : "---",
+            homeLocations:
+              Array.isArray(responseObject?.homeRooms) &&
+              responseObject.homeRooms.length > 0
+                ? responseObject?.homeRooms?.map((room) => ({
+                    value: room?.locationId,
+                    label: room?.locationName,
+                  }))
+                : [],
+            condition: OPTIONS?.equipment?.conditions.find(
+              (condition) => condition?.value === responseObject?.usageCondition
             ),
             purchaseCost:
-              response.data.responseObject.purchaseCost === "$--.--"
+              response?.data?.responseObject?.purchaseCost === "$--.--"
                 ? ""
-                : parseFloat(responseObject.purchaseCost.replace("$", "")),
+                : parseFloat(responseObject?.purchaseCost?.replace("$", "")),
             purchaseDate:
-              response.data.responseObject.purchaseDate === "--/--/----"
+              response?.data?.responseObject?.purchaseDate === "--/--/----"
                 ? ""
-                : new Date(responseObject.purchaseDate),
+                : new Date(responseObject?.purchaseDate),
           };
 
           setEquipmentInformation(equipmentInfo);
@@ -440,6 +487,7 @@ function UpdateEquipmentPage(props) {
               isVisible: false,
             });
             OnBack();
+            setIsUpdated(false);
           }, 1500);
         });
     }
@@ -462,20 +510,20 @@ function UpdateEquipmentPage(props) {
         )
         .then((response) => {
           // Map value and label
-          const options = response.data.responseObject?.map((model) => ({
-            value: model.modelId,
-            label: model.modelName,
+          const options = response?.data?.responseObject?.map((model) => ({
+            value: model?.modelId,
+            label: model?.modelName,
           }));
 
           // Set the equipmentModels to the response object - Array of all models of a type
-          setEquipmentModels(response.data.responseObject);
+          setEquipmentModels(response?.data?.responseObject);
 
           // Set the equipmentModelOptions to options
           setEquipmentModelOptions(options);
         })
         .catch((error) => {
           // If not found, reset to empty equipment models and options
-          if (error.response.status === 404) {
+          if (error?.response?.status === 404) {
             setEquipmentModels([]);
             setEquipmentModelOptions([]);
           }
@@ -488,11 +536,11 @@ function UpdateEquipmentPage(props) {
 
   // Set equipment model if available from initial model options
   useEffect(() => {
-    if (initialModel && equipmentModelOptions.length > 0) {
+    if (initialModel && equipmentModelOptions?.length > 0) {
       setEquipmentInformation({
         ...equipmentInformation,
-        model: equipmentModelOptions.find(
-          (model) => model.label === initialModel
+        model: equipmentModelOptions?.find(
+          (model) => model?.label === initialModel
         ),
       });
       setInitialModel(null);
@@ -552,7 +600,7 @@ function UpdateEquipmentPage(props) {
         </div>
         {/* Equipment Form */}
         <EquipmentForm
-          equipmentInformation={equipmentInformation}
+          equipmentInformation={modifiedEquipmentInformation}
           setEquipmentInformation={setEquipmentInformation}
           isError={equipmentIsError}
           errorMessage={equipmentErrorMessage}
@@ -560,6 +608,8 @@ function UpdateEquipmentPage(props) {
           equipmentModelOptions={equipmentModelOptions}
           equipmentTypeOptions={equipmentTypeOptions}
           disableSerialNumber={true}
+          equipmentHomeLocationOptions={locationOptions}
+          disableReservationStatus={true}
         />
         {/* Mobile Save Update Button */}
         <StandardButton
