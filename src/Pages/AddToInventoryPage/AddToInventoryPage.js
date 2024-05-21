@@ -30,6 +30,7 @@ import {
   HiSwitchHorizontal,
   HiCheckCircle,
   HiPlus,
+  // eslint-disable-next-line
   HiDocumentText,
   HiStatusOnline,
   HiLocationMarker,
@@ -156,6 +157,7 @@ function AddToInventoryPage(props) {
         homeLocations: equipmentAdditionInformation.homeLocations.map(
           (location) => location.value
         ),
+        rfidTag: equipmentAdditionInformation.rfidTag
       };
 
       axios
@@ -209,6 +211,7 @@ function AddToInventoryPage(props) {
   };
 
   // TODO: Import Equipment - Import CSV and add the content to the database
+  // eslint-disable-next-line
   const ImportEquipment = () => {
     console.log("Import Equipment");
   };

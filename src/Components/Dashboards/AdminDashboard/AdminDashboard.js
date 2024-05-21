@@ -660,9 +660,9 @@ function AdminDashboard(props) {
               <div className="AdminDashboard-SectionHeader">
                 {/* Title */}
                 <p className="heading-5">Inventory</p>
-                {/* Search Bar */}
+                {/* Search Bar TODO: Implement Search Query*/}
                 <SearchBarInputField
-                  className="AdminDashboard-SearchBar"
+                  className="AdminDashboard-SearchBar AdminDashboard-Hide"
                   placeholder="Search type"
                   name="equipmentType"
                   value={searchQuery.equipmentType}

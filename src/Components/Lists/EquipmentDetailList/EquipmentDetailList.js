@@ -40,7 +40,7 @@ function EquipmentDetailList(props) {
               key={item.serialId}
               title={item.modelName}
               information={[item.typeName, item.serialId]}
-              modelPhotoPath={item.modelPhotoPath}
+              modelPhotoPath={item.modelPhoto}
             />
           ))
         ))}

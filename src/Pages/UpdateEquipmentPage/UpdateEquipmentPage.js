@@ -73,6 +73,13 @@ function UpdateEquipmentPage(props) {
     purchaseCost: "",
     purchaseDate: null,
   });
+  const modifiedEquipmentInformation = {
+    ...equipmentInformation,
+    // Check if rfidTag is "---" and set it to an empty string if true
+    rfidTag: equipmentInformation.rfidTag === "---" ? "" : equipmentInformation.rfidTag,
+    purchaseDate: equipmentInformation.purchaseDate === "--/--/----" ? null : equipmentInformation.purchaseDate,
+    purchaseCost: equipmentInformation.purchaseCost === "$--.--" ? null : equipmentInformation.purchaseCost
+  };
 
   // Confirmation Modal State Object
   const [confirmationModal, setConfirmationModal] = useState({
@@ -133,8 +140,9 @@ function UpdateEquipmentPage(props) {
         homeLocations: equipmentInformation.homeLocations.map(
           (location) => location.value
         ),
+        rfidTag: equipmentInformation.rfidTag,
         usageCondition: equipmentInformation.condition.value,
-        purchaseCost: parseFloat(equipmentInformation.purchaseCost),
+        purchaseCost: equipmentInformation.purchaseCost ? parseFloat(equipmentInformation.purchaseCost) : null,
         purchaseDate: equipmentInformation.purchaseDate
           ? new Date(equipmentInformation.purchaseDate)
               .toISOString()
@@ -440,7 +448,7 @@ function UpdateEquipmentPage(props) {
             reservationStatus: OPTIONS?.equipment?.reservationStatus.find(
               (status) => status?.value === responseObject?.reservationStatus
             ),
-            rfidTag: "",
+            rfidTag: responseObject?.rfidTag ? responseObject?.rfidTag : "---",
             homeLocations:
               Array.isArray(responseObject?.homeRooms) &&
               responseObject.homeRooms.length > 0
@@ -592,7 +600,7 @@ function UpdateEquipmentPage(props) {
         </div>
         {/* Equipment Form */}
         <EquipmentForm
-          equipmentInformation={equipmentInformation}
+          equipmentInformation={modifiedEquipmentInformation}
           setEquipmentInformation={setEquipmentInformation}
           isError={equipmentIsError}
           errorMessage={equipmentErrorMessage}

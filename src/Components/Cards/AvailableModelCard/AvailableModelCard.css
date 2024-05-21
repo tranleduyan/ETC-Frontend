@@ -108,9 +108,14 @@
   }
 
   .AvailableModelCard-InformationContainer p.heading-5 {
-    white-space: nowrap;
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -moz-box-lines: 1;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 

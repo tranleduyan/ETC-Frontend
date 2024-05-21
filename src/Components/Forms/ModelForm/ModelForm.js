@@ -1,5 +1,5 @@
 //#region Import Components
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 //#endregion
 
@@ -29,6 +29,9 @@ function ModelForm(props) {
 
   // Ref hooks to the file input
   const modelPhotoRef = useRef(null);
+
+  // Handle photo error
+  const [isModelPhotoError, setIsModelPhotoError] = useState(false);
 
   // HandleModelAdditionInputChange - Update the information with the new value to the propertyName.
   const HandleModelInputChange = (propertyName, selectedValue) => {
@@ -69,7 +72,7 @@ function ModelForm(props) {
           </button>
         )}
         {/* If the photo is uploaded, show the photo (preview) */}
-        {modelInformation.photo &&
+        {modelInformation.photo && !isModelPhotoError && 
           typeof modelInformation.photo !== "string" && (
             <button
               className="ModelForm-TypeModelPhoto"
@@ -77,7 +80,7 @@ function ModelForm(props) {
             >
               <img
                 src={URL.createObjectURL(modelInformation.photo)}
-                alt="Equipment Model"
+                alt="Equipment Model" onError={(setIsModelPhotoError(true))}
               />
               <input
                 type="file"

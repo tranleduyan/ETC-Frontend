@@ -1,5 +1,5 @@
 //#region Import Necessary Dependencies
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 //#endregion
@@ -23,12 +23,15 @@ function EquipmentDetailCard(props) {
     details,
   }));
 
+  // State to handle equipment model photo loading errors
+  const [equipmentModelPhoto, setEquipmentModelPhoto] = useState(modelPhotoPath);
+
   return (
     <div className={`${className} EquipmentDetailCard-Container`}>
       {/* Equipment image with a default icon if no photo */}
       <div className="EquipmentDetailCard-ModelPhoto">
-        {modelPhotoPath ? (
-          <img src={modelPhotoPath} alt="Equipment Model" />
+        {equipmentModelPhoto ? (
+          <img src={modelPhotoPath} alt="Equipment Model" onError={() => setEquipmentModelPhoto(null)} />
         ) : (
           <FontAwesomeIcon
             icon={faScrewdriverWrench}
