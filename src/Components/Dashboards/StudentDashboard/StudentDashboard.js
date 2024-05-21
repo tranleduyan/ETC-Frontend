@@ -571,7 +571,7 @@ function StudentDashboard(props) {
                       <StandardButton
                         title="Edit"
                         onClick={OnEditReservationClick}
-                        className="StudentDashboard-ReservationActionButton"
+                        className="StudentDashboard-ReservationActionButton StudentDashboard-Hide"
                         icon={HiPencilAlt}
                       />
                       <StandardButton
