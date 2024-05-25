@@ -14,14 +14,14 @@ import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/Unautho
 import IconModal from "../../Components/Modals/IconModal/IconModal";
 import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
 import Logo from "../../Components/Logo/Logo";
-//#endregion
-
-//#region Import Icons
-import { HiBookmarkAlt, HiExclamationCircle, HiRefresh } from "react-icons/hi";
 import HeaderButton from "../../Components/Buttons/HeaderButton/HeaderButton";
 import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
 import StandardDropDown from "../../Components/DropDowns/StandardDropDown/StandardDropDown";
 import UserForm from "../../Components/Forms/UserForm/UserForm";
+//#endregion
+
+//#region Import Icons
+import { HiBookmarkAlt, HiExclamationCircle, HiRefresh } from "react-icons/hi";
 //#endregion
 
 // Define UsersPage Component

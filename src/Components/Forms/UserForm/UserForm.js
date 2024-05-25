@@ -25,6 +25,12 @@ function UserForm(props) {
     errorMessage,
     userInformation,
     setUserInformation,
+    disableFirstName,
+    disableMiddleName,
+    disableLastName,
+    disableEmailAddress,
+    disableSchoolId,
+    disableTagId,
   } = props;
 
   // HandleModelAdditionInputChange - Update the information with the new value to the propertyName.
@@ -48,6 +54,7 @@ function UserForm(props) {
             onChange={(name, value) =>
               HandleUserInformationInputChange(name, value)
             }
+            disabled={disableFirstName}
           />
           {/* Middle Name Input Field */}
           <StandardTextInputField
@@ -58,6 +65,7 @@ function UserForm(props) {
             onChange={(name, value) =>
               HandleUserInformationInputChange(name, value)
             }
+            disabled={disableMiddleName}
           />
           {/* Last Name Input Field */}
           <StandardTextInputField
@@ -68,6 +76,7 @@ function UserForm(props) {
             onChange={(name, value) =>
               HandleUserInformationInputChange(name, value)
             }
+            disabled={disableLastName}
           />
         </div>
       </div>
@@ -83,6 +92,7 @@ function UserForm(props) {
           onChange={(name, value) =>
             HandleUserInformationInputChange(name, value)
           }
+          disabled={disableEmailAddress}
         />
       </div>
       {/* ID Group */}
@@ -99,6 +109,7 @@ function UserForm(props) {
             onChange={(name, value) =>
               HandleUserInformationInputChange(name, value)
             }
+            disabled={disableSchoolId}
           />
           {/* Tag ID Input Field */}
           <StandardTextInputField
@@ -109,6 +120,7 @@ function UserForm(props) {
             onChange={(name, value) =>
               HandleUserInformationInputChange(name, value)
             }
+            disabled={disableTagId}
           />
         </div>
       </div>
@@ -129,12 +141,24 @@ UserForm.propTypes = {
   errorMessage: PropTypes.string,
   userInformation: PropTypes.any.isRequired,
   setUserInformation: PropTypes.func.isRequired,
+  disableFirstName: PropTypes.bool,
+  disableMiddleName: PropTypes.bool,
+  disableLastName: PropTypes.bool,
+  disableEmailAddress: PropTypes.bool,
+  disableSchoolId: PropTypes.bool,
+  disableTagId: PropTypes.bool,
 };
 
 UserForm.defaultProps = {
   className: "",
   isError: false,
   errorMessage: "",
+  disableFirstName: false,
+  disableMiddleName: false,
+  disableLastName: false,
+  disableEmailAddress: false,
+  disableSchoolId: false,
+  disableTagId: false,
 };
 
 // Exports the UserForm component as the default export for the UserForm module.
