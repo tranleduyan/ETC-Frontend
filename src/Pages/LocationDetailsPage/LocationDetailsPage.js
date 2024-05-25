@@ -167,7 +167,7 @@ function LocationDetailsPage(props) {
   // ResponseIcon - Determine response icon based on processing state
   const ResponseIcon = () => {
     if (isProcessing) {
-      return HiSwitchHorizontal;
+      return HiRefresh;
     } else {
       return responseModal.error ? HiExclamationCircle : HiCheckCircle;
     }
