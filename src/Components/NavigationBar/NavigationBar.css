@@ -29,6 +29,10 @@
   order: 4;
 }
 
+.NavigationBarButton-RFIDTagsButton {
+  order: 5;
+}
+
 .NavigationBarButton-NotificationsButton {
   order: 5;
 }
@@ -121,6 +125,7 @@
     order: 2;
   }
 
+  .NavigationBar-Admin .NavigationBarButton-RFIDTagsButton,
   .NavigationBar-Admin .NavigationBarButton-SettingsButton,
   .NavigationBar-Admin .NavigationBarButton-NotificationsButton {
     display: none;

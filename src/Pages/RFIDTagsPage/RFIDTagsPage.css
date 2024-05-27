@@ -1,12 +1,12 @@
 /* General Stylings */
-.UsersPage-PageContentContainer {
+.RFIDTagsPage-PageContentContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.UsersPage-PageHeaderContainer {
+.RFIDTagsPage-PageHeaderContainer {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 
-.UsersPage-ContentContainer {
+.RFIDTagsPage-ContentContainer {
   width: 100%;
   flex: 1;
   display: flex;
@@ -24,57 +24,47 @@
   box-sizing: border-box;
 }
 
-.UsersPage-ModalIcon {
-  color: var(--Red1);
-}
-
-.UsersPage-HeaderContainer::-webkit-scrollbar {
+.RFIDTagsPage-HeaderContainer::-webkit-scrollbar {
   display: none;
 }
 
-.UsersPage-UserSelectionContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.UsersPage-FormContainer {
+.RFIDTagsPage-Content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 
-.UsersPage-Instructions {
-  color: var(--Gray3);
-  font-style: italic;
+.RFIDTagsPage-RFIDTagsList {
+  flex: 1;
 }
 
 /* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
-  .UsersPage-PageContentContainer {
+  .RFIDTagsPage-PageContentContainer {
     height: 100dvh;
   }
 
-  .UsersPage-PageHeaderContainer {
+  .RFIDTagsPage-PageHeaderContainer {
     height: calc(9.45625vmin);
     border-bottom: calc(0.278125vmin) solid var(--Gray1);
     padding: calc(2.225vmin);
   }
 
-  .UsersPage-LogoContainer {
+  .RFIDTagsPage-LogoContainer {
     display: none !important;
   }
 
-  .UsersPage-ContentContainer {
+  .RFIDTagsPage-ContentContainer {
     height: 100% - calc(9.45625vmin);
     padding: calc(2.225vmin);
     gap: calc(2.225vmin);
   }
 
-  .UsersPage-ContentHeaderContainer {
+  .RFIDTagsPage-ContentHeaderContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -83,7 +73,7 @@
     width: 100%;
   }
 
-  .UsersPage-HeaderContainer {
+  .RFIDTagsPage-HeaderContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -91,71 +81,44 @@
     gap: calc(2.225vmin);
   }
 
-  .UsersPage-ActionContainer {
-    height: calc(6.675vmin);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: calc(2.225vmin);
-  }
-
-  .UsersPage-SaveButton {
-    width: calc(27.8125vmin);
-  }
-
-  .UsersPage-MobileSaveButton {
-    display: none !important;
-  }
-
-  .UsersPage-ModalContainer {
-    width: calc(69.53125vmin);
-    height: calc(41.71875vmin);
-  }
-
-  .UsersPage-FormContainer {
-    gap: calc(1.66875vmin);
-    width: 100%;
-  }
-
-  .UsersPage-UserSelectionContainer {
+  .RFIDTagsPage-Content {
     gap: calc(2.225vmin);
   }
 }
 
 /* For mobile and any smaller devices */
 @media screen and (max-width: 480px) {
-  .UsersPage-PageContentContainer {
+  .RFIDTagsPage-PageContentContainer {
     height: 0px;
   }
 
-  .UsersPage-PageHeaderContainer {
+  .RFIDTagsPage-PageHeaderContainer {
     height: calc(17.8vmin);
     border-bottom: calc(0.55625vmin) solid var(--Gray1);
     padding: calc(4.45vmin);
   }
 
-  .UsersPage-PageHeaderContainer p.heading-2 {
+  .RFIDTagsPage-PageHeaderContainer p.heading-2 {
     font-size: calc(5.562vmin);
     margin-left: calc(4.45vmin);
   }
 
-  .UsersPage-LogoContainer {
+  .RFIDTagsPage-LogoContainer {
     width: calc(8.9vmin);
   }
 
-  .UsersPage-LogoContainer img {
+  .RFIDTagsPage-LogoContainer img {
     width: 100%;
     height: 100%;
   }
 
-  .UsersPage-ContentContainer {
+  .RFIDTagsPage-ContentContainer {
     height: 100% - calc(17.8vmin);
     padding: calc(4.45vmin);
     gap: calc(4.45vmin);
   }
 
-  .UsersPage-ContentHeaderContainer {
+  .RFIDTagsPage-ContentHeaderContainer {
     height: calc(13.35vmin);
     width: 100%;
     display: flex;
@@ -164,7 +127,7 @@
     align-items: center;
   }
 
-  .UsersPage-HeaderContainer {
+  .RFIDTagsPage-HeaderContainer {
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -175,25 +138,7 @@
     overflow-y: hidden;
   }
 
-  .UsersPage-ActionContainer {
-    display: none !important;
-  }
-
-  .UsersPage-MobileSaveButton {
-    width: 100%;
-  }
-
-  .UsersPage-ModalContainer {
-    width: calc(91.225vmin);
-    height: calc(61.1875vmin);
-  }
-
-  .UsersPage-FormContainer {
-    width: 100%;
-    gap: calc(3.3375vmin);
-  }
-
-  .UsersPage-UserSelectionContainer {
+  .RFIDTagsPage-Content {
     gap: calc(4.45vmin);
   }
 }

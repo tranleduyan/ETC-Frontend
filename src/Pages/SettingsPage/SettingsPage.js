@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
+import { API } from "../../Constants";
 //#endregion
 
 //#region Import Stylings
@@ -130,7 +132,38 @@ function SettingsPage(props) {
     }
   };
 
+  const FetchUserInformation = () => {
+    axios
+      .get(`${API.domain}/api/user/${schoolId}`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response?.data?.responseObject;
+        setUserInformation({
+          schoolId: responseObject?.firstName,
+          firstName: responseObject?.firstName,
+          middleName: responseObject?.middleName,
+          lastName: responseObject?.lastName,
+          emailAddress: responseObject?.emailAddress,
+          tagId: responseObject?.tagId,
+        });
+      })
+      .catch(() => {
+        setUserInformation({
+          schoolId: "",
+          firstName: "",
+          middleName: "",
+          lastName: "",
+          emailAddress: "",
+          tagId: "",
+        });
+      });
+  };
+
   useEffect(() => {
+    FetchUserInformation();
     DisableUserInformation();
   }, []);
 
@@ -178,7 +211,7 @@ function SettingsPage(props) {
                 </div>
                 {/* Action Container */}
                 <div className="SettingsPage-ActionContainer">
-                  {currentSection === "Manage Information" &&
+                  {currentSection === "User Information" &&
                     userFormDisable.editable && (
                       <StandardButton
                         title="Save"
@@ -203,7 +236,7 @@ function SettingsPage(props) {
                 />
               </div>
               {/* Mobile Save Button */}
-              {currentSection === "Manage Information" &&
+              {currentSection === "User Information" &&
                 userFormDisable.editable && (
                   <StandardButton
                     title="Save"

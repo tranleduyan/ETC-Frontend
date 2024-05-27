@@ -14,6 +14,7 @@ const ReservationsPage = lazy(() => import("./Pages/ReservationsPage"));
 const SettingsPage = lazy(() => import("./Pages/SettingsPage"));
 const UsersPage = lazy(() => import("./Pages/UsersPage"));
 const VerificationPage = lazy(() => import("./Pages/VerificationPage"));
+const RFIDTagsPage = lazy(() => import("./Pages/RFIDTagsPage"));
 
 /*
  * Main Application Component
@@ -37,6 +38,7 @@ function App() {
           <Route path="/Settings" element={<SettingsPage />} />
           <Route path="/Users" element={<UsersPage />} />
           <Route path="/Verification" element={<VerificationPage />} />
+          <Route path="/RFIDTags" element={<RFIDTagsPage />} />
         </Routes>
       </Suspense>
     </Router>

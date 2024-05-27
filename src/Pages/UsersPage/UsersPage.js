@@ -1,7 +1,9 @@
 //#region Import Necessary Dependencies
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
+import { API } from "../../Constants";
 //#endregion
 
 //#region Import Stylings
@@ -64,6 +66,10 @@ function UsersPage(props) {
   });
   const [selectedUser, setSelectedUser] = useState(null);
 
+  const [users, setUsers] = useState([]);
+
+  const [usersOptions, setUsersOptions] = useState([]);
+
   // SaveUpdateUserInformation - Update the user information
   const SaveUpdateUserInformation = () => {
     console.log("Update");
@@ -72,6 +78,28 @@ function UsersPage(props) {
   // HandleUserSelectionInputChange - Handle user selection
   const HandleUserSelectionInputChange = (_, selectedValue) => {
     setSelectedUser(selectedValue);
+    const chosenUser = users.find(
+      (user) => user.schoolId === selectedValue.value
+    );
+    if (chosenUser) {
+      setSelectedUserInformation({
+        schoolId: chosenUser.schoolId,
+        firstName: chosenUser.firstName,
+        middleName: chosenUser.middleName,
+        lastName: chosenUser.lastName,
+        emailAddress: chosenUser.emailAddress,
+        tagId: chosenUser.tagId,
+      });
+    } else {
+      setSelectedUserInformation({
+        schoolId: "",
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        emailAddress: "",
+        tagId: "",
+      });
+    }
   };
 
   // CloseConfirmationModal - Hide/Close the confirmation modal
@@ -85,6 +113,36 @@ function UsersPage(props) {
       isVisible: false,
     });
   };
+
+  const FetchAllUsers = () => {
+    // HTTP get request to fetch all the users
+    axios
+      .get(`${API.domain}/api/user`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response?.data?.responseObject;
+
+        // Map value and label to options
+        const options = responseObject?.map((user) => ({
+          value: user?.schoolId,
+          label: user?.fullNameId,
+        }));
+
+        setUsersOptions(options);
+        setUsers(responseObject);
+      })
+      .catch(() => {
+        setUsers([]);
+        setUsersOptions([]);
+      });
+  };
+
+  useEffect(() => {
+    FetchAllUsers();
+  }, []);
 
   return (
     <>
@@ -148,10 +206,11 @@ function UsersPage(props) {
                     className="UsersPage-SelectUserField"
                     name="userSelection"
                     value={selectedUser}
-                    options={[]}
+                    options={usersOptions}
                     onChange={(name, value) =>
                       HandleUserSelectionInputChange(name, value)
                     }
+                    isSearchable={true}
                   />
                 </div>
                 {/* Instructions/Messages */}

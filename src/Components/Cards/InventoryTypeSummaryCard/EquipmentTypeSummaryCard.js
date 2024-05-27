@@ -18,10 +18,8 @@ function EquipmentTypeSummaryCard(props) {
     typeName,
     inventoryAmount,
     OnEquipmentTypeSummaryCardClick,
-    // eslint-disable-next-line
-    typeID,
-    // eslint-disable-next-line
-    isSelected,
+    // typeID,
+    // isSelected,
   } = props;
 
   // Determine whether to use 'models' or 'model' based on the inventory amount

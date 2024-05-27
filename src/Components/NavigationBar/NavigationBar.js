@@ -21,9 +21,10 @@ import {
   HiArchive,
   HiPlusCircle,
   HiUserGroup,
-  HiBell,
+  // HiBell,
   HiCog,
   HiLogout,
+  HiCreditCard,
 } from "react-icons/hi";
 //#endregion
 
@@ -69,12 +70,17 @@ function NavigationBar(props) {
     navigate("/Users");
   };
 
+  // eslint-disable-next-line
   const NavigateNotifications = () => {
     navigate("/Notifications");
   };
 
   const NavigateSettings = () => {
     navigate("/Settings");
+  };
+
+  const NavigateRFIDTags = () => {
+    navigate("/RFIDTags");
   };
   //#endregion
 
@@ -133,14 +139,25 @@ function NavigationBar(props) {
           onClick={NavigateUsers}
         />
 
+        {/* TODO: Show when implement notifications features */}
         {/* Notifications Button */}
-        <IconButton
+        {/* <IconButton
           icon={HiBell}
           className={`${ActivateButton(
             "Notifications"
           )} NavigationBarButton-Container NavigationBarButton-NotificationsButton`}
           onClick={NavigateNotifications}
+        /> */}
+
+        {/* RFID Tags Button */}
+        <IconButton
+          icon={HiCreditCard}
+          className={`${ActivateButton(
+            "RFIDTags"
+          )} NavigationBarButton-Container NavigationBarButton-RFIDTagsButton`}
+          onClick={NavigateRFIDTags}
         />
+
         {/* Settings Button */}
         <IconButton
           icon={HiCog}

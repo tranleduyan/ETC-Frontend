@@ -30,8 +30,6 @@ import {
   HiSwitchHorizontal,
   HiCheckCircle,
   HiPlus,
-  // eslint-disable-next-line
-  HiDocumentText,
   HiStatusOnline,
   HiLocationMarker,
 } from "react-icons/hi";
@@ -157,7 +155,7 @@ function AddToInventoryPage(props) {
         homeLocations: equipmentAdditionInformation.homeLocations.map(
           (location) => location.value
         ),
-        rfidTag: equipmentAdditionInformation.rfidTag
+        rfidTag: equipmentAdditionInformation.rfidTag,
       };
 
       axios

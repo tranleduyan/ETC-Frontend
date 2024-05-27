@@ -22,7 +22,6 @@ import "./LocationDetailsPage.css";
 
 //#region Import Icons
 import {
-  HiSwitchHorizontal,
   HiExclamationCircle,
   HiCheckCircle,
   HiChevronLeft,
