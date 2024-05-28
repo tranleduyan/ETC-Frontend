@@ -35,7 +35,7 @@ function VerificationPage() {
   const [verificationCode, setVerificationCode] = useState("");
 
   // Handle Input Change to update the state of userInformation object
-  const HandleInputChange = (inputValue) => {
+  const HandleInputChange = (_, inputValue) => {
     setVerificationCode(inputValue);
   };
 

@@ -282,8 +282,9 @@ function UsersPage(props) {
 
   const IsValidTagID = () => {
     if (
-      !/^[0-9A-Fa-f]+$/.test(selectedUserInformation.tagId) ||
-      selectedUserInformation.tagId.length !== 4
+      selectedUserInformation.tagId &&
+      (!/^[0-9A-Fa-f]+$/.test(selectedUserInformation.tagId) ||
+        selectedUserInformation.tagId.length !== 4)
     ) {
       ShowModalMessage("Invalid Tag ID. Tag ID must be HEX presentation.");
       return false;
@@ -310,6 +311,7 @@ function UsersPage(props) {
 
   useEffect(() => {
     FetchAllUsers();
+    // eslint-disable-next-line
   }, []);
 
   return (
