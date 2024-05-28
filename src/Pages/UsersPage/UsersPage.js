@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-import { API } from "../../Constants";
+import { API, OPTIONS, REGEX } from "../../Constants";
 //#endregion
 
 //#region Import Stylings
@@ -14,7 +14,6 @@ import "./UsersPage.css";
 import GeneralPage from "../GeneralPage/GeneralPage";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
 import IconModal from "../../Components/Modals/IconModal/IconModal";
-import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
 import Logo from "../../Components/Logo/Logo";
 import HeaderButton from "../../Components/Buttons/HeaderButton/HeaderButton";
 import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
@@ -23,7 +22,12 @@ import UserForm from "../../Components/Forms/UserForm/UserForm";
 //#endregion
 
 //#region Import Icons
-import { HiBookmarkAlt, HiExclamationCircle, HiRefresh } from "react-icons/hi";
+import {
+  HiBookmarkAlt,
+  HiCheck,
+  HiExclamationCircle,
+  HiRefresh,
+} from "react-icons/hi";
 //#endregion
 
 // Define UsersPage Component
@@ -33,19 +37,6 @@ function UsersPage(props) {
 
   // State for current section of the page
   const [currentSection, setCurrentSection] = useState("Manage Information");
-
-  // Confirmation Modal State Object
-  const [confirmationModal, setConfirmationModal] = useState({
-    title: "",
-    content: "",
-    warning: "",
-    onYes: () => {},
-    onNo: () => {},
-    isVisible: false,
-  });
-
-  // IsProcessing State - Determine whether is processing APIs
-  const [isProcessing, setIsProcessing] = useState(false);
 
   // State variable for icon modal
   const [iconModal, setIconModal] = useState({
@@ -63,6 +54,7 @@ function UsersPage(props) {
     lastName: "",
     emailAddress: "",
     tagId: "",
+    userRole: OPTIONS.user.roles?.find((role) => role.value === "Student"),
   });
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -72,7 +64,113 @@ function UsersPage(props) {
 
   // SaveUpdateUserInformation - Update the user information
   const SaveUpdateUserInformation = () => {
-    console.log("Update");
+    if (IsUserFormValid() && IsValidTagID()) {
+      // Show processing message
+      setIconModal({
+        message: "Saving the updates...",
+        icon: HiRefresh,
+        visibility: true,
+        isIconSpin: true,
+      });
+
+      const requestBody = {
+        targetSchoolId: selectedUser.value,
+        firstName: selectedUserInformation.firstName,
+        middleName: selectedUserInformation.middleName,
+        lastName: selectedUserInformation.lastName,
+        emailAddress: selectedUserInformation.emailAddress,
+        newSchoolId: selectedUserInformation.schoolId,
+        tagId: selectedUserInformation.tagId,
+        newUserRole: selectedUserInformation.userRole.value,
+      };
+
+      axios
+        .put(`${API.domain}/api/user/${schoolId}`, requestBody, {
+          headers: {
+            "X-API-KEY": API.key,
+          },
+        })
+        .then((response) => {
+          const responseObject = response?.data?.responseObject;
+          // Show Success Message
+          setIconModal({
+            message: "The user has been successfully update!",
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+          setTimeout(() => {
+            setIconModal({
+              message: "",
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+
+            // Filter out the user with the same schoolId as the current user
+            const filteredUsers = responseObject?.filter(
+              (user) => user.schoolId !== schoolId
+            );
+
+            // Map value and label to options
+            const options = filteredUsers?.map((user) => ({
+              value: user?.schoolId,
+              label: user?.fullNameId,
+            }));
+
+            const userList = filteredUsers?.map((user) => ({
+              ...user,
+              userRole: OPTIONS.user.roles.find(
+                (role) => role.value === user.userRole
+              ),
+            }));
+
+            // Set the selected user with the updated information
+            const updatedUser = userList.find(
+              (user) => user.schoolId === selectedUserInformation.schoolId
+            );
+            setSelectedUser({
+              value: updatedUser.schoolId,
+              label: updatedUser.fullNameId,
+            });
+
+            setSelectedUserInformation({
+              schoolId: updatedUser.schoolId,
+              firstName: updatedUser.firstName,
+              middleName: updatedUser.middleName,
+              lastName: updatedUser.lastName,
+              emailAddress: updatedUser.emailAddress,
+              tagId: updatedUser.tagId,
+              userRole: updatedUser.userRole,
+            });
+
+            setUsersOptions(options);
+            setUsers(userList);
+          }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage =
+            error?.response?.data?.message ||
+            "An error occurred. Please try again.";
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: "",
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
+    }
   };
 
   // HandleUserSelectionInputChange - Handle user selection
@@ -89,6 +187,7 @@ function UsersPage(props) {
         lastName: chosenUser.lastName,
         emailAddress: chosenUser.emailAddress,
         tagId: chosenUser.tagId,
+        userRole: chosenUser.userRole,
       });
     } else {
       setSelectedUserInformation({
@@ -102,18 +201,7 @@ function UsersPage(props) {
     }
   };
 
-  // CloseConfirmationModal - Hide/Close the confirmation modal
-  const CloseConfirmationModal = () => {
-    setConfirmationModal({
-      title: "",
-      content: "",
-      warning: "",
-      onYes: () => {},
-      onNo: () => {},
-      isVisible: false,
-    });
-  };
-
+  // FetchAllUsers - Fetch the information of all users
   const FetchAllUsers = () => {
     // HTTP get request to fetch all the users
     axios
@@ -125,19 +213,99 @@ function UsersPage(props) {
       .then((response) => {
         const responseObject = response?.data?.responseObject;
 
+        // Filter out the user with the same schoolId as the current user
+        const filteredUsers = responseObject?.filter(
+          (user) => user.schoolId !== schoolId
+        );
+
         // Map value and label to options
-        const options = responseObject?.map((user) => ({
+        const options = filteredUsers?.map((user) => ({
           value: user?.schoolId,
           label: user?.fullNameId,
         }));
 
+        const userList = filteredUsers?.map((user) => ({
+          ...user,
+          userRole: OPTIONS.user.roles.find(
+            (role) => role.value === user.userRole
+          ),
+        }));
+
         setUsersOptions(options);
-        setUsers(responseObject);
+        setUsers(userList);
       })
       .catch(() => {
         setUsers([]);
         setUsersOptions([]);
       });
+  };
+
+  // IsUserFormValid - Validate the user information
+  const IsUserFormValid = () => {
+    if (!selectedUserInformation.firstName) {
+      ShowModalMessage("The user must have a first name!");
+      return false;
+    } else if (!REGEX.name.test(selectedUserInformation.firstName)) {
+      ShowModalMessage("The user's first name is not valid!");
+      return false;
+    } else if (selectedUserInformation.firstName.length > 25) {
+      ShowModalMessage("The user's first name is too long.");
+      return false;
+    } else if (!selectedUserInformation.lastName) {
+      ShowModalMessage("The user must have a last name!");
+      return false;
+    } else if (!REGEX.name.test(selectedUserInformation.lastName)) {
+      ShowModalMessage("The user's last name is not valid!");
+      return false;
+    } else if (selectedUserInformation.lastName.length > 25) {
+      ShowModalMessage("The user's last name is too long.");
+      return false;
+    } else if (selectedUserInformation.middleName.length > 30) {
+      ShowModalMessage("The user's middle name is too long.");
+      return false;
+    } else if (
+      !selectedUserInformation.schoolId &&
+      !REGEX.schoolId.test(selectedUserInformation.schoolId)
+    ) {
+      ShowModalMessage("The user's school ID is not valid.");
+      return false;
+    } else if (
+      !selectedUserInformation.emailAddress &&
+      !REGEX.schoolId.test(selectedUserInformation.emailAddress)
+    ) {
+      ShowModalMessage("The user's email address is not valid.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const IsValidTagID = () => {
+    if (
+      !/^[0-9A-Fa-f]+$/.test(selectedUserInformation.tagId) ||
+      selectedUserInformation.tagId.length !== 4
+    ) {
+      ShowModalMessage("Invalid Tag ID. Tag ID must be HEX presentation.");
+      return false;
+    }
+    return true;
+  };
+
+  const ShowModalMessage = (message, icon = HiExclamationCircle) => {
+    setIconModal({
+      message: message,
+      visibility: true,
+      icon: icon,
+      isIconSpin: false,
+    });
+    setTimeout(() => {
+      setIconModal({
+        message: "",
+        visibility: false,
+        icon: HiExclamationCircle,
+        isIconSpin: false,
+      });
+    }, 1500);
   };
 
   useEffect(() => {
@@ -156,16 +324,6 @@ function UsersPage(props) {
             message={iconModal.message}
             isVisible={iconModal.visibility}
             isSpinning={iconModal.isIconSpin}
-          />
-          {/* Confirmation Modal for warnings and confirmation actions */}
-          <ConfirmationModal
-            className="UsersPage-ConfirmationModalContainer"
-            title={confirmationModal.title}
-            content={confirmationModal.content}
-            warning={confirmationModal.warning}
-            onYes={confirmationModal.onYes}
-            onNo={confirmationModal.onNo}
-            isVisible={confirmationModal.isVisible}
           />
           <div className="UsersPage-PageContentContainer">
             {/* Page header - Users */}

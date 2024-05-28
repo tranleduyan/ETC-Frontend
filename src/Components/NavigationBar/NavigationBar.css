@@ -7,13 +7,15 @@
 
 .NavigationBar-Student .NavigationBarButton-InventoryButton,
 .NavigationBar-Student .NavigationBarButton-AddEquipmentButton,
-.NavigationBar-Student .NavigationBarButton-UsersButton {
+.NavigationBar-Student .NavigationBarButton-UsersButton,
+.NavigationBar-Student .NavigationBarButton-RFIDTagsButton {
   display: none;
 }
 
 .NavigationBar-Faculty .NavigationBarButton-InventoryButton,
 .NavigationBar-Faculty .NavigationBarButton-AddEquipmentButton,
-.NavigationBar-Faculty .NavigationBarButton-UsersButton {
+.NavigationBar-Faculty .NavigationBarButton-UsersButton,
+.NavigationBar-Faculty .NavigationBarButton-RFIDTagsButton {
   display: none;
 }
 

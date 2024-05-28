@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-.SettingsPage-ModalIcon {
+.SettingsPage-IconModalIcon {
   color: var(--Red1);
 }
 
@@ -106,6 +106,11 @@
     gap: calc(1.66875vmin);
     width: 100%;
   }
+
+  .SettingsPage-IconModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
 }
 
 /* For mobile and any smaller devices */
@@ -176,5 +181,10 @@
   .SettingsPage-FormContainer {
     width: 100%;
     gap: calc(3.3375vmin);
+  }
+
+  .UsersPage-IconModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
   }
 }

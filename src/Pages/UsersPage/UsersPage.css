@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-.UsersPage-ModalIcon {
+.UsersPage-IconModalIcon {
   color: var(--Red1);
 }
 
@@ -108,11 +108,6 @@
     display: none !important;
   }
 
-  .UsersPage-ModalContainer {
-    width: calc(69.53125vmin);
-    height: calc(41.71875vmin);
-  }
-
   .UsersPage-FormContainer {
     gap: calc(1.66875vmin);
     width: 100%;
@@ -120,6 +115,11 @@
 
   .UsersPage-UserSelectionContainer {
     gap: calc(2.225vmin);
+  }
+
+  .UsersPage-IconModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
   }
 }
 
@@ -183,11 +183,6 @@
     width: 100%;
   }
 
-  .UsersPage-ModalContainer {
-    width: calc(91.225vmin);
-    height: calc(61.1875vmin);
-  }
-
   .UsersPage-FormContainer {
     width: 100%;
     gap: calc(3.3375vmin);
@@ -195,5 +190,10 @@
 
   .UsersPage-UserSelectionContainer {
     gap: calc(4.45vmin);
+  }
+
+  .UsersPage-IconModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
   }
 }

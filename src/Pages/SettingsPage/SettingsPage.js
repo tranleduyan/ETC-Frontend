@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-import { API } from "../../Constants";
+import { API, OPTIONS, REGEX } from "../../Constants";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../storage";
 //#endregion
 
 //#region Import Stylings
@@ -14,7 +16,6 @@ import "./SettingsPage.css";
 import GeneralPage from "../GeneralPage/GeneralPage";
 import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/UnauthorizedPanel";
 import IconModal from "../../Components/Modals/IconModal/IconModal";
-import ConfirmationModal from "../../Components/Modals/ConfirmationModal/ConfirmationModal";
 import Logo from "../../Components/Logo/Logo";
 import HeaderButton from "../../Components/Buttons/HeaderButton/HeaderButton";
 import StandardButton from "../../Components/Buttons/StandardButton/StandardButton";
@@ -22,29 +23,24 @@ import UserForm from "../../Components/Forms/UserForm/UserForm";
 //#endregion
 
 //#region Import Icons
-import { HiBookmarkAlt, HiExclamationCircle, HiRefresh } from "react-icons/hi";
+import {
+  HiBookmarkAlt,
+  HiCheck,
+  HiExclamationCircle,
+  HiRefresh,
+} from "react-icons/hi";
 //#endregion
 
 // Define SettingsPage Component
 function SettingsPage(props) {
   // Extract necessary props
-  const { userRole, schoolId } = props;
+  const { userRole, schoolId, userData } = props;
+
+  // Use the dispatch function to dispatch actions
+  const dispatch = useDispatch();
 
   // State for current section of the page
   const [currentSection, setCurrentSection] = useState("User Information");
-
-  // Confirmation Modal State Object
-  const [confirmationModal, setConfirmationModal] = useState({
-    title: "",
-    content: "",
-    warning: "",
-    onYes: () => {},
-    onNo: () => {},
-    isVisible: false,
-  });
-
-  // IsProcessing State - Determine whether is processing APIs
-  const [isProcessing, setIsProcessing] = useState(false);
 
   // State variable for icon modal
   const [iconModal, setIconModal] = useState({
@@ -71,24 +67,155 @@ function SettingsPage(props) {
     emailAddress: true,
     schoolId: true,
     tagId: true,
+    userRole: true,
     editable: true,
   });
 
   // SaveUpdateUserInformation - Update the user information
   const SaveUpdateUserInformation = () => {
-    console.log("Update");
+    if (userFormDisable.editable && IsUserFormValid() && IsValidTagID()) {
+      // Show processing message
+      setIconModal({
+        message: "Saving the updates...",
+        icon: HiRefresh,
+        visibility: true,
+        isIconSpin: true,
+      });
+
+      const requestBody = {
+        targetSchoolId: schoolId,
+        firstName: userInformation.firstName,
+        middleName: userInformation.middleName,
+        lastName: userInformation.lastName,
+        emailAddress: userInformation.emailAddress,
+        newSchoolId: userInformation.schoolId,
+        tagId: userInformation.tagId,
+        newUserRole: userInformation.userRole.value,
+      };
+
+      axios
+        .put(`${API.domain}/api/user/${schoolId}`, requestBody, {
+          headers: {
+            "X-API-KEY": API.key,
+          },
+        })
+        .then((response) => {
+          const responseUserInfo = response?.data?.responseInfo;
+
+          // Show Success Message
+          setIconModal({
+            message: "The user has been successfully update!",
+            icon: HiCheck,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+          setTimeout(() => {
+            setIconModal({
+              message: "",
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+
+            setUserInformation({
+              schoolId: responseUserInfo?.schoolId,
+              firstName: responseUserInfo?.firstName,
+              middleName: responseUserInfo?.middleName,
+              lastName: responseUserInfo?.lastName,
+              emailAddress: responseUserInfo?.emailAddress,
+              tagId: responseUserInfo?.tagId,
+              userRole: OPTIONS.user.roles.find(
+                (role) => role.value === responseUserInfo?.userRole
+              ),
+            });
+
+            if (schoolId !== responseUserInfo?.schoolId) {
+              dispatch(
+                setUserData({
+                  ...props.userData,
+                  schoolId: responseUserInfo?.schoolId,
+                })
+              );
+            }
+
+            console.log(responseUserInfo);
+          }, 1500);
+        })
+        .catch((error) => {
+          const errorMessage =
+            error?.response?.data?.message ||
+            "An error occurred. Please try again.";
+          setIconModal({
+            message: errorMessage,
+            icon: HiExclamationCircle,
+            visibility: true,
+            isIconSpin: false,
+          });
+
+          // Automatically hide the modal after 3 seconds
+          setTimeout(() => {
+            setIconModal({
+              message: "",
+              icon: HiExclamationCircle,
+              visibility: false,
+              isIconSpin: false,
+            });
+          }, 1500);
+        });
+    }
   };
 
-  // CloseConfirmationModal - Hide/Close the confirmation modal
-  const CloseConfirmationModal = () => {
-    setConfirmationModal({
-      title: "",
-      content: "",
-      warning: "",
-      onYes: () => {},
-      onNo: () => {},
-      isVisible: false,
-    });
+  // IsUserFormValid - Validate the user information
+  const IsUserFormValid = () => {
+    if (!userInformation.firstName) {
+      ShowModalMessage("The user must have a first name!");
+      return false;
+    } else if (!REGEX.name.test(userInformation.firstName)) {
+      ShowModalMessage("The user's first name is not valid!");
+      return false;
+    } else if (userInformation.firstName.length > 25) {
+      ShowModalMessage("The user's first name is too long.");
+      return false;
+    } else if (!userInformation.lastName) {
+      ShowModalMessage("The user must have a last name!");
+      return false;
+    } else if (!REGEX.name.test(userInformation.lastName)) {
+      ShowModalMessage("The user's last name is not valid!");
+      return false;
+    } else if (userInformation.lastName.length > 25) {
+      ShowModalMessage("The user's last name is too long.");
+      return false;
+    } else if (userInformation.middleName.length > 30) {
+      ShowModalMessage("The user's middle name is too long.");
+      return false;
+    } else if (
+      !userInformation.schoolId &&
+      !REGEX.schoolId.test(userInformation.schoolId)
+    ) {
+      ShowModalMessage("The user's school ID is not valid.");
+      return false;
+    } else if (
+      !userInformation.emailAddress &&
+      !REGEX.schoolId.test(userInformation.emailAddress)
+    ) {
+      ShowModalMessage("The user's email address is not valid.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const IsValidTagID = () => {
+    if (
+      userInformation.tagId &&
+      (!/^[0-9A-Fa-f]+$/.test(userInformation.tagId) ||
+        userInformation.tagId.length !== 4)
+    ) {
+      ShowModalMessage("Invalid Tag ID. Tag ID must be HEX presentation.");
+      return false;
+    }
+    return true;
   };
 
   // IsUserRoleValid - Validation for userRole
@@ -107,6 +234,7 @@ function SettingsPage(props) {
         emailAddress: false,
         schoolId: false,
         tagId: false,
+        userRole: true,
         editable: true,
       });
     } else if (userRole === "Faculty") {
@@ -117,6 +245,7 @@ function SettingsPage(props) {
         emailAddress: false,
         schoolId: true,
         tagId: true,
+        userRole: true,
         editable: true,
       });
     } else {
@@ -126,6 +255,7 @@ function SettingsPage(props) {
         lastName: true,
         emailAddress: true,
         schoolId: true,
+        userRole: true,
         tagId: true,
         editable: false,
       });
@@ -142,12 +272,15 @@ function SettingsPage(props) {
       .then((response) => {
         const responseObject = response?.data?.responseObject;
         setUserInformation({
-          schoolId: responseObject?.firstName,
+          schoolId: responseObject?.schoolId,
           firstName: responseObject?.firstName,
           middleName: responseObject?.middleName,
           lastName: responseObject?.lastName,
           emailAddress: responseObject?.emailAddress,
           tagId: responseObject?.tagId,
+          userRole: OPTIONS.user.roles.find(
+            (role) => role.value === responseObject.userRole
+          ),
         });
       })
       .catch(() => {
@@ -158,8 +291,26 @@ function SettingsPage(props) {
           lastName: "",
           emailAddress: "",
           tagId: "",
+          userRole: OPTIONS.user.roles.find((role) => role.value === "Student"),
         });
       });
+  };
+
+  const ShowModalMessage = (message, icon = HiExclamationCircle) => {
+    setIconModal({
+      message: message,
+      visibility: true,
+      icon: icon,
+      isIconSpin: false,
+    });
+    setTimeout(() => {
+      setIconModal({
+        message: "",
+        visibility: false,
+        icon: HiExclamationCircle,
+        isIconSpin: false,
+      });
+    }, 1500);
   };
 
   useEffect(() => {
@@ -179,16 +330,6 @@ function SettingsPage(props) {
             message={iconModal.message}
             isVisible={iconModal.visibility}
             isSpinning={iconModal.isIconSpin}
-          />
-          {/* Confirmation Modal for warnings and confirmation actions */}
-          <ConfirmationModal
-            className="SettingsPage-ConfirmationModalContainer"
-            title={confirmationModal.title}
-            content={confirmationModal.content}
-            warning={confirmationModal.warning}
-            onYes={confirmationModal.onYes}
-            onNo={confirmationModal.onNo}
-            isVisible={confirmationModal.isVisible}
           />
           <div className="SettingsPage-PageContentContainer">
             {/* Page Header - Settings */}
@@ -233,6 +374,7 @@ function SettingsPage(props) {
                   disableEmailAddress={userFormDisable.emailAddress}
                   disableSchoolId={userFormDisable.schoolId}
                   disableTagId={userFormDisable.tagId}
+                  disableUserRole={userFormDisable.userRole}
                 />
               </div>
               {/* Mobile Save Button */}
@@ -265,12 +407,14 @@ SettingsPage.propTypes = {
 SettingsPage.defaultProps = {
   userRole: "",
   schoolId: "",
+  userData: {},
 };
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
+  userData: state.user.userData,
 });
 
 // Exports the SettingsPage component as the default export for the SettingsPage module.

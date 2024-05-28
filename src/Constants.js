@@ -147,4 +147,11 @@ export const OPTIONS = {
       },
     ],
   },
+  user: {
+    roles: [
+      { value: "Admin", label: "Laboratory Manager" },
+      { value: "Faculty", label: "Faculty" },
+      { value: "Student", label: "Student" },
+    ],
+  },
 };

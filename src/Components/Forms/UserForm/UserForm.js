@@ -14,6 +14,8 @@ import Message from "../../Message/Message";
 
 //#region Import Icons
 import { HiExclamationCircle } from "react-icons/hi";
+import StandardDropDown from "../../DropDowns/StandardDropDown/StandardDropDown";
+import { OPTIONS } from "../../../Constants";
 //#endregion
 
 // Define UsersForm Component
@@ -31,12 +33,19 @@ function UserForm(props) {
     disableEmailAddress,
     disableSchoolId,
     disableTagId,
+    disableUserRole,
   } = props;
 
   // HandleModelAdditionInputChange - Update the information with the new value to the propertyName.
   const HandleUserInformationInputChange = (propertyName, selectedValue) => {
     setUserInformation({ ...userInformation, [propertyName]: selectedValue });
   };
+
+  const userRoleOptions = [
+    { value: "Admin", label: "Laboratory Manager" },
+    { value: "Faculty", label: "Faculty" },
+    { value: "Student", label: "Student" },
+  ];
 
   return (
     <div className={`UserForm-FormContainer ${className}`}>
@@ -95,6 +104,22 @@ function UserForm(props) {
           disabled={disableEmailAddress}
         />
       </div>
+      <div className="UserForm-UserRoleGroup">
+        {/* Group Header */}
+        <p className="heading-5">Role</p>
+        {/* User Role Dropdown Field */}
+        <StandardDropDown
+          placeholder="Select role"
+          className="UserForm-Field"
+          name="userRole"
+          options={OPTIONS.user.roles}
+          value={userInformation.userRole}
+          onChange={(name, value) =>
+            HandleUserInformationInputChange(name, value)
+          }
+          isDisabled={disableUserRole}
+        />
+      </div>
       {/* ID Group */}
       <div className="UserForm-IDGroup">
         {/* Group Header */}
@@ -147,6 +172,7 @@ UserForm.propTypes = {
   disableEmailAddress: PropTypes.bool,
   disableSchoolId: PropTypes.bool,
   disableTagId: PropTypes.bool,
+  disableUserRole: PropTypes.bool,
 };
 
 UserForm.defaultProps = {
@@ -159,6 +185,7 @@ UserForm.defaultProps = {
   disableEmailAddress: false,
   disableSchoolId: false,
   disableTagId: false,
+  disableUserRole: false,
 };
 
 // Exports the UserForm component as the default export for the UserForm module.

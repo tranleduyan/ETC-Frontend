@@ -21,6 +21,14 @@
   width: 100%;
 }
 
+.UserForm-UserRoleGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
 .UserForm-IDGroup {
   display: flex;
   flex-direction: column;
@@ -59,6 +67,10 @@
     gap: calc(2.225vmin);
   }
 
+  .UserForm-UserRoleGroup {
+    gap: calc(2.225vmin);
+  }
+
   .UserForm-IDGroup {
     gap: calc(2.225vmin);
   }
@@ -80,6 +92,10 @@
   }
 
   .UserForm-EmailAddressGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .UserForm-UserRoleGroup {
     gap: calc(4.45vmin);
   }
 
