@@ -107,6 +107,8 @@ function StandardDropDown(props) {
           boxShadow: "none",
         },
         overflow: "hidden",
+        backgroundColor: isDisabled ? "var(--Gray2)" : provided.backgroundColor,
+        color: isDisabled ? "var(--Gray3)" : provided.color,
       };
 
       // For mobile or any smaller devices
@@ -198,12 +200,17 @@ function StandardDropDown(props) {
       return baseStyles;
     },
     dropdownIndicator: (provided, state) => {
+      let color;
+      if (isDisabled) {
+        color = "var(--Gray3) !important";
+      } else if (state.isFocused || state.hasValue) {
+        color = "var(--Black1) !important";
+      } else {
+        color = "var(--Gray1) !important";
+      }
       let baseStyles = {
         ...provided,
-        color:
-          state.isFocused || state.hasValue
-            ? "var(--Black1) !important"
-            : "var(--Gray1) !important",
+        color: color,
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",

@@ -135,7 +135,12 @@ function StudentDashboard(props) {
 
     axios
       .put(
-        `${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`
+        `${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`,
+        {
+          headers: {
+            "X-API-KEY": API.key,
+          },
+        }
       )
       .then((response) => {
         // Show success message
