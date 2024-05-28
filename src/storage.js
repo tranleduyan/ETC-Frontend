@@ -56,7 +56,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-  devTools: false,
+  devTools: true,
 });
 
 // Define a persistor for managing state persistence

@@ -1,0 +1,110 @@
+.UserForm-FormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.UserForm-FullNameGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.UserForm-EmailAddressGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.UserForm-UserRoleGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.UserForm-IDGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.UserForm-MultipleFieldsGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.UserForm-Field {
+  width: 100%;
+}
+
+.UserForm-ErrorMessageContainer {
+  width: 100%;
+  color: var(--Red2);
+}
+
+/* Tablets or larger screen */
+@media screen and (min-width: 481px) {
+  .UserForm-FormContainer {
+    gap: calc(1.66875vmin);
+  }
+
+  .UserForm-FullNameGroup {
+    gap: calc(2.225vmin);
+  }
+
+  .UserForm-EmailAddressGroup {
+    gap: calc(2.225vmin);
+  }
+
+  .UserForm-UserRoleGroup {
+    gap: calc(2.225vmin);
+  }
+
+  .UserForm-IDGroup {
+    gap: calc(2.225vmin);
+  }
+
+  .UserForm-MultipleFieldsGroup {
+    flex-direction: row;
+    gap: calc(2.225vmin);
+  }
+}
+
+/* Mobile or smaller */
+@media screen and (max-width: 480px) {
+  .UserForm-FormContainer {
+    gap: calc(3.3375vmin);
+  }
+
+  .UserForm-FullNameGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .UserForm-EmailAddressGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .UserForm-UserRoleGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .UserForm-IDGroup {
+    gap: calc(4.45vmin);
+  }
+
+  .UserForm-MultipleFieldsGroup {
+    flex-direction: column;
+    gap: calc(4.45vmin);
+  }
+}

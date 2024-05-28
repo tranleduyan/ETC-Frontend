@@ -1,34 +1,190 @@
 /* General Stylings */
-.SettingsPage-UnavailableFeature {
+.SettingsPage-PageContentContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   flex: 1;
-  height: 100%;
 }
 
-.SettingsPage-UnavailableFeatureIcon {
+.SettingsPage-PageHeaderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.SettingsPage-ContentContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.SettingsPage-IconModalIcon {
   color: var(--Red1);
 }
 
-/* For tablets and larger devices */
+.SettingsPage-HeaderContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.SettingsPage-FormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* For tablets and bigger devices */
 @media screen and (min-width: 481px) {
-  .SettingsPage-UnavailableFeature {
+  .SettingsPage-PageContentContainer {
+    height: 100dvh;
+  }
+
+  .SettingsPage-PageHeaderContainer {
+    height: calc(9.45625vmin);
+    border-bottom: calc(0.278125vmin) solid var(--Gray1);
+    padding: calc(2.225vmin);
+  }
+
+  .SettingsPage-LogoContainer {
+    display: none !important;
+  }
+
+  .SettingsPage-ContentContainer {
+    height: 100% - calc(9.45625vmin);
+    padding: calc(2.225vmin);
     gap: calc(2.225vmin);
   }
-  .SettingsPage-UnavailableFeatureIcon {
-    font-size: calc(4.45vmin);
+
+  .SettingsPage-ContentHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: calc(6.675vmin);
+    width: 100%;
+  }
+
+  .SettingsPage-HeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(2.225vmin);
+  }
+
+  .SettingsPage-ActionContainer {
+    height: calc(6.675vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: calc(2.225vmin);
+  }
+
+  .SettingsPage-SaveButton {
+    width: calc(27.8125vmin);
+  }
+
+  .SettingsPage-MobileSaveButton {
+    display: none !important;
+  }
+
+  .SettingsPage-ModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
+  }
+
+  .SettingsPage-FormContainer {
+    gap: calc(1.66875vmin);
+    width: 100%;
+  }
+
+  .SettingsPage-IconModalContainer {
+    width: calc(69.53125vmin);
+    height: calc(41.71875vmin);
   }
 }
 
-/* For mobile and smaller devices */
-@media screen and (max-width: 481px) {
-  .SettingsPage-UnavailableFeature {
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+  .SettingsPage-PageContentContainer {
+    height: 0px;
+  }
+
+  .SettingsPage-PageHeaderContainer {
+    height: calc(17.8vmin);
+    border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    padding: calc(4.45vmin);
+  }
+
+  .SettingsPage-PageHeaderContainer p.heading-2 {
+    font-size: calc(5.562vmin);
+    margin-left: calc(4.45vmin);
+  }
+
+  .SettingsPage-LogoContainer {
+    width: calc(8.9vmin);
+  }
+
+  .SettingsPage-LogoContainer img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .SettingsPage-ContentContainer {
+    height: 100% - calc(17.8vmin);
+    padding: calc(4.45vmin);
     gap: calc(4.45vmin);
   }
-  .SettingsPage-UnavailableFeatureIcon {
-    font-size: calc(8.9vmin);
+
+  .SettingsPage-ContentHeaderContainer {
+    height: calc(13.35vmin);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .SettingsPage-HeaderContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(4.45vmin);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .SettingsPage-ActionContainer {
+    display: none !important;
+  }
+
+  .SettingsPage-MobileSaveButton {
+    width: 100%;
+  }
+
+  .SettingsPage-ModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
+  }
+
+  .SettingsPage-FormContainer {
+    width: 100%;
+    gap: calc(3.3375vmin);
+  }
+
+  .UsersPage-IconModalContainer {
+    width: calc(91.225vmin);
+    height: calc(61.1875vmin);
   }
 }

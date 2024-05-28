@@ -57,6 +57,7 @@ import {
   HiMinusCircle,
   HiExclamationCircle,
   HiRefresh,
+  HiCreditCard,
 } from "react-icons/hi";
 
 // Define the AdminDashboard Component
@@ -521,13 +522,17 @@ function AdminDashboard(props) {
 
   //#region Navigations
   // Navigate to Notifications Page
-  const NavigateNotifications = () => {
-    navigate("/Notifications");
-  };
+  // const NavigateNotifications = () => {
+  //  navigate("/Notifications");
+  // };
 
   // Navigate to Settings Page
   const NavigateSettings = () => {
     navigate("/Settings");
+  };
+  // Navigate to Settings Page
+  const NavigateRFIDTags = () => {
+    navigate("/RFIDTags");
   };
 
   // Sign Out - Reset the data.
@@ -626,11 +631,17 @@ function AdminDashboard(props) {
             <p className="heading-2">Dashboard</p>
           </div>
           <div className="AdminDashboard-ActionContainer">
-            {/* Notifications Button */}
-            <IconButton
+            {/* TODO: Show Notifications Button when Implement Notification Feature */}
+            {/* <IconButton
               icon={HiBell}
               className="AdminDashboard-ActionButton"
               onClick={NavigateNotifications}
+            /> */}
+            {/* RFID Tags Button */}
+            <IconButton
+              icon={HiCreditCard}
+              className="AdminDashboard-ActionButton"
+              onClick={NavigateRFIDTags}
             />
             {/* Settings Button */}
             <IconButton

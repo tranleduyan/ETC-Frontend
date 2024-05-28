@@ -7,13 +7,15 @@
 
 .NavigationBar-Student .NavigationBarButton-InventoryButton,
 .NavigationBar-Student .NavigationBarButton-AddEquipmentButton,
-.NavigationBar-Student .NavigationBarButton-UsersButton {
+.NavigationBar-Student .NavigationBarButton-UsersButton,
+.NavigationBar-Student .NavigationBarButton-RFIDTagsButton {
   display: none;
 }
 
 .NavigationBar-Faculty .NavigationBarButton-InventoryButton,
 .NavigationBar-Faculty .NavigationBarButton-AddEquipmentButton,
-.NavigationBar-Faculty .NavigationBarButton-UsersButton {
+.NavigationBar-Faculty .NavigationBarButton-UsersButton,
+.NavigationBar-Faculty .NavigationBarButton-RFIDTagsButton {
   display: none;
 }
 
@@ -27,6 +29,10 @@
 
 .NavigationBarButton-UsersButton {
   order: 4;
+}
+
+.NavigationBarButton-RFIDTagsButton {
+  order: 5;
 }
 
 .NavigationBarButton-NotificationsButton {
@@ -121,6 +127,7 @@
     order: 2;
   }
 
+  .NavigationBar-Admin .NavigationBarButton-RFIDTagsButton,
   .NavigationBar-Admin .NavigationBarButton-SettingsButton,
   .NavigationBar-Admin .NavigationBarButton-NotificationsButton {
     display: none;
