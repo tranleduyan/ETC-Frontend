@@ -69,6 +69,10 @@
   color: var(--Red1);
 }
 
+.AvailableModelCard-SelectButtonActive svg{
+  color: var(--Red1);
+}
+
 /* For tablets and larger screens */
 @media screen and (min-width: 481px) {
   .AvailableModelCard-Container {

@@ -87,6 +87,10 @@
   color: white;
 }
 
+.SpecifyModelQuantityCard-QuantityUpdateButton svg {
+  color: white;
+}
+
 /* For tablets and larger screens */
 @media screen and (min-width: 481px) {
   .SpecifyModelQuanityCard-GeneralContainer {

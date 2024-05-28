@@ -53,10 +53,8 @@ function ReservationCard(props) {
   // Define a utility function to format date to mm/dd/yyyy
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const month = date.getMonth() + 1; // Months are zero-indexed, so we add 1
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric', timeZone: 'UTC' };
+    return date.toLocaleDateString(undefined, options);
   };
 
   return (
