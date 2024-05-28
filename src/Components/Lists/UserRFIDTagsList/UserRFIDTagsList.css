@@ -1,0 +1,198 @@
+/* General Stylings */
+.UserRFIDTagsList-Container {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+}
+
+.UserRFIDTagsList-Message {
+  color: var(--Gray3);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.UserRFIDTagsList-Content,
+.UserRFIDTagsList-Container::-webkit-scrollbar {
+  display: none;
+}
+
+.UserRFIDTagsList-ListHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.UserRFIDTagsList-Content {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.UserRFIDTagsList-CardContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+}
+
+.UserRFIDTagsList-TagID {
+  flex: 1;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.UserRFIDTagsList-MiddleName {
+  flex: 1;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.UserRFIDTagsList-LastName {
+  flex: 1;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.UserRFIDTagsList-CardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.UserRFIDTagsList-CardDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.UserRFIDTagsList-FullName {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.UserRFIDTagsList-CardDetailsInActive {
+  display: none;
+}
+
+.UserRFIDTagsList-ExpandButton {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* For tablets and bigger devices */
+@media screen and (min-width: 481px) {
+  .UserRFIDTagsList-ListHeaderContainer {
+    gap: calc(2.225vmin);
+    padding: calc(2.225vmin);
+    border: calc(0.278125vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-SchoolID {
+    width: calc(76.20625vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+
+  .UserRFIDTagsList-CardDetails {
+    border-bottom: calc(0.278125vmin) solid var(--Gray1);
+    border-right: calc(0.278125vmin) solid var(--Gray1);
+    border-left: calc(0.278125vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-FullName {
+    gap: calc(2.225vmin);
+    padding: calc(2.225vmin);
+  }
+
+  .UserRFIDTagsList-CardHeader {
+    gap: calc(2.225vmin);
+    padding: calc(2.225vmin);
+    border-bottom: calc(0.278125vmin) solid var(--Gray1);
+    border-right: calc(0.278125vmin) solid var(--Gray1);
+    border-left: calc(0.278125vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-FirstName {
+    width: calc(76.20625vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}
+
+/* For mobile and any smaller devices */
+@media screen and (max-width: 480px) {
+  .UserRFIDTagsList-ListHeaderContainer {
+    gap: calc(4.45vmin);
+    padding: calc(4.45vmin);
+    border: calc(0.55625vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-SchoolID {
+    width: calc(40.125vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+
+  .UserRFIDTagsList-CardHeader {
+    gap: calc(4.45vmin);
+    padding: calc(4.45vmin);
+    border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    border-right: calc(0.55625vmin) solid var(--Gray1);
+    border-left: calc(0.55625vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-CardDetails {
+    border-bottom: calc(0.55625vmin) solid var(--Gray1);
+    border-right: calc(0.55625vmin) solid var(--Gray1);
+    border-left: calc(0.55625vmin) solid var(--Gray1);
+  }
+
+  .UserRFIDTagsList-FullName {
+    gap: calc(4.45vmin);
+    padding: calc(4.45vmin);
+  }
+
+  .UserRFIDTagsList-FirstName {
+    width: calc(40.125vmin);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}

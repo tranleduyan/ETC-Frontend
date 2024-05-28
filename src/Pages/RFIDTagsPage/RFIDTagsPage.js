@@ -16,6 +16,7 @@ import UnauthorizedPanel from "../../Components/Panels/UnauthorizedPanel/Unautho
 import Logo from "../../Components/Logo/Logo";
 import HeaderButton from "../../Components/Buttons/HeaderButton/HeaderButton";
 import EquipmentRFIDTagsList from "../../Components/Lists/EquipmentRFIDTagsList";
+import UserRFIDTagsList from "../../Components/Lists/UserRFIDTagsList/UserRFIDTagsList";
 //#endregion
 
 // Define RFIDTagsPage Component
@@ -63,7 +64,31 @@ function RFIDTagsPage(props) {
                   0015
                 </p>
                 {currentSection === "Equipment" && (
-                  <EquipmentRFIDTagsList className="RFIDTagsPage-RFIDTagsList" />
+                  <EquipmentRFIDTagsList
+                    rfidTags={[
+                      {
+                        serialId: "AIGFB@76",
+                        tagId: "0010",
+                        type: "Barometer",
+                        model: "JINYISI",
+                      },
+                    ]}
+                    className="RFIDTagsPage-RFIDTagsList"
+                  />
+                )}
+                {currentSection === "Users" && (
+                  <UserRFIDTagsList
+                    rfidTags={[
+                      {
+                        schoolId: "800187222",
+                        tagId: "1012",
+                        firstName: "James",
+                        lastName: "Smith",
+                        middleName: "",
+                      },
+                    ]}
+                    className="RFIDTagsPage-RFIDTagsList"
+                  />
                 )}
               </div>
             </div>

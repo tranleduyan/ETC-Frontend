@@ -5,17 +5,26 @@ import PropTypes from "prop-types";
 
 //#region Import Stylings
 import "./EquipmentRFIDTagsList.css";
+//#endregion
+
+//#region Import UI Components
 import IconButton from "../../Buttons/IconButton/IconButton";
+//#endregion
+
+//#region Import Icons
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 //#endregion
 
+// Define EquipmentRFIDTagsList Component
 function EquipmentRFIDTagsList(props) {
   const { rfidTags, className } = props;
 
+  // State to display card details
   const [visibleDetails, setVisibleDetails] = useState(
     new Array(rfidTags.length).fill(false)
   );
 
+  // ToggleDetailsVisibility - Toggle the details visbilitiy of the card
   const ToggleDetailsVisibility = (index) => {
     setVisibleDetails((prev) =>
       prev.map((isVisible, i) => (i === index ? !isVisible : isVisible))
@@ -38,9 +47,12 @@ function EquipmentRFIDTagsList(props) {
             </p>
             <p className="heading-5 EquipmentRFIDTagsList-TagID">Tag ID</p>
           </div>
-          {rfidTags.map((item, index) => (
-            <div className="EquipmentRFIDTagsList-Content" key={item.serialId}>
-              <div className="EquipmentRFIDTagsList-CardContainer">
+          <div className="EquipmentRFIDTagsList-Content">
+            {rfidTags.map((item, index) => (
+              <div
+                className="EquipmentRFIDTagsList-CardContainer"
+                key={item.serialId}
+              >
                 <div className="EquipmentRFIDTagsList-CardHeader">
                   <p className="heading-5 EquipmentRFIDTagsList-SerialID">
                     {item.serialId}
@@ -68,8 +80,8 @@ function EquipmentRFIDTagsList(props) {
                   </div>
                 )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </>
       ) : (
         <p className="paragraph-1">
