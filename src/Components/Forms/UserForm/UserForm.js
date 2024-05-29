@@ -41,12 +41,6 @@ function UserForm(props) {
     setUserInformation({ ...userInformation, [propertyName]: selectedValue });
   };
 
-  const userRoleOptions = [
-    { value: "Admin", label: "Laboratory Manager" },
-    { value: "Faculty", label: "Faculty" },
-    { value: "Student", label: "Student" },
-  ];
-
   return (
     <div className={`UserForm-FormContainer ${className}`}>
       {/* Full Name Group */}

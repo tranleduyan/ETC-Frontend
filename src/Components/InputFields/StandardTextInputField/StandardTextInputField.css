@@ -9,10 +9,16 @@
   color: var(--Gray3);
 }
 
+.StandardTextInputField-Disabled {
+  background-color: var(--Gray2);
+  color: var(--Gray3);
+}
+
 input[type="number"]:disabled,
 input[type="text"]:disabled {
   background-color: var(--Gray2);
   color: var(--Gray3);
+  opacity: 1;
 }
 
 /* For tablet and bigger devices */

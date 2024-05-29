@@ -34,7 +34,7 @@ import {
 // Define SettingsPage Component
 function SettingsPage(props) {
   // Extract necessary props
-  const { userRole, schoolId, userData } = props;
+  const { userRole, schoolId } = props;
 
   // Use the dispatch function to dispatch actions
   const dispatch = useDispatch();
@@ -316,6 +316,7 @@ function SettingsPage(props) {
   useEffect(() => {
     FetchUserInformation();
     DisableUserInformation();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -407,14 +408,12 @@ SettingsPage.propTypes = {
 SettingsPage.defaultProps = {
   userRole: "",
   schoolId: "",
-  userData: {},
 };
 
 // Map from Redux state to component props
 const mapStateToProps = (state) => ({
   userRole: state.user.userData?.userRole,
   schoolId: state.user.userData?.schoolId,
-  userData: state.user.userData,
 });
 
 // Exports the SettingsPage component as the default export for the SettingsPage module.
