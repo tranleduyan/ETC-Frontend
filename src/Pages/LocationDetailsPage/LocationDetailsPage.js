@@ -187,7 +187,7 @@ function LocationDetailsPage(props) {
           (entry) => ({
             ...entry,
             scanTime: new Date(
-              new Date(entry.scanTime).getTime() - 7 * 60 * 60 * 1000
+              new Date(entry.scanTime).getTime(),
             ),
           })
         );
