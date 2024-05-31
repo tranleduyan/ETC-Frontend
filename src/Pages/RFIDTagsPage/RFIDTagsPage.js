@@ -125,8 +125,8 @@ function RFIDTagsPage(props) {
                         Suggested Available Tag ID:
                       </span>{" "}
                       {currentSection === "Equipment"
-                        ? availableTagID?.equipment
-                        : availableTagID?.user}
+                        ? (availableTagID?.equipment ? availableTagID?.equipment : "N/A")
+                        : (availableTagID?.user ? availableTagID?.user : "N/A")}
                     </p>
                     {currentSection === "Equipment" && (
                       <EquipmentRFIDTagsList
