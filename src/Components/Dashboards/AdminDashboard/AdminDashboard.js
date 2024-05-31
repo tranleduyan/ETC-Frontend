@@ -308,7 +308,7 @@ function AdminDashboard(props) {
 
     axios
       .put(
-        `${API.domain}/api/user/${schoolId}/action?type=reject&id=${selectedReservation}`,
+        `${API.domain}/api/user/${schoolId}/action?type=reject&id=${selectedReservation}`, {},
         {
           headers: {
             "X-API-KEY": API.key,
@@ -383,7 +383,7 @@ function AdminDashboard(props) {
 
     axios
       .put(
-        `${API.domain}/api/user/${schoolId}/action?type=approve&id=${selectedReservation}`,
+        `${API.domain}/api/user/${schoolId}/action?type=approve&id=${selectedReservation}`, {},
         {
           headers: {
             "X-API-KEY": API.key,
@@ -459,7 +459,7 @@ function AdminDashboard(props) {
 
     axios
       .put(
-        `${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`,
+        `${API.domain}/api/user/${schoolId}/action?type=cancel&id=${selectedReservation}`, {},
         {
           headers: {
             "X-API-KEY": API.key,
