@@ -32,6 +32,18 @@ function ReservationList(props) {
   const [sortedReservations, setSortedReservations] = useState([]);
   const [filter, setFilter] = useState(filterMode);
 
+  // Define a utility function to format date to mm/dd/yyyy
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      timeZone: "UTC",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   // Function to sort and filter reservations based on filterMode and filterStatus
   const sortReservations = (reservations) => {
     if (reservations?.length === 0) {
@@ -45,30 +57,25 @@ function ReservationList(props) {
     // Filter reservations based on filterMode
     switch (filter) {
       case "upcoming":
-        filteredReservations = filteredReservations.filter(
-          (reservation) => new Date(reservation.startDate) >= today
-        );
+        filteredReservations = filteredReservations.filter((reservation) => {
+          return (
+            new Date(formatDate(reservation.endDate)).setHours(0, 0, 0, 0) >=
+            today
+          );
+        });
         break;
       case "past":
         filteredReservations = filteredReservations.filter(
-          (reservation) => new Date(reservation.startDate) < today
+          (reservation) => new Date(formatDate(reservation.endDate)) < today
         );
         break;
       case "in-range":
         // Filter reservations based on start date and end date conditions
         filteredReservations = filteredReservations.filter((reservation) => {
-          const reservationStartDate = new Date(reservation.startDate).setHours(
-            0,
-            0,
-            0,
-            0
+          const reservationStartDate = new Date(
+            formatDate(reservation.startDate)
           );
-          const reservationEndDate = new Date(reservation.endDate).setHours(
-            0,
-            0,
-            0,
-            0
-          );
+          const reservationEndDate = new Date(formatDate(reservation.endDate));
 
           if (startDate && !endDate) {
             // Show reservations starting from the provided start date
