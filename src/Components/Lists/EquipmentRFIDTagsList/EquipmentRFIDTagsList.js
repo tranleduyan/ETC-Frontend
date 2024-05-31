@@ -69,13 +69,13 @@ function EquipmentRFIDTagsList(props) {
                 {visibleDetails[index] && (
                   <div className={`EquipmentRFIDTagsList-CardDetails`}>
                     <p className="paragraph-1 EquipmentRFIDTagsList-Type">
-                      <span className="heading-5">Type:</span> {item.type}
+                      <span className="heading-5">Type:</span> {item.typeName}
                     </p>
                     <p className="paragraph-1">
                       <span className="heading-5 EquipmentRFIDTagsList-Model">
                         Model:
                       </span>{" "}
-                      {item.model}
+                      {item.modelName}
                     </p>
                   </div>
                 )}

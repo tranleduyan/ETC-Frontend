@@ -48,7 +48,6 @@ import IconModal from "../../Modals/IconModal/IconModal";
 
 // Import Icons
 import {
-  HiBell,
   HiCog,
   HiLogout,
   HiPlus,

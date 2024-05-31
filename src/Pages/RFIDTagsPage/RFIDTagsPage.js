@@ -22,10 +22,69 @@ import UserRFIDTagsList from "../../Components/Lists/UserRFIDTagsList/UserRFIDTa
 // Define RFIDTagsPage Component
 function RFIDTagsPage(props) {
   // Extract necessary props
-  const { userRole, schoolId } = props;
+  const { userRole } = props;
 
   // State for current section of the page
   const [currentSection, setCurrentSection] = useState("Equipment");
+
+  const [equipmentTags, setEquipmentTags] = useState([]);
+  const [userTags, setUserTags] = useState([]);
+
+  const [availableTagID, setAvailableTagID] = useState({
+    equipment: "",
+    user: "",
+  });
+
+  // State variable for refresh
+  const [isRefreshed, setIsRefreshed] = useState(false);
+
+  // FetchAllTags - Fetch all equipment and user tags
+  const FetchAllTags = () => {
+    axios
+      .get(`${API.domain}/api/inventory/rfid-tags`, {
+        headers: {
+          "X-API-KEY": API.key,
+        },
+      })
+      .then((response) => {
+        const responseObject = response?.data?.responseObject;
+        setIsRefreshed(true);
+        setEquipmentTags(responseObject?.equipment);
+        setUserTags(responseObject.users);
+        setAvailableTagID({
+          equipment: responseObject?.availableEquipmentTagId,
+          user: responseObject?.availableUserTagId,
+        });
+        console.log(responseObject?.availableEquipmentTagId);
+        console.log(responseObject);
+      })
+      .catch(() => {
+        setIsRefreshed(true);
+        setEquipmentTags([]);
+        setUserTags([]);
+        setAvailableTagID({
+          equipment: "",
+          user: "",
+        });
+      });
+  };
+
+  // Effect to set isRefreshed to false every 5 minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshed(false);
+    }, 300000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!isRefreshed) {
+      FetchAllTags();
+      setIsRefreshed(true);
+    }
+  }, [isRefreshed]);
 
   return (
     <>
@@ -58,38 +117,32 @@ function RFIDTagsPage(props) {
                 </div>
               </div>
               <div className="RFIDTagsPage-Content">
+                {(currentSection === "Equipment" ||
+                  currentSection === "Users") && (
+                  <>
+                    <p className="paragraph-1">
+                      <span className="heading-5">
+                        Suggested Available Tag ID:
+                      </span>{" "}
+                      {currentSection === "Equipment"
+                        ? availableTagID?.equipment
+                        : availableTagID?.user}
+                    </p>
+                    {currentSection === "Equipment" && (
+                      <EquipmentRFIDTagsList
+                        rfidTags={equipmentTags}
+                        className="RFIDTagsPage-RFIDTagsList"
+                      />
+                    )}
+                    {currentSection === "Users" && (
+                      <UserRFIDTagsList
+                        rfidTags={userTags}
+                        className="RFIDTagsPage-RFIDTagsList"
+                      />
+                    )}
+                  </>
+                )}
                 {/* Suggested Available Tag ID */}
-                <p className="paragraph-1">
-                  <span className="heading-5">Suggested Available Tag ID:</span>{" "}
-                  0015
-                </p>
-                {currentSection === "Equipment" && (
-                  <EquipmentRFIDTagsList
-                    rfidTags={[
-                      {
-                        serialId: "AIGFB@76",
-                        tagId: "0010",
-                        type: "Barometer",
-                        model: "JINYISI",
-                      },
-                    ]}
-                    className="RFIDTagsPage-RFIDTagsList"
-                  />
-                )}
-                {currentSection === "Users" && (
-                  <UserRFIDTagsList
-                    rfidTags={[
-                      {
-                        schoolId: "800187222",
-                        tagId: "1012",
-                        firstName: "James",
-                        lastName: "Smith",
-                        middleName: "",
-                      },
-                    ]}
-                    className="RFIDTagsPage-RFIDTagsList"
-                  />
-                )}
               </div>
             </div>
           </div>
@@ -104,13 +157,11 @@ function RFIDTagsPage(props) {
 // Define propTypes for RFIDTagsPage
 RFIDTagsPage.propTypes = {
   userRole: PropTypes.string,
-  schoolId: PropTypes.string,
 };
 
 // Define defaultProps for RFIDTagsPage
 RFIDTagsPage.defaultProps = {
   userRole: "",
-  schoolId: "",
 };
 
 // Map from Redux state to component props
