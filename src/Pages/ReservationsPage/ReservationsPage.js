@@ -1296,7 +1296,7 @@ function ReservationsPage(props) {
                                 <StandardButton
                                   title={"Edit"}
                                   onClick={OnEditReservationClick}
-                                  className="ReservationsPage-ReservationActionButton"
+                                  className="ReservationsPage-ReservationActionButton ReservationsPage-Hide"
                                   icon={HiPencilAlt}
                                 />
                               )}

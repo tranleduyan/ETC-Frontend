@@ -308,10 +308,8 @@
 
   .ReservationsPage-ReservationActionContainer {
     margin-top: calc(2.225vmin);
-  }
+    gap: calc(4.45vmin);
 
-  .ReservationsPage-ReservationActionButton {
-    margin-left: calc(2.225vmin);
   }
 }
 
@@ -493,9 +491,6 @@
 
   .ReservationsPage-ReservationActionContainer {
     margin-bottom: calc(4.45vmin);
-  }
-
-  .ReservationsPage-ReservationActionButton {
-    margin-left: calc(4.45vmin);
+    gap: calc(4.45vmin);
   }
 }
