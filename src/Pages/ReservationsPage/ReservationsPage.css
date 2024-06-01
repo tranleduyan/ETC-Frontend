@@ -103,7 +103,7 @@
 }
 
 .ReservationsPage-Hide {
-  display: none;
+  display: none !important;
 }
 
 .ReservationsPage-ReservationFilterContainer {
