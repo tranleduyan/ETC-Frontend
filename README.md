@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+# ECS Tool Checkout System - Seattle Pacific University
+# Authors: Le Duy An Tran, Mohammed Mahmood, Karena Qian, Aman Siid, Michael Sun
+![ecs_tool_checkout-CK36TN9P](https://github.com/user-attachments/assets/a504e152-f363-483b-a82c-8d86a8aec61d)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://www.youtube.com/watch?v=b27gZD-AcQw
 
-## Available Scripts
+# About
+ECS Tool Checkout is a web-based application developed by a team of five senior Computer Science students at Seattle Pacific University. The system addresses the challenges of laboratory equipment accessibility, tracking, and reservation that students were facing due to the lack of an efficient management system at the university. Before ECS Tool Checkout, students and lab managers struggled with missing, misplaced, or insufficient equipment. The absence of a centralized reservation and tracking system led to equipment being unavailable or lost, impacting students' ability to complete assignments and projects. ECS Tool Checkout is designed to streamline equipment reservations and real-time tracking for lab managers and students. The application leverages RFID technology—using antennas and tags—to allow lab managers to monitor the precise location of each item in real time.
 
-In the project directory, you can run:
+# Tech Stacks
+ECS Tool Checkout leverages a modern and scalable tech stack to ensure optimal performance, flexibility, and ease of maintenance. The key technologies used in the project are:
+1. **Frontend:** React.js
+2. **Backend:** Node.js
+3. **Serverless & Cloud Services:** AWS Lambda, AWS API Gateway
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Key Features
+1. **Real-time Equipment Tracking:** Using RFID technology, the system automatically tracks the location and movement of lab equipment in real time, ensures items are never lost and can be quickly located when needed, improving operational efficiency.
+2. **Reservation System:** Students and faculty can easily reserve equipment for specific time slots through the intuitive platform, which effectively minimizes scheduling conflicts, ensures fair access to resources, and helps labs efficiently allocate their equipment.
+3. **Inventory Management System:** Lab managers have full control over the equipment inventory, with the ability to add, update, and remove items as needed. The system helps maintain accurate stock levels, ensuring that equipment availability is always up-to-date. Additionally, the system helps them to keep all the logs of all equipment within the inventory, including maintenance history and cost.
+4. **Automation Check In/Check Out:** With the help of RFID technology, the process of checking in and out equipment is fully automated. Students and faculty simply pick up or return items — no need for manual logging, saving time and reducing human error.
