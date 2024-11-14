@@ -2,10 +2,11 @@
 # Authors: Le Duy An Tran, Mohammed Mahmood, Karena Qian, Aman Siid, Michael Sun
 ![ecs_tool_checkout-CK36TN9P](https://github.com/user-attachments/assets/a504e152-f363-483b-a82c-8d86a8aec61d)
 
-https://www.youtube.com/watch?v=b27gZD-AcQw
-
 # About
-ECS Tool Checkout is a web-based application developed by a team of five senior Computer Science students at Seattle Pacific University. The system addresses the challenges of laboratory equipment accessibility, tracking, and reservation that students were facing due to the lack of an efficient management system at the university. Before ECS Tool Checkout, students and lab managers struggled with missing, misplaced, or insufficient equipment. The absence of a centralized reservation and tracking system led to equipment being unavailable or lost, impacting students' ability to complete assignments and projects. ECS Tool Checkout is designed to streamline equipment reservations and real-time tracking for lab managers and students. The application leverages RFID technology—using antennas and tags—to allow lab managers to monitor the precise location of each item in real time.
+ECS Tool Checkout is a web-based application developed by a team of five senior Computer Science students at Seattle Pacific University. The system addresses the challenges of laboratory equipment accessibility, tracking, and reservation that students were facing due to the lack of an efficient management system at the university. Before ECS Tool Checkout, students and lab managers struggled with missing, misplaced, or insufficient equipment. The absence of a centralized reservation and tracking system led to equipment being unavailable or lost, impacting students' ability to complete assignments and projects. ECS Tool Checkout is designed to streamline equipment reservations and real-time tracking for lab managers and students. The 
+application leverages RFID technology—using antennas and tags—to allow lab managers to monitor the precise location of each item in real time.
+
+https://www.youtube.com/watch?v=b27gZD-AcQw
 
 # Tech Stacks
 ECS Tool Checkout leverages a modern and scalable tech stack to ensure optimal performance, flexibility, and ease of maintenance. The key technologies used in the project are:
